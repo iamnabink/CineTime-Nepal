@@ -12,7 +12,11 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".SplashScreenActivity">
+        <activity
+            android:name=".common.activities.sidebarnav"
+            android:label="@string/title_activity_sidebarnav"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
+        <activity android:name=".common.SplashScreenActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
