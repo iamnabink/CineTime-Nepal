@@ -1,4 +1,4 @@
-package com.example.cinetime_nepal.common.activities.ui.send;
+package com.example.cinetime_nepal.common.activities.sidebarnav.send;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;

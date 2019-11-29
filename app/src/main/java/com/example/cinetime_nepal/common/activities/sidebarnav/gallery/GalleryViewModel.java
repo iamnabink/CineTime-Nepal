@@ -1,4 +1,4 @@
-package com.example.cinetime_nepal.common.activities.ui.gallery;
+package com.example.cinetime_nepal.common.activities.sidebarnav.gallery;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;

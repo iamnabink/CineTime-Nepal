@@ -1,16 +1,16 @@
-package com.example.cinetime_nepal.common.activities.ui.share;
+package com.example.cinetime_nepal.common.activities.sidebarnav.home;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
-public class ShareViewModel extends ViewModel {
+public class HomeViewModel extends ViewModel {
 
     private MutableLiveData<String> mText;
 
-    public ShareViewModel() {
+    public HomeViewModel() {
         mText = new MutableLiveData<>();
-        mText.setValue("This is share fragment");
+        mText.setValue("This is home fragment");
     }
 
     public LiveData<String> getText() {

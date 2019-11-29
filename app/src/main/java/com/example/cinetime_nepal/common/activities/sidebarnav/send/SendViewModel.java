@@ -1,4 +1,4 @@
-package com.example.cinetime_nepal.common.activities.ui.send;
+package com.example.cinetime_nepal.common.activities.sidebarnav.send;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
