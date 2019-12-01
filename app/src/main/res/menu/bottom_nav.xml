@@ -4,16 +4,24 @@
     <item
         android:id="@+id/action_favorites"
         android:icon="@drawable/ic_menu_gallery"
-        android:title="name"/>
+        android:title="Home"/>
 
     <item
         android:id="@+id/action_schedules"
         android:icon="@drawable/ic_menu_share"
-        android:title="name"/>
+        android:title="Cinemas"/>
 
     <item
         android:id="@+id/action_music"
         android:icon="@drawable/ic_menu_camera"
-        android:title="name"/>
+        android:title="Movies"/>
+    <item
+        android:id="@+id/action_movies"
+        android:icon="@drawable/ic_menu_camera"
+        android:title="Movies"/>
+    <item
+        android:id="@+id/profile"
+        android:icon="@drawable/ic_menu_camera"
+        android:title="Profile"/>
 
 </menu>
