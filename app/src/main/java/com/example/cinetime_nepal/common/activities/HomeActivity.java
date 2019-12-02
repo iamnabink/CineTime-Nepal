@@ -5,9 +5,11 @@ import android.os.Bundle;
 import com.example.cinetime_nepal.R;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
+import android.view.Menu;
 import android.view.MenuItem;
 
 import androidx.annotation.NonNull;
+import androidx.core.view.MenuCompat;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
@@ -64,12 +66,6 @@ public class HomeActivity extends AppCompatActivity {
                 });
     }
 
-//    @Override
-//    public boolean onCreateOptionsMenu(Menu menu) {
-//        // Inflate the menu; this adds items to the action bar if it is present.
-//        getMenuInflater().inflate(R.menu.sidebarnav, menu);
-//        return true;
-//    }
 
     @Override
     public boolean onSupportNavigateUp() {
