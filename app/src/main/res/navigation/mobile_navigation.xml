@@ -12,31 +12,31 @@
 
     <fragment
         android:id="@+id/nav_gallery"
-        android:name="com.example.cinetime_nepal.common.activities.sidebarnav.fragments.GalleryFragment"
+        android:name="com.example.cinetime_nepal.common.activities.sidebarnav.fragments.ProfileFragment"
         android:label="@string/menu_my_profile"
         tools:layout="@layout/fragment_profile" />
 
     <fragment
         android:id="@+id/nav_slideshow"
-        android:name="com.example.cinetime_nepal.common.activities.sidebarnav.fragments.SlideshowFragment"
+        android:name="com.example.cinetime_nepal.common.activities.sidebarnav.fragments.AboutFragment"
         android:label="@string/menu_about"
         tools:layout="@layout/fragment_about" />
 
     <fragment
         android:id="@+id/nav_tools"
-        android:name="com.example.cinetime_nepal.common.activities.sidebarnav.fragments.ToolsFragment"
+        android:name="com.example.cinetime_nepal.common.activities.sidebarnav.fragments.TermsConditionFragment"
         android:label="@string/menu_terms_condition"
         tools:layout="@layout/fragment_terms_condition" />
 
     <fragment
         android:id="@+id/nav_share"
-        android:name="com.example.cinetime_nepal.common.activities.sidebarnav.fragments.ShareFragment"
+        android:name="com.example.cinetime_nepal.common.activities.sidebarnav.fragments.CinemasNearMeFragment"
         android:label="@string/menu_cinemas_near_me"
         tools:layout="@layout/fragment_cinemas_nearme" />
 
     <fragment
         android:id="@+id/nav_send"
-        android:name="com.example.cinetime_nepal.common.activities.sidebarnav.fragments.SendFragment"
+        android:name="com.example.cinetime_nepal.common.activities.sidebarnav.fragments.SettingFragment"
         android:label="@string/menu_setting"
         tools:layout="@layout/fragment_settings" />
 </navigation>
