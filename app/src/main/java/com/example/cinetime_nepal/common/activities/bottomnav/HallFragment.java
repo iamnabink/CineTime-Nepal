@@ -10,12 +10,11 @@ import android.view.ViewGroup;
 
 import com.example.cinetime_nepal.R;
 
-public class FragmentMovie extends Fragment {
-
+public class HallFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_movie, container, false);
+        // Inflate the layout for this fragment
+        return inflater.inflate(R.layout.fragment_hall, container, false);
     }
-
 }
