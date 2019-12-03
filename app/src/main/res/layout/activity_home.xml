@@ -29,8 +29,10 @@
             android:background="@android:color/white"
             app:labelVisibilityMode="unlabeled"
             android:clickable="true"
+            android:visibility="visible"
             android:layout_alignParentBottom="true"
-            app:menu="@menu/bottom_nav"/>
+            app:menu="@menu/bottom_nav"
+            android:focusable="true" />
     </RelativeLayout>
 
     <com.google.android.material.navigation.NavigationView

@@ -3,6 +3,11 @@ package com.example.cinetime_nepal.common.activities;
 import android.os.Bundle;
 
 import com.example.cinetime_nepal.R;
+import com.example.cinetime_nepal.common.activities.bottomnav.HallFragment;
+import com.example.cinetime_nepal.common.activities.bottomnav.MovieFragment;
+import com.example.cinetime_nepal.common.activities.bottomnav.NotificationFragement;
+import com.example.cinetime_nepal.common.activities.sidebarnav.fragments.HomeFragment;
+import com.example.cinetime_nepal.common.activities.sidebarnav.fragments.ProfileFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import android.view.MenuItem;
 import androidx.annotation.NonNull;
@@ -46,10 +51,20 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
                     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                         switch (item.getItemId()) {
                             case R.id.bottomnav_home:
-                                navController.navigate(R.id.fragment_home);
+                                replaceFragment(new HomeFragment());
                                 break;
                             case R.id.bottomnav_profile:
-                                navController.navigate(R.id.fragment_profile);
+                                replaceFragment(new ProfileFragment());
+                                break;
+                            case R.id.bottomnav_notification:
+                               replaceFragment(new NotificationFragement());
+                                break;
+                            case R.id.bottomnav_hall:
+                                replaceFragment(new HallFragment());
+                                break;
+                            case R.id.bottomnav_movies:
+                                replaceFragment(new MovieFragment());
+                                break;
                         }
                         return false;
                     }
