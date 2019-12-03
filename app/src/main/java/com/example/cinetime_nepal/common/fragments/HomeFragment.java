@@ -1,4 +1,4 @@
-package com.example.cinetime_nepal.common.activities.sidebarnav.fragments;
+package com.example.cinetime_nepal.common.fragments;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -9,12 +9,12 @@ import androidx.fragment.app.Fragment;
 
 import com.example.cinetime_nepal.R;
 
-public class CinemasNearMeFragment extends Fragment {
+public class HomeFragment extends Fragment {
+
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        View root = inflater.inflate(R.layout.fragment_cinemas_nearme, container, false);
-
+        View root = inflater.inflate(R.layout.fragment_home, container, false);
         return root;
     }
 }

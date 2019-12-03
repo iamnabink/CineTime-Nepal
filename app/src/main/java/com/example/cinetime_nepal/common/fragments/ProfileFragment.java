@@ -1,4 +1,4 @@
-package com.example.cinetime_nepal.common.activities.sidebarnav.fragments;
+package com.example.cinetime_nepal.common.fragments;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
