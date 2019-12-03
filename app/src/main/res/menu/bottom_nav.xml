@@ -2,20 +2,25 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
+        android:id="@+id/bottomnav_home"
         android:icon="@drawable/ic_home"
         android:title="Home"/>
 
     <item
+        android:id="@+id/bottomnav_cinemas_nearme"
         android:icon="@drawable/ic_map"
-        android:title="Cinemas"/>
+        android:title="Cinemas near me"/>
 
     <item
+        android:id="@+id/bottomnav_movies"
         android:icon="@drawable/ic_cinetime_home"
         android:title="Movies"/>
     <item
+        android:id="@+id/bottomnav_notification"
         android:icon="@drawable/ic_notification"
         android:title="Notification"/>
     <item
+        android:id="@+id/bottomnav_profile"
         android:icon="@drawable/ic_user"
         android:title="Profile"/>
 

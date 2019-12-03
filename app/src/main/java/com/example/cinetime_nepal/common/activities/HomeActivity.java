@@ -4,74 +4,118 @@ import android.os.Bundle;
 
 import com.example.cinetime_nepal.R;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-
-import android.view.Menu;
 import android.view.MenuItem;
-
 import androidx.annotation.NonNull;
-import androidx.core.view.MenuCompat;
+import androidx.core.view.GravityCompat;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
-import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
-
 import com.google.android.material.navigation.NavigationView;
-
 import androidx.drawerlayout.widget.DrawerLayout;
-
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
-public class HomeActivity extends AppCompatActivity {
+public class HomeActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
-    private AppBarConfiguration mAppBarConfiguration;
+    DrawerLayout drawer;
+    Toolbar toolbar;
+    NavigationView navigationView;
+    NavController navController;
+    BottomNavigationView bottomNavigationView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
-        Toolbar toolbar = findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-        DrawerLayout drawer = findViewById(R.id.drawer_layout);
-        NavigationView navigationView = findViewById(R.id.nav_view);
-        // Passing each menu ID as a set of Ids because each
-        // menu should be considered as top level destinations.
-        mAppBarConfiguration = new AppBarConfiguration.Builder(
-                R.id.nav_home, R.id.nav_gallery, R.id.nav_slideshow,
-                R.id.nav_tools, R.id.nav_share, R.id.nav_send)
-                .setDrawerLayout(drawer)
-                .build();
-        NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
-        NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
-        NavigationUI.setupWithNavController(navigationView, navController);
-        BottomNavigationView bottomNavigationView = (BottomNavigationView)
-                findViewById(R.id.navigation);
+        initVar();
+        setUpSideNavigationDrawer();
+        setUpBottomNavigation();
+    }
+
+    private void initVar() {
+
+    }
+
+    private void setUpBottomNavigation() {
+        bottomNavigationView = findViewById(R.id.navigation);
         bottomNavigationView.setOnNavigationItemSelectedListener(
                 new BottomNavigationView.OnNavigationItemSelectedListener() {
                     @Override
                     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                         switch (item.getItemId()) {
-//                            case R.id.action_favorites:
-//
-//                                break;
-//                            case R.id.action_schedules:
-//
-//                                break;
-//                            case R.id.action_music:
-//
-//                                break;
+                            case R.id.bottomnav_home:
+                                navController.navigate(R.id.fragment_home);
+                                break;
+                            case R.id.bottomnav_profile:
+                                navController.navigate(R.id.fragment_profile);
                         }
                         return false;
                     }
                 });
     }
 
+    private void replaceFragment(Fragment fragment) {
+        // Create new fragment and transaction
+        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+        // Replace whatever is in the fragment_container view with this fragment,
+        // and add the transaction to the back stack if needed
+        transaction.replace(R.id.container, fragment);
+        // transaction.addToBackStack(null);
+        // Commit the transaction
+        transaction.commit();
+    }
+
+    private void setUpSideNavigationDrawer() {
+        toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        drawer = findViewById(R.id.drawer_layout);
+        navigationView = findViewById(R.id.nav_view);
+        navController = Navigation.findNavController(this, R.id.nav_host_fragment);
+        NavigationUI.setupActionBarWithNavController(this, navController, drawer);
+        NavigationUI.setupWithNavController(navigationView, navController);
+        navigationView.setNavigationItemSelectedListener(this);
+    }
+
 
     @Override
     public boolean onSupportNavigateUp() {
-        NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
-        return NavigationUI.navigateUp(navController, mAppBarConfiguration)
-                || super.onSupportNavigateUp();
+        return NavigationUI.navigateUp(Navigation.findNavController(this, R.id.nav_host_fragment), drawer);
     }
 
+    @Override
+    public void onBackPressed() {
+        if (drawer.isDrawerOpen(GravityCompat.START)) {
+            drawer.closeDrawer(GravityCompat.START);
+        } else {
+            super.onBackPressed();
+        }
+    }
+
+    // Passing each menu ID as a set of Ids because each
+    // menu should be considered as top level destinations.
+    @Override
+    public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) { //side navigation bar
+        menuItem.setChecked(true);
+        drawer.closeDrawers();
+        switch (menuItem.getItemId()) {
+            case R.id.nav_my_profile:
+                navController.navigate(R.id.fragment_profile);
+                break;
+            case R.id.nav_terms_condition:
+                navController.navigate(R.id.fragment_terms_condition);
+                break;
+            case R.id.nav_about:
+                navController.navigate(R.id.fragment_about);
+                break;
+            case R.id.nav_cinemas_near_me:
+                navController.navigate(R.id.fragment_cinemas_nearme);
+                break;
+            case R.id.nav_settings:
+                navController.navigate(R.id.fragment_settings);
+                break;
+        }
+        return true;
+    }
 }
