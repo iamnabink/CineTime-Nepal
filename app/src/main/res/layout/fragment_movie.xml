@@ -2,7 +2,6 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#F3F3F3"
     android:orientation="vertical">
 
     <ScrollView
@@ -48,6 +47,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
+                    android:textColor="#9F0931FF"
                     android:layout_marginRight="20dp"
                     android:text="see all" />
 
@@ -57,9 +57,8 @@
                 android:id="@+id/shows_showing_recycler_v"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="20dp"
-                android:layout_marginTop="20dp"
-                android:layout_marginRight="20dp" />
+                android:layout_marginLeft="15dp"
+                android:layout_marginTop="20dp" />
 
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -77,6 +76,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
+                    android:textColor="#9F0931FF"
                     android:layout_marginRight="20dp"
                     android:text="see all" />
             </RelativeLayout>
@@ -84,10 +84,10 @@
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/shows_coming_recycler_v"
                 android:layout_width="match_parent"
+                android:layout_marginLeft="15dp"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="20dp"
                 android:layout_marginTop="15dp"
-                android:layout_marginRight="20dp" />
+                android:layout_marginBottom="20dp"/>
         </LinearLayout>
     </ScrollView>
 

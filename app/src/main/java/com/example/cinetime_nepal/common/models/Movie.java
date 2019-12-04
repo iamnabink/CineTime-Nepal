@@ -3,9 +3,9 @@ package com.example.cinetime_nepal.common.models;
 public class Movie {
     private String name;
     private int img_url;
-    private int genre;
+    private String genre;
 
-    public Movie(String name, int img_url, int genre) {
+    public Movie(String name, int img_url, String genre) {
         this.name = name;
         this.img_url = img_url;
         this.genre = genre;
@@ -27,11 +27,11 @@ public class Movie {
         this.img_url = img_url;
     }
 
-    public int getGenre() {
+    public String getGenre() {
         return genre;
     }
 
-    public void setGenre(int genre) {
+    public void setGenre(String genre) {
         this.genre = genre;
     }
 }
