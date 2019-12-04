@@ -1,7 +1,6 @@
 package com.example.cinetime_nepal.common.activities;
 
 import android.os.Bundle;
-
 import com.example.cinetime_nepal.R;
 import com.example.cinetime_nepal.common.fragments.HallFragment;
 import com.example.cinetime_nepal.common.fragments.MovieFragment;
@@ -55,7 +54,7 @@ public class HomeActivity extends AppCompatActivity {
                                 replaceFragment(new MovieFragment());
                                 break;
                         }
-                        return false;
+                        return true; //not false (it will automatically make bottom icon selected
                     }
                 });
     }
