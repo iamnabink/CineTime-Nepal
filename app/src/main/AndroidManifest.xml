@@ -24,6 +24,7 @@
         </activity>
         <activity android:name=".common.SplashScreenActivity" android:theme="@style/AppTheme.NoActionBar">
         </activity>
+        <activity android:name=".member.activities.SigninActivity" android:theme="@style/AppTheme.NoActionBar"/>
     </application>
 
 </manifest>

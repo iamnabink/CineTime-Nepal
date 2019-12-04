@@ -1,6 +1,7 @@
 package com.example.cinetime_nepal.common.activities;
 
 import android.os.Bundle;
+
 import com.example.cinetime_nepal.R;
 import com.example.cinetime_nepal.common.fragments.HallFragment;
 import com.example.cinetime_nepal.common.fragments.MovieFragment;
@@ -27,6 +28,7 @@ public class HomeActivity extends AppCompatActivity {
         initVar();
         setUpBottomNavigation();
     }
+
     private void initVar() {
 
     }
@@ -57,6 +59,7 @@ public class HomeActivity extends AppCompatActivity {
                         return true; //not false (it will automatically make bottom icon selected
                     }
                 });
+        bottomNavigationView.setSelectedItemId(R.id.bottomnav_movies);
     }
 
     private void replaceFragment(Fragment fragment) {
