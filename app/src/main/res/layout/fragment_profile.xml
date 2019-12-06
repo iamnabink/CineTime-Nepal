@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#FFFFFF"
+    android:background="#F3F3F3"
     android:id="@+id/profile_f"
     android:orientation="vertical">
 
@@ -15,17 +15,18 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
             <ImageView
+                android:paddingTop="20dp"
                 android:layout_width="match_parent"
                 android:layout_height="250dp"
-                android:src="@drawable/ic_cinetime_app_login_concept" />
+                android:src="@drawable/login_png" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/profile_iv"
                 android:layout_centerHorizontal="true"
-                android:layout_gravity="center"
-                android:layout_marginTop="30dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="10dp"
                 android:layout_marginBottom="30dp"
                 android:text="Please SIGN IN"
                 android:textSize="20dp"
@@ -36,8 +37,9 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="15dp"
                 android:layout_marginRight="15dp"
-                app:cardCornerRadius="6dp"
-                app:cardUseCompatPadding="true">
+                android:layout_marginBottom="10dp"
+                app:cardCornerRadius="25dp"
+                app:cardElevation="2dp">
 
                 <EditText
                     android:id="@+id/email_et"
@@ -46,7 +48,7 @@
                     android:background="@android:color/white"
                     android:drawableLeft="@drawable/ic_email_24px"
                     android:drawablePadding="10dp"
-                    android:drawableTint="#747272"
+                    android:drawableTint="#D6D6D6"
                     android:hint="Email"
                     android:imeOptions="actionNext"
                     android:inputType="textEmailAddress"
@@ -59,8 +61,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="15dp"
                 android:layout_marginRight="15dp"
-                app:cardCornerRadius="6dp"
-                app:cardUseCompatPadding="true">
+                app:cardCornerRadius="25dp"
+                app:cardElevation="2dp">
 
                 <EditText
                     android:id="@+id/pwd_et"
@@ -69,7 +71,7 @@
                     android:background="@android:color/white"
                     android:drawableLeft="@drawable/ic_lock_24px"
                     android:drawablePadding="10dp"
-                    android:drawableTint="#747272"
+                    android:drawableTint="#D6D6D6"
                     android:hint="Password"
                     android:imeOptions="actionDone"
                     android:inputType="textPassword"
