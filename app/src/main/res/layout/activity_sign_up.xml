@@ -63,7 +63,7 @@
                         android:drawableLeft="@drawable/ic_person_24px"
                         android:drawablePadding="10dp"
                         android:drawableTint="#747272"
-                        android:hint="Username"
+                        android:hint="Full name"
                         android:imeOptions="actionNext"
                         android:inputType="text"
                         android:maxLines="1"
@@ -104,28 +104,6 @@
                         android:layout_width="match_parent"
                         android:layout_height="50dp"
                         android:background="@android:color/white"
-                        android:drawableLeft="@drawable/ic_call_24px"
-                        android:drawablePadding="10dp"
-                        android:drawableTint="#747272"
-                        android:hint="Phone"
-                        android:imeOptions="actionNext"
-                        android:inputType="number"
-                        android:maxLines="1"
-                        android:padding="10dp" />
-                </androidx.cardview.widget.CardView>
-
-                <androidx.cardview.widget.CardView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="15dp"
-                    android:layout_marginRight="15dp"
-                    app:cardCornerRadius="6dp"
-                    app:cardUseCompatPadding="true">
-
-                    <EditText
-                        android:layout_width="match_parent"
-                        android:layout_height="50dp"
-                        android:background="@android:color/white"
                         android:drawableLeft="@drawable/ic_lock_24px"
                         android:drawablePadding="10dp"
                         android:drawableTint="#747272"
@@ -150,7 +128,7 @@
                         android:drawableLeft="@drawable/ic_lock_24px"
                         android:drawablePadding="10dp"
                         android:drawableTint="#747272"
-                        android:hint="Confirm Password"
+                        android:hint="Confirm password"
                         android:imeOptions="actionNext"
                         android:inputType="textPassword"
                         android:maxLines="1"

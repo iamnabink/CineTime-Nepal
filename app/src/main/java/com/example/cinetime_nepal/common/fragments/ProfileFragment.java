@@ -32,7 +32,6 @@ public class ProfileFragment extends Fragment {
     private void initVar() {
         signupTv=view.findViewById(R.id.signup_tv);
         signinBtn=view.findViewById(R.id.signin_btn);
-
     }
 
     private void clickListener() {
