@@ -8,7 +8,6 @@ import com.example.cinetime_nepal.common.fragments.MovieFragment;
 import com.example.cinetime_nepal.common.fragments.NotificationFragement;
 import com.example.cinetime_nepal.common.fragments.HomeFragment;
 import com.example.cinetime_nepal.common.fragments.ProfileFragment;
-import com.example.cinetime_nepal.common.utils.SharedPref;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import android.view.MenuItem;
