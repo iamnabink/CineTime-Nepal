@@ -7,7 +7,7 @@
     android:orientation="vertical"
     tools:context=".member.fragments.UProfileFragment">
 
-    <!-- TODO: Update blank fragment layout -->
+    <!-- TODO: Design User profile here -->
     <TextView
         android:gravity="center"
         android:layout_width="match_parent"
