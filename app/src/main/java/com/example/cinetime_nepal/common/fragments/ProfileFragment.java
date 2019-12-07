@@ -18,55 +18,12 @@ import com.example.cinetime_nepal.member.activities.SigninActivity;
 import com.example.cinetime_nepal.member.fragments.UProfileFragment;
 
 public class ProfileFragment extends Fragment {
-    TextView signupTv,emailEt,pwdEt;
-    Button signinBtn;
     View view;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_profile, container, false);
-        initVar();
-        clickListener();
         return view;
     }
 
-    private void initVar() {
-        emailEt=view.findViewById(R.id.email_et);
-        pwdEt=view.findViewById(R.id.pwd_et);
-        signupTv = view.findViewById(R.id.signup_tv);
-        signinBtn = view.findViewById(R.id.signin_btn);
-    }
-
-    private void clickListener() {
-        signupTv.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getContext(), SigninActivity.class);
-                startActivity(intent);
-            }
-        });
-        signinBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String email = emailEt.getText().toString();
-                String password = pwdEt.getText().toString();
-                if (!Validator.isEmailValid(email)){
-                    emailEt.setError("Invalid email address");
-                }
-                else if (password.isEmpty()){
-                    pwdEt.setError("please enter password");
-                }
-                else if(password.length()<6){
-                    pwdEt.setError("password must be greater than 6 character");
-                }
-                else {
-                    FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
-                    FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                    fragmentTransaction.replace(R.id.profile_f, new UProfileFragment()); //My second Fragment
-                    fragmentTransaction.addToBackStack(null);
-                    fragmentTransaction.commit();
-                }
-            }
-        });
-    }
 }
