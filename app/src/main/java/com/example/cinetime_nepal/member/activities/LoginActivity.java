@@ -18,6 +18,7 @@ public class LoginActivity extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_login);
         initVar();
         clickListener();
     }
@@ -30,13 +31,6 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void clickListener() {
-        signupTv.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-//                Intent intent = new Intent(getContext(), SigninActivity.class);
-//                startActivity(intent);
-            }
-        });
         signinBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -49,12 +43,6 @@ public class LoginActivity extends AppCompatActivity {
                 } else if (password.length() < 6) {
                     pwdEt.setError("password must be greater than 6 character");
                 } else {
-                    //code to open fragment from another fragment
-//                    FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
-//                    FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-//                    fragmentTransaction.replace(R.id.profile_f, new UProfileFragment()); //My second Fragment
-//                    fragmentTransaction.addToBackStack(null);
-//                    fragmentTransaction.commit();
                 }
             }
         });
