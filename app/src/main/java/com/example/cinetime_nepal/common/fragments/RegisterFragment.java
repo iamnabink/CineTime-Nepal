@@ -12,7 +12,7 @@ import android.widget.TextView;
 
 import com.example.cinetime_nepal.R;
 import com.example.cinetime_nepal.member.activities.LoginActivity;
-import com.example.cinetime_nepal.member.activities.SigninActivity;
+import com.example.cinetime_nepal.member.activities.SignUpActivity;
 
 public class RegisterFragment extends Fragment {
     Button actCreateBtn;
@@ -28,7 +28,7 @@ public class RegisterFragment extends Fragment {
          actCreateBtn.setOnClickListener(new View.OnClickListener() {
              @Override
              public void onClick(View v) {
-                 startActivity(new Intent(getContext(), SigninActivity.class));
+                 startActivity(new Intent(getContext(), SignUpActivity.class));
              }
          });
          actLogin.setOnClickListener(new View.OnClickListener() {

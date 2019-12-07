@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/profile_f"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#F3F3F3"
@@ -28,11 +27,11 @@
         <Button
             android:id="@+id/act_create_btn"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="40dp"
             android:layout_gravity="center"
-            android:layout_marginLeft="60dp"
+            android:layout_marginLeft="70dp"
             android:layout_marginTop="12dp"
-            android:layout_marginRight="60dp"
+            android:layout_marginRight="70dp"
             android:background="@drawable/button_background"
             android:text="Create your account"
             android:textColor="@android:color/white" />

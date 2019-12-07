@@ -1,12 +1,16 @@
 package com.example.cinetime_nepal.member.activities;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
 import com.example.cinetime_nepal.R;
+import com.example.cinetime_nepal.common.utils.CustomDialog;
 import com.example.cinetime_nepal.common.utils.Validator;
+
+import org.json.JSONObject;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -43,8 +47,23 @@ public class LoginActivity extends AppCompatActivity {
                 } else if (password.length() < 6) {
                     pwdEt.setError("password must be greater than 6 character");
                 } else {
+                    signIn();
                 }
             }
         });
+        signupTv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(LoginActivity.this,SignUpActivity.class));
+                finish();
+            }
+        });
     }
+
+    private void signIn() {
+//        final CustomDialog dialog = new CustomDialog(this);
+//        JSONObject jsonObject = new JSONObject();
+//        jsonObject.put("name",)
+    }
+
 }

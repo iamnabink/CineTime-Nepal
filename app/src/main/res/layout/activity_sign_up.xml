@@ -53,16 +53,17 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="15dp"
                     android:layout_marginRight="15dp"
-                    app:cardCornerRadius="6dp"
+                    app:cardCornerRadius="25dp"
                     app:cardUseCompatPadding="true">
 
                     <EditText
+                        android:id="@+id/signup_fname"
                         android:layout_width="match_parent"
                         android:layout_height="50dp"
                         android:background="@android:color/white"
                         android:drawableLeft="@drawable/ic_person_24px"
                         android:drawablePadding="10dp"
-                        android:drawableTint="#747272"
+                        android:drawableTint="#9B9B9B"
                         android:hint="Full name"
                         android:imeOptions="actionNext"
                         android:inputType="text"
@@ -75,16 +76,17 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="15dp"
                     android:layout_marginRight="15dp"
-                    app:cardCornerRadius="6dp"
+                    app:cardCornerRadius="25dp"
                     app:cardUseCompatPadding="true">
 
                     <EditText
+                        android:id="@+id/signup_email"
                         android:layout_width="match_parent"
                         android:layout_height="50dp"
                         android:background="@android:color/white"
                         android:drawableLeft="@drawable/ic_email_24px"
                         android:drawablePadding="10dp"
-                        android:drawableTint="#747272"
+                        android:drawableTint="#FF9B9B9B"
                         android:hint="Email"
                         android:imeOptions="actionNext"
                         android:inputType="textEmailAddress"
@@ -97,16 +99,17 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="15dp"
                     android:layout_marginRight="15dp"
-                    app:cardCornerRadius="6dp"
+                    app:cardCornerRadius="25dp"
                     app:cardUseCompatPadding="true">
 
                     <EditText
+                        android:id="@+id/signup_pwd"
                         android:layout_width="match_parent"
                         android:layout_height="50dp"
                         android:background="@android:color/white"
                         android:drawableLeft="@drawable/ic_lock_24px"
                         android:drawablePadding="10dp"
-                        android:drawableTint="#747272"
+                        android:drawableTint="#FF9B9B9B"
                         android:hint="Password"
                         android:inputType="textPassword"
                         android:maxLines="1"
@@ -118,16 +121,17 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="15dp"
                     android:layout_marginRight="15dp"
-                    app:cardCornerRadius="6dp"
+                    app:cardCornerRadius="25dp"
                     app:cardUseCompatPadding="true">
 
                     <EditText
+                        android:id="@+id/signup_cfm_pwd"
                         android:layout_width="match_parent"
                         android:layout_height="50dp"
                         android:background="@android:color/white"
                         android:drawableLeft="@drawable/ic_lock_24px"
                         android:drawablePadding="10dp"
-                        android:drawableTint="#747272"
+                        android:drawableTint="#FF9B9B9B"
                         android:hint="Confirm password"
                         android:imeOptions="actionNext"
                         android:inputType="textPassword"
@@ -136,6 +140,7 @@
                 </androidx.cardview.widget.CardView>
 
                 <Button
+                    android:id="@+id/signup_btn"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
@@ -147,6 +152,7 @@
                     android:textColor="@android:color/white" />
 
                 <TextView
+                    android:id="@+id/signup_back_arrow"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"

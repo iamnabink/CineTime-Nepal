@@ -6,6 +6,9 @@ import android.graphics.drawable.AnimatedVectorDrawable;
 import android.os.Build;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.DecelerateInterpolator;
+import android.view.animation.RotateAnimation;
 import android.widget.ImageView;
 
 import com.example.cinetime_nepal.R;
@@ -18,14 +21,10 @@ public class CustomDialog extends Dialog {
         setCancelable(false);
         View v = LayoutInflater.from(context).inflate(R.layout.layout_progress,null);
         ImageView imageView =  v.findViewById(R.id.progress_logo);
-        AnimatedVectorDrawable animatedVectorDrawable = null;
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            animatedVectorDrawable = (AnimatedVectorDrawable) context.getDrawable(R.drawable.ic_logo);
-        }
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            imageView.setImageDrawable(animatedVectorDrawable);
-        }
-        animatedVectorDrawable.start();
+        RotateAnimation rotate = new RotateAnimation(0, 360, Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
+        rotate.setDuration(1200);
+        rotate.setInterpolator(new DecelerateInterpolator());
+        imageView.startAnimation(rotate);
         setContentView(v);
     }
 }
