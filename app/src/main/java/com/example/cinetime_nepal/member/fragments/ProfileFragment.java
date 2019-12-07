@@ -1,11 +1,12 @@
-package com.example.cinetime_nepal.common.fragments;
+package com.example.cinetime_nepal.member.fragments;
 
+import android.app.Fragment;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import androidx.annotation.NonNull;
-import androidx.fragment.app.Fragment;
+
 import com.example.cinetime_nepal.R;
 
 public class ProfileFragment extends Fragment {

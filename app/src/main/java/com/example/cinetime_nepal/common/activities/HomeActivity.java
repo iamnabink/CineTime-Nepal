@@ -7,8 +7,7 @@ import com.example.cinetime_nepal.common.fragments.HallFragment;
 import com.example.cinetime_nepal.common.fragments.MovieFragment;
 import com.example.cinetime_nepal.common.fragments.NotificationFragement;
 import com.example.cinetime_nepal.common.fragments.HomeFragment;
-import com.example.cinetime_nepal.common.fragments.ProfileFragment;
-import com.example.cinetime_nepal.member.fragments.UProfileFragment;
+import com.example.cinetime_nepal.common.fragments.RegisterFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import android.view.MenuItem;
@@ -46,7 +45,7 @@ public class HomeActivity extends AppCompatActivity {
                                 break;
                             case R.id.bottomnav_profile:
 //                              if (SharedPref.name has  user data go to userprofile fragment else replaceFragment() with log in fragment;)
-                                replaceFragment(new UProfileFragment());
+                                replaceFragment(new RegisterFragment());
                                 break;
                             case R.id.bottomnav_notification:
                                 replaceFragment(new NotificationFragement());
