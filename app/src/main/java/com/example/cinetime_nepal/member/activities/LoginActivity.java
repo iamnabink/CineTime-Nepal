@@ -13,13 +13,12 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.example.cinetime_nepal.R;
+import com.example.cinetime_nepal.common.activities.SplashScreenActivity;
 import com.example.cinetime_nepal.common.network.API;
 import com.example.cinetime_nepal.common.network.RestClient;
 import com.example.cinetime_nepal.common.utils.CustomDialog;
 import com.example.cinetime_nepal.common.utils.SharedPref;
 import com.example.cinetime_nepal.common.utils.Validator;
-import com.example.cinetime_nepal.member.models.User;
-import com.google.gson.Gson;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -76,7 +75,7 @@ public class LoginActivity extends AppCompatActivity {
     private void signIn() {
         final CustomDialog dialog = new CustomDialog(this);
         dialog.show();
-        preferences = getApplicationContext().getSharedPreferences(SharedPref.key_shared_pref, MODE_PRIVATE);
+        preferences = getSharedPreferences(SharedPref.key_shared_pref, MODE_PRIVATE);
         final SharedPreferences.Editor editor = preferences.edit();
         JSONObject jsonObject = new JSONObject();
         try {
@@ -101,8 +100,10 @@ public class LoginActivity extends AppCompatActivity {
                         editor.putString(SharedPref.key_user_details, userDetails);
                         editor.putString(SharedPref.key_user_token, tokenDetails);
                         editor.apply();
+//                        System.out.println("errrrror----------->"+preferences.getAll());
                         Toast.makeText(LoginActivity.this, response.getString("message"), Toast.LENGTH_SHORT).show();
                         //Go to user profile fragment
+                        startActivity(new Intent(LoginActivity.this, SplashScreenActivity.class));
                     } else {
 
                         Toast.makeText(LoginActivity.this, response.getString("message"), Toast.LENGTH_SHORT).show();

@@ -1,5 +1,6 @@
 package com.example.cinetime_nepal.common.activities;
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import com.example.cinetime_nepal.R;
@@ -8,6 +9,8 @@ import com.example.cinetime_nepal.common.fragments.MovieFragment;
 import com.example.cinetime_nepal.common.fragments.NotificationFragement;
 import com.example.cinetime_nepal.common.fragments.HomeFragment;
 import com.example.cinetime_nepal.common.fragments.RegisterFragment;
+import com.example.cinetime_nepal.common.utils.SharedPref;
+import com.example.cinetime_nepal.member.fragments.ProfileFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import android.view.MenuItem;
@@ -45,7 +48,15 @@ public class HomeActivity extends AppCompatActivity {
                                 break;
                             case R.id.bottomnav_profile:
 //                              if (SharedPref.name has  user data go to userprofile fragment else replaceFragment() with log in fragment;)
-                                replaceFragment(new RegisterFragment());
+                                SharedPreferences preferences = getSharedPreferences(SharedPref.key_shared_pref,MODE_PRIVATE);
+                                String userToken = preferences.getString(SharedPref.key_user_token,null);
+                                String userDetails = preferences.getString(SharedPref.key_user_details,null);
+                                if (userToken == null && userDetails == null){
+                                    replaceFragment(new RegisterFragment());
+                                }
+                                else {
+                                    replaceFragment(new ProfileFragment());
+                                }
                                 break;
                             case R.id.bottomnav_notification:
                                 replaceFragment(new NotificationFragement());
