@@ -123,7 +123,7 @@ public class SignUpActivity extends AppCompatActivity {
 //                3000,
 //                DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
 //                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
-//        RestClient.getInstance(this).addToRequestQueue(request);
+        RestClient.getInstance(this).addToRequestQueue(request);
 
     }
 
