@@ -19,6 +19,7 @@ import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.example.cinetime_nepal.R;
+import com.example.cinetime_nepal.common.network.API;
 import com.example.cinetime_nepal.common.network.AuthenticatedJSONRequest;
 import com.example.cinetime_nepal.common.utils.CustomDialog;
 import com.example.cinetime_nepal.common.utils.ImageConverter;
@@ -42,7 +43,6 @@ public class EditProfileActivity extends AppCompatActivity {
     SharedPreferences.Editor editor;
     String selectedImagePath;
     Button editBtn;
-    String updateUrl;
     CustomDialog dialog;
     private static final int IMAGE_PICKER_REQ_CODE = 100;
     private static final int READ_REQ_CODE = 293;
@@ -166,7 +166,7 @@ public class EditProfileActivity extends AppCompatActivity {
         }
 
         dialog.show();
-        AuthenticatedJSONRequest jsonRequest = new AuthenticatedJSONRequest(this, Request.Method.PUT, updateUrl, jsonObject, new Response.Listener<JSONObject>() {
+        AuthenticatedJSONRequest jsonRequest = new AuthenticatedJSONRequest(this, Request.Method.PUT, API.updateUrl, jsonObject, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
                 dialog.cancel();
@@ -180,6 +180,7 @@ public class EditProfileActivity extends AppCompatActivity {
                         user.setName(userData.getString("name"));
                         user.setProfile_pic_url(userData.getString("profile_pic_url"));
 
+                        //only replace name and bio and image url
                         String updatedUserString = new Gson().toJson(user);
                         editor.putString(SharedPref.key_user_details,updatedUserString);
                         editor.apply();
