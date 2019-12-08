@@ -137,7 +137,7 @@ public class EditProfileActivity extends AppCompatActivity {
 
     private void loadData() {
         preferences = getSharedPreferences(SharedPref.key_shared_pref, MODE_PRIVATE);
-        String userDetails = preferences.getString(SharedPref.key_user_details, "");
+        String userDetails = preferences.getString(SharedPref.key_user_details, null);
         User user = new Gson().fromJson(userDetails, User.class);
         editName.setText(user.getName());
         editBio.setText(user.getBio());
@@ -197,7 +197,7 @@ public class EditProfileActivity extends AppCompatActivity {
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-
+                Toast.makeText(EditProfileActivity.this, "Server error! try again later", Toast.LENGTH_SHORT).show();
             }
         });
     }
