@@ -28,6 +28,7 @@ import com.example.cinetime_nepal.member.models.User;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.gson.Gson;
 import com.squareup.picasso.Picasso;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -37,16 +38,17 @@ import androidx.appcompat.app.AppCompatActivity;
 import de.hdodenhof.circleimageview.CircleImageView;
 
 public class EditProfileActivity extends AppCompatActivity {
-    TextInputEditText editName,editBio;
+    TextInputEditText editName, editBio;
     SharedPreferences preferences;
     CircleImageView profileIv;
     SharedPreferences.Editor editor;
-    String selectedImagePath;
+    String selectedImagePath; //get image and image path from mobile
     Button editBtn;
     CustomDialog dialog;
     private static final int IMAGE_PICKER_REQ_CODE = 100;
     private static final int READ_REQ_CODE = 293;
-    String profile_pic_url;
+    String profile_pic_url; //gets profile image string
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -54,10 +56,10 @@ public class EditProfileActivity extends AppCompatActivity {
         initVar();
         loadData();
         editProfile();
-        loadImage();
+        onClickImage();
     }
 
-    private void loadImage() {
+    private void onClickImage() {
         profileIv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -68,11 +70,12 @@ public class EditProfileActivity extends AppCompatActivity {
 
     private void checkPermission() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            //if permission not granted
             if (checkSelfPermission(Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                     requestPermissions(new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, READ_REQ_CODE);
                 }
-            }else{
+            } else {
                 readImage();
             }
         }
@@ -123,6 +126,7 @@ public class EditProfileActivity extends AppCompatActivity {
             Log.e(this.getLocalClassName(), "Exception in onActivityResult : " + e.getMessage());
         }
     }
+
     public String getPath(Uri uri) { //this function will get path
         String[] projection = {MediaStore.Images.Media.DATA};
         Cursor cursor = managedQuery(uri, projection, null, null, null);
@@ -132,9 +136,9 @@ public class EditProfileActivity extends AppCompatActivity {
     }
 
     private void loadData() {
-        preferences=getSharedPreferences(SharedPref.key_shared_pref,MODE_PRIVATE);
-        String userDetails = preferences.getString(SharedPref.key_user_details,"");
-        User user = new Gson().fromJson(userDetails,User.class);
+        preferences = getSharedPreferences(SharedPref.key_shared_pref, MODE_PRIVATE);
+        String userDetails = preferences.getString(SharedPref.key_user_details, "");
+        User user = new Gson().fromJson(userDetails, User.class);
         editName.setText(user.getName());
         editBio.setText(user.getBio());
         Picasso.get().load(user.getProfile_pic_url()).placeholder(R.drawable.portrait_zoro).into(profileIv);
@@ -142,10 +146,11 @@ public class EditProfileActivity extends AppCompatActivity {
 
     private void initVar() {
         editName = findViewById(R.id.edit_name);
-        editBio=findViewById(R.id.edit_bio);
+        editBio = findViewById(R.id.edit_bio);
         profileIv = findViewById(R.id.edit_profile_iv);
-        editBtn=findViewById(R.id.edit_btn);
+        editBtn = findViewById(R.id.edit_btn);
     }
+
     private void editProfile() {
         editBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -158,23 +163,22 @@ public class EditProfileActivity extends AppCompatActivity {
     private void update() {
         JSONObject jsonObject = new JSONObject();
         try {
-            jsonObject.put("name",editName.getText().toString());
-            jsonObject.put("bio",editBio.getText().toString());
+            jsonObject.put("name", editName.getText().toString());
+            jsonObject.put("bio", editBio.getText().toString());
             if (profile_pic_url != null) jsonObject.put("profile_pic_url", profile_pic_url);
         } catch (JSONException e) {
             e.printStackTrace();
         }
-
         dialog.show();
         AuthenticatedJSONRequest jsonRequest = new AuthenticatedJSONRequest(this, Request.Method.PUT, API.updateUrl, jsonObject, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
                 dialog.cancel();
                 try {
-                    if (response.getBoolean("status")){
-                        preferences = getSharedPreferences(SharedPref.key_shared_pref,MODE_PRIVATE);
-                        String userDetails = preferences.getString(SharedPref.key_user_details,null);
-                        User user = new Gson().fromJson(userDetails,User.class);
+                    if (response.getBoolean("status")) {
+                        preferences = getSharedPreferences(SharedPref.key_shared_pref, MODE_PRIVATE);
+                        String userDetails = preferences.getString(SharedPref.key_user_details, null);
+                        User user = new Gson().fromJson(userDetails, User.class);
                         JSONObject userData = response.getJSONObject(SharedPref.key_data_details);
                         user.setBio(userData.getString("bio"));
                         user.setName(userData.getString("name"));
@@ -182,7 +186,7 @@ public class EditProfileActivity extends AppCompatActivity {
 
                         //only replace name and bio and image url
                         String updatedUserString = new Gson().toJson(user);
-                        editor.putString(SharedPref.key_user_details,updatedUserString);
+                        editor.putString(SharedPref.key_user_details, updatedUserString);
                         editor.apply();
                         Toast.makeText(EditProfileActivity.this, response.getString("message"), Toast.LENGTH_SHORT).show();
                     }
