@@ -14,12 +14,11 @@
             android:src="@drawable/pp_background_plus" />
 
         <de.hdodenhof.circleimageview.CircleImageView
-            android:id="@+id/profile_iv"
+            android:id="@+id/edit_profile_iv"
             android:layout_width="100dp"
             android:layout_height="100dp"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="53dp"
-            android:src="@drawable/portrait_zoro" />
+            android:layout_marginTop="53dp" />
     </RelativeLayout>
     <TextView
         android:layout_width="wrap_content"
@@ -36,6 +35,7 @@
         android:layout_marginRight="20dp">
 
         <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/edit_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="text"
@@ -58,12 +58,13 @@
         app:helperText="Max word 50"
         android:layout_marginRight="20dp">
         <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/edit_bio"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:imeActionLabel="next" />
     </com.google.android.material.textfield.TextInputLayout>
     <Button
-        android:id="@+id/signup_btn"
+        android:id="@+id/edit_btn"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center"

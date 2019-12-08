@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
@@ -16,26 +17,58 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ReportFragment;
+import de.hdodenhof.circleimageview.CircleImageView;
 
 import com.example.cinetime_nepal.R;
 import com.example.cinetime_nepal.common.activities.SplashScreenActivity;
 import com.example.cinetime_nepal.common.fragments.RegisterFragment;
 import com.example.cinetime_nepal.common.utils.SharedPref;
 import com.example.cinetime_nepal.member.activities.EditProfileActivity;
+import com.example.cinetime_nepal.member.models.User;
+import com.google.gson.Gson;
+import com.squareup.picasso.Picasso;
 
 public class ProfileFragment extends Fragment {
     View view;
     ImageView logoutIv;
+    CircleImageView profileIv;
     CardView editProfileBtn;
+    SharedPreferences preferences;
+    SharedPreferences.Editor editor;
+    TextView unameTv,uBio;
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_profile, container, false);
         intiVar();
         logOut();
         editProfile();
+        setData();
         return view;
     }
 
+    private void intiVar() {
+        logoutIv = view.findViewById(R.id.logout_iv);
+        editProfileBtn = view.findViewById(R.id.edit_profile_btn);
+        profileIv = view.findViewById(R.id.profile_iv);
+        unameTv= view.findViewById(R.id.uname_tv);
+        uBio=view.findViewById(R.id.u_bio_tv);
+
+    }
+    private void setData() {
+        preferences = getContext().getSharedPreferences(SharedPref.key_shared_pref,Context.MODE_PRIVATE);
+        editor = preferences.edit();
+        String userString = preferences.getString(SharedPref.key_user_details,"");
+        User users = new Gson().fromJson(userString,User.class);
+        unameTv.setText(users.getName());
+        uBio.setText(users.getBio());
+        if (users.getBio() == null){
+            uBio.setText("Please add your bio");
+        }
+        Picasso.get()
+                .load(users.getProfile_pic_url())
+                .placeholder(R.drawable.portrait_zoro)
+                .into(profileIv);
+    }
     private void editProfile() {
         editProfileBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -49,9 +82,9 @@ public class ProfileFragment extends Fragment {
         logoutIv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                SharedPreferences preferences = getContext().getSharedPreferences(SharedPref.key_shared_pref, Context.MODE_PRIVATE);
-                SharedPreferences.Editor editor = preferences.edit();
-//                preferences.edit().clear().commit(); to clear all shared pref
+                preferences = getContext().getSharedPreferences(SharedPref.key_shared_pref, Context.MODE_PRIVATE);
+                editor = preferences.edit();
+//              preferences.edit().clear().commit(); to clear all shared pref
                 editor.remove(SharedPref.key_user_details);
                 editor.remove(SharedPref.key_user_token);
                 editor.apply();
@@ -66,9 +99,5 @@ public class ProfileFragment extends Fragment {
         });
     }
 
-    private void intiVar() {
-        logoutIv = view.findViewById(R.id.logout_iv);
-        editProfileBtn = view.findViewById(R.id.edit_profile_btn);
-    }
 
 }
