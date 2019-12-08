@@ -60,6 +60,9 @@ public class ProfileFragment extends Fragment {
         String userString = preferences.getString(SharedPref.key_user_details,"");
         User users = new Gson().fromJson(userString,User.class);
         unameTv.setText(users.getName());
+        if (users.getName() == null){
+            unameTv.setText("Name");
+        }
         uBio.setText(users.getBio());
         if (users.getBio() == null){
             uBio.setText("Please add your bio");

@@ -62,7 +62,7 @@ public class SignUpActivity extends AppCompatActivity {
         signupPwd = findViewById(R.id.signup_pwd);
         signupCfmPwd = findViewById(R.id.signup_cfm_pwd);
         signupBtn = findViewById(R.id.signup_btn);
-        signinProfileIv = findViewById(R.id.edit_profile_iv);
+        signinProfileIv = findViewById(R.id.signin_profile_iv);
     }
 
     private void onClick() {
@@ -182,6 +182,9 @@ public class SignUpActivity extends AppCompatActivity {
             jsonObject.put("email", signupEmail.getText().toString());
             jsonObject.put("password", signupPwd.getText().toString());
             jsonObject.put("password_confirmation", signupCfmPwd.getText().toString());
+            if (profile_pic_url != null) {
+                jsonObject.put("profile_pic_url", signinProfileIv);
+            }
 
         } catch (JSONException e) {
             e.printStackTrace();
