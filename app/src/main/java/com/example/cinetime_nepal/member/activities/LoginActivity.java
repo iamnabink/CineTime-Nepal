@@ -18,6 +18,7 @@ import com.example.cinetime_nepal.common.network.RestClient;
 import com.example.cinetime_nepal.common.utils.CustomDialog;
 import com.example.cinetime_nepal.common.utils.SharedPref;
 import com.example.cinetime_nepal.common.utils.Validator;
+import com.example.cinetime_nepal.member.models.User;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -91,7 +92,9 @@ public class LoginActivity extends AppCompatActivity {
                         dialog.cancel();
                         JSONObject dataObject = response.getJSONObject(SharedPref.key_data_details);
                         JSONObject userObject = dataObject.getJSONObject(SharedPref.key_user_details);
-
+                        JSONObject tokernObject = dataObject.getJSONObject(SharedPref.key_user_token);
+                        String userDetails = userObject.toString(); //convert JSONObject to string
+                        String tokenDetails = tokernObject.toString();
                     }
                     else {
                         Toast.makeText(LoginActivity.this, response.getString("message"), Toast.LENGTH_SHORT).show();
