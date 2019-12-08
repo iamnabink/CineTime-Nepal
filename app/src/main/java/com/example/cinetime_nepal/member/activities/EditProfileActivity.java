@@ -10,12 +10,13 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.example.cinetime_nepal.R;
 import com.example.cinetime_nepal.common.network.AuthenticatedJSONRequest;
+import com.example.cinetime_nepal.common.utils.CustomDialog;
 import com.example.cinetime_nepal.common.utils.SharedPref;
 import com.example.cinetime_nepal.member.models.User;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.gson.Gson;
 import com.squareup.picasso.Picasso;
-
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import androidx.annotation.Nullable;
@@ -29,6 +30,7 @@ public class EditProfileActivity extends AppCompatActivity {
     SharedPreferences.Editor editor;
     Button editBtn;
     String updateUrl;
+    CustomDialog dialog;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -36,6 +38,11 @@ public class EditProfileActivity extends AppCompatActivity {
         initVar();
         loadData();
         editProfile();
+        loadImage();
+    }
+
+    private void loadImage() {
+
     }
 
     private void loadData() {
@@ -64,10 +71,18 @@ public class EditProfileActivity extends AppCompatActivity {
 
     private void update() {
         JSONObject jsonObject = new JSONObject();
-        AuthenticatedJSONRequest jsonRequest = new AuthenticatedJSONRequest(this, Request.Method.POST, updateUrl, jsonObject, new Response.Listener<JSONObject>() {
+        try {
+            jsonObject.put("name",editName.getText().toString());
+            jsonObject.put("bio",editBio.getText().toString());
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        dialog.show();
+        AuthenticatedJSONRequest jsonRequest = new AuthenticatedJSONRequest(this, Request.Method.PUT, updateUrl, jsonObject, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
-
+                dialog.cancel();
             }
         }, new Response.ErrorListener() {
             @Override
