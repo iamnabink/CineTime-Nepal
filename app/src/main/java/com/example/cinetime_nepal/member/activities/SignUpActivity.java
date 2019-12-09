@@ -183,7 +183,7 @@ public class SignUpActivity extends AppCompatActivity {
             jsonObject.put("password", signupPwd.getText().toString());
             jsonObject.put("password_confirmation", signupCfmPwd.getText().toString());
             if (profile_pic_url != null) {
-                jsonObject.put("profile_pic_url", signinProfileIv);
+                jsonObject.put("image", profile_pic_url);
             }
 
         } catch (JSONException e) {

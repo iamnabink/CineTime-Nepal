@@ -2,6 +2,7 @@ package com.example.cinetime_nepal.member.activities;
 
 import android.Manifest;
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
@@ -19,8 +20,10 @@ import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.example.cinetime_nepal.R;
+import com.example.cinetime_nepal.common.activities.HomeActivity;
 import com.example.cinetime_nepal.common.network.API;
 import com.example.cinetime_nepal.common.network.AuthenticatedJSONRequest;
+import com.example.cinetime_nepal.common.network.RestClient;
 import com.example.cinetime_nepal.common.utils.CustomDialog;
 import com.example.cinetime_nepal.common.utils.ImageConverter;
 import com.example.cinetime_nepal.common.utils.SharedPref;
@@ -161,6 +164,8 @@ public class EditProfileActivity extends AppCompatActivity {
     }
 
     private void update() {
+        dialog = new CustomDialog(this);
+        dialog.show();
         JSONObject jsonObject = new JSONObject();
         try {
             jsonObject.put("name", editName.getText().toString());
@@ -169,7 +174,6 @@ public class EditProfileActivity extends AppCompatActivity {
         } catch (JSONException e) {
             e.printStackTrace();
         }
-        dialog.show();
         AuthenticatedJSONRequest jsonRequest = new AuthenticatedJSONRequest(this, Request.Method.PUT, API.updateUrl, jsonObject, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
@@ -177,6 +181,7 @@ public class EditProfileActivity extends AppCompatActivity {
                 try {
                     if (response.getBoolean("status")) {
                         preferences = getSharedPreferences(SharedPref.key_shared_pref, MODE_PRIVATE);
+                        editor=preferences.edit();
                         String userDetails = preferences.getString(SharedPref.key_user_details, null);
                         User user = new Gson().fromJson(userDetails, User.class);
                         JSONObject userData = response.getJSONObject(SharedPref.key_data_details);
@@ -189,6 +194,11 @@ public class EditProfileActivity extends AppCompatActivity {
                         editor.putString(SharedPref.key_user_details, updatedUserString);
                         editor.apply();
                         Toast.makeText(EditProfileActivity.this, response.getString("message"), Toast.LENGTH_SHORT).show();
+                        startActivity(new Intent(EditProfileActivity.this, HomeActivity.class));
+                    }
+                    else {
+                        System.out.println(response.getString("message"));
+                        Toast.makeText(EditProfileActivity.this, response.getString("message"), Toast.LENGTH_SHORT).show();
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -197,9 +207,11 @@ public class EditProfileActivity extends AppCompatActivity {
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
+                System.out.println(error);
                 Toast.makeText(EditProfileActivity.this, "Server error! try again later", Toast.LENGTH_SHORT).show();
             }
         });
+        RestClient.getInstance(this).addToRequestQueue(jsonRequest);
     }
 
 

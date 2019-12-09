@@ -22,26 +22,26 @@
 
                 <ImageView
                     android:id="@+id/logout_iv"
-                    android:layout_width="24dp"
-                    android:layout_height="24dp"
-                    android:layout_alignParentEnd="true"
+                    android:layout_width="28dp"
+                    android:layout_height="28dp"
                     android:layout_alignParentRight="true"
-                    android:layout_marginTop="20dp"
-                    android:layout_marginRight="20dp"
+                    android:layout_above="@id/review_iv"
+                    android:layout_marginBottom="30dp"
+                    android:layout_marginRight="45dp"
                     android:src="@drawable/ic_logout" />
 
                 <ImageView
-                    android:layout_width="32dp"
-                    android:layout_height="32dp"
-                    android:layout_marginLeft="20dp"
-                    android:layout_marginTop="20dp"
+                    android:layout_width="35dp"
+                    android:layout_height="35dp"
+                    android:layout_above="@id/thumbs_up"
+                    android:layout_marginLeft="45dp"
+                    android:layout_marginBottom="25dp"
                     android:src="@drawable/ic_configuration_gears" />
 
                 <ImageView
                     android:layout_width="match_parent"
                     android:layout_height="250dp"
-                    android:layout_marginLeft="19dp"
-                    android:src="@drawable/background_pp_current_png" />
+                    android:src="@drawable/pp_background_plus" />
 
                 <ImageView
                     android:id="@+id/thumbs_up"
@@ -75,7 +75,7 @@
                     android:layout_height="wrap_content"
                     android:layout_below="@id/review_iv"
                     android:layout_alignParentRight="true"
-                    android:layout_marginTop="10dp"
+                    android:layout_marginTop="8dp"
                     android:layout_marginRight="55dp"
                     android:text="0" />
 
@@ -97,7 +97,7 @@
                     android:layout_marginTop="35dp"
                     android:text="Ronoroa Zoro"
                     android:textColor="@android:color/black"
-                    android:textSize="16sp" />
+                    android:textSize="18dp" />
             </RelativeLayout>
 
             <LinearLayout
@@ -115,14 +115,14 @@
                     android:text="Passionate Moviee lover, a photographer and movie critic"
                     android:textAlignment="center"
                     android:textColor="@android:color/black"
-                    android:textSize="14sp" />
+                    android:textSize="16sp" />
 
                 <androidx.cardview.widget.CardView
                     android:id="@+id/edit_profile_btn"
                     android:layout_width="match_parent"
                     android:layout_height="40dp"
                     android:layout_marginLeft="80dp"
-                    android:layout_marginTop="10dp"
+                    android:layout_marginTop="25dp"
                     android:layout_marginRight="80dp"
                     android:layout_marginBottom="10dp"
                     android:clickable="true"

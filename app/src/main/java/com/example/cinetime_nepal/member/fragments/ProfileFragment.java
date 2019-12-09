@@ -42,8 +42,18 @@ public class ProfileFragment extends Fragment {
         intiVar();
         logOut();
         editProfile();
+        updateImage();
         setData();
         return view;
+    }
+
+    private void updateImage() {
+        profileIv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getContext(),EditProfileActivity.class));
+            }
+        });
     }
 
     private void intiVar() {
@@ -69,7 +79,6 @@ public class ProfileFragment extends Fragment {
         }
         Picasso.get()
                 .load(users.getProfile_pic_url())
-                .placeholder(R.drawable.portrait_zoro)
                 .into(profileIv);
     }
     private void editProfile() {

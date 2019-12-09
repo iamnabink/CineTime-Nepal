@@ -26,7 +26,7 @@ import java.util.Map;
             super(method, url, jsonRequest, listener, errorListener); //Initializing parameters
             this.context = context;
             if(jsonRequest!=null) Log.i(TAG, "payload: "+jsonRequest);
-            preferences = context.getSharedPreferences("My Preferences", Context.MODE_PRIVATE); //Initialing shared prefs
+            preferences = context.getSharedPreferences(SharedPref.key_shared_pref, Context.MODE_PRIVATE); //Initialing shared prefs
             String tokenString = preferences.getString(SharedPref.key_user_token, null); //getting saved token string from shared preferences, null - since it is easier to check condition later on
             Token tokenObj = new Gson().fromJson(tokenString, Token.class); //converts JSON String (stored in shared prefs) to Java tokenObject (creates Token Class)
             this.token = tokenObj.getAccess_token(); //getAccess_token() - returns "Access_token" from tokenObject (exactly from java Token class)

@@ -7,9 +7,19 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
+
+import com.android.volley.Request;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
 import com.example.cinetime_nepal.R;
 import com.example.cinetime_nepal.common.adapter.ComingMovieAdapter;
 import com.example.cinetime_nepal.common.models.Movie;
+import com.example.cinetime_nepal.common.network.API;
+import com.example.cinetime_nepal.common.network.RestClient;
+
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 
@@ -29,10 +39,18 @@ public class MovieFragment extends Fragment {
     }
 
     private void loadData() {
-        movies.add(new Movie("Khupi ka bau",R.drawable.avatar,"Danger Comdey"));
-        movies.add(new Movie("Khupi ka bau",R.drawable.naruto,"Danger Comdey"));
-        movies.add(new Movie("Khupi ka bau",R.drawable.avatar,"Danger Comdey"));
-        movies.add(new Movie("Khupi ka bau",R.drawable.naruto,"Danger Comdey"));
+        JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, API.nowShowingMovieUrl, null, new Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject response) {
+
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Toast.makeText(getContext(), "Server error ! Please try again later", Toast.LENGTH_SHORT).show();
+            }
+        });
+        RestClient.getInstance(getContext()).addToRequestQueue(request);
     }
 
     private void initViews() {
