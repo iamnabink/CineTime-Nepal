@@ -1,6 +1,6 @@
 package com.example.cinetime_nepal.common.models;
 
-public abstract class Movie {
+public class Movie {
 
     private String updated_at;
     private String created_at;

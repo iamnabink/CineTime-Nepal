@@ -5,4 +5,5 @@ public class SharedPref {
     public static final String key_user_details="user";
     public static final String key_user_token="token";
     public static final String key_shared_pref="MySharedPrefs";
+    public static final String key_shared_movies_details = "movies";
 }
