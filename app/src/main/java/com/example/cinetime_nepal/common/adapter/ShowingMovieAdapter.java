@@ -8,6 +8,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.cinetime_nepal.R;
+import com.example.cinetime_nepal.common.interfaces.AdapterClickListener;
 import com.example.cinetime_nepal.common.models.Movie;
 import com.squareup.picasso.Picasso;
 
@@ -19,17 +20,19 @@ import androidx.recyclerview.widget.RecyclerView;
 public class ShowingMovieAdapter extends RecyclerView.Adapter<ShowingMovieAdapter.MovieViewHolder> {
     ArrayList<Movie> sMovies;
     Context context;
+    AdapterClickListener listener;
 
-    public ShowingMovieAdapter(ArrayList<Movie> sMovies, Context context) {
+    public ShowingMovieAdapter(ArrayList<Movie> sMovies, Context context, AdapterClickListener listener) {
         this.sMovies = sMovies;
         this.context = context;
+        this.listener = listener;
     }
 
     @NonNull
     @Override
     public MovieViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater inflater = LayoutInflater.from(context);
-        View view = inflater.inflate(R.layout.row_movie_upcoming,parent,false);
+        View view = inflater.inflate(R.layout.row_movie_showing,parent,false);
         MovieViewHolder movieViewHolder = new MovieViewHolder(view);
         return movieViewHolder;
     }
@@ -53,9 +56,15 @@ public class ShowingMovieAdapter extends RecyclerView.Adapter<ShowingMovieAdapte
         ImageView imgv;
         public MovieViewHolder(@NonNull View itemView) {
             super(itemView);
-            nameTv=itemView.findViewById(R.id.movie_name_tv);
-            genreTv=itemView.findViewById(R.id.movie_genre_tv);
-            imgv=itemView.findViewById(R.id.movie_imgv);
+            nameTv=itemView.findViewById(R.id.s_movie_name_tv);
+            genreTv=itemView.findViewById(R.id.s_movie_genre_tv);
+            imgv=itemView.findViewById(R.id.s_movie_imgv);
+            imgv.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    listener.onClick(getAdapterPosition(),v);
+                }
+            });
         }
     }
 }
