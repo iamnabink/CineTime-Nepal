@@ -27,6 +27,7 @@ import com.example.cinetime_nepal.common.models.Movie;
 import com.example.cinetime_nepal.common.network.API;
 import com.example.cinetime_nepal.common.network.RestClient;
 import com.example.cinetime_nepal.common.utils.CustomDialog;
+import com.example.cinetime_nepal.common.utils.InternetConnectionCheck;
 import com.example.cinetime_nepal.common.utils.SharedPref;
 import com.google.gson.Gson;
 
@@ -37,7 +38,6 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 
 public class MovieFragment extends Fragment {
-    View view;
     RecyclerView showsShowingRecyclerV, showsComingRecyclerV;
     ArrayList<Movie> umovies = new ArrayList<>();
     ArrayList<Movie> smovies = new ArrayList<>();
@@ -46,19 +46,33 @@ public class MovieFragment extends Fragment {
     SharedPreferences preferences;
     SharedPreferences.Editor editor;
     CustomDialog dialog;
+    View noInternetView,view;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_movie, container, false);
         intiVar();
+        initViews();
+        listeners();
         loadDataShowing();
         loadDataUpComing();
-        initViews();
         return view;
     }
 
+    private void listeners() {
+        noInternetView.findViewById(R.id.button_try_again) //button doesn't need to be cast since it doesn't have any specific property (button edit text should be casted)
+                .setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        loadDataShowing();
+                        loadDataUpComing();
+                    }
+                });
+    }
+
     private void intiVar() {
+        noInternetView = view.findViewById(R.id.view_no_internet);
         showsShowingRecyclerV = view.findViewById(R.id.shows_showing_recycler_v);
         showsComingRecyclerV = view.findViewById(R.id.shows_coming_recycler_v);
         dialog = new CustomDialog(getContext());
@@ -111,7 +125,13 @@ public class MovieFragment extends Fragment {
                 Toast.makeText(getContext(), "Server error ! please try again later", Toast.LENGTH_SHORT).show();
             }
         });
-        RestClient.getInstance(getContext()).addToRequestQueue(request);
+        if (InternetConnectionCheck.isNetworkAvailable(getContext())) {
+            noInternetView.setVisibility(View.GONE);
+            RestClient.getInstance(getContext()).addToRequestQueue(request);
+        } else {
+            noInternetView.setVisibility(View.VISIBLE);
+            dialog.cancel();
+        }
     }
 
     private void loadDataUpComing() {
@@ -146,7 +166,13 @@ public class MovieFragment extends Fragment {
                 Toast.makeText(getContext(), "Server error ! Please try again later", Toast.LENGTH_SHORT).show();
             }
         });
-        RestClient.getInstance(getContext()).addToRequestQueue(request);
+        if (InternetConnectionCheck.isNetworkAvailable(getContext())) {
+            noInternetView.setVisibility(View.GONE);
+            RestClient.getInstance(getContext()).addToRequestQueue(request);
+        } else {
+            noInternetView.setVisibility(View.VISIBLE);
+            dialog.cancel();
+        }
     }
 
 }

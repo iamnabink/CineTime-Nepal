@@ -25,6 +25,7 @@ import com.example.cinetime_nepal.common.network.API;
 import com.example.cinetime_nepal.common.network.RestClient;
 import com.example.cinetime_nepal.common.utils.CustomDialog;
 import com.example.cinetime_nepal.common.utils.ImageConverter;
+import com.example.cinetime_nepal.common.utils.InternetConnectionCheck;
 import com.example.cinetime_nepal.common.utils.Validator;
 
 import org.json.JSONException;
@@ -211,12 +212,19 @@ public class SignUpActivity extends AppCompatActivity {
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-//                System.out.println("errrrorr------>"+error);
+                System.out.println("errrrorr------>"+error);
                 dialog.cancel();
                 Toast.makeText(SignUpActivity.this, "An error occurred please try again later", Toast.LENGTH_SHORT).show();
             }
         });
-        RestClient.getInstance(this).addToRequestQueue(request);
+        if (InternetConnectionCheck.isNetworkAvailable(getApplicationContext())){
+            RestClient.getInstance(this).addToRequestQueue(request);
+        }
+        else {
+            Toast.makeText(this, "No internet connection", Toast.LENGTH_SHORT).show();
+            dialog.cancel();
+        }
+
 
     }
 

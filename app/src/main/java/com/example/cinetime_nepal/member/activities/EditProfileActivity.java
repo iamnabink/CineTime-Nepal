@@ -26,6 +26,7 @@ import com.example.cinetime_nepal.common.network.AuthenticatedJSONRequest;
 import com.example.cinetime_nepal.common.network.RestClient;
 import com.example.cinetime_nepal.common.utils.CustomDialog;
 import com.example.cinetime_nepal.common.utils.ImageConverter;
+import com.example.cinetime_nepal.common.utils.InternetConnectionCheck;
 import com.example.cinetime_nepal.common.utils.SharedPref;
 import com.example.cinetime_nepal.member.models.User;
 import com.google.android.material.textfield.TextInputEditText;
@@ -211,7 +212,13 @@ public class EditProfileActivity extends AppCompatActivity {
                 Toast.makeText(EditProfileActivity.this, "Server error! try again later", Toast.LENGTH_SHORT).show();
             }
         });
-        RestClient.getInstance(this).addToRequestQueue(jsonRequest);
+        if (InternetConnectionCheck.isNetworkAvailable(getApplicationContext())){
+            RestClient.getInstance(this).addToRequestQueue(jsonRequest);
+        }
+        else {
+            dialog.cancel();
+            Toast.makeText(this, "No internet connection", Toast.LENGTH_SHORT).show();
+        }
     }
 
 

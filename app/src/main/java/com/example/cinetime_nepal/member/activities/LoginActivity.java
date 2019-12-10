@@ -17,6 +17,7 @@ import com.example.cinetime_nepal.common.activities.SplashScreenActivity;
 import com.example.cinetime_nepal.common.network.API;
 import com.example.cinetime_nepal.common.network.RestClient;
 import com.example.cinetime_nepal.common.utils.CustomDialog;
+import com.example.cinetime_nepal.common.utils.InternetConnectionCheck;
 import com.example.cinetime_nepal.common.utils.SharedPref;
 import com.example.cinetime_nepal.common.utils.Validator;
 
@@ -122,11 +123,18 @@ public class LoginActivity extends AppCompatActivity {
                     Toast.makeText(LoginActivity.this, "Password or email do not match", Toast.LENGTH_SHORT).show();
                 } else {
                     Toast.makeText(LoginActivity.this, "Server error please try again later", Toast.LENGTH_SHORT).show();
+                    dialog.cancel();
                 }
 
             }
         });
-        RestClient.getInstance(this).addToRequestQueue(request);
+        if (InternetConnectionCheck.isNetworkAvailable(getApplicationContext())){
+            RestClient.getInstance(this).addToRequestQueue(request);
+        }
+        else {
+            Toast.makeText(this, "No internet connection", Toast.LENGTH_SHORT).show();
+            dialog.cancel();
+        }
     }
 
 }
