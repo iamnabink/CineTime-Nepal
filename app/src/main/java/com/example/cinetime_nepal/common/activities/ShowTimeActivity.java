@@ -30,7 +30,7 @@ public class ShowTimeActivity extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        setContentView(R.layout.showtime_activity);
+        setContentView(R.layout.activity_showtime);
         initVar();
         initViews();
         onClick();

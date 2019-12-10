@@ -91,7 +91,7 @@ public class MovieFragment extends Fragment {
                     JSONObject moviesDetails = response.getJSONObject(SharedPref.key_data_details);
                     JSONArray moviesArrayData = moviesDetails.getJSONArray(SharedPref.key_shared_movies_details);
                     String smoviesArray = moviesArrayData.toString();
-                    editor.putString(SharedPref.key_shared_showing_movies_details,smoviesArray);
+                    editor.putString(SharedPref.key_shared_showing_movies_details, smoviesArray);
                     editor.apply();
                     for (int i = 0; i < moviesArrayData.length(); i++) {
                         JSONObject moviesData = moviesArrayData.getJSONObject(i);
@@ -126,7 +126,7 @@ public class MovieFragment extends Fragment {
                     JSONObject dataObject = response.getJSONObject(SharedPref.key_data_details);
                     JSONArray movieDataArray = dataObject.getJSONArray(SharedPref.key_shared_movies_details);
                     String umoviedataArray = movieDataArray.toString();
-                    editor.putString(SharedPref.key_shared_upcoming_movies_details,umoviedataArray);
+                    editor.putString(SharedPref.key_shared_upcoming_movies_details, umoviedataArray);
                     editor.apply();
                     for (int i = 0; i < movieDataArray.length(); i++) {
                         JSONObject movieObject = movieDataArray.getJSONObject(i);

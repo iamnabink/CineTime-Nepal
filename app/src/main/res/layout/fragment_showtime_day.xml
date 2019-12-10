@@ -3,7 +3,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context=".common.fragments.ShowTimeDayFragment">
+    <include
+        layout="@layout/row_showtime"/>
     <include
         layout="@layout/row_showtime"/>
 </LinearLayout>
