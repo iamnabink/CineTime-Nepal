@@ -163,7 +163,6 @@ public class EditProfileActivity extends AppCompatActivity {
             }
         });
     }
-
     private void update() {
         dialog = new CustomDialog(this);
         dialog.show();
