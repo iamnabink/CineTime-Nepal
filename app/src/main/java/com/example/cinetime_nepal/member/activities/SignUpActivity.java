@@ -202,8 +202,9 @@ public class SignUpActivity extends AppCompatActivity {
                         finish();
                     } else {
                         dialog.cancel();
-//                        System.out.println("errror----------"+response.getString("message"));
+//                        System.out.println("error----------"+response.getString("message"));
                         Toast.makeText(SignUpActivity.this, response.getString("message"), Toast.LENGTH_SHORT).show();
+                        //retrieving server response
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
