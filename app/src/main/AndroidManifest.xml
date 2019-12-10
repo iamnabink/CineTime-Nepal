@@ -32,7 +32,7 @@
         <activity android:name=".member.activities.LoginActivity" android:theme="@style/AppTheme.transparent"/>
         <activity android:name=".member.activities.EditProfileActivity"  android:theme="@style/AppTheme.transparent"/>
         <activity android:name=".common.activities.MovieDetailActivity"  android:theme="@style/AppTheme.transparent"/>
-        <activity android:name=".common.activities.ShowTimeActivity" android:label="ShowTime"/>
+        <activity android:name=".common.activities.ShowTimeActivity" android:label="ShowTime" android:theme="@style/AppTheme.transparent"/>
     </application>
 
 </manifest>
