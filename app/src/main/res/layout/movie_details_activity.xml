@@ -11,7 +11,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
             <ImageView
-                android:id="@+id/bg_image"
+                android:id="@+id/d_bg_image"
                 android:layout_width="match_parent"
                 android:layout_height="230dp"
                 android:scaleType="centerCrop"
@@ -19,7 +19,7 @@
             <androidx.cardview.widget.CardView
                 android:id="@+id/card_view"
                 app:cardElevation="0dp"
-                android:layout_below="@id/bg_image"
+                android:layout_below="@id/d_bg_image"
                 android:layout_width="match_parent"
                 android:layout_marginTop="-40dp"
                 app:cardCornerRadius="10dp"
@@ -34,6 +34,7 @@
                         android:layout_height="wrap_content"
                         app:cardCornerRadius="6dp">
                         <ImageView
+                            android:id="@+id/d_poster_img"
                             android:layout_width="130dp"
                             android:layout_height="212dp"
                             android:scaleType="centerCrop"
@@ -46,6 +47,7 @@
                         android:orientation="vertical"
                         android:layout_weight="1">
                         <TextView
+                            android:id="@+id/d_movie_genre_tv"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:textColor="@android:color/black"
@@ -53,6 +55,7 @@
                             android:layout_marginBottom="6dp"
                             android:text="Animation | Comedy"/>
                         <TextView
+                            android:id="@+id/d_movie_name_tv"
                             android:layout_marginBottom="5dp"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
@@ -60,15 +63,27 @@
                             android:textStyle="bold"
                             android:textColor="@android:color/black"
                             android:text="One Piece Stampede"/>
-                        <RatingBar
+                        <LinearLayout
                             android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:numStars="5"
-                            android:rating="3"
-                            android:progressTint="@color/colorAccent"
-                            android:layout_marginBottom="6dp"
-                            style="?android:attr/ratingBarStyleSmall"/>
+                            android:layout_height="wrap_content">
+                            <TextView
+                                android:id="@+id/d_movie_rating_count"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginRight="7dp"
+                                android:text="3.0"/>
+                            <RatingBar
+                                android:id="@+id/d_movie_rating_bar"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:numStars="5"
+                                android:rating="3"
+                                android:progressTint="@color/colorAccent"
+                                android:layout_marginBottom="6dp"
+                                style="?android:attr/ratingBarStyleSmall"/>
+                        </LinearLayout>
                         <TextView
+                            android:id="@+id/d_movie_synopsis"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:maxLines="4"
@@ -80,7 +95,9 @@
                             android:orientation="horizontal"
                             android:layout_height="wrap_content">
                             <androidx.cardview.widget.CardView
+                                android:id="@+id/d_movie_trailer_cv"
                                 android:layout_width="wrap_content"
+                                android:clickable="true"
                                 android:layout_height="wrap_content"
                                 app:cardCornerRadius="25dp"
                                 app:cardUseCompatPadding="true">
@@ -94,8 +111,10 @@
                                     android:drawableLeft="@drawable/ic_rate_review_24px"/>
                             </androidx.cardview.widget.CardView>
                             <androidx.cardview.widget.CardView
+                                android:id="@+id/d_movie_favourite_cv"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
+                                android:clickable="true"
                                 app:cardCornerRadius="25dp"
                                 app:cardUseCompatPadding="true">
                                 <TextView
@@ -158,7 +177,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="15dp"
                         android:layout_marginBottom="10dp"
-                        android:text="Language: Nepali"/>
+                        android:text="Language: English"/>
                 </LinearLayout>
                 <androidx.cardview.widget.CardView
                     android:layout_width="match_parent"
@@ -180,12 +199,14 @@
                             android:text="Rate"
                             android:drawableLeft="@drawable/ic_star_24px"/>
                         <TextView
+                            android:id="@+id/d_movie_showtime_tv"
                             android:layout_width="wrap_content"
                             android:drawablePadding="10dp"
                             android:layout_height="wrap_content"
                             android:drawableLeft="@drawable/ic_movie_creation_24px"
                             android:text="ShowTime"/>
                         <TextView
+                            android:id="@+id/d_movie_review_tv"
                             android:drawablePadding="10dp"
                             android:layout_marginLeft="15dp"
                             android:layout_width="wrap_content"
