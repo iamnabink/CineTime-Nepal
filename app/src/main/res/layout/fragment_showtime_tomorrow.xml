@@ -3,12 +3,12 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".common.fragments.ShowTimeTodayFragment">
+    tools:context=".common.fragments.ShowTimeTomorrowFragment">
 
     <!-- TODO: Update blank fragment layout -->
     <TextView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="showtime today" />
+        android:text="showtime tomorrow" />
 
 </FrameLayout>

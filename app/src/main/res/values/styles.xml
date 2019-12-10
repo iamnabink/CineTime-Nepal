@@ -15,6 +15,7 @@
     <!-- Base application theme. -->
     <style name="AppTheme.transparent" parent="Theme.AppCompat.Light">
         <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="windowActionBarOverlay">true</item>
         <item name="windowNoTitle">true</item>
     </style>

@@ -10,13 +10,12 @@ import android.view.ViewGroup;
 
 import com.example.cinetime_nepal.R;
 
+public class ShowTimeTomorrowFragment extends Fragment {
 
-public class ShowTimeTodayFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_showtime_today, container, false);
+        return inflater.inflate(R.layout.fragment_showtime_tomorrow, container, false);
     }
-
 }

@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.view.MenuItem;
 
 import com.example.cinetime_nepal.R;
+import com.example.cinetime_nepal.common.adapter.ShowTimePagerAdapter;
 import com.google.android.material.tabs.TabLayout;
 
 import androidx.annotation.NonNull;
@@ -12,6 +13,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager.widget.ViewPager;
 
 public class ShowTimeActivity extends AppCompatActivity {
+    ViewPager viewPager;
+    ShowTimePagerAdapter sectionsPagerAdapter;
+    TabLayout tabs;
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
@@ -36,11 +40,13 @@ public class ShowTimeActivity extends AppCompatActivity {
     }
 
     private void initViews() {
-
+        viewPager.setAdapter(sectionsPagerAdapter);
+        tabs.setupWithViewPager(viewPager);
     }
 
     private void initVar() {
-        ViewPager viewPager = findViewById(R.id.view_pager);
-        TabLayout tabs = findViewById(R.id.tabs);
+        viewPager = findViewById(R.id.view_pager);
+        tabs = findViewById(R.id.tabs);
+        sectionsPagerAdapter = new ShowTimePagerAdapter(this, getSupportFragmentManager());
     }
 }
