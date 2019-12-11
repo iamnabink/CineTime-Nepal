@@ -1,14 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/movie_frag"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-
+<androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+    android:id="@+id/swipe_refresh_l"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
-
 
         <ScrollView
             android:layout_width="match_parent"
@@ -97,5 +100,6 @@
             </LinearLayout>
         </ScrollView>
     </LinearLayout>
+</androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
     <include android:visibility="gone" android:id="@+id/view_no_internet" layout="@layout/layout_no_internet"/>
 </FrameLayout>

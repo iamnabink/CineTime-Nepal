@@ -7,7 +7,6 @@ import com.example.cinetime_nepal.R;
 import com.example.cinetime_nepal.common.adapter.ShowTimePagerAdapter;
 import com.google.android.material.tabs.TabLayout;
 
-import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager.widget.ViewPager;
@@ -17,7 +16,7 @@ public class ShowTimeActivity extends AppCompatActivity {
     ShowTimePagerAdapter sectionsPagerAdapter;
     TabLayout tabs;
 //    @Override
-//    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+//    public boolean onOptionsItemSelected(MenuItem item) {
 //        switch (item.getItemId()) {
 //            case android.R.id.home:
 //                onBackPressed();

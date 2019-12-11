@@ -7,9 +7,11 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import android.os.Handler;
 import android.view.LayoutInflater;
@@ -40,16 +42,10 @@ import com.example.cinetime_nepal.common.utils.InternetConnectionCheck;
 import com.example.cinetime_nepal.common.utils.SharedPref;
 import com.google.gson.Gson;
 
-import org.apache.http.conn.ConnectTimeoutException;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-import org.xmlpull.v1.XmlPullParserException;
 
-import java.net.ConnectException;
-import java.net.MalformedURLException;
-import java.net.SocketException;
-import java.net.SocketTimeoutException;
 import java.util.ArrayList;
 
 public class MovieFragment extends Fragment {
@@ -61,7 +57,10 @@ public class MovieFragment extends Fragment {
     SharedPreferences preferences;
     SharedPreferences.Editor editor;
     CustomDialog dialog;
-    View noInternetView,view;
+    View noInternetView, view;
+    SwipeRefreshLayout refreshLayout;
+    private Context mContext;
+    ;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -72,11 +71,23 @@ public class MovieFragment extends Fragment {
         listeners();
         loadDataShowing();
         loadDataUpComing();
+        onRefresh();
         return view;
     }
 
+    private void onRefresh() {
+        refreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                loadDataShowing();
+                loadDataUpComing();
+                refreshLayout.setRefreshing(false);
+            }
+        });
+    }
+
     private void listeners() {
-        noInternetView.findViewById(R.id.button_try_again) //button doesn't need to be cast since it doesn't have any specific property (button edit text should be casted)
+        noInternetView.findViewById(R.id.button_try_again) //button doesn't need to be cast since it doesn't have any specific property (but note: EditText should be casted)
                 .setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -88,16 +99,17 @@ public class MovieFragment extends Fragment {
                             public void run() {
                                 dialog.dismiss();
                             }
-                        },4000);
+                        }, 500);
                     }
                 });
     }
 
     private void intiVar() {
+        refreshLayout=view.findViewById(R.id.swipe_refresh_l);
         noInternetView = view.findViewById(R.id.view_no_internet);
         showsShowingRecyclerV = view.findViewById(R.id.shows_showing_recycler_v);
         showsComingRecyclerV = view.findViewById(R.id.shows_coming_recycler_v);
-        dialog = new CustomDialog(getContext());
+        dialog = new CustomDialog(mContext);
         preferences = getContext().getSharedPreferences(SharedPref.key_shared_pref, Context.MODE_PRIVATE);
     }
 
@@ -106,7 +118,11 @@ public class MovieFragment extends Fragment {
         sadapter = new ShowingMovieAdapter(smovies, getContext(), new AdapterClickListener() {
             @Override
             public void onClick(int position, View view) {
-                startActivity(new Intent(getContext(), MovieDetailActivity.class));
+                Movie movie = smovies.get(position);
+                String movieDetails = new Gson().toJson(movie);
+                Intent intent = new Intent(getContext(), MovieDetailActivity.class);
+                intent.putExtra(SharedPref.key_shared_movies_details, movieDetails);
+                startActivity(intent);
             }
         });
         showsComingRecyclerV.setLayoutManager(new LinearLayoutManager(getContext(), RecyclerView.HORIZONTAL, false));
@@ -143,11 +159,11 @@ public class MovieFragment extends Fragment {
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                dialog.cancel();
                 handlerError(error);
+                dialog.cancel();
             }
         });
-        if (InternetConnectionCheck.isNetworkAvailable(getContext())) {
+        if (InternetConnectionCheck.isNetworkAvailable(mContext)) {
             noInternetView.setVisibility(View.GONE);
             RestClient.getInstance(getContext()).addToRequestQueue(request);
         } else {
@@ -184,12 +200,13 @@ public class MovieFragment extends Fragment {
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                System.out.println("error"+error);
-                dialog.dismiss();
+//                System.out.println("error" + error);
                 handlerError(error);
+                dialog.dismiss();
+
             }
         });
-        if (InternetConnectionCheck.isNetworkAvailable(getContext())) {
+        if (InternetConnectionCheck.isNetworkAvailable(mContext)) {
             noInternetView.setVisibility(View.GONE);
             RestClient.getInstance(getContext()).addToRequestQueue(request);
         } else {
@@ -199,22 +216,32 @@ public class MovieFragment extends Fragment {
     }
 
     private void handlerError(VolleyError error) {
-        if (error instanceof TimeoutError || error instanceof NoConnectionError) {
-            //This indicates that the reuest has either time out or there is no connection
-            Toast.makeText(getContext(), "time out or there is no connection", Toast.LENGTH_SHORT).show();
-        } else if (error instanceof AuthFailureError) {
-            Toast.makeText(getContext(), "an Authentication Failure while performing the request", Toast.LENGTH_SHORT).show();
-            //Error indicating that there was an Authentication Failure while performing the request
-        } else if (error instanceof ServerError) {
-            Toast.makeText(getContext(), "server responded with a error response", Toast.LENGTH_SHORT).show();
-            //Indicates that the server responded with a error response
-        } else if (error instanceof NetworkError) {
-            Toast.makeText(getContext(), "network error while performing the request", Toast.LENGTH_SHORT).show();
-            //Indicates that there was network error while performing the request
-        } else if (error instanceof ParseError) {
-            Toast.makeText(getContext(), "network error while performing the request", Toast.LENGTH_SHORT).show();
+        try {
+            if (error instanceof TimeoutError || error instanceof NoConnectionError) {
+                //This indicates that the reuest has either time out or there is no connection
+                Toast.makeText(mContext, "time out or there is no connection", Toast.LENGTH_SHORT).show();
+            } else if (error instanceof AuthFailureError) {
+                Toast.makeText(mContext, "an Authentication Failure while performing the request", Toast.LENGTH_SHORT).show();
+                //Error indicating that there was an Authentication Failure while performing the request
+            } else if (error instanceof ServerError) {
+                Toast.makeText(mContext, "server responded with a error response", Toast.LENGTH_SHORT).show();
+                //Indicates that the server responded with a error response
+            } else if (error instanceof NetworkError) {
+                Toast.makeText(mContext, "network error while performing the request", Toast.LENGTH_SHORT).show();
+                //Indicates that there was network error while performing the request
+            } else if (error instanceof ParseError) {
+                Toast.makeText(mContext, "network error while performing the request", Toast.LENGTH_SHORT).show();
+            } else {
+                Toast.makeText(mContext, "An unknown  error occurred! please try again later", Toast.LENGTH_SHORT).show();
+            }
+        } catch (Exception e) {
+            Toast.makeText(mContext, "An unknown  error occurred! please try again later", Toast.LENGTH_SHORT).show();
         }
     }
 
-
+    @Override
+    public void onAttach(@NonNull Context context) {
+        super.onAttach(context);
+        mContext = context; //prevents context from being null (since getContext sometimes get null)
+    }
 }

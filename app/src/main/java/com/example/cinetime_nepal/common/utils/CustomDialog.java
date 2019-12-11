@@ -22,7 +22,8 @@ public class CustomDialog extends Dialog {
         View v = LayoutInflater.from(context).inflate(R.layout.layout_progress,null);
         ImageView imageView =  v.findViewById(R.id.progress_logo);
         RotateAnimation rotate = new RotateAnimation(0, 360, Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
-        rotate.setDuration(30000);
+        rotate.setDuration(400);
+        rotate.setRepeatCount(Animation.INFINITE);
         rotate.setInterpolator(new DecelerateInterpolator());
         imageView.startAnimation(rotate);
         setContentView(v);
