@@ -3,19 +3,28 @@ package com.example.cinetime_nepal.common.fragments;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import com.android.volley.AuthFailureError;
+import com.android.volley.NetworkError;
+import com.android.volley.NoConnectionError;
+import com.android.volley.ParseError;
 import com.android.volley.Request;
 import com.android.volley.Response;
+import com.android.volley.ServerError;
+import com.android.volley.TimeoutError;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.example.cinetime_nepal.R;
@@ -31,10 +40,16 @@ import com.example.cinetime_nepal.common.utils.InternetConnectionCheck;
 import com.example.cinetime_nepal.common.utils.SharedPref;
 import com.google.gson.Gson;
 
+import org.apache.http.conn.ConnectTimeoutException;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.xmlpull.v1.XmlPullParserException;
 
+import java.net.ConnectException;
+import java.net.MalformedURLException;
+import java.net.SocketException;
+import java.net.SocketTimeoutException;
 import java.util.ArrayList;
 
 public class MovieFragment extends Fragment {
@@ -67,6 +82,13 @@ public class MovieFragment extends Fragment {
                     public void onClick(View v) {
                         loadDataShowing();
                         loadDataUpComing();
+                        dialog.show();
+                        new Handler().postDelayed(new Runnable() {
+                            @Override
+                            public void run() {
+                                dialog.dismiss();
+                            }
+                        },4000);
                     }
                 });
     }
@@ -121,8 +143,8 @@ public class MovieFragment extends Fragment {
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                dialog.dismiss();
-                Toast.makeText(getContext(), "Server error ! please try again later", Toast.LENGTH_SHORT).show();
+                dialog.cancel();
+                handlerError(error);
             }
         });
         if (InternetConnectionCheck.isNetworkAvailable(getContext())) {
@@ -130,7 +152,7 @@ public class MovieFragment extends Fragment {
             RestClient.getInstance(getContext()).addToRequestQueue(request);
         } else {
             noInternetView.setVisibility(View.VISIBLE);
-            dialog.cancel();
+            dialog.dismiss();
         }
     }
 
@@ -162,8 +184,9 @@ public class MovieFragment extends Fragment {
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
+                System.out.println("error"+error);
                 dialog.dismiss();
-                Toast.makeText(getContext(), "Server error ! Please try again later", Toast.LENGTH_SHORT).show();
+                handlerError(error);
             }
         });
         if (InternetConnectionCheck.isNetworkAvailable(getContext())) {
@@ -171,8 +194,27 @@ public class MovieFragment extends Fragment {
             RestClient.getInstance(getContext()).addToRequestQueue(request);
         } else {
             noInternetView.setVisibility(View.VISIBLE);
-            dialog.cancel();
+            dialog.dismiss();
         }
     }
+
+    private void handlerError(VolleyError error) {
+        if (error instanceof TimeoutError || error instanceof NoConnectionError) {
+            //This indicates that the reuest has either time out or there is no connection
+            Toast.makeText(getContext(), "time out or there is no connection", Toast.LENGTH_SHORT).show();
+        } else if (error instanceof AuthFailureError) {
+            Toast.makeText(getContext(), "an Authentication Failure while performing the request", Toast.LENGTH_SHORT).show();
+            //Error indicating that there was an Authentication Failure while performing the request
+        } else if (error instanceof ServerError) {
+            Toast.makeText(getContext(), "server responded with a error response", Toast.LENGTH_SHORT).show();
+            //Indicates that the server responded with a error response
+        } else if (error instanceof NetworkError) {
+            Toast.makeText(getContext(), "network error while performing the request", Toast.LENGTH_SHORT).show();
+            //Indicates that there was network error while performing the request
+        } else if (error instanceof ParseError) {
+            Toast.makeText(getContext(), "network error while performing the request", Toast.LENGTH_SHORT).show();
+        }
+    }
+
 
 }
