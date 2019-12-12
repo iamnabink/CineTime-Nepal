@@ -4,11 +4,9 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".common.fragments.ShowTimeTomorrowFragment">
-
-    <include
-        layout="@layout/row_showtime"/>
-    <include
-        layout="@layout/row_showtime"/>
-
+    tools:context=".common.fragments.ShowTimeFragment">
+<androidx.recyclerview.widget.RecyclerView
+    android:id="@+id/showtime_recycler_v"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"/>
 </LinearLayout>

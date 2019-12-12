@@ -27,7 +27,7 @@
             android:text="Big Movies"
             android:layout_toRightOf="@id/s_hall_iv" />
         <TextView
-            android:id="@+id/s_name_tv"
+            android:id="@+id/s_location_tv"
             android:layout_below="@id/s_hall_name_tv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -37,39 +37,10 @@
             android:text="Kamalpokhari"
             android:layout_toRightOf="@id/s_hall_iv" />
     </RelativeLayout>
-    <LinearLayout
-        android:padding="8dp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@drawable/border_btn_background"
-            android:layout_marginRight="10dp"
-            android:text="12:12 PM"/>
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@drawable/border_btn_background"
-            android:layout_marginRight="10dp"
-            android:text="12:12 PM"/>
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@drawable/border_btn_background"
-            android:layout_marginRight="10dp"
-            android:text="12:12 PM"/>
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@drawable/border_btn_background"
-            android:layout_marginRight="8dp"
-            android:text="12:12 PM"/>
-    </LinearLayout>
     <androidx.recyclerview.widget.RecyclerView
-        android:visibility="gone"
         android:layout_width="match_parent"
+        android:id="@+id/time_recycler_v"
+        android:padding="8dp"
         android:layout_height="wrap_content"/>
     <View
         android:layout_marginTop="10dp"

@@ -6,9 +6,6 @@ public class ShowTime {
 
     private Hall hall;
     private List<Time> times;
-    private String updated_at;
-    private String created_at;
-    private int status;
     private String show_date;
     private int hall_id;
     private int movie_id;

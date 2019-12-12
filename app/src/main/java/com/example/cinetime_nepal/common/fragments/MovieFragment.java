@@ -97,7 +97,7 @@ public class MovieFragment extends Fragment {
                         new Handler().postDelayed(new Runnable() {
                             @Override
                             public void run() {
-                                dialog.dismiss();
+                                dialog.cancel();
                             }
                         }, 500);
                     }

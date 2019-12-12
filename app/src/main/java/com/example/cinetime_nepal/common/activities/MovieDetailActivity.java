@@ -85,7 +85,9 @@ public class MovieDetailActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 int movieId = movie.getId();
-                startActivity(new Intent(MovieDetailActivity.this, ShowTimeActivity.class));
+                Intent intent = new Intent(MovieDetailActivity.this, ShowTimeActivity.class);
+                intent.putExtra("movie_id",movieId);
+                startActivity(intent);
             }
         });
     }
