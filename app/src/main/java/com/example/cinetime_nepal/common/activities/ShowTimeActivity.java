@@ -63,11 +63,12 @@ public class ShowTimeActivity extends AppCompatActivity {
         calendar.add(Calendar.DAY_OF_YEAR, 1);
         Date tomorrow = calendar.getTime();
 
-        calendar.add(Calendar.DAY_OF_YEAR, 2);
+        calendar.add(Calendar.DAY_OF_YEAR, 1);
         Date dayAfterTomorrow = calendar.getTime();
 
 //        System.out.println("Current time => " + c);
         SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+        SimpleDateFormat namedf = new SimpleDateFormat("EEEE");
         String todayDate = df.format(today);
         String tomorrowDate = df.format(tomorrow);
         String dayAfterTomorrowDate = df.format(dayAfterTomorrow);
@@ -79,7 +80,7 @@ public class ShowTimeActivity extends AppCompatActivity {
         fragments.add(new ShowTimeFragment(movieId,dayAfterTomorrowDate));
         tabTitles.add("Today");
         tabTitles.add("Tomorrow");
-        tabTitles.add(df.format(dayAfterTomorrowDate));
+        tabTitles.add(namedf.format(dayAfterTomorrow));
         sectionsPagerAdapter = new ShowTimePagerAdapter(this, getSupportFragmentManager(),fragments,tabTitles);
 
     }
