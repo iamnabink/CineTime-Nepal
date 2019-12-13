@@ -1,11 +1,13 @@
 package com.example.cinetime_nepal.common.activities;
 
+import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.android.volley.Request;
 import com.android.volley.Response;
@@ -85,9 +87,19 @@ public class ChangePwdActivity extends AppCompatActivity {
         AuthenticatedJSONRequest request = new AuthenticatedJSONRequest(getApplicationContext(), Request.Method.POST, API.changePwdUrl, jsonObject, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
+                dialog.dismiss();
                 try {
                     if (response.getBoolean("status")){
-
+//                        JSONObject dataObject = response.getJSONObject("data");
+//                        JSONObject tokenObject = dataObject.getJSONObject(SharedPref.key_user_token); //retrieving new token
+//                        String tokenString=tokenObject.toString(); //converting json token object into json string format
+//                        //initializing shared prefs to store received json string
+//                        SharedPreferences preferences = getApplicationContext().getSharedPreferences("My Preferences", Context.MODE_PRIVATE);
+//                        //so here we have received a new token so we need to overwrite
+//                        SharedPreferences.Editor editor = preferences.edit(); //Editor allows to edit and save our shared prefs.
+//                        editor.putString(SharedPref.key_user_token, tokenString); //overwriting new token string in to sharedprefs
+//                        editor.commit(); //commits, overwrites the data
+//                        Toast.makeText(ChangePwdActivity.this, response.getString("message"), Toast.LENGTH_SHORT).show();
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
