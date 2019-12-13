@@ -207,7 +207,8 @@ public class EditProfileActivity extends AppCompatActivity {
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                System.out.println(error);
+                dialog.cancel();
+//                System.out.println(error);
                 Toast.makeText(EditProfileActivity.this, "Server error! try again later", Toast.LENGTH_SHORT).show();
             }
         });
