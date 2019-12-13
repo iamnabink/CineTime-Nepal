@@ -19,6 +19,9 @@
         android:supportsRtl="true"
         android:usesCleartextTraffic="true"
         android:theme="@style/AppTheme">
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="@string/map_key" />
         <activity
             android:name=".common.activities.HomeActivity"
             android:label="@string/app_name"
@@ -36,6 +39,7 @@
         <activity android:name=".member.activities.EditProfileActivity"  android:theme="@style/AppTheme.transparent"/>
         <activity android:name=".common.activities.MovieDetailActivity"  android:theme="@style/AppTheme.transparent"/>
         <activity android:name=".common.activities.ShowTimeActivity" android:label="ShowTime" android:theme="@style/AppTheme.transparent"/>
+        <activity android:name=".common.activities.MapNearByCinemasActivity" android:theme="@style/AppTheme.transparent"/>
     </application>
 
 </manifest>
