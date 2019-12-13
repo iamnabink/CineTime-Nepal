@@ -15,28 +15,33 @@
             android:layout_width="match_parent"
             android:layout_height="200dp"
             android:orientation="vertical">
+            <RelativeLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_marginTop="15dp"
+                android:layout_marginBottom="10dp"
+                android:layout_marginRight="20dp"
+                android:layout_marginLeft="20dp"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:id="@+id/settings_tv"
+                    android:layout_width="wrap_content"
+                    android:text="SETTINGS"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content" />
 
+                <TextView
+                    android:id="@+id/logout_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentRight="true"
+                    android:gravity="right"
+                    android:text="LOGOUT" />
+            </RelativeLayout>
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="200dp">
-
-                <ImageView
-                    android:id="@+id/logout_iv"
-                    android:layout_width="28dp"
-                    android:layout_height="28dp"
-                    android:layout_alignParentRight="true"
-                    android:layout_above="@id/review_iv"
-                    android:layout_marginBottom="30dp"
-                    android:layout_marginRight="45dp"
-                    android:src="@drawable/ic_logout" />
-
-                <ImageView
-                    android:layout_width="35dp"
-                    android:layout_height="35dp"
-                    android:layout_above="@id/thumbs_up"
-                    android:layout_marginLeft="45dp"
-                    android:layout_marginBottom="25dp"
-                    android:src="@drawable/ic_configuration_gears" />
 
                 <ImageView
                     android:layout_width="match_parent"
@@ -82,6 +87,7 @@
                 <de.hdodenhof.circleimageview.CircleImageView
                     android:id="@+id/profile_iv"
                     android:layout_width="80dp"
+                    android:src="@drawable/portrait_zoro"
                     android:layout_height="80dp"
                     android:layout_centerHorizontal="true"
                     android:layout_marginTop="43dp"

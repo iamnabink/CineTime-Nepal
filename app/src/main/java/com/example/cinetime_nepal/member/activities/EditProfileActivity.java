@@ -14,12 +14,14 @@ import android.provider.MediaStore;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.example.cinetime_nepal.R;
+import com.example.cinetime_nepal.common.activities.ChangePwdActivity;
 import com.example.cinetime_nepal.common.activities.HomeActivity;
 import com.example.cinetime_nepal.common.network.API;
 import com.example.cinetime_nepal.common.network.AuthenticatedJSONRequest;
@@ -43,6 +45,7 @@ import de.hdodenhof.circleimageview.CircleImageView;
 
 public class EditProfileActivity extends AppCompatActivity {
     TextInputEditText editName, editBio;
+    TextView changeTv;
     SharedPreferences preferences;
     CircleImageView profileIv;
     SharedPreferences.Editor editor;
@@ -61,7 +64,18 @@ public class EditProfileActivity extends AppCompatActivity {
         loadData();
         editProfile();
         onClickImage();
+        onClickLister();
     }
+
+    private void onClickLister() {
+        changeTv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(EditProfileActivity.this, ChangePwdActivity.class));
+            }
+        });
+    }
+
 
     private void onClickImage() {
         profileIv.setOnClickListener(new View.OnClickListener() {
@@ -145,7 +159,7 @@ public class EditProfileActivity extends AppCompatActivity {
         User user = new Gson().fromJson(userDetails, User.class);
         editName.setText(user.getName());
         editBio.setText(user.getBio());
-        Picasso.get().load(user.getProfile_pic_url()).placeholder(R.drawable.portrait_zoro).into(profileIv);
+        Picasso.get().load(user.getProfile_pic_url()).into(profileIv);
     }
 
     private void initVar() {
@@ -153,6 +167,7 @@ public class EditProfileActivity extends AppCompatActivity {
         editBio = findViewById(R.id.edit_bio);
         profileIv = findViewById(R.id.edit_profile_iv);
         editBtn = findViewById(R.id.edit_btn);
+        changeTv=findViewById(R.id.chng_pwd_tv);
     }
 
     private void editProfile() {
@@ -163,6 +178,7 @@ public class EditProfileActivity extends AppCompatActivity {
             }
         });
     }
+
     private void update() {
         dialog = new CustomDialog(this);
         dialog.show();

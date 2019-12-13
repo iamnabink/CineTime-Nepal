@@ -58,7 +58,7 @@ public class LoginActivity extends AppCompatActivity {
                 } else if (password.isEmpty()) {
                     pwdEt.setError("please enter password");
                 } else if (password.length() < 6) {
-                    pwdEt.setError("password must be greater than 6 character");
+                    pwdEt.setError("password must be greater than 5 character");
                 } else {
                     signIn();
                 }

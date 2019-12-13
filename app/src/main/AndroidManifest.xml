@@ -40,6 +40,7 @@
         <activity android:name=".common.activities.MovieDetailActivity"  android:theme="@style/AppTheme.transparent"/>
         <activity android:name=".common.activities.ShowTimeActivity" android:label="ShowTime" android:theme="@style/AppTheme.transparent"/>
         <activity android:name=".common.activities.MapNearByCinemasActivity" android:theme="@style/AppTheme.transparent"/>
+        <activity android:name=".common.activities.ChangePwdActivity" android:theme="@style/AppTheme.transparent"/>
     </application>
 
 </manifest>

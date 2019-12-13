@@ -30,7 +30,7 @@ import com.squareup.picasso.Picasso;
 
 public class ProfileFragment extends Fragment {
     View view;
-    ImageView logoutIv;
+    TextView logoutIv;
     CircleImageView profileIv;
     CardView editProfileBtn;
     SharedPreferences preferences;
@@ -57,7 +57,7 @@ public class ProfileFragment extends Fragment {
     }
 
     private void intiVar() {
-        logoutIv = view.findViewById(R.id.logout_iv);
+        logoutIv = view.findViewById(R.id.logout_tv);
         editProfileBtn = view.findViewById(R.id.edit_profile_btn);
         profileIv = view.findViewById(R.id.profile_iv);
         unameTv= view.findViewById(R.id.uname_tv);

@@ -19,14 +19,22 @@
             android:layout_height="100dp"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="53dp" />
+        <TextView
+            android:layout_marginTop="40dp"
+            android:textColor="@color/colorPrimary"
+            android:layout_below="@id/edit_profile_iv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:text="Change Profile Pictur"/>
     </RelativeLayout>
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
-        android:textColor="@android:color/black"
-        android:textSize="16sp"
+        android:textColor="#8B8B8B"
+        android:textSize="13dp"
         android:text="Name"/>
     <com.google.android.material.textfield.TextInputLayout
         android:layout_width="match_parent"
@@ -48,8 +56,8 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
-        android:textColor="@android:color/black"
-        android:textSize="16sp"
+        android:textColor="#8B8B8B"
+        android:textSize="13sp"
         android:text="Bio"/>
     <com.google.android.material.textfield.TextInputLayout
         android:layout_width="match_parent"
@@ -63,16 +71,24 @@
             android:layout_height="wrap_content"
             android:imeActionLabel="next" />
     </com.google.android.material.textfield.TextInputLayout>
+    <TextView
+        android:id="@+id/chng_pwd_tv"
+        android:layout_gravity="right"
+        android:layout_marginRight="20dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="#116BFF"
+        android:text="Change pssword"/>
     <Button
         android:id="@+id/edit_btn"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:inputType="text"
-        android:layout_marginLeft="20dp"
+        android:layout_marginLeft="30dp"
         android:layout_marginTop="20dp"
-        android:layout_marginRight="20dp"
-        android:background="@drawable/button_background"
+        android:layout_marginRight="30dp"
+        android:background="@drawable/border_btn_background"
         android:text="SIGN UP"
-        android:textColor="@android:color/white" />
+        android:textColor="#116BFF" />
 </LinearLayout>
