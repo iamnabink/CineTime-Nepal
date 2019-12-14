@@ -33,7 +33,7 @@ public class ChangePwdActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_change_pwd);
         initVar();
-        onButtonClick();
+//        onButtonClick();
     }
 
     private void onButtonClick() {

@@ -89,6 +89,6 @@
         android:layout_marginTop="20dp"
         android:layout_marginRight="30dp"
         android:background="@drawable/border_btn_background"
-        android:text="SIGN UP"
+        android:text="Save"
         android:textColor="#116BFF" />
 </LinearLayout>

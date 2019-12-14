@@ -4,43 +4,66 @@
     package="com.example.cinetime_nepal">
 
     <dist:module dist:instant="true" />
-    <uses-permission android:name="android.permission.INTERNET"/>
+
+    <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
-    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
-    <uses-permission android:name="android.permission.INTERNET"/>
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:usesCleartextTraffic="true"
-        android:theme="@style/AppTheme">
+        android:theme="@style/AppTheme"
+        android:usesCleartextTraffic="true">
+
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="@string/map_key" />
+
         <activity
             android:name=".common.activities.HomeActivity"
             android:label="@string/app_name"
-            android:theme="@style/AppTheme.transparent">
-        </activity>
-        <activity android:name=".common.activities.SplashScreenActivity" android:theme="@style/AppTheme.NoActionBar">
+            android:theme="@style/AppTheme.transparent"></activity>
+        <activity
+            android:name=".common.activities.SplashScreenActivity"
+            android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".member.activities.SignUpActivity" android:theme="@style/AppTheme.transparent"/>
-        <activity android:name=".member.activities.LoginActivity" android:theme="@style/AppTheme.transparent"/>
-        <activity android:name=".member.activities.EditProfileActivity"  android:theme="@style/AppTheme.transparent"/>
-        <activity android:name=".common.activities.MovieDetailActivity"  android:theme="@style/AppTheme.transparent"/>
-        <activity android:name=".common.activities.ShowTimeActivity" android:label="ShowTime" android:theme="@style/AppTheme.transparent"/>
-        <activity android:name=".common.activities.MapNearByCinemasActivity" android:theme="@style/AppTheme.transparent"/>
-        <activity android:name=".common.activities.ChangePwdActivity" android:theme="@style/AppTheme.transparent"/>
+        <activity
+            android:name=".member.activities.SignUpActivity"
+            android:theme="@style/AppTheme.transparent" />
+        <activity
+            android:name=".member.activities.LoginActivity"
+            android:theme="@style/AppTheme.transparent" />
+        <activity
+            android:name=".member.activities.EditProfileActivity"
+            android:theme="@style/AppTheme.transparent" />
+        <activity
+            android:name=".common.activities.MovieDetailActivity"
+            android:theme="@style/AppTheme.transparent" />
+        <activity
+            android:name=".common.activities.ShowTimeActivity"
+            android:label="ShowTime"
+            android:theme="@style/AppTheme.transparent" />
+        <activity
+            android:name=".common.activities.MapNearByCinemasActivity"
+            android:theme="@style/AppTheme.transparent" />
+        <activity
+            android:name=".common.activities.ChangePwdActivity"
+            android:theme="@style/AppTheme.transparent" />
+        <activity
+            android:name=".common.activities.ResetPwdActivity"
+            android:theme="@style/AppTheme.transparent"></activity>
     </application>
 
 </manifest>
