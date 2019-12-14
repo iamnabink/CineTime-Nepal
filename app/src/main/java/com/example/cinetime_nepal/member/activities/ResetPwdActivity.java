@@ -1,4 +1,4 @@
-package com.example.cinetime_nepal.common.activities;
+package com.example.cinetime_nepal.member.activities;
 
 import android.os.Bundle;
 import androidx.appcompat.app.AppCompatActivity;

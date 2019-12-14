@@ -59,10 +59,10 @@
             android:name=".common.activities.MapNearByCinemasActivity"
             android:theme="@style/AppTheme.transparent" />
         <activity
-            android:name=".common.activities.ChangePwdActivity"
+            android:name=".member.activities.ChangePwdActivity"
             android:theme="@style/AppTheme.transparent" />
         <activity
-            android:name=".common.activities.ResetPwdActivity"
+            android:name=".member.activities.ResetPwdActivity"
             android:theme="@style/AppTheme.transparent"></activity>
     </application>
 

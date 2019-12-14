@@ -2,7 +2,6 @@ package com.example.cinetime_nepal.member.activities;
 
 import android.Manifest;
 import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
@@ -21,7 +20,6 @@ import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.example.cinetime_nepal.R;
-import com.example.cinetime_nepal.common.activities.ChangePwdActivity;
 import com.example.cinetime_nepal.common.activities.HomeActivity;
 import com.example.cinetime_nepal.common.network.API;
 import com.example.cinetime_nepal.common.network.AuthenticatedJSONRequest;

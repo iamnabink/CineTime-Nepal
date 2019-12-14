@@ -1,4 +1,4 @@
-package com.example.cinetime_nepal.common.activities;
+package com.example.cinetime_nepal.member.activities;
 
 import android.content.SharedPreferences;
 import android.os.Bundle;

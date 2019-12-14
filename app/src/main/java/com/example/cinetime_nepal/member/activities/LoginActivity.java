@@ -28,7 +28,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 public class LoginActivity extends AppCompatActivity {
-    TextView signupTv, emailEt, pwdEt;
+    TextView signupTv, emailEt, pwdEt,forgetPwdTv;
     Button signinBtn;
     SharedPreferences preferences;
 
@@ -45,6 +45,7 @@ public class LoginActivity extends AppCompatActivity {
         pwdEt = findViewById(R.id.pwd_et);
         signupTv = findViewById(R.id.signup_tv);
         signinBtn = findViewById(R.id.signin_btn);
+        forgetPwdTv=findViewById(R.id.forget_pwd_tv);
     }
 
     private void clickListener() {
@@ -69,6 +70,12 @@ public class LoginActivity extends AppCompatActivity {
             public void onClick(View v) {
                 startActivity(new Intent(LoginActivity.this, SignUpActivity.class));
                 finish();
+            }
+        });
+        forgetPwdTv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(LoginActivity.this,ResetPwdActivity.class));
             }
         });
     }
