@@ -58,7 +58,7 @@ public class LoginActivity extends AppCompatActivity {
                     emailEt.setError("Invalid email address");
                 } else if (password.isEmpty()) {
                     pwdEt.setError("please enter password");
-                } else if (password.length() < 6) {
+                } else if (password.length() < 5) {
                     pwdEt.setError("password must be greater than 5 character");
                 } else {
                     signIn();

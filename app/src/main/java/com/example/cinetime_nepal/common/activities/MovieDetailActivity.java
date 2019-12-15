@@ -1,14 +1,18 @@
 package com.example.cinetime_nepal.common.activities;
 
+import android.app.AlertDialog;
+import android.app.Dialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.RatingBar;
 import android.widget.TextView;
 
 import com.example.cinetime_nepal.R;
 import com.example.cinetime_nepal.common.models.Movie;
-import com.example.cinetime_nepal.common.utils.CommentDialog;
 import com.example.cinetime_nepal.common.utils.SharedPref;
 import com.google.gson.Gson;
 import com.squareup.picasso.Picasso;
@@ -20,6 +24,7 @@ public class MovieDetailActivity extends AppCompatActivity {
     TextView showTimetv, reviewTv, movieNameTv, movieGenreTv, movieSynopsis, movieCastsTv, movieDirectorsTv, releaseDate, movieRuntime, movieLanguage;
     Movie movie;
     ImageView posterImg, bgImage;
+    RatingBar ratingBar;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -74,9 +79,26 @@ public class MovieDetailActivity extends AppCompatActivity {
     }
 
     private void showDialogBox() {
-        CommentDialog dialog = new CommentDialog();
-        dialog.show(getSupportFragmentManager(), "Comment Dialog");
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        LayoutInflater inflater = getLayoutInflater();
+        View view = inflater.inflate(R.layout.layout_comment_box, null);
+        ratingBar =view.findViewById(R.id.ratingbar);
+        builder.setView(view).setTitle("Rate this movie").setNegativeButton("cancel", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
 
+            }
+        }).setPositiveButton("COMMENT", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                callAPI();
+            }
+        });
+        AlertDialog dialog = builder.create();
+        dialog.show();
+    }
+
+    private void callAPI() {
 
     }
 
@@ -86,11 +108,10 @@ public class MovieDetailActivity extends AppCompatActivity {
             public void onClick(View v) {
                 int movieId = movie.getId();
                 Intent intent = new Intent(MovieDetailActivity.this, ShowTimeActivity.class);
-                intent.putExtra("movie_id",movieId);
+                intent.putExtra("movie_id", movieId);
                 startActivity(intent);
             }
         });
     }
-
 
 }

@@ -75,6 +75,7 @@ public class ChangePwdActivity extends AppCompatActivity {
         editor = preferences.edit();
     }
     private void changePassword() {
+        dialog.show();
         JSONObject jsonObject = new JSONObject(); // creating json object
         try {
             jsonObject.put("old_password", oldPwdEt.getText().toString());

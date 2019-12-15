@@ -11,12 +11,21 @@
         android:layout_height="wrap_content">
 
         <de.hdodenhof.circleimageview.CircleImageView
-            android:id="@+id/c_uname"
+            android:id="@+id/u_iv"
             android:layout_width="50dp"
             android:layout_height="50dp"
             android:layout_marginLeft="20dp"
             android:layout_marginTop="4dp"
             android:src="@drawable/avatar" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="20dp"
+            android:layout_marginTop="8dp"
+            android:src="@drawable/ic_delete_black_24dp" />
 
         <TextView
             android:id="@+id/s_hall_name_tv"
@@ -24,7 +33,7 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="18sp"
             android:layout_marginTop="8dp"
-            android:layout_toRightOf="@id/c_uname"
+            android:layout_toRightOf="@id/u_iv"
             android:text="Anchal Sharama"
             android:textColor="@android:color/black"
             android:textSize="16sp" />
@@ -36,9 +45,19 @@
             android:layout_below="@id/s_hall_name_tv"
             android:layout_marginLeft="16sp"
             android:layout_marginTop="4dp"
-            android:layout_toRightOf="@id/c_uname"
+            android:layout_toRightOf="@id/u_iv"
             android:text="2 days ago"
             android:textSize="14sp" />
+        <RatingBar
+            android:layout_below="@id/u_iv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:numStars="5"
+            android:rating="3"
+            android:layout_marginLeft="84dp"
+            android:layout_marginTop="4dp"
+            style="?android:attr/ratingBarStyleSmall"
+            android:stepSize="1"/>
     </RelativeLayout>
 
     <TextView

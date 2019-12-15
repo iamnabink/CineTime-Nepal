@@ -7,6 +7,24 @@
     android:paddingRight="20dp"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="14sp"
+        android:layout_marginLeft="5dp"
+        android:text="Tell others what you think" />
+    <RatingBar
+        android:id="@+id/ratingbar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:stepSize="1"
+        android:numStars="5"
+        android:layout_marginTop="20dp"
+        android:isIndicator="false"
+        android:layout_marginBottom="20dp"
+        style="@style/Widget.AppCompat.RatingBar.Indicator"
+        android:layout_gravity="center"/>
+
 <EditText
     android:id="@+id/comment_et"
     android:layout_width="match_parent"
