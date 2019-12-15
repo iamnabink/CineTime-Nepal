@@ -1,10 +1,12 @@
 package com.example.cinetime_nepal.member.activities;
 
+import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.android.volley.Request;
 import com.android.volley.Response;
@@ -33,7 +35,7 @@ public class ChangePwdActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_change_pwd);
         initVar();
-//        onButtonClick();
+        onButtonClick();
     }
 
     private void onButtonClick() {
@@ -67,7 +69,7 @@ public class ChangePwdActivity extends AppCompatActivity {
         oldPwdEt=findViewById(R.id.old_pwd_et);
         newPwd = findViewById(R.id.new_pwd);
         cfmPwd=findViewById(R.id.cfm_pwd);
-        changeBtn=findViewById(R.id.edit_btn);
+        changeBtn=findViewById(R.id.change_btn);
         dialog = new CustomDialog(getApplicationContext());
         preferences = getSharedPreferences(SharedPref.key_shared_pref,MODE_PRIVATE);
         editor = preferences.edit();
@@ -87,16 +89,12 @@ public class ChangePwdActivity extends AppCompatActivity {
                 dialog.dismiss();
                 try {
                     if (response.getBoolean("status")){
-//                        JSONObject dataObject = response.getJSONObject("data");
-//                        JSONObject tokenObject = dataObject.getJSONObject(SharedPref.key_user_token); //retrieving new token
-//                        String tokenString=tokenObject.toString(); //converting json token object into json string format
-//                        //initializing shared prefs to store received json string
-//                        SharedPreferences preferences = getApplicationContext().getSharedPreferences("My Preferences", Context.MODE_PRIVATE);
-//                        //so here we have received a new token so we need to overwrite
-//                        SharedPreferences.Editor editor = preferences.edit(); //Editor allows to edit and save our shared prefs.
-//                        editor.putString(SharedPref.key_user_token, tokenString); //overwriting new token string in to sharedprefs
-//                        editor.commit(); //commits, overwrites the data
-//                        Toast.makeText(ChangePwdActivity.this, response.getString("message"), Toast.LENGTH_SHORT).show();
+                        JSONObject dataObject = response.getJSONObject(SharedPref.key_data_details);
+                        JSONObject tokenObject = dataObject.getJSONObject(SharedPref.key_user_token); //retrieving new token
+                        String tokenString=tokenObject.toString(); //converting json token object into json string format
+                        editor.putString(SharedPref.key_user_token, tokenString); //overwriting new token string in to sharedprefs
+                        editor.commit(); //commits, overwrites the data
+                        Toast.makeText(ChangePwdActivity.this, response.getString("message"), Toast.LENGTH_SHORT).show();
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -105,7 +103,8 @@ public class ChangePwdActivity extends AppCompatActivity {
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-
+                dialog.dismiss();
+                Toast.makeText(ChangePwdActivity.this, "Server error", Toast.LENGTH_SHORT).show();
             }
         });
         RestClient.getInstance(getApplicationContext()).addToRequestQueue(request);
