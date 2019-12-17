@@ -28,7 +28,7 @@
             android:src="@drawable/ic_delete_black_24dp" />
 
         <TextView
-            android:id="@+id/s_hall_name_tv"
+            android:id="@+id/user_name_tv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="18sp"
@@ -39,16 +39,17 @@
             android:textSize="16sp" />
 
         <TextView
-            android:id="@+id/s_comment_time"
+            android:id="@+id/comment_time"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/s_hall_name_tv"
+            android:layout_below="@id/user_name_tv"
             android:layout_marginLeft="16sp"
             android:layout_marginTop="4dp"
             android:layout_toRightOf="@id/u_iv"
             android:text="2 days ago"
             android:textSize="14sp" />
         <RatingBar
+            android:id="@+id/user_rating"
             android:layout_below="@id/u_iv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -61,6 +62,7 @@
     </RelativeLayout>
 
     <TextView
+        android:id="@+id/comment_tv"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="20dp"

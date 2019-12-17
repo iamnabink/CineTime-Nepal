@@ -16,6 +16,15 @@ public class Movie {
     private String genre;
     private String name;
     private int id;
+    private float rating;
+
+    public float getRating() {
+        return rating;
+    }
+
+    public void setRating(float rating) {
+        this.rating = rating;
+    }
 
     public String getUpdated_at() {
         return updated_at;

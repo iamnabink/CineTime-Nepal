@@ -3,7 +3,7 @@ package com.example.cinetime_nepal.common.models;
 public class Review {
 
     private User user;
-    private String created_at;
+    private String comment_time;
     private int rating_count;
     private String comment_msg;
     private int movie_id;
@@ -18,12 +18,12 @@ public class Review {
         this.user = user;
     }
 
-    public String getCreated_at() {
-        return created_at;
+    public String getComment_time() {
+        return comment_time;
     }
 
-    public void setCreated_at(String created_at) {
-        this.created_at = created_at;
+    public void setComment_time(String comment_time) {
+        this.comment_time = comment_time;
     }
 
     public int getRating_count() {

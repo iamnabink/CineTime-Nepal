@@ -10,21 +10,35 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.android.volley.Request;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
 import com.example.cinetime_nepal.R;
 import com.example.cinetime_nepal.common.models.Movie;
+import com.example.cinetime_nepal.common.network.API;
+import com.example.cinetime_nepal.common.network.AuthenticatedJSONRequest;
+import com.example.cinetime_nepal.common.network.RestClient;
+import com.example.cinetime_nepal.common.utils.InternetConnectionCheck;
 import com.example.cinetime_nepal.common.utils.SharedPref;
 import com.google.gson.Gson;
 import com.squareup.picasso.Picasso;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.RecyclerView;
 
 public class MovieDetailActivity extends AppCompatActivity {
-    TextView showTimetv, reviewTv, movieNameTv, movieGenreTv, movieSynopsis, movieCastsTv, movieDirectorsTv, releaseDate, movieRuntime, movieLanguage;
+    TextView showTimetv, reviewTv, movieNameTv, movieGenreTv, movieSynopsis, movieCastsTv, movieDirectorsTv, releaseDate, movieRuntime, movieLanguage,ratingCount;
     Movie movie;
     ImageView posterImg, bgImage;
     RatingBar ratingBar;
+    RecyclerView reviewRecyclerView;
+
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -38,6 +52,11 @@ public class MovieDetailActivity extends AppCompatActivity {
             movie = new Gson().fromJson(movieString, Movie.class);
             loadData();
         }
+        setRecyclerView();
+
+    }
+
+    private void setRecyclerView() {
 
     }
 
@@ -54,6 +73,10 @@ public class MovieDetailActivity extends AppCompatActivity {
         movieLanguage = findViewById(R.id.d_movie_language);
         posterImg = findViewById(R.id.d_poster_img);
         bgImage = findViewById(R.id.d_bg_image);
+        ratingBar = findViewById(R.id.d_movie_rating_bar);
+        ratingCount=findViewById(R.id.d_movie_rating_count);
+        reviewRecyclerView=findViewById(R.id.review_recycler_view);
+
     }
 
     private void loadData() {
@@ -67,6 +90,8 @@ public class MovieDetailActivity extends AppCompatActivity {
         movieLanguage.setText(movie.getLanguage());
         Picasso.get().load(movie.getPoster_url()).into(posterImg);
         Picasso.get().load(movie.getPoster_url()).into(bgImage);
+        ratingBar.setRating(movie.getRating());
+        ratingCount.setText(movie.getRating()==0.0?"N/A":""+movie.getRating()); //elvis operator
     }
 
     private void makeReview() {
@@ -99,8 +124,31 @@ public class MovieDetailActivity extends AppCompatActivity {
     }
 
     private void callAPI() {
+        JSONObject jsonObject = new JSONObject();
+        try {
+            jsonObject.put("movie_id",movie.getId());
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        AuthenticatedJSONRequest request = new AuthenticatedJSONRequest(this, Request.Method.POST, API.getMovieReviews, jsonObject, new Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject response) {
 
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Toast.makeText(MovieDetailActivity.this, "Server error occurred! Please try again later", Toast.LENGTH_SHORT).show();
+            }
+        });
+        if(InternetConnectionCheck.isNetworkAvailable(getApplicationContext())){
+            RestClient.getInstance(this).addToRequestQueue(request);
+        }
+        else {
+            Toast.makeText(this, "Can not load data! please connect internet and try again", Toast.LENGTH_SHORT).show();
+        }
     }
+
 
     private void displayShowTime() {
         showTimetv.setOnClickListener(new View.OnClickListener() {
