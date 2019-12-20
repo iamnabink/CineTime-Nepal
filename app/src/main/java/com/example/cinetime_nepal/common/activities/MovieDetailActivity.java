@@ -15,21 +15,29 @@ import android.widget.Toast;
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
 import com.example.cinetime_nepal.R;
+import com.example.cinetime_nepal.common.adapter.ReviewAdapter;
 import com.example.cinetime_nepal.common.models.Movie;
+import com.example.cinetime_nepal.common.models.Review;
 import com.example.cinetime_nepal.common.network.API;
 import com.example.cinetime_nepal.common.network.AuthenticatedJSONRequest;
 import com.example.cinetime_nepal.common.network.RestClient;
+import com.example.cinetime_nepal.common.utils.CustomDialog;
 import com.example.cinetime_nepal.common.utils.InternetConnectionCheck;
 import com.example.cinetime_nepal.common.utils.SharedPref;
 import com.google.gson.Gson;
 import com.squareup.picasso.Picasso;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
+
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 public class MovieDetailActivity extends AppCompatActivity {
@@ -38,8 +46,9 @@ public class MovieDetailActivity extends AppCompatActivity {
     ImageView posterImg, bgImage;
     RatingBar ratingBar;
     RecyclerView reviewRecyclerView;
-
-
+    CustomDialog dialog;
+    ReviewAdapter adapter;
+    ArrayList<Review> reviews = new ArrayList<>();
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -53,11 +62,14 @@ public class MovieDetailActivity extends AppCompatActivity {
             loadData();
         }
         setRecyclerView();
+        callReviewAPI();
 
     }
 
     private void setRecyclerView() {
-
+        adapter= new ReviewAdapter(reviews,getApplicationContext());
+        reviewRecyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
+        reviewRecyclerView.setAdapter(adapter);
     }
 
     private void initVar() {
@@ -76,7 +88,7 @@ public class MovieDetailActivity extends AppCompatActivity {
         ratingBar = findViewById(R.id.d_movie_rating_bar);
         ratingCount=findViewById(R.id.d_movie_rating_count);
         reviewRecyclerView=findViewById(R.id.review_recycler_view);
-
+        dialog=new CustomDialog(this);
     }
 
     private void loadData() {
@@ -116,28 +128,42 @@ public class MovieDetailActivity extends AppCompatActivity {
         }).setPositiveButton("COMMENT", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                callAPI();
+
             }
         });
         AlertDialog dialog = builder.create();
         dialog.show();
     }
 
-    private void callAPI() {
+    private void callReviewAPI() {
+        dialog.show();
         JSONObject jsonObject = new JSONObject();
         try {
             jsonObject.put("movie_id",movie.getId());
         } catch (JSONException e) {
             e.printStackTrace();
         }
-        AuthenticatedJSONRequest request = new AuthenticatedJSONRequest(this, Request.Method.POST, API.getMovieReviews, jsonObject, new Response.Listener<JSONObject>() {
+        JsonObjectRequest request = new JsonObjectRequest(Request.Method.POST, API.getMovieReviews, jsonObject, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
-
+                dialog.dismiss();
+                try {
+                    JSONArray dataArray = response.getJSONArray(SharedPref.key_data_details);
+                    for(int i = 0;i<dataArray.length();i++){
+                        JSONObject reviewObject = dataArray.getJSONObject(i);
+                        Review review = new Gson().fromJson(reviewObject.toString(),Review.class);
+                        reviews.add(review);
+                        adapter.notifyDataSetChanged();
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
             }
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
+                dialog.dismiss();
+                System.out.println(error);
                 Toast.makeText(MovieDetailActivity.this, "Server error occurred! Please try again later", Toast.LENGTH_SHORT).show();
             }
         });
@@ -145,6 +171,7 @@ public class MovieDetailActivity extends AppCompatActivity {
             RestClient.getInstance(this).addToRequestQueue(request);
         }
         else {
+            dialog.dismiss();
             Toast.makeText(this, "Can not load data! please connect internet and try again", Toast.LENGTH_SHORT).show();
         }
     }

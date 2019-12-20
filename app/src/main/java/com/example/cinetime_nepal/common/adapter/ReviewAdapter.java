@@ -69,7 +69,7 @@ public class ReviewAdapter extends RecyclerView.Adapter<ReviewAdapter.ReviewHold
         public ReviewHolder(@NonNull View itemView) {
         super(itemView);
         uIv = itemView.findViewById(R.id.u_iv);
-        userRating=itemView.findViewById(R.id.ratingbar);
+        userRating=itemView.findViewById(R.id.user_rating);
         userNameTv=itemView.findViewById(R.id.user_name_tv);
         commentTv=itemView.findViewById(R.id.comment_tv);
         commentTime= itemView.findViewById(R.id.comment_time);

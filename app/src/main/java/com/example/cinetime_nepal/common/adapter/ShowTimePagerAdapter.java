@@ -26,7 +26,6 @@ public class ShowTimePagerAdapter extends FragmentPagerAdapter {
     public Fragment getItem(int position) {
         return fragments.get(position);
     }
-
     @Nullable
     @Override
     public CharSequence getPageTitle(int position) {
@@ -37,4 +36,5 @@ public class ShowTimePagerAdapter extends FragmentPagerAdapter {
     public int getCount() {
         return 3;
     }
+
 }
