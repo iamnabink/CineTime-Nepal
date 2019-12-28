@@ -10,4 +10,5 @@ public class API {
     public static String nowShowingMovieUrl  =baseUrl+ "v1/movies/nowshowing";
     public static String showtimeMovieUrl  =baseUrl+"v1/showtimes/showtime";
     public static String getMovieReviews  =baseUrl+"reviews";
+    public static String getMoviesDetail =baseUrl+"v1/movieslist/movies";
 }

@@ -69,8 +69,9 @@ public class MovieFragment extends Fragment {
         intiVar();
         initViews();
         listeners();
-        loadDataShowing();
-        loadDataUpComing();
+        loadMovieData();
+//        loadDataShowing();
+//        loadDataUpComing();
         onRefresh();
         return view;
     }
@@ -79,8 +80,9 @@ public class MovieFragment extends Fragment {
         refreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                loadDataShowing();
-                loadDataUpComing();
+//                loadDataShowing();
+//                loadDataUpComing();
+                loadMovieData();
                 refreshLayout.setRefreshing(false);
             }
         });
@@ -91,8 +93,9 @@ public class MovieFragment extends Fragment {
                 .setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        loadDataShowing();
-                        loadDataUpComing();
+//                        loadDataShowing();
+//                        loadDataUpComing();
+                        loadMovieData();
                         dialog.show();
                         new Handler().postDelayed(new Runnable() {
                             @Override
@@ -129,6 +132,49 @@ public class MovieFragment extends Fragment {
         showsShowingRecyclerV.setLayoutManager(new LinearLayoutManager(getContext(), RecyclerView.HORIZONTAL, false));
         showsComingRecyclerV.setAdapter(uadapter);
         showsShowingRecyclerV.setAdapter(sadapter);
+    }
+    private void loadMovieData(){
+        smovies.clear();
+        umovies.clear();
+        dialog.show();
+        JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, API.getMoviesDetail, null, new Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject response) {
+                dialog.dismiss();
+                try {
+                    JSONArray showingMovieList = response.getJSONArray("showing");
+                    for (int i = 0;i<showingMovieList.length();i++){
+                        JSONObject movieObject = showingMovieList.getJSONObject(i);
+                        Movie movie = new Gson().fromJson(movieObject.toString(),Movie.class);
+                        smovies.add(movie);
+                        sadapter.notifyDataSetChanged();
+                    }
+                    JSONArray comingMoviesList = response.getJSONArray("coming");
+                    for (int i = 0;i<comingMoviesList.length();i++){
+                        JSONObject movieObject = comingMoviesList.getJSONObject(i);
+                        Movie movie = new Gson().fromJson(movieObject.toString(),Movie.class);
+                        umovies.add(movie);
+                        uadapter.notifyDataSetChanged();
+                    }
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                handlerError(error);
+                dialog.cancel();
+            }
+        });
+        if (InternetConnectionCheck.isNetworkAvailable(mContext)) {
+            noInternetView.setVisibility(View.GONE);
+            RestClient.getInstance(getContext()).addToRequestQueue(request);
+        } else {
+            noInternetView.setVisibility(View.VISIBLE);
+            dialog.dismiss();
+        }
     }
 
     private void loadDataShowing() {
