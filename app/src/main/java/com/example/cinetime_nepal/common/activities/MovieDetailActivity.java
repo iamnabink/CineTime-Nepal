@@ -22,6 +22,7 @@ import com.example.cinetime_nepal.common.models.Movie;
 import com.example.cinetime_nepal.common.models.Review;
 import com.example.cinetime_nepal.common.network.API;
 import com.example.cinetime_nepal.common.network.AuthenticatedJSONRequest;
+import com.example.cinetime_nepal.common.network.HandleNetworkError;
 import com.example.cinetime_nepal.common.network.RestClient;
 import com.example.cinetime_nepal.common.utils.CustomDialog;
 import com.example.cinetime_nepal.common.utils.InternetConnectionCheck;
@@ -128,11 +129,53 @@ public class MovieDetailActivity extends AppCompatActivity {
         }).setPositiveButton("COMMENT", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-
+                callMakeReviewApi();
             }
         });
         AlertDialog dialog = builder.create();
         dialog.show();
+    }
+    private void callMakeReviewApi() {
+//        "movie_id":6,
+//                "comment_msg":"Awesome Movie",
+//                "rating_count":3
+        JSONObject jsonObject = new JSONObject();
+        try {
+            jsonObject.put("movie_id",movie.getId());
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        AuthenticatedJSONRequest request = new AuthenticatedJSONRequest(getApplicationContext(), Request.Method.POST, API.makeMovieReview, jsonObject, new Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject response) {
+                try {
+                    if (response.getBoolean("status")){
+                        try {
+                            Toast.makeText(MovieDetailActivity.this, response.getString("message"), Toast.LENGTH_SHORT).show();
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                    else {
+                        Toast.makeText(MovieDetailActivity.this, response.getString("message"), Toast.LENGTH_SHORT).show();
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                HandleNetworkError.handlerError(error,getApplicationContext());
+            }
+        });
+        if (InternetConnectionCheck.isNetworkAvailable(getApplicationContext())){
+            RestClient.getInstance(getApplicationContext()).addToRequestQueue(request);
+        }
+        else {
+            Toast.makeText(this, "Can not load data! please connect internet and try again", Toast.LENGTH_SHORT).show();
+        }
     }
 
     private void callReviewAPI() {

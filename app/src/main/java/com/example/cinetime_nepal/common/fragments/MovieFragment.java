@@ -36,6 +36,7 @@ import com.example.cinetime_nepal.common.adapter.ShowingMovieAdapter;
 import com.example.cinetime_nepal.common.interfaces.AdapterClickListener;
 import com.example.cinetime_nepal.common.models.Movie;
 import com.example.cinetime_nepal.common.network.API;
+import com.example.cinetime_nepal.common.network.HandleNetworkError;
 import com.example.cinetime_nepal.common.network.RestClient;
 import com.example.cinetime_nepal.common.utils.CustomDialog;
 import com.example.cinetime_nepal.common.utils.InternetConnectionCheck;
@@ -164,7 +165,7 @@ public class MovieFragment extends Fragment {
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                handlerError(error);
+                HandleNetworkError.handlerError(error,mContext);
                 dialog.cancel();
             }
         });
@@ -205,7 +206,7 @@ public class MovieFragment extends Fragment {
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                handlerError(error);
+                HandleNetworkError.handlerError(error,mContext);
                 dialog.cancel();
             }
         });
@@ -247,7 +248,7 @@ public class MovieFragment extends Fragment {
             @Override
             public void onErrorResponse(VolleyError error) {
 //                System.out.println("error" + error);
-                handlerError(error);
+                HandleNetworkError.handlerError(error,mContext);
                 dialog.dismiss();
 
             }
@@ -261,29 +262,7 @@ public class MovieFragment extends Fragment {
         }
     }
 
-    private void handlerError(VolleyError error) {
-        try {
-            if (error instanceof TimeoutError || error instanceof NoConnectionError) {
-                //This indicates that the reuest has either time out or there is no connection
-                Toast.makeText(mContext, "time out or there is no connection", Toast.LENGTH_SHORT).show();
-            } else if (error instanceof AuthFailureError) {
-                Toast.makeText(mContext, "an Authentication Failure while performing the request", Toast.LENGTH_SHORT).show();
-                //Error indicating that there was an Authentication Failure while performing the request
-            } else if (error instanceof ServerError) {
-                Toast.makeText(mContext, "server responded with a error response", Toast.LENGTH_SHORT).show();
-                //Indicates that the server responded with a error response
-            } else if (error instanceof NetworkError) {
-                Toast.makeText(mContext, "network error while performing the request", Toast.LENGTH_SHORT).show();
-                //Indicates that there was network error while performing the request
-            } else if (error instanceof ParseError) {
-                Toast.makeText(mContext, "network error while performing the request", Toast.LENGTH_SHORT).show();
-            } else {
-                Toast.makeText(mContext, "An unknown  error occurred! please try again later", Toast.LENGTH_SHORT).show();
-            }
-        } catch (Exception e) {
-            Toast.makeText(mContext, "An unknown  error occurred! please try again later", Toast.LENGTH_SHORT).show();
-        }
-    }
+
 
     @Override
     public void onAttach(@NonNull Context context) {
