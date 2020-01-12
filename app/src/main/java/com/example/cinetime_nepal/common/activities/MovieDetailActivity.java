@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
@@ -43,6 +44,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 public class MovieDetailActivity extends AppCompatActivity {
     TextView showTimetv, reviewTv, movieNameTv, movieGenreTv, movieSynopsis, movieCastsTv, movieDirectorsTv, releaseDate, movieRuntime, movieLanguage,ratingCount;
+    EditText messageEt;
     Movie movie;
     ImageView posterImg, bgImage;
     RatingBar ratingBar;
@@ -121,6 +123,7 @@ public class MovieDetailActivity extends AppCompatActivity {
         LayoutInflater inflater = getLayoutInflater();
         View view = inflater.inflate(R.layout.layout_comment_box, null);
         ratingBar =view.findViewById(R.id.ratingbar);
+        messageEt= view.findViewById(R.id.comment_et);
         builder.setView(view).setTitle("Rate this movie").setNegativeButton("cancel", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
@@ -142,6 +145,8 @@ public class MovieDetailActivity extends AppCompatActivity {
         JSONObject jsonObject = new JSONObject();
         try {
             jsonObject.put("movie_id",movie.getId());
+            jsonObject.put("rating_count",ratingBar.getRating());
+            jsonObject.put("comment_msg",messageEt.getText());
         } catch (JSONException e) {
             e.printStackTrace();
         }
