@@ -3,6 +3,7 @@ package com.example.cinetime_nepal.common.fragments;
 import android.content.Intent;
 import android.os.Bundle;
 
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -20,13 +21,14 @@ public class HallFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         view= inflater.inflate(R.layout.fragment_hall, container, false);
-        mapNearme=view.findViewById(R.id.map_nearme_ic);
-        mapNearme.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(getContext(), MapNearByCinemasActivity.class));
-            }
-        });
+        ((AppCompatActivity) getActivity()).getSupportActionBar().show();
+//        mapNearme=view.findViewById(R.id.map_nearme_ic);
+//        mapNearme.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                startActivity(new Intent(getContext(), MapNearByCinemasActivity.class));
+//            }
+//        });
          return view;
     }
 }

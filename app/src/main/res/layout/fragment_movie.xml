@@ -4,7 +4,7 @@
     android:id="@+id/movie_frag"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-<androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+<com.example.cinetime_nepal.common.utils.FixedSwipeRefreshLayout
     android:id="@+id/swipe_refresh_l"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
@@ -20,13 +20,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
-
-                <ImageView
-                    android:layout_width="180dp"
-                    android:layout_height="50dp"
-                    android:layout_gravity="center"
-                    android:src="@drawable/ic_brandname" />
-
 <!--                <SearchView-->
 <!--                    android:id="@+id/search_bar"-->
 <!--                    android:layout_width="match_parent"-->
@@ -48,8 +41,9 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="20dp"
-                        android:text="Now Showing" />
+                        android:layout_marginLeft="15dp"
+                        android:textColor="@android:color/black"
+                        android:text="Now Showing...." />
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -57,7 +51,9 @@
                         android:layout_alignParentRight="true"
                         android:layout_marginRight="20dp"
                         android:text="see all"
-                        android:textColor="#9F0931FF" />
+
+                        android:textColor="#9F0931FF"
+                        android:layout_alignParentEnd="true" />
 
                 </RelativeLayout>
 
@@ -66,7 +62,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="15dp"
-                    android:layout_marginTop="20dp" />
+                    android:layout_marginTop="10dp" />
 
                 <RelativeLayout
                     android:layout_width="match_parent"
@@ -77,8 +73,9 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="20dp"
-                        android:text="Upcoming" />
+                        android:layout_marginLeft="15dp"
+                        android:textColor="@android:color/black"
+                        android:text="Coming Soon...." />
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -95,10 +92,10 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="15dp"
                     android:layout_marginTop="15dp"
-                    android:layout_marginBottom="20dp" />
+                    android:layout_marginBottom="10dp" />
             </LinearLayout>
         </ScrollView>
     </LinearLayout>
-</androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+</com.example.cinetime_nepal.common.utils.FixedSwipeRefreshLayout>
     <include android:visibility="gone" android:id="@+id/view_no_internet" layout="@layout/layout_no_internet"/>
 </FrameLayout>

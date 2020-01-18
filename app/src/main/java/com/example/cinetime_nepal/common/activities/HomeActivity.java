@@ -15,19 +15,26 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import android.view.MenuItem;
 
+
 import androidx.annotation.NonNull;
+import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.appcompat.app.AppCompatActivity;
 
 public class HomeActivity extends AppCompatActivity {
     BottomNavigationView bottomNavigationView;
+    Toolbar myToolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
-        replaceFragment(new MovieFragment());
+        myToolbar = findViewById(R.id.my_toolbar);
+        setSupportActionBar(myToolbar);
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
+        replaceFragment(new MovieFragment(),"MovieFragment");
+
         initVar();
         setUpBottomNavigation();
     }
@@ -44,7 +51,7 @@ public class HomeActivity extends AppCompatActivity {
                     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                         switch (item.getItemId()) {
                             case R.id.bottomnav_home:
-                                replaceFragment(new HomeFragment());
+                                replaceFragment(new HomeFragment(),"HomeFragment");
                                 break;
                             case R.id.bottomnav_profile:
 //                              if (SharedPref.name has  user data go to userprofile fragment else replaceFragment() with log in fragment;)
@@ -52,20 +59,20 @@ public class HomeActivity extends AppCompatActivity {
                                 String userToken = preferences.getString(SharedPref.key_user_token,null);
                                 String userDetails = preferences.getString(SharedPref.key_user_details,null);
                                 if (userToken == null && userDetails == null){
-                                    replaceFragment(new RegisterFragment());
+                                    replaceFragment(new RegisterFragment(),"RegisterFragment");
                                 }
                                 else {
-                                    replaceFragment(new ProfileFragment());
+                                    replaceFragment(new ProfileFragment(),"ProfileFragment");
                                 }
                                 break;
                             case R.id.bottomnav_notification:
-                                replaceFragment(new NotificationFragement());
+                                replaceFragment(new NotificationFragement(),"NotificationFragement");
                                 break;
                             case R.id.bottomnav_hall:
-                                replaceFragment(new HallFragment());
+                                replaceFragment(new HallFragment(),"HallFragment");
                                 break;
                             case R.id.bottomnav_movies:
-                                replaceFragment(new MovieFragment());
+                                replaceFragment(new MovieFragment(),"MovieFragment");
                                 break;
                         }
                         return true; //not false (it will automatically make bottom icon selected
@@ -74,12 +81,12 @@ public class HomeActivity extends AppCompatActivity {
         bottomNavigationView.setSelectedItemId(R.id.bottomnav_movies);
     }
 
-    private void replaceFragment(Fragment fragment) {
+    private void replaceFragment(Fragment fragment, String s) {
         // Create new fragment and transaction
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         // Replace whatever is in the fragment_container view with this fragment,
         // and add the transaction to the back stack if needed
-        transaction.replace(R.id.container, fragment);
+        transaction.replace(R.id.container, fragment, s);
         // transaction.addToBackStack(null);
         // Commit the transaction
         transaction.commit();

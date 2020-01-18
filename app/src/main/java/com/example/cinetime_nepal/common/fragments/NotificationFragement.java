@@ -1,6 +1,7 @@
 package com.example.cinetime_nepal.common.fragments;
 import android.os.Bundle;
 
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -19,6 +20,7 @@ public class NotificationFragement extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         view = inflater.inflate(R.layout.fragment_notification, container, false);
+        ((AppCompatActivity) getActivity()).getSupportActionBar().hide();
         initVar();
         initViews();
         loadData();

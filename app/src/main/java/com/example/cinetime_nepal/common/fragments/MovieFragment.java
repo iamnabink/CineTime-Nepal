@@ -8,7 +8,9 @@ import android.net.NetworkInfo;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
@@ -17,6 +19,7 @@ import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.FrameLayout;
 import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
@@ -39,6 +42,7 @@ import com.example.cinetime_nepal.common.network.API;
 import com.example.cinetime_nepal.common.network.HandleNetworkError;
 import com.example.cinetime_nepal.common.network.RestClient;
 import com.example.cinetime_nepal.common.utils.CustomDialog;
+import com.example.cinetime_nepal.common.utils.FixedSwipeRefreshLayout;
 import com.example.cinetime_nepal.common.utils.InternetConnectionCheck;
 import com.example.cinetime_nepal.common.utils.SharedPref;
 import com.google.gson.Gson;
@@ -59,7 +63,7 @@ public class MovieFragment extends Fragment {
     SharedPreferences.Editor editor;
     CustomDialog dialog;
     View noInternetView, view;
-    SwipeRefreshLayout refreshLayout;
+    FixedSwipeRefreshLayout refreshLayout;
     private Context mContext;
     ;
 
@@ -67,15 +71,18 @@ public class MovieFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_movie, container, false);
+        ((AppCompatActivity) getActivity()).getSupportActionBar().show();
         intiVar();
         initViews();
         listeners();
         loadMovieData();
 //        loadDataShowing();
 //        loadDataUpComing();
+
         onRefresh();
         return view;
     }
+
 
     private void onRefresh() {
         refreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
@@ -97,14 +104,8 @@ public class MovieFragment extends Fragment {
 //                        loadDataShowing();
 //                        loadDataUpComing();
                         loadMovieData();
-                        dialog.show();
-                        new Handler().postDelayed(new Runnable() {
-                            @Override
-                            public void run() {
-                                dialog.cancel();
-                            }
-                        }, 500);
                     }
+
                 });
     }
 
