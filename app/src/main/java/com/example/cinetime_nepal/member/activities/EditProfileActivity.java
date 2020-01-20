@@ -12,6 +12,8 @@ import android.os.Bundle;
 import android.provider.MediaStore;
 import android.util.Log;
 import android.view.View;
+import android.view.ViewGroup;
+import android.view.Window;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -24,9 +26,9 @@ import com.example.cinetime_nepal.common.activities.HomeActivity;
 import com.example.cinetime_nepal.common.network.API;
 import com.example.cinetime_nepal.common.network.AuthenticatedJSONRequest;
 import com.example.cinetime_nepal.common.network.RestClient;
-import com.example.cinetime_nepal.common.utils.CustomDialog;
+import com.example.cinetime_nepal.common.utils.ProgressDialog;
 import com.example.cinetime_nepal.common.utils.ImageConverter;
-import com.example.cinetime_nepal.common.utils.InternetConnectionCheck;
+import com.example.cinetime_nepal.common.utils.CheckConnectivity;
 import com.example.cinetime_nepal.common.utils.SharedPref;
 import com.example.cinetime_nepal.member.models.User;
 import com.google.android.material.textfield.TextInputEditText;
@@ -49,7 +51,7 @@ public class EditProfileActivity extends AppCompatActivity {
     SharedPreferences.Editor editor;
     String selectedImagePath; //get image and image path from mobile
     Button editBtn;
-    CustomDialog dialog;
+    ProgressDialog dialog;
     private static final int IMAGE_PICKER_REQ_CODE = 100;
     private static final int READ_REQ_CODE = 293;
     String profile_pic_url; //gets profile image string
@@ -178,7 +180,9 @@ public class EditProfileActivity extends AppCompatActivity {
     }
 
     private void update() {
-        dialog = new CustomDialog(this);
+        dialog = new ProgressDialog(this);
+        Window window = dialog.getWindow();
+        window.setLayout(ViewGroup.LayoutParams.MATCH_PARENT, 800);
         dialog.show();
         JSONObject jsonObject = new JSONObject();
         try {
@@ -226,7 +230,7 @@ public class EditProfileActivity extends AppCompatActivity {
                 Toast.makeText(EditProfileActivity.this, "Server error! try again later", Toast.LENGTH_SHORT).show();
             }
         });
-        if (InternetConnectionCheck.isNetworkAvailable(getApplicationContext())){
+        if (CheckConnectivity.isNetworkAvailable(getApplicationContext())){
             RestClient.getInstance(this).addToRequestQueue(jsonRequest);
         }
         else {

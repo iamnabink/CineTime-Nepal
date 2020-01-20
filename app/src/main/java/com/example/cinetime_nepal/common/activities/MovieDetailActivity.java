@@ -1,12 +1,14 @@
 package com.example.cinetime_nepal.common.activities;
 
 import android.app.AlertDialog;
-import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
+import android.view.Window;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RatingBar;
@@ -25,8 +27,8 @@ import com.example.cinetime_nepal.common.network.API;
 import com.example.cinetime_nepal.common.network.AuthenticatedJSONRequest;
 import com.example.cinetime_nepal.common.network.HandleNetworkError;
 import com.example.cinetime_nepal.common.network.RestClient;
-import com.example.cinetime_nepal.common.utils.CustomDialog;
-import com.example.cinetime_nepal.common.utils.InternetConnectionCheck;
+import com.example.cinetime_nepal.common.utils.ProgressDialog;
+import com.example.cinetime_nepal.common.utils.CheckConnectivity;
 import com.example.cinetime_nepal.common.utils.SharedPref;
 import com.google.gson.Gson;
 import com.squareup.picasso.Picasso;
@@ -49,7 +51,7 @@ public class MovieDetailActivity extends AppCompatActivity {
     ImageView posterImg, bgImage;
     RatingBar ratingBar;
     RecyclerView reviewRecyclerView;
-    CustomDialog dialog;
+    ProgressDialog dialog;
     ReviewAdapter adapter;
     ArrayList<Review> reviews = new ArrayList<>();
     @Override
@@ -91,7 +93,10 @@ public class MovieDetailActivity extends AppCompatActivity {
         ratingBar = findViewById(R.id.d_movie_rating_bar);
         ratingCount=findViewById(R.id.d_movie_rating_count);
         reviewRecyclerView=findViewById(R.id.review_recycler_view);
-        dialog=new CustomDialog(this);
+        dialog=new ProgressDialog(this);
+        Window window = dialog.getWindow();
+//        window.setLayout(ViewGroup.LayoutParams.MATCH_PARENT, 800);
+        dialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
     }
 
     private void loadData() {
@@ -157,6 +162,7 @@ public class MovieDetailActivity extends AppCompatActivity {
                     if (response.getBoolean("status")){
                         try {
                             Toast.makeText(MovieDetailActivity.this, response.getString("message"), Toast.LENGTH_SHORT).show();
+
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
@@ -175,7 +181,7 @@ public class MovieDetailActivity extends AppCompatActivity {
                 HandleNetworkError.handlerError(error,getApplicationContext());
             }
         });
-        if (InternetConnectionCheck.isNetworkAvailable(getApplicationContext())){
+        if (CheckConnectivity.isNetworkAvailable(getApplicationContext())){
             RestClient.getInstance(getApplicationContext()).addToRequestQueue(request);
         }
         else {
@@ -215,7 +221,7 @@ public class MovieDetailActivity extends AppCompatActivity {
                 Toast.makeText(MovieDetailActivity.this, "Server error occurred! Please try again later", Toast.LENGTH_SHORT).show();
             }
         });
-        if(InternetConnectionCheck.isNetworkAvailable(getApplicationContext())){
+        if(CheckConnectivity.isNetworkAvailable(getApplicationContext())){
             RestClient.getInstance(this).addToRequestQueue(request);
         }
         else {

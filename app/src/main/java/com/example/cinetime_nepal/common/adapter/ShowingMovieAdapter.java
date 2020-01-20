@@ -40,9 +40,11 @@ public class ShowingMovieAdapter extends RecyclerView.Adapter<ShowingMovieAdapte
     @Override
     public void onBindViewHolder(@NonNull MovieViewHolder holder, int position) {
         Movie movie = sMovies.get(position);
-        Picasso.get().load(movie.getPoster_url()).into(holder.imgv);
         holder.genreTv.setText(movie.getGenre());
         holder.nameTv.setText(movie.getName());
+        Picasso.get().load(movie.getPoster_url())
+                .placeholder(R.drawable.no_image)
+                .into(holder.imgv);
     }
 
     @Override

@@ -1,9 +1,10 @@
 package com.example.cinetime_nepal.member.activities;
 
-import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
+import android.view.ViewGroup;
+import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -15,7 +16,7 @@ import com.example.cinetime_nepal.R;
 import com.example.cinetime_nepal.common.network.API;
 import com.example.cinetime_nepal.common.network.AuthenticatedJSONRequest;
 import com.example.cinetime_nepal.common.network.RestClient;
-import com.example.cinetime_nepal.common.utils.CustomDialog;
+import com.example.cinetime_nepal.common.utils.ProgressDialog;
 import com.example.cinetime_nepal.common.utils.SharedPref;
 
 import org.json.JSONException;
@@ -27,7 +28,7 @@ import androidx.appcompat.app.AppCompatActivity;
 public class ChangePwdActivity extends AppCompatActivity {
     EditText oldPwdEt,newPwd,cfmPwd;
     Button changeBtn;
-    CustomDialog dialog;
+    ProgressDialog dialog;
     SharedPreferences.Editor editor;
     SharedPreferences preferences;
     @Override
@@ -70,12 +71,16 @@ public class ChangePwdActivity extends AppCompatActivity {
         newPwd = findViewById(R.id.new_pwd);
         cfmPwd=findViewById(R.id.cfm_pwd);
         changeBtn=findViewById(R.id.change_btn);
-        dialog = new CustomDialog(getApplicationContext());
+        dialog = new ProgressDialog(getApplicationContext());
+        Window window = dialog.getWindow();
+        window.setLayout(ViewGroup.LayoutParams.MATCH_PARENT, 800);
         preferences = getSharedPreferences(SharedPref.key_shared_pref,MODE_PRIVATE);
         editor = preferences.edit();
     }
     private void changePassword() {
         dialog.show();
+        Window window = dialog.getWindow();
+        window.setLayout(ViewGroup.LayoutParams.MATCH_PARENT, 800);
         JSONObject jsonObject = new JSONObject(); // creating json object
         try {
             jsonObject.put("old_password", oldPwdEt.getText().toString());

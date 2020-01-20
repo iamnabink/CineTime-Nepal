@@ -3,33 +3,22 @@ package com.example.cinetime_nepal.common.fragments;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.net.ConnectivityManager;
-import android.net.NetworkInfo;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
-import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.FrameLayout;
-import android.widget.Toast;
+import android.view.Window;
 
-import com.android.volley.AuthFailureError;
-import com.android.volley.NetworkError;
-import com.android.volley.NoConnectionError;
-import com.android.volley.ParseError;
 import com.android.volley.Request;
 import com.android.volley.Response;
-import com.android.volley.ServerError;
-import com.android.volley.TimeoutError;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.example.cinetime_nepal.R;
@@ -41,9 +30,8 @@ import com.example.cinetime_nepal.common.models.Movie;
 import com.example.cinetime_nepal.common.network.API;
 import com.example.cinetime_nepal.common.network.HandleNetworkError;
 import com.example.cinetime_nepal.common.network.RestClient;
-import com.example.cinetime_nepal.common.utils.CustomDialog;
-import com.example.cinetime_nepal.common.utils.FixedSwipeRefreshLayout;
-import com.example.cinetime_nepal.common.utils.InternetConnectionCheck;
+import com.example.cinetime_nepal.common.utils.ProgressDialog;
+import com.example.cinetime_nepal.common.utils.CheckConnectivity;
 import com.example.cinetime_nepal.common.utils.SharedPref;
 import com.google.gson.Gson;
 
@@ -61,9 +49,9 @@ public class MovieFragment extends Fragment {
     ShowingMovieAdapter sadapter;
     SharedPreferences preferences;
     SharedPreferences.Editor editor;
-    CustomDialog dialog;
+    ProgressDialog dialog;
     View noInternetView, view;
-    FixedSwipeRefreshLayout refreshLayout;
+    SwipeRefreshLayout refreshLayout;
     private Context mContext;
     ;
 
@@ -114,7 +102,10 @@ public class MovieFragment extends Fragment {
         noInternetView = view.findViewById(R.id.view_no_internet);
         showsShowingRecyclerV = view.findViewById(R.id.shows_showing_recycler_v);
         showsComingRecyclerV = view.findViewById(R.id.shows_coming_recycler_v);
-        dialog = new CustomDialog(mContext);
+        dialog = new ProgressDialog(mContext);
+//        Window window = dialog.getWindow();
+//        window.setLayout(ViewGroup.LayoutParams.MATCH_PARENT, 800);
+        dialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
         preferences = getContext().getSharedPreferences(SharedPref.key_shared_pref, Context.MODE_PRIVATE);
     }
 
@@ -170,7 +161,7 @@ public class MovieFragment extends Fragment {
                 dialog.cancel();
             }
         });
-        if (InternetConnectionCheck.isNetworkAvailable(mContext)) {
+        if (CheckConnectivity.isNetworkAvailable(mContext)) {
             noInternetView.setVisibility(View.GONE);
             RestClient.getInstance(getContext()).addToRequestQueue(request);
         } else {
@@ -211,7 +202,7 @@ public class MovieFragment extends Fragment {
                 dialog.cancel();
             }
         });
-        if (InternetConnectionCheck.isNetworkAvailable(mContext)) {
+        if (CheckConnectivity.isNetworkAvailable(mContext)) {
             noInternetView.setVisibility(View.GONE);
             RestClient.getInstance(getContext()).addToRequestQueue(request);
         } else {
@@ -254,7 +245,7 @@ public class MovieFragment extends Fragment {
 
             }
         });
-        if (InternetConnectionCheck.isNetworkAvailable(mContext)) {
+        if (CheckConnectivity.isNetworkAvailable(mContext)) {
             noInternetView.setVisibility(View.GONE);
             RestClient.getInstance(getContext()).addToRequestQueue(request);
         } else {

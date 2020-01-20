@@ -3,6 +3,7 @@ package com.example.cinetime_nepal.common.fragments;
 import android.content.Intent;
 import android.os.Bundle;
 
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -23,6 +24,7 @@ public class RegisterFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
          view = inflater.inflate(R.layout.fragment_register, container, false);
+        ((AppCompatActivity) getActivity()).getSupportActionBar().hide();
          actCreateBtn=view.findViewById(R.id.act_create_btn);
         actLogin=view.findViewById(R.id.create_act_login);
          actCreateBtn.setOnClickListener(new View.OnClickListener() {

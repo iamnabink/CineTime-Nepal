@@ -1,9 +1,7 @@
 package com.example.cinetime_nepal.common.adapter;
 
 import android.content.Context;
-
 import java.util.ArrayList;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;

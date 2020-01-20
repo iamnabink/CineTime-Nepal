@@ -4,6 +4,8 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
+import android.view.ViewGroup;
+import android.view.Window;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -16,8 +18,8 @@ import com.example.cinetime_nepal.R;
 import com.example.cinetime_nepal.common.activities.SplashScreenActivity;
 import com.example.cinetime_nepal.common.network.API;
 import com.example.cinetime_nepal.common.network.RestClient;
-import com.example.cinetime_nepal.common.utils.CustomDialog;
-import com.example.cinetime_nepal.common.utils.InternetConnectionCheck;
+import com.example.cinetime_nepal.common.utils.ProgressDialog;
+import com.example.cinetime_nepal.common.utils.CheckConnectivity;
 import com.example.cinetime_nepal.common.utils.SharedPref;
 import com.example.cinetime_nepal.common.utils.Validator;
 
@@ -81,7 +83,9 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void signIn() {
-        final CustomDialog dialog = new CustomDialog(this);
+        final ProgressDialog dialog = new ProgressDialog(this);
+        Window window = dialog.getWindow();
+        window.setLayout(ViewGroup.LayoutParams.MATCH_PARENT, 800);
         dialog.show();
         preferences = getSharedPreferences(SharedPref.key_shared_pref, MODE_PRIVATE);
         final SharedPreferences.Editor editor = preferences.edit();
@@ -104,7 +108,6 @@ public class LoginActivity extends AppCompatActivity {
                         JSONObject tokernObject = dataObject.getJSONObject(SharedPref.key_user_token);
                         String userDetails = userObject.toString(); //convert JSONObject to string
                         String tokenDetails = tokernObject.toString();
-//                        User users = new Gson().fromJson(userDetails,User.class);
                         editor.putString(SharedPref.key_user_details, userDetails);
                         editor.putString(SharedPref.key_user_token, tokenDetails);
                         editor.apply();
@@ -135,7 +138,7 @@ public class LoginActivity extends AppCompatActivity {
 
             }
         });
-        if (InternetConnectionCheck.isNetworkAvailable(getApplicationContext())){
+        if (CheckConnectivity.isNetworkAvailable(getApplicationContext())){
             RestClient.getInstance(this).addToRequestQueue(request);
         }
         else {

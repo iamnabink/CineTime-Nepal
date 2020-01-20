@@ -12,6 +12,8 @@ import android.os.Bundle;
 import android.provider.MediaStore;
 import android.util.Log;
 import android.view.View;
+import android.view.ViewGroup;
+import android.view.Window;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -23,9 +25,9 @@ import com.android.volley.toolbox.JsonObjectRequest;
 import com.example.cinetime_nepal.R;
 import com.example.cinetime_nepal.common.network.API;
 import com.example.cinetime_nepal.common.network.RestClient;
-import com.example.cinetime_nepal.common.utils.CustomDialog;
+import com.example.cinetime_nepal.common.utils.ProgressDialog;
 import com.example.cinetime_nepal.common.utils.ImageConverter;
-import com.example.cinetime_nepal.common.utils.InternetConnectionCheck;
+import com.example.cinetime_nepal.common.utils.CheckConnectivity;
 import com.example.cinetime_nepal.common.utils.Validator;
 
 import org.json.JSONException;
@@ -175,7 +177,9 @@ public class SignUpActivity extends AppCompatActivity {
     }
 
     private void signUp() {
-        final CustomDialog dialog = new CustomDialog(this);
+        final ProgressDialog dialog = new ProgressDialog(this);
+        Window window = dialog.getWindow();
+        window.setLayout(ViewGroup.LayoutParams.MATCH_PARENT, 800);
         dialog.show();
         JSONObject jsonObject = new JSONObject();
         try {
@@ -218,7 +222,7 @@ public class SignUpActivity extends AppCompatActivity {
                 Toast.makeText(SignUpActivity.this, "An error occurred please try again later", Toast.LENGTH_SHORT).show();
             }
         });
-        if (InternetConnectionCheck.isNetworkAvailable(getApplicationContext())){
+        if (CheckConnectivity.isNetworkAvailable(getApplicationContext())){
             RestClient.getInstance(this).addToRequestQueue(request);
         }
         else {

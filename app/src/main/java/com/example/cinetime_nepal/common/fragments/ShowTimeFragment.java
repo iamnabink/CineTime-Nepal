@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
 import android.widget.Toast;
 
 import com.android.volley.Request;
@@ -22,7 +23,7 @@ import com.example.cinetime_nepal.common.adapter.ShowTimeAdapter;
 import com.example.cinetime_nepal.common.models.ShowTime;
 import com.example.cinetime_nepal.common.network.API;
 import com.example.cinetime_nepal.common.network.RestClient;
-import com.example.cinetime_nepal.common.utils.CustomDialog;
+import com.example.cinetime_nepal.common.utils.ProgressDialog;
 import com.example.cinetime_nepal.common.utils.SharedPref;
 import com.google.gson.Gson;
 
@@ -67,8 +68,11 @@ public class ShowTimeFragment extends Fragment {
 
     private void loadData() {
         showTimes.clear();
-        final CustomDialog dialog = new CustomDialog(mContext);
+        final ProgressDialog dialog = new ProgressDialog(mContext);
         dialog.show();
+//        Window window = dialog.getWindow();
+//        window.setLayout(ViewGroup.LayoutParams.MATCH_PARENT, 800);
+        dialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
         JSONObject jsonObject = new JSONObject();
         try {
             jsonObject.put("movie_id",movie_id);

@@ -1,8 +1,10 @@
 package com.example.cinetime_nepal.common.models;
 
+import com.example.cinetime_nepal.member.models.User;
+
 public class Review {
 
-    private User user;
+    private com.example.cinetime_nepal.member.models.User user;
     private String comment_time;
     private int rating_count;
     private String comment_msg;
