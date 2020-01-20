@@ -1,9 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:dist="http://schemas.android.com/apk/distribution"
-    package="com.example.cinetime_nepal">
-
-    <dist:module dist:instant="true" />
+    package="com.whoamie.cinetime_nepal">
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
@@ -12,6 +10,7 @@
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -20,17 +19,27 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-
+        <!-- [START fcm_default_icon] -->
+        <!-- Set custom default icon. This is used when no icon is set for incoming notification messages.
+             See README(https://goo.gl/l4GJaQ) for more. -->
+        <meta-data
+            android:name="com.google.firebase.messaging.default_notification_icon"
+            android:resource="@drawable/ic_notifications_24px" />
+        <!-- Set color used with incoming notification messages. This is used when no color is set for the incoming
+             notification message. See README(https://goo.gl/6BKBk7) for more. -->
+        <meta-data
+            android:name="com.google.firebase.messaging.default_notification_color"
+            android:resource="@color/colorAccent" />
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="@string/map_key" />
 
         <activity
-            android:name=".common.activities.HomeActivity"
+            android:name="com.whoamie.cinetime_nepal.common.activities.HomeActivity"
             android:label="@string/app_name"
             android:theme="@style/AppTheme.transparent"></activity>
         <activity
-            android:name=".common.activities.SplashScreenActivity"
+            android:name="com.whoamie.cinetime_nepal.common.activities.SplashScreenActivity"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -39,33 +48,42 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".member.activities.SignUpActivity"
+            android:name="com.whoamie.cinetime_nepal.member.activities.SignUpActivity"
             android:theme="@style/AppTheme.transparent" />
         <activity
-            android:name=".member.activities.LoginActivity"
+            android:name="com.whoamie.cinetime_nepal.member.activities.LoginActivity"
             android:theme="@style/AppTheme.transparent" />
         <activity
-            android:name=".member.activities.EditProfileActivity"
+            android:name="com.whoamie.cinetime_nepal.member.activities.EditProfileActivity"
             android:theme="@style/AppTheme.transparent" />
         <activity
-            android:name=".common.activities.MovieDetailActivity"
+            android:name="com.whoamie.cinetime_nepal.common.activities.MovieDetailActivity"
             android:theme="@style/AppTheme.transparent" />
         <activity
-            android:name=".common.activities.ShowTimeActivity"
+            android:name="com.whoamie.cinetime_nepal.common.activities.ShowTimeActivity"
             android:label="ShowTime"
             android:theme="@style/AppTheme.transparent" />
         <activity
-            android:name=".common.activities.MapNearByCinemasActivity"
+            android:name="com.whoamie.cinetime_nepal.common.activities.MapNearByCinemasActivity"
             android:theme="@style/AppTheme.transparent" />
         <activity
-            android:name=".member.activities.ChangePwdActivity"
+            android:name="com.whoamie.cinetime_nepal.member.activities.ChangePwdActivity"
             android:theme="@style/AppTheme.transparent" />
         <activity
-            android:name=".member.activities.ResetPwdActivity"
+            android:name="com.whoamie.cinetime_nepal.member.activities.ResetPwdActivity"
             android:theme="@style/AppTheme.transparent"></activity>
         <activity
-            android:name=".common.activities.SettingActivity"
+            android:name="com.whoamie.cinetime_nepal.common.activities.SettingActivity"
             android:theme="@style/AppTheme.transparent"></activity>
+        <!-- [START firebase_service] -->
+        <service
+            android:name=".common.firebase.MyFirebaseMessagingService"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
+            </intent-filter>
+        </service>
+        <!-- [END firebase_service] -->
     </application>
 
 </manifest>

@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "399281022432",
+    "firebase_url": "https://sacred-analyst-261905.firebaseio.com",
+    "project_id": "sacred-analyst-261905",
+    "storage_bucket": "sacred-analyst-261905.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:399281022432:android:1d12aafec87c859330b785",
+        "android_client_info": {
+          "package_name": "com.whoamie.cinetime_nepal"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "399281022432-fvirb2kcc79njsjoastku0ua4il0ch59.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.whoamie.cinetime_nepal",
+            "certificate_hash": "17fafdfab1c43d322ae62669d00af3a985a6c634"
+          }
+        },
+        {
+          "client_id": "399281022432-61vir1van65r1t6d3pd3erlveju8m0ba.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDWklaqXEuha4qIZt-_LpKqwYP0GerJkoo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "399281022432-61vir1van65r1t6d3pd3erlveju8m0ba.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
