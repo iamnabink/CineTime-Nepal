@@ -4,8 +4,15 @@ import android.Manifest;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+import android.nfc.Tag;
 import android.os.Build;
 import android.os.Bundle;
+
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.iid.FirebaseInstanceId;
+import com.google.firebase.iid.InstanceIdResult;
+import com.google.firebase.messaging.FirebaseMessaging;
 import com.whoamie.cinetime_nepal.R;
 import com.whoamie.cinetime_nepal.common.fragments.HallFragment;
 import com.whoamie.cinetime_nepal.common.fragments.MovieFragment;
@@ -16,6 +23,7 @@ import com.whoamie.cinetime_nepal.common.utils.SharedPref;
 import com.whoamie.cinetime_nepal.member.fragments.ProfileFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
@@ -32,6 +40,7 @@ public class HomeActivity extends AppCompatActivity {
     BottomNavigationView bottomNavigationView;
     Toolbar myToolbar;
     private static final int MY_PERMISSIONS_REQUEST_OPEN_LOCATION = 738;
+    private static final String TAG = "HomeActivity";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,12 +50,32 @@ public class HomeActivity extends AppCompatActivity {
         setSupportActionBar(myToolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
         replaceFragment(new MovieFragment(),"MovieFragment");
+        FirebaseMessaging.getInstance().subscribeToTopic("all"); //to notify all user
         initVar();
         setUpBottomNavigation();
-        handleFirebaseNotification();
+//        handleFirebaseNotification();
     }
 
     private void handleFirebaseNotification() {
+        FirebaseMessaging.getInstance().subscribeToTopic("all"); //to notify all user
+        FirebaseInstanceId.getInstance().getInstanceId()
+                .addOnCompleteListener(new OnCompleteListener<InstanceIdResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<InstanceIdResult> task) {
+                        if (!task.isSuccessful()) {
+                            Log.w(TAG, "getInstanceId failed", task.getException());
+                            return;
+                        }
+                        // Get new Instance ID token
+                        String token = task.getResult().getToken();
+
+                        // Log and toast
+                        String msg = getString(R.string.msg_token_fmt, token);
+                        System.out.println("Tokern------------->" + msg);
+                        Log.d(TAG, msg);
+                        Toast.makeText(HomeActivity.this, msg, Toast.LENGTH_SHORT).show();
+                    }
+                });
 
     }
 

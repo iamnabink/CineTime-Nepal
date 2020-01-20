@@ -31,6 +31,7 @@ public class NotificationFragement extends Fragment {
     }
 
     private void loadData() {
+
     }
 
     private void initViews() {
