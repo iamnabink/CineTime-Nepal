@@ -70,7 +70,7 @@
                 android:drawablePadding="10dp"
                 android:drawableTint="#FF9B9B9B"
                 android:hint="Confirm password"
-                android:imeOptions="actionNext"
+                android:imeOptions="actionDone"
                 android:inputType="textPassword"
                 android:maxLines="1"
                 android:padding="10dp" />
