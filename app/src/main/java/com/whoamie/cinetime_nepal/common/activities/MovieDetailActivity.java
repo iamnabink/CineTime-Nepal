@@ -94,7 +94,7 @@ public class MovieDetailActivity extends AppCompatActivity {
         ratingCount=findViewById(R.id.d_movie_rating_count);
         reviewRecyclerView=findViewById(R.id.review_recycler_view);
         dialog=new ProgressDialog(this);
-        Window window = dialog.getWindow();
+//        Window window = dialog.getWindow();
 //        window.setLayout(ViewGroup.LayoutParams.MATCH_PARENT, 800);
         dialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
     }

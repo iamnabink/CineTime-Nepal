@@ -179,7 +179,8 @@ public class SignUpActivity extends AppCompatActivity {
     private void signUp() {
         final ProgressDialog dialog = new ProgressDialog(this);
         Window window = dialog.getWindow();
-        window.setLayout(ViewGroup.LayoutParams.MATCH_PARENT, 800);
+//        window.setLayout(ViewGroup.LayoutParams.MATCH_PARENT, 800);
+        dialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
         dialog.show();
         JSONObject jsonObject = new JSONObject();
         try {

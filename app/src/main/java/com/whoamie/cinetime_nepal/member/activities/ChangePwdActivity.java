@@ -73,7 +73,8 @@ public class ChangePwdActivity extends AppCompatActivity {
         changeBtn=findViewById(R.id.change_btn);
         dialog = new ProgressDialog(getApplicationContext());
         Window window = dialog.getWindow();
-        window.setLayout(ViewGroup.LayoutParams.MATCH_PARENT, 800);
+//        window.setLayout(ViewGroup.LayoutParams.MATCH_PARENT, 800);
+        dialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
         preferences = getSharedPreferences(SharedPref.key_shared_pref,MODE_PRIVATE);
         editor = preferences.edit();
     }
