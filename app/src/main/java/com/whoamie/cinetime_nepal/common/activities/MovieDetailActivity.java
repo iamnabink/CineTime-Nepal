@@ -3,6 +3,7 @@ package com.whoamie.cinetime_nepal.common.activities;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -30,6 +31,7 @@ import com.whoamie.cinetime_nepal.common.utils.CheckConnectivity;
 import com.whoamie.cinetime_nepal.common.utils.SharedPref;
 import com.google.gson.Gson;
 import com.squareup.picasso.Picasso;
+import com.whoamie.cinetime_nepal.member.activities.LoginActivity;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -116,7 +118,16 @@ public class MovieDetailActivity extends AppCompatActivity {
         reviewTv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                showDialogBox();
+
+                SharedPreferences preferences = getSharedPreferences(SharedPref.key_shared_pref,MODE_PRIVATE);
+                String token = preferences.getString(SharedPref.key_user_token,null);
+                if (token != null){
+                    showDialogBox();
+                }
+                else {
+                    Toast.makeText(MovieDetailActivity.this, "Please login to comment", Toast.LENGTH_SHORT).show();
+                    startActivity(new Intent(getApplicationContext(), LoginActivity.class));
+                }
             }
         });
     }
