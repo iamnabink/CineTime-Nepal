@@ -20,6 +20,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.whoamie.cinetime_nepal.R;
 import com.whoamie.cinetime_nepal.common.adapter.ReviewAdapter;
+import com.whoamie.cinetime_nepal.common.interfaces.AdapterClickListener;
 import com.whoamie.cinetime_nepal.common.models.Movie;
 import com.whoamie.cinetime_nepal.common.models.Review;
 import com.whoamie.cinetime_nepal.common.network.API;
@@ -72,7 +73,12 @@ public class MovieDetailActivity extends AppCompatActivity {
     }
 
     private void setRecyclerView() {
-        adapter= new ReviewAdapter(reviews,getApplicationContext());
+        adapter= new ReviewAdapter(reviews, getApplicationContext(), new AdapterClickListener() {
+            @Override
+            public void onClick(int position, View view) {
+                Review review = reviews.get(position);
+            }
+        });
         reviewRecyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
         reviewRecyclerView.setAdapter(adapter);
     }

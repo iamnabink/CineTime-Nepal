@@ -11,14 +11,42 @@ import android.os.Build;
 import android.util.Log;
 
 import com.google.firebase.messaging.FirebaseMessagingService;
+import com.google.firebase.messaging.RemoteMessage;
 import com.whoamie.cinetime_nepal.R;
 import com.whoamie.cinetime_nepal.common.activities.HomeActivity;
 
+import java.util.Map;
+
+import androidx.annotation.NonNull;
 import androidx.core.app.NotificationCompat;
 
 public class MyFirebaseMessagingService extends FirebaseMessagingService {
     private static final String TAG = "MyFirebaseMsgService";
     // [START on_new_token]
+
+    @Override
+    public void onMessageReceived(@NonNull RemoteMessage remoteMessage) {
+        super.onMessageReceived(remoteMessage);
+        Intent intent;
+        super.onMessageReceived(remoteMessage);
+        Map<String, String> data = remoteMessage.getData();
+        String textData= data.get("data");
+        intent = new Intent(this, HomeActivity.class);
+        intent.putExtra("data", textData);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, intent, PendingIntent.FLAG_ONE_SHOT);
+        String channelId = "Default";
+        NotificationCompat.Builder builder = new  NotificationCompat.Builder(this, channelId)
+                .setSmallIcon(R.mipmap.ic_launcher)
+                .setContentTitle(remoteMessage.getNotification().getTitle())
+                .setContentText(remoteMessage.getNotification().getBody()).setAutoCancel(true).setContentIntent(pendingIntent);;
+        NotificationManager manager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            NotificationChannel channel = new NotificationChannel(channelId, "Default channel", NotificationManager.IMPORTANCE_DEFAULT);
+            manager.createNotificationChannel(channel);
+        }
+        manager.notify(0, builder.build());
+    }
 
     /**
      * Called if InstanceID token is updated. This may occur if the security of
@@ -45,7 +73,6 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         PendingIntent pendingIntent = PendingIntent.getActivity(this, 0 /* Request code */, intent,
                 PendingIntent.FLAG_ONE_SHOT);
-
         String channelId = "fcm_default_channel";
         Uri defaultSoundUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
         NotificationCompat.Builder notificationBuilder =
