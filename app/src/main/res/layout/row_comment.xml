@@ -124,16 +124,5 @@
             android:textSize="16sp"
             android:textColor="@android:color/black"
             android:text="0"/>
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginRight="15dp"
-            android:src="@drawable/ic_comment_black_24dp"/>
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="16sp"
-            android:textColor="@android:color/black"
-            android:text="0"/>
     </LinearLayout>
 </LinearLayout>

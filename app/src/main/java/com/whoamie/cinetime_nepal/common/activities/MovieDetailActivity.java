@@ -117,7 +117,7 @@ public class MovieDetailActivity extends AppCompatActivity {
         Picasso.get().load(movie.getPoster_url()).into(posterImg);
         Picasso.get().load(movie.getPoster_url()).into(bgImage);
         ratingBar.setRating(movie.getRating());
-        ratingCount.setText(movie.getRating()==0.0?"N/A":""+movie.getRating()); //elvis operator
+        ratingCount.setText(movie.getRating()==0?"N/A":""+movie.getRating()); //elvis operator
     }
 
     private void makeReview() {

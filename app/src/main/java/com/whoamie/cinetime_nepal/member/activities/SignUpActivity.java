@@ -25,6 +25,7 @@ import com.android.volley.toolbox.JsonObjectRequest;
 import com.whoamie.cinetime_nepal.R;
 import com.whoamie.cinetime_nepal.common.network.API;
 import com.whoamie.cinetime_nepal.common.network.RestClient;
+import com.whoamie.cinetime_nepal.common.utils.FileUtils;
 import com.whoamie.cinetime_nepal.common.utils.ProgressDialog;
 import com.whoamie.cinetime_nepal.common.utils.ImageConverter;
 import com.whoamie.cinetime_nepal.common.utils.CheckConnectivity;
@@ -111,8 +112,7 @@ public class SignUpActivity extends AppCompatActivity {
 
     private void checkPermission() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            //if permission not granted
-            if (checkSelfPermission(Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+            if (checkSelfPermission(Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) { //if permission not granted ask for new permission
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                     requestPermissions(new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, READ_REQ_CODE);
                 }
@@ -151,8 +151,8 @@ public class SignUpActivity extends AppCompatActivity {
                     if (resultCode == Activity.RESULT_OK) {
                         //data gives you the image uri.
                         Uri selectedImageUri = data.getData();
-                        selectedImagePath = getPath(selectedImageUri);
-                        //System.out.println("Image Path : " + selectedImagePath);
+                        selectedImagePath = FileUtils.getPath(this,selectedImageUri);
+                        System.out.println("Image Path : " + selectedImagePath);
                         signinProfileIv.setImageURI(selectedImageUri);
                         //Converting to bitmap
                         profile_pic_url = ImageConverter.imageConvert(SignUpActivity.this, selectedImageUri);
@@ -168,13 +168,13 @@ public class SignUpActivity extends AppCompatActivity {
         }
     }
 
-    public String getPath(Uri uri) { //this function will get path
-        String[] projection = {MediaStore.Images.Media.DATA};
-        Cursor cursor = managedQuery(uri, projection, null, null, null);
-        int column_index = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
-        cursor.moveToFirst();
-        return cursor.getString(column_index);
-    }
+//    public String getPath(Uri uri) { //this function will get path
+//        String[] projection = {MediaStore.Images.Media.DATA};
+//        Cursor cursor = managedQuery(uri, projection, null, null, null);
+//        int column_index = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
+//        cursor.moveToFirst();
+//        return cursor.getString(column_index);
+//    }
 
     private void signUp() {
         final ProgressDialog dialog = new ProgressDialog(this);

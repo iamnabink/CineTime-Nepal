@@ -21,7 +21,6 @@ import com.whoamie.cinetime_nepal.common.utils.ProgressDialog;
 import com.whoamie.cinetime_nepal.common.utils.CheckConnectivity;
 import com.whoamie.cinetime_nepal.common.utils.SharedPref;
 import com.whoamie.cinetime_nepal.common.utils.Validator;
-
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -29,7 +28,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 public class LoginActivity extends AppCompatActivity {
-    TextView signupTv, emailEt, pwdEt,forgetPwdTv;
+    TextView signupTv, emailEt, pwdEt, forgetPwdTv;
     Button signinBtn;
     SharedPreferences preferences;
 
@@ -46,7 +45,7 @@ public class LoginActivity extends AppCompatActivity {
         pwdEt = findViewById(R.id.pwd_et);
         signupTv = findViewById(R.id.signup_tv);
         signinBtn = findViewById(R.id.signin_btn);
-        forgetPwdTv=findViewById(R.id.forget_pwd_tv);
+        forgetPwdTv = findViewById(R.id.forget_pwd_tv);
     }
 
     private void clickListener() {
@@ -76,7 +75,7 @@ public class LoginActivity extends AppCompatActivity {
         forgetPwdTv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(LoginActivity.this,ResetPwdActivity.class));
+                startActivity(new Intent(LoginActivity.this, ResetPwdActivity.class));
             }
         });
     }
@@ -138,10 +137,9 @@ public class LoginActivity extends AppCompatActivity {
 
             }
         });
-        if (CheckConnectivity.isNetworkAvailable(getApplicationContext())){
+        if (CheckConnectivity.isNetworkAvailable(getApplicationContext())) {
             RestClient.getInstance(this).addToRequestQueue(request);
-        }
-        else {
+        } else {
             Toast.makeText(this, "No internet connection", Toast.LENGTH_SHORT).show();
             dialog.cancel();
         }

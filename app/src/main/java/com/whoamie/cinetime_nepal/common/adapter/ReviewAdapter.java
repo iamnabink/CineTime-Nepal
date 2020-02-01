@@ -55,19 +55,16 @@ public class ReviewAdapter extends RecyclerView.Adapter<ReviewAdapter.ReviewHold
         SharedPreferences preferences = context.getSharedPreferences(SharedPref.key_shared_pref,Context.MODE_PRIVATE);
         String userData = preferences.getString(SharedPref.key_user_details,null);
         String userIdReview = String.valueOf(review.getUser_id());
-        try {
-            JSONObject userObject = new JSONObject(userData);
-           String userIdShared = userObject.getString("id");
-           if (userObject != null){
-               if (!userIdReview.equals(userIdShared)){
-                   holder.delete_btn.setVisibility(View.GONE);
-               }
-           }
-           else {
-               holder.delete_btn.setVisibility(View.VISIBLE);
-           }
-        } catch (JSONException e) {
-            e.printStackTrace();
+        if (userData != null){
+            try {
+                JSONObject jsonObject = new JSONObject(userData);
+                String userID = jsonObject.getString("id");
+                if (userIdReview.equals(userID)){
+                    holder.delete_btn.setVisibility(View.VISIBLE);
+                }
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
         }
     }
 
