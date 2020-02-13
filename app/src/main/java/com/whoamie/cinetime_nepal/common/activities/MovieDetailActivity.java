@@ -20,7 +20,6 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.whoamie.cinetime_nepal.R;
 import com.whoamie.cinetime_nepal.common.adapter.ReviewAdapter;
-import com.whoamie.cinetime_nepal.common.interfaces.AdapterClickListener;
 import com.whoamie.cinetime_nepal.common.interfaces.ReviewClickListner;
 import com.whoamie.cinetime_nepal.common.models.Movie;
 import com.whoamie.cinetime_nepal.common.models.Review;
@@ -43,6 +42,7 @@ import java.util.ArrayList;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -55,6 +55,7 @@ public class MovieDetailActivity extends AppCompatActivity {
     RatingBar ratingBar;
     RecyclerView reviewRecyclerView;
     ProgressDialog dialog;
+    CardView movieFavouriteCv,movieTrailerCv;
     ReviewAdapter adapter;
     ArrayList<Review> reviews = new ArrayList<>();
     @Override
@@ -64,6 +65,7 @@ public class MovieDetailActivity extends AppCompatActivity {
         initVar();
         displayShowTime();
         makeReview();
+        makeFavouriteMovies();
         if (getIntent().getExtras() != null) {
             String movieString = getIntent().getExtras().getString(SharedPref.key_shared_movies_details, "");
             movie = new Gson().fromJson(movieString, Movie.class);
@@ -71,6 +73,21 @@ public class MovieDetailActivity extends AppCompatActivity {
         }
         setRecyclerView();
         callReviewAPI();
+
+
+    }
+
+    private void makeFavouriteMovies() {
+        movieFavouriteCv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(MovieDetailActivity.this, "Added to favourite movie", Toast.LENGTH_SHORT).show();
+                callMakeFavouriteMovieApi();
+            }
+        });
+    }
+
+    private void callMakeFavouriteMovieApi() {
 
     }
 
@@ -81,19 +98,69 @@ public class MovieDetailActivity extends AppCompatActivity {
                 Review review = reviews.get(position);
                 int userId = review.getUser_id();
                 int movieId = review.getMovie_id();
+//                System.out.println(userId+"  User Id:  "+" Movie Id :  "+movieId);
+                deleteReview(userId, movieId);
             }
 
             @Override
             public void profilePicClick(int position, View view) {
                 Review review = reviews.get(position);
                 int movieId = review.getMovie_id();
+                openUserProfile(movieId);
             }
         });
         reviewRecyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
         reviewRecyclerView.setAdapter(adapter);
     }
 
+    private void openUserProfile(int movieId) {
+
+    }
+
+    private void deleteReview(int userId, int movieId) {
+        final ProgressDialog dialog = new ProgressDialog(this);
+        dialog.show();
+        JSONObject jsonObject = new JSONObject();
+        try {
+            jsonObject.put("movie_id",movieId);
+            jsonObject.put("user_id",userId);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        AuthenticatedJSONRequest request = new AuthenticatedJSONRequest(this, Request.Method.POST, API.deleteMovieReview, jsonObject, new Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject response) {
+                dialog.dismiss();
+                try {
+                    if (response.getBoolean("status")){
+                        Toast.makeText(MovieDetailActivity.this, response.getString("message"), Toast.LENGTH_SHORT).show();
+                        callReviewAPI();
+                    }
+                    else {
+                        Toast.makeText(MovieDetailActivity.this, "Can not delete! An error Occurred", Toast.LENGTH_SHORT).show();
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                dialog.dismiss();
+                Toast.makeText(MovieDetailActivity.this, "Server Error", Toast.LENGTH_SHORT).show();
+            }
+        });
+        if (CheckConnectivity.isNetworkAvailable(getApplicationContext())){
+            RestClient.getInstance(getApplicationContext()).addToRequestQueue(request);
+        }
+        else {
+            Toast.makeText(this, "Can not load data! please connect internet and try again", Toast.LENGTH_SHORT).show();
+        }
+    }
+
     private void initVar() {
+        movieFavouriteCv=findViewById(R.id.d_movie_favourite_cv);
         showTimetv = findViewById(R.id.d_movie_showtime_tv);
         reviewTv = findViewById(R.id.d_movie_review_tv);
         movieNameTv = findViewById(R.id.d_movie_name_tv);
@@ -114,6 +181,7 @@ public class MovieDetailActivity extends AppCompatActivity {
 //        window.setLayout(ViewGroup.LayoutParams.MATCH_PARENT, 800);
         dialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
     }
+
 
     private void loadData() {
         movieNameTv.setText(movie.getName());
@@ -163,7 +231,6 @@ public class MovieDetailActivity extends AppCompatActivity {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 callMakeReviewApi();
-                callReviewAPI();
             }
         });
         AlertDialog dialog = builder.create();
@@ -190,7 +257,7 @@ public class MovieDetailActivity extends AppCompatActivity {
                     if (response.getBoolean("status")){
                         try {
                             Toast.makeText(MovieDetailActivity.this, response.getString("message"), Toast.LENGTH_SHORT).show();
-
+                            callReviewAPI();
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
