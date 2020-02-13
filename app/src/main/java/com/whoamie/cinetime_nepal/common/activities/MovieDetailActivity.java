@@ -7,7 +7,7 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.Window;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RatingBar;
@@ -21,6 +21,7 @@ import com.android.volley.toolbox.JsonObjectRequest;
 import com.whoamie.cinetime_nepal.R;
 import com.whoamie.cinetime_nepal.common.adapter.ReviewAdapter;
 import com.whoamie.cinetime_nepal.common.interfaces.AdapterClickListener;
+import com.whoamie.cinetime_nepal.common.interfaces.ReviewClickListner;
 import com.whoamie.cinetime_nepal.common.models.Movie;
 import com.whoamie.cinetime_nepal.common.models.Review;
 import com.whoamie.cinetime_nepal.common.network.API;
@@ -46,8 +47,9 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 public class MovieDetailActivity extends AppCompatActivity {
-    TextView showTimetv, reviewTv, movieNameTv, movieGenreTv, movieSynopsis, movieCastsTv, movieDirectorsTv, releaseDate, movieRuntime, movieLanguage,ratingCount;
+    TextView  movieNameTv, movieGenreTv, movieSynopsis, movieCastsTv, movieDirectorsTv, releaseDate, movieRuntime, movieLanguage,ratingCount;
     EditText messageEt;
+    Button reviewTv,showTimetv;
     Movie movie;
     ImageView posterImg, bgImage;
     RatingBar ratingBar;
@@ -73,10 +75,18 @@ public class MovieDetailActivity extends AppCompatActivity {
     }
 
     private void setRecyclerView() {
-        adapter= new ReviewAdapter(reviews, getApplicationContext(), new AdapterClickListener() {
+        adapter= new ReviewAdapter(reviews, getApplicationContext(), new ReviewClickListner() {
             @Override
-            public void onClick(int position, View view) {
+            public void deleteButtonClick(int position, View view) {
                 Review review = reviews.get(position);
+                int userId = review.getUser_id();
+                int movieId = review.getMovie_id();
+            }
+
+            @Override
+            public void profilePicClick(int position, View view) {
+                Review review = reviews.get(position);
+                int movieId = review.getMovie_id();
             }
         });
         reviewRecyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
@@ -153,10 +163,13 @@ public class MovieDetailActivity extends AppCompatActivity {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 callMakeReviewApi();
+                callReviewAPI();
             }
         });
         AlertDialog dialog = builder.create();
+        dialog.setCanceledOnTouchOutside(false);
         dialog.show();
+
     }
     private void callMakeReviewApi() {
 //        "movie_id":6,
@@ -205,6 +218,7 @@ public class MovieDetailActivity extends AppCompatActivity {
     }
 
     private void callReviewAPI() {
+        reviews.clear();
         dialog.show();
         JSONObject jsonObject = new JSONObject();
         try {

@@ -109,7 +109,16 @@ public class MovieFragment extends Fragment {
     }
 
     private void initViews() {
-        uadapter = new ComingMovieAdapter(getContext(), umovies);
+        uadapter = new ComingMovieAdapter(getContext(), umovies, new AdapterClickListener() {
+            @Override
+            public void onClick(int position, View view) {
+                Movie movie = umovies.get(position);
+                String movieDetails = new Gson().toJson(movie);
+                Intent intent = new Intent(getContext(), MovieDetailActivity.class);
+                intent.putExtra(SharedPref.key_shared_movies_details, movieDetails);
+                startActivity(intent);
+            }
+        });
         sadapter = new ShowingMovieAdapter(smovies, getContext(), new AdapterClickListener() {
             @Override
             public void onClick(int position, View view) {

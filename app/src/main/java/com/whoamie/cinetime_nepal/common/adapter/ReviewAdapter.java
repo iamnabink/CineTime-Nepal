@@ -12,6 +12,7 @@ import android.widget.TextView;
 
 import com.whoamie.cinetime_nepal.R;
 import com.whoamie.cinetime_nepal.common.interfaces.AdapterClickListener;
+import com.whoamie.cinetime_nepal.common.interfaces.ReviewClickListner;
 import com.whoamie.cinetime_nepal.common.models.Review;
 import com.squareup.picasso.Picasso;
 import com.whoamie.cinetime_nepal.common.utils.SharedPref;
@@ -28,9 +29,9 @@ import de.hdodenhof.circleimageview.CircleImageView;
 public class ReviewAdapter extends RecyclerView.Adapter<ReviewAdapter.ReviewHolder> {
     ArrayList<Review> reviews;
     Context context;
-    AdapterClickListener listener;
+    ReviewClickListner listener;
 
-    public ReviewAdapter(ArrayList<Review> reviews, Context context, AdapterClickListener listener) {
+    public ReviewAdapter(ArrayList<Review> reviews, Context context, ReviewClickListner listener) {
         this.reviews = reviews;
         this.context = context;
         this.listener = listener;
@@ -90,7 +91,13 @@ public class ReviewAdapter extends RecyclerView.Adapter<ReviewAdapter.ReviewHold
             delete_btn.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    listener.onClick(getAdapterPosition(),v);
+                    listener.deleteButtonClick(getAdapterPosition(),v);
+                }
+            });
+            uIv.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    listener.profilePicClick(getAdapterPosition(),v);
                 }
             });
         }

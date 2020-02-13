@@ -2,127 +2,133 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginTop="4dp"
-    android:layout_marginBottom="10dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_marginHorizontal="4dp"
     android:orientation="vertical">
-
-    <RelativeLayout
+    <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        app:cardUseCompatPadding="true">
         <LinearLayout
-            android:layout_marginLeft="20dp"
-            android:layout_width="wrap_content"
-            android:orientation="horizontal"
-            android:layout_height="wrap_content">
-            <de.hdodenhof.circleimageview.CircleImageView
-                android:id="@+id/u_iv"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:layout_gravity="center"
-                android:src="@drawable/avatar" />
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="16dp"
-                android:orientation="vertical">
-                <TextView
-                    android:id="@+id/user_name_tv"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Anchal Sharama"
-                    android:textColor="@android:color/black"
-                    android:textSize="16sp" />
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+            android:orientation="vertical">
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
                 <LinearLayout
+                    android:layout_marginLeft="20dp"
                     android:layout_width="wrap_content"
                     android:orientation="horizontal"
                     android:layout_height="wrap_content">
-                    <RatingBar
-                        android:id="@+id/user_rating"
+                    <de.hdodenhof.circleimageview.CircleImageView
+                        android:id="@+id/u_iv"
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:layout_gravity="center"
+                        android:src="@drawable/avatar" />
+                    <LinearLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:numStars="5"
-                        android:rating="3"
-                        android:layout_marginTop="4dp"
-                        style="?android:attr/ratingBarStyleSmall"
-                        android:stepSize="1"/>
-                    <TextView
-                        android:id="@+id/comment_time"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="2dp"
-                        android:layout_marginLeft="8dp"
-                        android:text="2 days ago"
-                        android:textSize="14sp" />
+                        android:layout_marginLeft="16dp"
+                        android:orientation="vertical">
+                        <TextView
+                            android:id="@+id/user_name_tv"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Anchal Sharama"
+                            android:textColor="@android:color/black" />
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:orientation="horizontal"
+                            android:layout_height="wrap_content">
+                            <RatingBar
+                                android:id="@+id/user_rating"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:numStars="5"
+                                android:rating="3"
+                                android:layout_marginTop="4dp"
+                                style="?android:attr/ratingBarStyleSmall"
+                                android:stepSize="1"/>
+                            <TextView
+                                android:id="@+id/comment_time"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="2dp"
+                                android:layout_marginLeft="8dp"
+                                android:text="2 days ago" />
+                        </LinearLayout>
+                    </LinearLayout>
                 </LinearLayout>
+
+                <ImageView
+                    android:id="@+id/delete_btn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentRight="true"
+                    android:visibility="gone"
+                    android:layout_marginRight="20dp"
+                    android:layout_marginTop="8dp"
+                    android:src="@drawable/ic_delete_black_24dp" />
+            </RelativeLayout>
+
+            <TextView
+                android:id="@+id/comment_tv"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginRight="20dp"
+                android:lineSpacingExtra="3dp"
+                android:maxLines="4"
+                android:text="@string/long_text" />
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+            </LinearLayout>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.6dp"
+                android:visibility="gone"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:layout_marginTop="10dp"
+                android:background="@color/colorPrimary"/>
+            <LinearLayout
+                android:layout_marginTop="10dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:orientation="horizontal">
+                <ImageView
+                    android:layout_width="16dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="15dp"
+                    android:src="@drawable/ic_thumb_up_black_24dp"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="15dp"
+                    android:textColor="@android:color/black"
+                    android:text="0"/>
+
+                <ImageView
+                    android:layout_width="16dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="15dp"
+                    android:src="@drawable/ic_thumb_down_black_24dp"/>
+                <TextView
+                    android:layout_marginRight="15dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+
+                    android:textColor="@android:color/black"
+                    android:text="0"/>
             </LinearLayout>
         </LinearLayout>
-
-
-        <ImageView
-            android:id="@+id/delete_btn"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentRight="true"
-            android:visibility="gone"
-            android:layout_marginRight="20dp"
-            android:layout_marginTop="8dp"
-            android:src="@drawable/ic_delete_black_24dp" />
-    </RelativeLayout>
-
-    <TextView
-        android:id="@+id/comment_tv"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="20dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginRight="20dp"
-        android:lineSpacingExtra="3dp"
-        android:maxLines="4"
-        android:text="@string/long_text" />
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
-
-    </LinearLayout>
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="0.6dp"
-        android:visibility="gone"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
-        android:layout_marginTop="10dp"
-        android:background="@color/colorPrimary"/>
-    <LinearLayout
-        android:layout_marginTop="10dp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="20dp"
-        android:orientation="horizontal">
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginRight="15dp"
-            android:src="@drawable/ic_thumb_up_black_24dp"/>
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="16sp"
-            android:layout_marginRight="15dp"
-            android:textColor="@android:color/black"
-            android:text="0"/>
-
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginRight="15dp"
-            android:src="@drawable/ic_thumb_down_black_24dp"/>
-        <TextView
-            android:layout_marginRight="15dp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="16sp"
-            android:textColor="@android:color/black"
-            android:text="0"/>
-    </LinearLayout>
+    </androidx.cardview.widget.CardView>
 </LinearLayout>

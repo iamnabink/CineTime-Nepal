@@ -7,6 +7,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 import com.whoamie.cinetime_nepal.R;
+import com.whoamie.cinetime_nepal.common.interfaces.AdapterClickListener;
 import com.whoamie.cinetime_nepal.common.models.Movie;
 import com.squareup.picasso.Picasso;
 import java.util.ArrayList;
@@ -16,9 +17,11 @@ import androidx.recyclerview.widget.RecyclerView;
 public class ComingMovieAdapter extends RecyclerView.Adapter<ComingMovieAdapter.MovieViewHolder> {
     Context context;
     ArrayList<Movie> umovies;
-    public ComingMovieAdapter(Context context, ArrayList<Movie> umovies) {
+    AdapterClickListener listener;
+    public ComingMovieAdapter(Context context, ArrayList<Movie> umovies,AdapterClickListener listener) {
         this.context = context;
         this.umovies = umovies;
+        this.listener = listener;
     }
     @NonNull
     @Override
@@ -50,6 +53,12 @@ public class ComingMovieAdapter extends RecyclerView.Adapter<ComingMovieAdapter.
             nameTv=itemView.findViewById(R.id.movie_name_tv);
             genreTv=itemView.findViewById(R.id.movie_genre_tv);
             imgv=itemView.findViewById(R.id.movie_imgv);
+            imgv.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    listener.onClick(getAdapterPosition(),v);
+                }
+            });
         }
     }
 }
