@@ -96,10 +96,12 @@
                             android:orientation="horizontal">
 
                             <androidx.cardview.widget.CardView
+                                android:foreground="?attr/selectableItemBackground"
                                 android:id="@+id/d_movie_trailer_cv"
                                 android:layout_width="wrap_content"
                                 android:layout_height="45dp"
                                 android:layout_weight="1"
+                                android:focusable="true"
                                 android:clickable="true"
                                 app:cardCornerRadius="2dp"
                                 app:cardUseCompatPadding="true">
@@ -121,6 +123,8 @@
                                 android:layout_height="45dp"
                                 android:layout_weight="1"
                                 android:clickable="true"
+                                android:focusable="true"
+                                android:foreground="?attr/selectableItemBackground"
                                 android:layout_marginRight="8dp"
                                 app:cardCornerRadius="2dp"
                                 app:cardUseCompatPadding="true">
