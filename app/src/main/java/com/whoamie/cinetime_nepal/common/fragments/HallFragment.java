@@ -18,6 +18,7 @@ import android.widget.Toast;
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
 import com.google.gson.Gson;
 import com.whoamie.cinetime_nepal.R;
 import com.whoamie.cinetime_nepal.common.adapter.HallAdapter;
@@ -79,13 +80,12 @@ public class HallFragment extends Fragment {
 
     private void loadData() {
         halls.clear();
-        AuthenticatedJSONRequest request = new AuthenticatedJSONRequest(getContext(), Request.Method.GET, API.getHallDetails, null, new Response.Listener<JSONObject>() {
+        JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, API.getHallDetails, null, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
                 try {
-                    JSONObject jsonObject = response.getJSONObject(SharedPref.key_data_details);
-                    JSONArray jsonArray = jsonObject.getJSONArray("halls");
-                    for (int i = 0;i<jsonArray.length();i++){
+                    JSONArray jsonArray = response.getJSONArray(SharedPref.key_data_details);
+                    for (int i = 0; i<jsonArray.length();i++){
                         JSONObject object = jsonArray.getJSONObject(i);
                         Hall hall = new Gson().fromJson(object.toString(),Hall.class);
                         halls.add(hall);
@@ -98,6 +98,7 @@ public class HallFragment extends Fragment {
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
+                System.out.println(error);
                 Toast.makeText(getContext(), "Server error", Toast.LENGTH_SHORT).show();
             }
         });
