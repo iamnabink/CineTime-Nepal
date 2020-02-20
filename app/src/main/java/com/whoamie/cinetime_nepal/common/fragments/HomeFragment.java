@@ -8,18 +8,14 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
-import com.google.android.youtube.player.YouTubeInitializationResult;
-import com.google.android.youtube.player.YouTubePlayer;
-import com.google.android.youtube.player.YouTubePlayerFragment;
-import com.google.android.youtube.player.YouTubePlayerView;
+import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.YouTubePlayer;
+import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.AbstractYouTubePlayerListener;
+import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTubePlayerView;
 import com.whoamie.cinetime_nepal.R;
-import com.whoamie.cinetime_nepal.common.YoutubePlayer.YoutubeConfig;
 
 public class HomeFragment extends Fragment {
-
-    YouTubePlayerFragment playerFragment;
+    YouTubePlayerView youTubePlayerView;
     View view;
-    YouTubePlayer.OnInitializedListener listener;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -30,19 +26,15 @@ public class HomeFragment extends Fragment {
     }
 
     private void initiateVideoplayer() {
-//        playerFragment = (YouTubePlayerFragment) getFragmentManager().findFragmentById(R.id.youtube_frag);
-        listener = new YouTubePlayer.OnInitializedListener() {
+        youTubePlayerView=view.findViewById(R.id.youtube_player_view);
+        getLifecycle().addObserver(youTubePlayerView);
+        youTubePlayerView.addYouTubePlayerListener(new AbstractYouTubePlayerListener() {
             @Override
-            public void onInitializationSuccess(YouTubePlayer.Provider provider, YouTubePlayer youTubePlayer, boolean b) {
-                youTubePlayer.loadVideo("5KXLCkhhWbM");
+            public void onReady(YouTubePlayer youTubePlayer) {
+                String videoId = "S0Q4gqBUs7c";
+                youTubePlayer.loadVideo(videoId, 0);
+                youTubePlayer.pause();
             }
-
-            @Override
-            public void onInitializationFailure(YouTubePlayer.Provider provider, YouTubeInitializationResult youTubeInitializationResult) {
-
-            }
-        };
-        playerFragment.initialize(YoutubeConfig.getApiKey(),listener);
+        });
     }
-
 }

@@ -58,6 +58,7 @@
             android:theme="@style/AppTheme.transparent" />
         <activity
             android:name="com.whoamie.cinetime_nepal.common.activities.MovieDetailActivity"
+            android:configChanges="orientation|screenSize|keyboardHidden|smallestScreenSize|screenLayout"
             android:theme="@style/AppTheme.transparent" />
         <activity
             android:name="com.whoamie.cinetime_nepal.common.activities.ShowTimeActivity"

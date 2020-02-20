@@ -4,10 +4,13 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
-    <fragment
-        android:id="@+id/youtube_frag"
-        android:name="com.google.android.youtube.player.YouTubePlayerFragment"
+    <com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTubePlayerView
+        android:id="@+id/youtube_player_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        />
+        app:showSeekBar="true"
+        app:useWebUi="true"
+        app:showFullScreenButton="false" />
 </LinearLayout>
+    <!-- Remove this dependency and integrate youtube video player with api ->
+
