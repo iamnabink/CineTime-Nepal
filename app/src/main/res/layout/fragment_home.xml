@@ -12,5 +12,4 @@
         app:useWebUi="true"
         app:showFullScreenButton="false" />
 </LinearLayout>
-    <!-- Remove this dependency and integrate youtube video player with api ->
 

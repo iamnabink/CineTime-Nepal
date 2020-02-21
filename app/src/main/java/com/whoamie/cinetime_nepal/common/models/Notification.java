@@ -1,37 +1,35 @@
 package com.whoamie.cinetime_nepal.common.models;
 
 public class Notification {
-    String title;
-    String description;
-    String image_url;
 
-    public Notification(String title, String description, String image_url) {
-        this.title = title;
-        this.description = description;
-        this.image_url = image_url;
+    private String sent;
+    private int status;
+    private String image_url;
+    private String description;
+    private String title;
+    private int id;
+
+    public String getSent() {
+        return sent;
     }
 
-    public String getTitle() {
-        return title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
+    public int getStatus() {
+        return status;
     }
 
     public String getImage_url() {
         return image_url;
     }
 
-    public void setImage_url(String image_url) {
-        this.image_url = image_url;
+    public String getDescription() {
+        return description;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public int getId() {
+        return id;
     }
 }
