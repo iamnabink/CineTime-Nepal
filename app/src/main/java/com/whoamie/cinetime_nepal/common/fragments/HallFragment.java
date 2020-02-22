@@ -28,6 +28,7 @@ import com.whoamie.cinetime_nepal.common.network.API;
 import com.whoamie.cinetime_nepal.common.network.AuthenticatedJSONRequest;
 import com.whoamie.cinetime_nepal.common.network.RestClient;
 import com.whoamie.cinetime_nepal.common.utils.CheckConnectivity;
+import com.whoamie.cinetime_nepal.common.utils.ProgressDialog;
 import com.whoamie.cinetime_nepal.common.utils.SharedPref;
 
 import org.json.JSONArray;
@@ -79,16 +80,24 @@ public class HallFragment extends Fragment {
     }
 
     private void loadData() {
+        final ProgressDialog dialog = new ProgressDialog(getContext());
+        dialog.show();
+        dialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
         halls.clear();
         JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, API.getHallDetails, null, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
+                dialog.dismiss();
                 try {
                     JSONArray jsonArray = response.getJSONArray(SharedPref.key_data_details);
                     for (int i = 0; i<jsonArray.length();i++){
                         JSONObject object = jsonArray.getJSONObject(i);
                         Hall hall = new Gson().fromJson(object.toString(),Hall.class);
                         halls.add(hall);
+                        adapter.notifyDataSetChanged();
+                        if (adapter.getItemCount() == 0){
+
+                        }
                     }
                     adapter.notifyDataSetChanged();
                 } catch (JSONException e) {
@@ -98,6 +107,7 @@ public class HallFragment extends Fragment {
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
+                dialog.dismiss();
                 System.out.println(error);
                 Toast.makeText(getContext(), "Server error", Toast.LENGTH_SHORT).show();
             }

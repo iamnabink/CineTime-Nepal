@@ -18,6 +18,7 @@ public class API {
     public static String makeMovieReview =baseUrl+"makereview";
     public static String deleteMovieReview =baseUrl+"deletereview";
     public static String getHallDetails =baseUrl+"v1/halls/halldetails";
+    public static final String getNotification  = baseUrl+"notifications?page=1";
 
     //Following code is for retrofit 2 integration
     public static Retrofit retrofit;

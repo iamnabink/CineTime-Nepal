@@ -5,8 +5,9 @@
     android:layout_height="wrap_content">
     <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/notification_iv"
-        android:layout_width="80dp"
-        android:layout_height="80dp"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_marginTop="3dp"
         android:src="@drawable/portrait_zoro"/>
     <TextView
         android:id="@+id/notification_tv"
@@ -15,15 +16,17 @@
         android:layout_marginLeft="10dp"
         android:layout_height="wrap_content"
         android:textSize="16sp"
-        android:textColor="@android:color/black"
-        android:text="Race 3 is now shoing today. Have a look"/>
+        android:lineSpacingExtra="3dp"
+        android:layout_marginTop="3dp"
+        android:text="Race 3 is now shoing today. Have a look and feel the love"/>
 
     <TextView
         android:id="@+id/notif_time_tv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/notification_tv"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentRight="true"
+        android:layout_marginTop="5dp"
+        android:layout_marginLeft="10dp"
+        android:layout_toRightOf="@id/notification_iv"
         android:text="2 min ago" />
 </RelativeLayout>

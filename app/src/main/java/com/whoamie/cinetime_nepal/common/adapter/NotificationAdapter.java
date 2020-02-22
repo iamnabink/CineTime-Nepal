@@ -6,6 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.squareup.picasso.Picasso;
 import com.whoamie.cinetime_nepal.R;
 import com.whoamie.cinetime_nepal.common.models.Notification;
 
@@ -16,6 +17,11 @@ import androidx.recyclerview.widget.RecyclerView;
 import de.hdodenhof.circleimageview.CircleImageView;
 
 public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapter.NotificationView> {
+    public NotificationAdapter(ArrayList<Notification> notifications, Context context) {
+        this.notifications = notifications;
+        this.context = context;
+    }
+
     ArrayList<Notification> notifications;
     Context context;
     @NonNull
@@ -29,6 +35,9 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapte
     @Override
     public void onBindViewHolder(@NonNull NotificationView holder, int position) {
         Notification notification = notifications.get(position);
+        Picasso.get().load(notification.getImage_url()).into(holder.notificationIv);
+        holder.notificationTitle.setText(notification.getDescription());
+        holder.notificationTime.setText(notification.getSent());
     }
 
     @Override
