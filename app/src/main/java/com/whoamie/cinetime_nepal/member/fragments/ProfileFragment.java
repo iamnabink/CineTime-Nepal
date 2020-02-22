@@ -82,7 +82,8 @@ public class ProfileFragment extends Fragment {
         fragments.add(new FavMovieFragement());
         tabTitles.add("FAVOURITE MOVIES");
         tabTitles.add("REVIEWS");
-        pagerAdapter=new ProfilePagerAdapter(getContext(),getFragmentManager(),fragments,tabTitles);
+        pagerAdapter=new ProfilePagerAdapter(getContext(),getChildFragmentManager(),fragments,tabTitles);
+        pagerAdapter.notifyDataSetChanged();
     }
     private void setData() {
         preferences = getContext().getSharedPreferences(SharedPref.key_shared_pref,Context.MODE_PRIVATE);

@@ -49,7 +49,7 @@ public class NotificationFragement extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         view = inflater.inflate(R.layout.fragment_notification, container, false);
-        ((AppCompatActivity) getActivity()).getSupportActionBar().hide();
+        ((AppCompatActivity) getActivity()).getSupportActionBar().show();
         initVar();
         initViews();
         loadData();
@@ -58,7 +58,6 @@ public class NotificationFragement extends Fragment {
 
     private void loadData() {
         final ProgressDialog dialog = new ProgressDialog(context);
-        dialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
         dialog.show();
         JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, API.getNotification, null, new Response.Listener<JSONObject>() {
             @Override

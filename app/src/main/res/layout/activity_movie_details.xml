@@ -246,6 +246,12 @@
                         android:layout_marginBottom="10dp"
                         android:text="@string/long_text"/>
                 </LinearLayout>
+                <LinearLayout
+                    android:id="@+id/movie_detail_layout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:visibility="visible"
+                    android:orientation="vertical">
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -267,25 +273,52 @@
                             android:layout_height="53dp"
                             android:text="REVIEW" />
                     </LinearLayout>
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:textColor="@android:color/black"
-                    android:layout_marginBottom="10dp"
-                    android:layout_marginLeft="18sp"
-                    android:text="Reviews"/>
-                <ImageView
-                    android:id="@+id/empty_review"
-                    android:layout_width="150dp"
-                    android:layout_height="150dp"
-                    android:layout_gravity="center"
-                    android:visibility="gone"
-                    android:src="@drawable/ic_empty"/>
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/review_recycler_view"
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:textColor="@android:color/black"
+                        android:layout_marginBottom="10dp"
+                        android:layout_marginLeft="18sp"
+                        android:text="Reviews"/>
+                    <ImageView
+                        android:id="@+id/empty_review"
+                        android:layout_width="150dp"
+                        android:layout_height="150dp"
+                        android:layout_gravity="center"
+                        android:visibility="gone"
+                        android:src="@drawable/ic_empty"/>
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/review_recycler_view"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"/>
+                </LinearLayout>
+                <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"/>
+                    android:layout_height="wrap_content"
+                    android:visibility="gone"
+                    android:orientation="vertical">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:textColor="@android:color/black"
+                        android:layout_marginBottom="10dp"
+                        android:layout_marginLeft="18sp"
+                        android:text="Upcoming Movies"/>
+                    <ImageView
+                        android:id="@+id/empty_movie"
+                        android:layout_width="150dp"
+                        android:layout_height="150dp"
+                        android:layout_gravity="center"
+                        android:visibility="gone"
+                        android:src="@drawable/ic_empty"/>
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/upcoming_recycler_view"
+                        android:layout_width="match_parent"
+                        android:layout_marginHorizontal="10dp"
+                        android:layout_height="wrap_content"/>
+                </LinearLayout>
             </LinearLayout>
         </RelativeLayout>
     </ScrollView>
