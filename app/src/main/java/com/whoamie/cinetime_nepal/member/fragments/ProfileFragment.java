@@ -7,14 +7,17 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TableLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
+import androidx.viewpager.widget.ViewPager;
 import de.hdodenhof.circleimageview.CircleImageView;
 
+import com.google.android.material.tabs.TabLayout;
 import com.whoamie.cinetime_nepal.R;
 import com.whoamie.cinetime_nepal.common.activities.SplashScreenActivity;
 import com.whoamie.cinetime_nepal.common.utils.SharedPref;
@@ -22,6 +25,9 @@ import com.whoamie.cinetime_nepal.member.activities.EditProfileActivity;
 import com.whoamie.cinetime_nepal.member.models.User;
 import com.google.gson.Gson;
 import com.squareup.picasso.Picasso;
+import com.whoamie.cinetime_nepal.member.sectionpager.ProfilePagerAdapter;
+
+import java.util.ArrayList;
 
 public class ProfileFragment extends Fragment {
     View view;
@@ -30,7 +36,13 @@ public class ProfileFragment extends Fragment {
     CardView editProfileBtn;
     SharedPreferences preferences;
     SharedPreferences.Editor editor;
+    ProfilePagerAdapter pagerAdapter;
+    TabLayout tabLayout;
+    ViewPager viewPager;
+    ArrayList<Fragment> fragments = new ArrayList<>();
+    ArrayList<String> tabTitles =new ArrayList<>();
     TextView unameTv,uBio;
+    User users;
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_profile, container, false);
@@ -38,6 +50,7 @@ public class ProfileFragment extends Fragment {
 //        view.setSystemUiVisibility(uiOptions);
         ((AppCompatActivity) getActivity()).getSupportActionBar().hide();
         intiVar();
+        initViews();
         logOut();
         editProfile();
         updateImage();
@@ -53,20 +66,29 @@ public class ProfileFragment extends Fragment {
             }
         });
     }
-
+    private void initViews() {
+        viewPager.setAdapter(pagerAdapter);
+        tabLayout.setupWithViewPager(viewPager);
+    }
     private void intiVar() {
         logoutIv = view.findViewById(R.id.logout_tv);
         editProfileBtn = view.findViewById(R.id.edit_profile_btn);
         profileIv = view.findViewById(R.id.profile_iv);
         unameTv= view.findViewById(R.id.uname_tv);
         uBio=view.findViewById(R.id.u_bio_tv);
-
+        viewPager=view.findViewById(R.id.view_pager_profile);
+        tabLayout = view.findViewById(R.id.tab_layout);
+        fragments.add(new ProfileReviewFragment()); //users.getId()
+        fragments.add(new FavMovieFragement());
+        tabTitles.add("FAVOURITE MOVIES");
+        tabTitles.add("REVIEWS");
+        pagerAdapter=new ProfilePagerAdapter(getContext(),getFragmentManager(),fragments,tabTitles);
     }
     private void setData() {
         preferences = getContext().getSharedPreferences(SharedPref.key_shared_pref,Context.MODE_PRIVATE);
         editor = preferences.edit();
         String userString = preferences.getString(SharedPref.key_user_details,"");
-        User users = new Gson().fromJson(userString,User.class);
+        users = new Gson().fromJson(userString,User.class);
         unameTv.setText(users.getName());
         if (users.getName() == null){
             unameTv.setText("Name");

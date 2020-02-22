@@ -51,7 +51,7 @@ public class MovieDetailActivity extends AppCompatActivity {
     EditText messageEt;
     Button reviewTv,showTimetv;
     Movie movie;
-    ImageView posterImg, bgImage;
+    ImageView posterImg, bgImage, emptyRvIv;
     RatingBar ratingBar;
     RecyclerView reviewRecyclerView;
     ProgressDialog dialog;
@@ -111,6 +111,9 @@ public class MovieDetailActivity extends AppCompatActivity {
         });
         reviewRecyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
         reviewRecyclerView.setAdapter(adapter);
+        if (adapter.getItemCount() == 0){
+            emptyRvIv.setVisibility(View.VISIBLE);
+        }
     }
 
     private void openUserProfile(int movieId) {
@@ -160,6 +163,7 @@ public class MovieDetailActivity extends AppCompatActivity {
     }
 
     private void initVar() {
+        emptyRvIv=findViewById(R.id.empty_review);
         movieFavouriteCv=findViewById(R.id.d_movie_favourite_cv);
         showTimetv = findViewById(R.id.d_movie_showtime_tv);
         reviewTv = findViewById(R.id.d_movie_review_tv);
@@ -179,7 +183,7 @@ public class MovieDetailActivity extends AppCompatActivity {
         dialog=new ProgressDialog(this);
 //        Window window = dialog.getWindow();
 //        window.setLayout(ViewGroup.LayoutParams.MATCH_PARENT, 800);
-        dialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
+//        dialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
     }
 
 
@@ -242,6 +246,8 @@ public class MovieDetailActivity extends AppCompatActivity {
 //        "movie_id":6,
 //                "comment_msg":"Awesome Movie",
 //                "rating_count":3
+        final ProgressDialog dialog = new ProgressDialog(this);
+        dialog.show();
         JSONObject jsonObject = new JSONObject();
         try {
             jsonObject.put("movie_id",movie.getId());
@@ -253,6 +259,7 @@ public class MovieDetailActivity extends AppCompatActivity {
         AuthenticatedJSONRequest request = new AuthenticatedJSONRequest(getApplicationContext(), Request.Method.POST, API.makeMovieReview, jsonObject, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
+                dialog.dismiss();
                 try {
                     if (response.getBoolean("status")){
                         try {
@@ -273,6 +280,7 @@ public class MovieDetailActivity extends AppCompatActivity {
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
+                dialog.dismiss();
                 HandleNetworkError.handlerError(error,getApplicationContext());
             }
         });

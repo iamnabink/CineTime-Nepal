@@ -71,7 +71,7 @@ public class ShowTimeFragment extends Fragment {
         dialog.show();
 //        Window window = dialog.getWindow();
 //        window.setLayout(ViewGroup.LayoutParams.MATCH_PARENT, 800);
-        dialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
+//        dialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
         JSONObject jsonObject = new JSONObject();
         try {
             jsonObject.put("movie_id",movie_id);

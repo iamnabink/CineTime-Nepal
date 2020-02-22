@@ -276,6 +276,7 @@
                     android:layout_marginLeft="18sp"
                     android:text="Reviews"/>
                 <ImageView
+                    android:id="@+id/empty_review"
                     android:layout_width="150dp"
                     android:layout_height="150dp"
                     android:layout_gravity="center"
