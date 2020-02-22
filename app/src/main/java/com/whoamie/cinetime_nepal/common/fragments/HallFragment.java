@@ -131,6 +131,8 @@ public class HallFragment extends Fragment {
             RestClient.getInstance(getContext()).addToRequestQueue(request);
         }
         else {
+            shimmerFrameLayout.stopShimmer();
+            shimmerFrameLayout.setVisibility(View.GONE);
             Toast.makeText(context, "No network available", Toast.LENGTH_SHORT).show();
         }
 
