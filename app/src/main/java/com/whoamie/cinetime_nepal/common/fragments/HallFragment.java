@@ -19,6 +19,7 @@ import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
+import com.facebook.shimmer.ShimmerFrameLayout;
 import com.google.gson.Gson;
 import com.whoamie.cinetime_nepal.R;
 import com.whoamie.cinetime_nepal.common.adapter.HallAdapter;
@@ -44,6 +45,7 @@ public class HallFragment extends Fragment {
     HallAdapter adapter;
     ArrayList<Hall> halls = new ArrayList<>();
     Context context;
+    ShimmerFrameLayout shimmerFrameLayout;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -77,17 +79,29 @@ public class HallFragment extends Fragment {
 
     private void initUi() {
         recyclerView = view.findViewById(R.id.hall_recyclerview);
+        shimmerFrameLayout = view.findViewById(R.id.shimmer_layout);
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        shimmerFrameLayout.startShimmer();
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        shimmerFrameLayout.stopShimmer();
     }
 
     private void loadData() {
-        final ProgressDialog dialog = new ProgressDialog(getContext());
-        dialog.show();
-        dialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
+        shimmerFrameLayout.startShimmer();
         halls.clear();
         JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, API.getHallDetails, null, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
-                dialog.dismiss();
+                shimmerFrameLayout.stopShimmer();
+                shimmerFrameLayout.setVisibility(View.GONE);
                 try {
                     JSONArray jsonArray = response.getJSONArray(SharedPref.key_data_details);
                     for (int i = 0; i<jsonArray.length();i++){
@@ -107,7 +121,8 @@ public class HallFragment extends Fragment {
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                dialog.dismiss();
+                shimmerFrameLayout.stopShimmer();
+                shimmerFrameLayout.setVisibility(View.GONE);
                 System.out.println(error);
                 Toast.makeText(getContext(), "Server error", Toast.LENGTH_SHORT).show();
             }

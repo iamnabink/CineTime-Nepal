@@ -114,6 +114,7 @@ public class EditProfileActivity extends AppCompatActivity {
     private void readImage() {
         Intent intent = new Intent();
         intent.setType("image/*");
+        intent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true);
         intent.setAction(Intent.ACTION_GET_CONTENT);
         startActivityForResult(Intent.createChooser(intent, "Select Picture"), IMAGE_PICKER_REQ_CODE);
     }
@@ -123,7 +124,6 @@ public class EditProfileActivity extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
         try {
             switch (requestCode) {
-
                 case IMAGE_PICKER_REQ_CODE:
                     if (resultCode == Activity.RESULT_OK) {
                         //data gives you the image uri.

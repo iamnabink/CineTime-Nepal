@@ -5,7 +5,7 @@ android {
     buildToolsVersion "29.0.2"
     defaultConfig {
         applicationId "com.whoamie.cinetime_nepal"
-        minSdkVersion 17
+        minSdkVersion 18
         targetSdkVersion 29
         versionCode 1
         versionName "1.0"
@@ -46,5 +46,6 @@ dependencies {
     // Add the In-App Messaging and Analytics dependencies:
     //implementation 'com.google.firebase:firebase-inappmessaging-display:19.0.3'
     implementation files('libs/YouTubeAndroidPlayerApi.jar')
+    implementation 'com.facebook.shimmer:shimmer:0.5.0'
 }
 apply plugin: 'com.google.gms.google-services'
