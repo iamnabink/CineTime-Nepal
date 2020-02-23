@@ -18,6 +18,7 @@ import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
+import com.google.android.material.snackbar.Snackbar;
 import com.whoamie.cinetime_nepal.R;
 import com.whoamie.cinetime_nepal.common.adapter.ReviewAdapter;
 import com.whoamie.cinetime_nepal.common.interfaces.ReviewClickListner;
@@ -32,6 +33,7 @@ import com.whoamie.cinetime_nepal.common.utils.CheckConnectivity;
 import com.whoamie.cinetime_nepal.common.utils.SharedPref;
 import com.google.gson.Gson;
 import com.squareup.picasso.Picasso;
+import com.whoamie.cinetime_nepal.common.utils.Utils;
 import com.whoamie.cinetime_nepal.member.activities.LoginActivity;
 
 import org.json.JSONArray;
@@ -43,6 +45,7 @@ import java.util.ArrayList;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
+import androidx.coordinatorlayout.widget.CoordinatorLayout;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -57,6 +60,7 @@ public class MovieDetailActivity extends AppCompatActivity {
     ProgressDialog dialog;
     CardView movieFavouriteCv,movieTrailerCv;
     ReviewAdapter adapter;
+    CoordinatorLayout coordinatorLayout;
     ArrayList<Review> reviews = new ArrayList<>();
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -81,7 +85,9 @@ public class MovieDetailActivity extends AppCompatActivity {
         movieFavouriteCv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(MovieDetailActivity.this, "Added to favourite movie", Toast.LENGTH_SHORT).show();
+//                Utils.showSnackBar(new MovieDetailActivity(),"Added to fav movie");
+                coordinatorLayout=findViewById(R.id.coordinator_l);
+                Snackbar.make(coordinatorLayout, "Added to fav movie", Snackbar.LENGTH_LONG).show();
                 callMakeFavouriteMovieApi();
             }
         });
