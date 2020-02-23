@@ -106,6 +106,9 @@ public class ShowTimeFragment extends Fragment {
             }
         });
         RestClient.getInstance(getContext()).addToRequestQueue(request);
+        if (adapter.getItemCount()==0){
+            view.findViewById(R.id.st_empty_view).setVisibility(View.VISIBLE);
+        }
     }
 
 }
