@@ -77,8 +77,8 @@ public class ProfileFragment extends Fragment {
         uBio=view.findViewById(R.id.u_bio_tv);
         viewPager=view.findViewById(R.id.view_pager_profile);
         tabLayout = view.findViewById(R.id.tab_layout);
-        fragments.add(new ProfileReviewFragment()); //users.getId()
-        fragments.add(new FavMovieFragement(users.getId()));
+        fragments.add(new FavMovieFragement());
+        fragments.add(new ProfileReviewFragment());
         tabTitles.add("FAVOURITE MOVIES");
         tabTitles.add("REVIEWS");
         pagerAdapter=new ProfileSectionPager(getContext(),getChildFragmentManager(),fragments,tabTitles);
