@@ -69,13 +69,14 @@ public class MovieDetailActivity extends AppCompatActivity {
         initVar();
         displayShowTime();
         makeReview();
-        makeFavouriteMovies();
+
         if (getIntent().getExtras() != null) {
             String movieString = getIntent().getExtras().getString(SharedPref.key_shared_movies_details, "");
             movie = new Gson().fromJson(movieString, Movie.class);
             loadData();
         }
         setRecyclerView();
+        makeFavouriteMovies();
         callReviewAPI();
 
 
@@ -87,14 +88,49 @@ public class MovieDetailActivity extends AppCompatActivity {
             public void onClick(View v) {
 //                Utils.showSnackBar(new MovieDetailActivity(),"Added to fav movie");
                 coordinatorLayout=findViewById(R.id.coordinator_l);
-                Snackbar.make(coordinatorLayout, "Added to fav movie", Snackbar.LENGTH_LONG).show();
                 callMakeFavouriteMovieApi();
             }
         });
     }
 
     private void callMakeFavouriteMovieApi() {
+        final ProgressDialog dialog = new ProgressDialog(this);
+        JSONObject jsonObject = new JSONObject();
+        try {
+            jsonObject.put("movie_id",movie.getId());
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        dialog.show();
+        AuthenticatedJSONRequest request = new AuthenticatedJSONRequest(this, Request.Method.POST, API.makefavMovie, jsonObject, new Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject response) {
+                dialog.dismiss();
+                try {
+                    if (response.getBoolean("status")){
+                        Snackbar.make(coordinatorLayout, "Added to fav movie", Snackbar.LENGTH_LONG).show();
+                    }
+                    else {
+                        Snackbar.make(coordinatorLayout, "Already Added", Snackbar.LENGTH_LONG).show();
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
 
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                dialog.dismiss();
+                Snackbar.make(coordinatorLayout, error.getMessage(), Snackbar.LENGTH_LONG).show();
+            }
+        });
+        if (CheckConnectivity.isNetworkAvailable(this)){
+            RestClient.getInstance(this).addToRequestQueue(request);
+        }
+        else {
+            Toast.makeText(this, "No Internet Available", Toast.LENGTH_SHORT).show();
+        }
     }
 
     private void setRecyclerView() {

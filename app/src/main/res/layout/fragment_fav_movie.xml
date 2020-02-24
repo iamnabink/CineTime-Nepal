@@ -6,9 +6,8 @@
     android:layout_height="match_parent"
     tools:context=".member.fragments.FavMovieFragement">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textColor="@android:color/black"
-        android:text="This is fav movie fragment"/>
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/movie_user_recycler"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
 </LinearLayout>
