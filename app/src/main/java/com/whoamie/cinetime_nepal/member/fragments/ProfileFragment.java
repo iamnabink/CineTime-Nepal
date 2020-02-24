@@ -7,7 +7,6 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TableLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -25,7 +24,7 @@ import com.whoamie.cinetime_nepal.member.activities.EditProfileActivity;
 import com.whoamie.cinetime_nepal.member.models.User;
 import com.google.gson.Gson;
 import com.squareup.picasso.Picasso;
-import com.whoamie.cinetime_nepal.member.sectionpager.ProfilePagerAdapter;
+import com.whoamie.cinetime_nepal.member.adapters.ProfileSectionPager;
 
 import java.util.ArrayList;
 
@@ -36,7 +35,7 @@ public class ProfileFragment extends Fragment {
     CardView editProfileBtn;
     SharedPreferences preferences;
     SharedPreferences.Editor editor;
-    ProfilePagerAdapter pagerAdapter;
+    ProfileSectionPager pagerAdapter;
     TabLayout tabLayout;
     ViewPager viewPager;
     ArrayList<Fragment> fragments = new ArrayList<>();
@@ -82,7 +81,7 @@ public class ProfileFragment extends Fragment {
         fragments.add(new FavMovieFragement(users.getId()));
         tabTitles.add("FAVOURITE MOVIES");
         tabTitles.add("REVIEWS");
-        pagerAdapter=new ProfilePagerAdapter(getContext(),getChildFragmentManager(),fragments,tabTitles);
+        pagerAdapter=new ProfileSectionPager(getContext(),getChildFragmentManager(),fragments,tabTitles);
         pagerAdapter.notifyDataSetChanged();
     }
     private void setData() {

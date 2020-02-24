@@ -1,4 +1,4 @@
-package com.whoamie.cinetime_nepal.member.sectionpager;
+package com.whoamie.cinetime_nepal.member.adapters;
 
 import android.content.Context;
 
@@ -10,11 +10,11 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
 
-public class ProfilePagerAdapter extends FragmentPagerAdapter {
+public class ProfileSectionPager extends FragmentPagerAdapter {
     Context context;
     ArrayList<Fragment> fragments = new ArrayList<>();
     ArrayList<String> tabTitles =new ArrayList<>();
-    public ProfilePagerAdapter(Context context, FragmentManager fm, ArrayList<Fragment> fragments, ArrayList<String> tabTitles) {
+    public ProfileSectionPager(Context context, FragmentManager fm, ArrayList<Fragment> fragments, ArrayList<String> tabTitles) {
         super(fm);
         this.context=context;
         this.fragments=fragments;

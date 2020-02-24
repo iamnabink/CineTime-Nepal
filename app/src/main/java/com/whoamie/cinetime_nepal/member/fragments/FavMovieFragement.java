@@ -10,11 +10,17 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.whoamie.cinetime_nepal.R;
+import com.whoamie.cinetime_nepal.member.adapters.FavMovieAdapter;
+import com.whoamie.cinetime_nepal.member.models.FavMovie;
+
+import java.util.ArrayList;
 
 public class FavMovieFragement extends Fragment {
     int userId;
     View view;
     RecyclerView recyclerView;
+    FavMovieAdapter adapter;
+    ArrayList<FavMovie> favMovies = new ArrayList<>();
 
     public FavMovieFragement(int userId) {
         this.userId = userId;
