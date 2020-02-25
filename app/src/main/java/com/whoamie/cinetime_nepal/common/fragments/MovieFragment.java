@@ -165,8 +165,9 @@ public class MovieFragment extends Fragment {
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                HandleNetworkError.handlerError(error,mContext);
                 dialog.cancel();
+                HandleNetworkError.handlerError(error,mContext);
+
             }
         });
         if (CheckConnectivity.isNetworkAvailable(mContext)) {

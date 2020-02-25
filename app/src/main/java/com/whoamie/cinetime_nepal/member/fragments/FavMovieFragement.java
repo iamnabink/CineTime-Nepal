@@ -1,7 +1,9 @@
 package com.whoamie.cinetime_nepal.member.fragments;
 
+import android.content.Context;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -20,6 +22,7 @@ import com.whoamie.cinetime_nepal.R;
 import com.whoamie.cinetime_nepal.common.interfaces.AdapterClickListener;
 import com.whoamie.cinetime_nepal.common.network.API;
 import com.whoamie.cinetime_nepal.common.network.AuthenticatedJSONRequest;
+import com.whoamie.cinetime_nepal.common.network.HandleNetworkError;
 import com.whoamie.cinetime_nepal.common.network.RestClient;
 import com.whoamie.cinetime_nepal.common.utils.CheckConnectivity;
 import com.whoamie.cinetime_nepal.common.utils.SharedPref;
@@ -37,6 +40,7 @@ public class FavMovieFragement extends Fragment {
     RecyclerView recyclerView;
     FavMovieAdapter adapter;
     ArrayList<FavMovie> favMovies = new ArrayList<>();
+    Context context;
 
 
     @Override
@@ -63,6 +67,12 @@ public class FavMovieFragement extends Fragment {
 
     }
 
+    @Override
+    public void onAttach(@NonNull Context context) {
+        this.context=context;
+        super.onAttach(context);
+    }
+
     private void callgetfavMovieApi() {
         AuthenticatedJSONRequest request = new AuthenticatedJSONRequest(getContext(), Request.Method.POST, API.getfavMovieDetail, null, new Response.Listener<JSONObject>() {
             @Override
@@ -87,10 +97,11 @@ public class FavMovieFragement extends Fragment {
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                Toast.makeText(getContext(), error.getMessage(), Toast.LENGTH_SHORT).show();
+                HandleNetworkError.handlerError(error,context);
             }
         });
-        if (CheckConnectivity.isNetworkAvailable(getContext())){
+//        RestClient.getInstance(getContext()).addToRequestQueue(request);
+        if (CheckConnectivity.isNetworkAvailable(context)){
             RestClient.getInstance(getContext()).addToRequestQueue(request);
         }
         else {
