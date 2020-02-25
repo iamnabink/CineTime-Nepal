@@ -21,6 +21,7 @@ import com.whoamie.cinetime_nepal.R;
 import com.whoamie.cinetime_nepal.common.adapter.ShowTimeAdapter;
 import com.whoamie.cinetime_nepal.common.models.ShowTime;
 import com.whoamie.cinetime_nepal.common.network.API;
+import com.whoamie.cinetime_nepal.common.network.HandleNetworkError;
 import com.whoamie.cinetime_nepal.common.network.RestClient;
 import com.whoamie.cinetime_nepal.common.utils.ProgressDialog;
 import com.whoamie.cinetime_nepal.common.utils.SharedPref;
@@ -101,7 +102,7 @@ public class ShowTimeFragment extends Fragment {
             @Override
             public void onErrorResponse(VolleyError error) {
                 System.out.println(error);
-                Toast.makeText(getContext(), "Can't get response from server ! please try again later", Toast.LENGTH_SHORT).show();
+                HandleNetworkError.handlerError(error, getContext());
                 dialog.dismiss();
             }
         });

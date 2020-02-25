@@ -5,6 +5,8 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.TypedValue;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.Window;
@@ -88,7 +90,6 @@ public class MovieDetailActivity extends AppCompatActivity {
         movieFavouriteCv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                Utils.showSnackBar(new MovieDetailActivity(),"Added to fav movie");
                 coordinatorLayout=findViewById(R.id.coordinator_l);
                 callMakeFavouriteMovieApi();
             }
@@ -195,7 +196,7 @@ public class MovieDetailActivity extends AppCompatActivity {
             @Override
             public void onErrorResponse(VolleyError error) {
                 dialog.dismiss();
-                Toast.makeText(MovieDetailActivity.this, "Server Error", Toast.LENGTH_SHORT).show();
+                HandleNetworkError.handlerError(error,MovieDetailActivity.this);
             }
         });
         if (CheckConnectivity.isNetworkAvailable(getApplicationContext())){
@@ -227,7 +228,7 @@ public class MovieDetailActivity extends AppCompatActivity {
         dialog=new ProgressDialog(this);
 //        Window window = dialog.getWindow();
 //        window.setLayout(ViewGroup.LayoutParams.MATCH_PARENT, 800);
-//        dialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
+//        window.setBackgroundDrawableResource(android.R.color.transparent);
     }
 
 
@@ -366,7 +367,7 @@ public class MovieDetailActivity extends AppCompatActivity {
             public void onErrorResponse(VolleyError error) {
                 dialog.dismiss();
                 System.out.println(error);
-                Toast.makeText(MovieDetailActivity.this, "Server error occurred! Please try again later", Toast.LENGTH_SHORT).show();
+                HandleNetworkError.handlerError(error,MovieDetailActivity.this);
             }
         });
         if(CheckConnectivity.isNetworkAvailable(getApplicationContext())){
@@ -389,6 +390,26 @@ public class MovieDetailActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+    }
+    private void showSnackbarTop(){
+        Snackbar snack = Snackbar.make(findViewById(android.R.id.content), "Had a snack at Snackbar", Snackbar.LENGTH_LONG);
+        View view = snack.getView();
+        CoordinatorLayout.LayoutParams params =(CoordinatorLayout.LayoutParams)view.getLayoutParams(); //Main layour in xml
+        params.gravity =  Gravity.CENTER_HORIZONTAL | Gravity.TOP;
+
+// calculate actionbar height
+        TypedValue tv = new TypedValue();
+        int actionBarHeight=0;
+        if (getTheme().resolveAttribute(R.attr.actionBarSize, tv, true))
+        {
+            actionBarHeight = TypedValue.complexToDimensionPixelSize(tv.data,getResources().getDisplayMetrics());
+        }
+
+// set margin
+        params.setMargins(0, actionBarHeight, 0, 0);
+
+        view.setLayoutParams(params);
+        snack.show();
     }
 
 }

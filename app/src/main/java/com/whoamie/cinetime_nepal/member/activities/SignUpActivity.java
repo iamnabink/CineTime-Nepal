@@ -24,6 +24,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.whoamie.cinetime_nepal.R;
 import com.whoamie.cinetime_nepal.common.network.API;
+import com.whoamie.cinetime_nepal.common.network.HandleNetworkError;
 import com.whoamie.cinetime_nepal.common.network.RestClient;
 import com.whoamie.cinetime_nepal.common.utils.FileUtils;
 import com.whoamie.cinetime_nepal.common.utils.ProgressDialog;
@@ -180,7 +181,7 @@ public class SignUpActivity extends AppCompatActivity {
         final ProgressDialog dialog = new ProgressDialog(this);
         Window window = dialog.getWindow();
 //        window.setLayout(ViewGroup.LayoutParams.MATCH_PARENT, 800);
-        dialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
+//        dialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
         dialog.show();
         JSONObject jsonObject = new JSONObject();
         try {
@@ -218,9 +219,9 @@ public class SignUpActivity extends AppCompatActivity {
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                System.out.println("errrrorr------>"+error);
+//                System.out.println("errrrorr------>"+error);
                 dialog.cancel();
-                Toast.makeText(SignUpActivity.this, "An error occurred please try again later", Toast.LENGTH_SHORT).show();
+                HandleNetworkError.handlerError(error, SignUpActivity.this);
             }
         });
         if (CheckConnectivity.isNetworkAvailable(getApplicationContext())){

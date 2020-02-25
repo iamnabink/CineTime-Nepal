@@ -27,6 +27,7 @@ import com.whoamie.cinetime_nepal.common.adapter.NotificationAdapter;
 import com.whoamie.cinetime_nepal.common.interfaces.APIEndPoints;
 import com.whoamie.cinetime_nepal.common.models.Notification;
 import com.whoamie.cinetime_nepal.common.network.API;
+import com.whoamie.cinetime_nepal.common.network.HandleNetworkError;
 import com.whoamie.cinetime_nepal.common.network.RestClient;
 import com.whoamie.cinetime_nepal.common.utils.CheckConnectivity;
 import com.whoamie.cinetime_nepal.common.utils.ProgressDialog;
@@ -84,7 +85,7 @@ public class NotificationFragement extends Fragment {
             @Override
             public void onErrorResponse(VolleyError error) {
                 dialog.dismiss();
-                Toast.makeText(context, error.getMessage(), Toast.LENGTH_SHORT).show();
+                HandleNetworkError.handlerError(error, getContext());
             }
         });
         if (CheckConnectivity.isNetworkAvailable(context)){

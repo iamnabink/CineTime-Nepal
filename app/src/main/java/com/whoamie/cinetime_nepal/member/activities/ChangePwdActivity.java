@@ -14,6 +14,7 @@ import com.android.volley.VolleyError;
 import com.whoamie.cinetime_nepal.R;
 import com.whoamie.cinetime_nepal.common.network.API;
 import com.whoamie.cinetime_nepal.common.network.AuthenticatedJSONRequest;
+import com.whoamie.cinetime_nepal.common.network.HandleNetworkError;
 import com.whoamie.cinetime_nepal.common.network.RestClient;
 import com.whoamie.cinetime_nepal.common.utils.ProgressDialog;
 import com.whoamie.cinetime_nepal.common.utils.SharedPref;
@@ -67,7 +68,7 @@ public class ChangePwdActivity extends AppCompatActivity {
         dialog = new ProgressDialog(this);
         Window window = dialog.getWindow();
 //        window.setLayout(ViewGroup.LayoutParams.MATCH_PARENT, 800);
-        dialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
+//        dialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
         preferences = getSharedPreferences(SharedPref.key_shared_pref, MODE_PRIVATE);
         editor = preferences.edit();
     }
@@ -104,7 +105,7 @@ public class ChangePwdActivity extends AppCompatActivity {
             public void onErrorResponse(VolleyError error) {
                 System.out.println(error);
                 dialog.dismiss();
-                Toast.makeText(ChangePwdActivity.this, "Server error", Toast.LENGTH_SHORT).show();
+                HandleNetworkError.handlerError(error, ChangePwdActivity.this);
             }
         });
         RestClient.getInstance(getApplicationContext()).addToRequestQueue(request);

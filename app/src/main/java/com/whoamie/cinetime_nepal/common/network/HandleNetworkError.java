@@ -16,23 +16,23 @@ public class HandleNetworkError {
         try {
             if (error instanceof TimeoutError || error instanceof NoConnectionError) {
                 //This indicates that the reuest has either time out or there is no connection
-                Toast.makeText(context, "time out or there is no connection", Toast.LENGTH_SHORT).show();
+                Toast.makeText(context, "Connection Timeout !!", Toast.LENGTH_SHORT).show();
             } else if (error instanceof AuthFailureError) {
-                Toast.makeText(context, "an Authentication Failure while performing the request", Toast.LENGTH_SHORT).show();
+                Toast.makeText(context, "Unauthorized Access !!", Toast.LENGTH_SHORT).show();
                 //Error indicating that there was an Authentication Failure while performing the request
             } else if (error instanceof ServerError) {
-                Toast.makeText(context, "server responded with a error response", Toast.LENGTH_SHORT).show();
+                Toast.makeText(context, "Error Response From Server !!", Toast.LENGTH_SHORT).show();
                 //Indicates that the server responded with a error response
             } else if (error instanceof NetworkError) {
-                Toast.makeText(context, "network error while performing the request", Toast.LENGTH_SHORT).show();
+                Toast.makeText(context, "Network Error !! Check Your Connections", Toast.LENGTH_SHORT).show();
                 //Indicates that there was network error while performing the request
             } else if (error instanceof ParseError) {
-                Toast.makeText(context, "network error while performing the request", Toast.LENGTH_SHORT).show();
+                Toast.makeText(context, "Parser Error !!", Toast.LENGTH_SHORT).show();
             } else {
-                Toast.makeText(context, "An unknown  error occurred! please try again later", Toast.LENGTH_SHORT).show();
+                Toast.makeText(context, "Unknown Error Occurred !! Try Again Later", Toast.LENGTH_SHORT).show();
             }
         } catch (Exception e) {
-            Toast.makeText(context, "An unknown  error occurred! please try again later", Toast.LENGTH_SHORT).show();
+            Toast.makeText(context, "An Exception Occurred !! Try Again Later", Toast.LENGTH_SHORT).show();
         }
     }
 }

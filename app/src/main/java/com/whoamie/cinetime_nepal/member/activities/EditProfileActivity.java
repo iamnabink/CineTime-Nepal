@@ -25,6 +25,7 @@ import com.whoamie.cinetime_nepal.R;
 import com.whoamie.cinetime_nepal.common.activities.HomeActivity;
 import com.whoamie.cinetime_nepal.common.network.API;
 import com.whoamie.cinetime_nepal.common.network.AuthenticatedJSONRequest;
+import com.whoamie.cinetime_nepal.common.network.HandleNetworkError;
 import com.whoamie.cinetime_nepal.common.network.RestClient;
 import com.whoamie.cinetime_nepal.common.utils.ProgressDialog;
 import com.whoamie.cinetime_nepal.common.utils.ImageConverter;
@@ -58,7 +59,7 @@ public class EditProfileActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
-        getWindow().requestFeature(Window.FEATURE_CONTENT_TRANSITIONS);
+        getWindow().requestFeature(Window.FEATURE_CONTENT_TRANSITIONS); //for shared transition
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_editprofile);
         initVar();
@@ -190,7 +191,7 @@ public class EditProfileActivity extends AppCompatActivity {
         dialog = new ProgressDialog(this);
         Window window = dialog.getWindow();
 //        window.setLayout(ViewGroup.LayoutParams.MATCH_PARENT, 800);
-        dialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
+//        dialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
         dialog.show();
         JSONObject jsonObject = new JSONObject();
         try {
@@ -234,7 +235,7 @@ public class EditProfileActivity extends AppCompatActivity {
             public void onErrorResponse(VolleyError error) {
                 dialog.cancel();
 //                System.out.println(error);
-                Toast.makeText(EditProfileActivity.this, "Server error! try again later", Toast.LENGTH_SHORT).show();
+                HandleNetworkError.handlerError(error, EditProfileActivity.this);
             }
         });
         if (CheckConnectivity.isNetworkAvailable(getApplicationContext())) {

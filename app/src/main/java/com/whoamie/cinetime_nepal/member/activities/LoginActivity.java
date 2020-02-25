@@ -16,6 +16,7 @@ import com.android.volley.toolbox.JsonObjectRequest;
 import com.whoamie.cinetime_nepal.R;
 import com.whoamie.cinetime_nepal.common.activities.SplashScreenActivity;
 import com.whoamie.cinetime_nepal.common.network.API;
+import com.whoamie.cinetime_nepal.common.network.HandleNetworkError;
 import com.whoamie.cinetime_nepal.common.network.RestClient;
 import com.whoamie.cinetime_nepal.common.utils.ProgressDialog;
 import com.whoamie.cinetime_nepal.common.utils.CheckConnectivity;
@@ -84,7 +85,7 @@ public class LoginActivity extends AppCompatActivity {
         final ProgressDialog dialog = new ProgressDialog(this);
         Window window = dialog.getWindow();
 //        window.setLayout(ViewGroup.LayoutParams.MATCH_PARENT, 800);
-        dialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
+//        dialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
         dialog.show();
         preferences = getSharedPreferences(SharedPref.key_shared_pref, MODE_PRIVATE);
         final SharedPreferences.Editor editor = preferences.edit();
@@ -126,13 +127,12 @@ public class LoginActivity extends AppCompatActivity {
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                System.out.println("error------->" + error);
+//                System.out.println("error------->" + error);
                 dialog.cancel();
                 if (error.networkResponse.statusCode == 401) {
                     Toast.makeText(LoginActivity.this, "Password or email do not match", Toast.LENGTH_SHORT).show();
                 } else {
-                    Toast.makeText(LoginActivity.this, "Server error please try again later", Toast.LENGTH_SHORT).show();
-                    dialog.cancel();
+                    HandleNetworkError.handlerError(error, LoginActivity.this);
                 }
 
             }

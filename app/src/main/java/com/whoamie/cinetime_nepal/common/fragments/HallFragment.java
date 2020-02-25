@@ -22,11 +22,13 @@ import com.android.volley.toolbox.JsonObjectRequest;
 import com.facebook.shimmer.ShimmerFrameLayout;
 import com.google.gson.Gson;
 import com.whoamie.cinetime_nepal.R;
+import com.whoamie.cinetime_nepal.common.activities.MovieDetailActivity;
 import com.whoamie.cinetime_nepal.common.adapter.HallAdapter;
 import com.whoamie.cinetime_nepal.common.interfaces.AdapterClickListener;
 import com.whoamie.cinetime_nepal.common.models.Hall;
 import com.whoamie.cinetime_nepal.common.network.API;
 import com.whoamie.cinetime_nepal.common.network.AuthenticatedJSONRequest;
+import com.whoamie.cinetime_nepal.common.network.HandleNetworkError;
 import com.whoamie.cinetime_nepal.common.network.RestClient;
 import com.whoamie.cinetime_nepal.common.utils.CheckConnectivity;
 import com.whoamie.cinetime_nepal.common.utils.ProgressDialog;
@@ -123,8 +125,8 @@ public class HallFragment extends Fragment {
             public void onErrorResponse(VolleyError error) {
                 shimmerFrameLayout.stopShimmer();
                 shimmerFrameLayout.setVisibility(View.GONE);
-                System.out.println(error);
-                Toast.makeText(getContext(), "Server error", Toast.LENGTH_SHORT).show();
+//                System.out.println(error);
+                HandleNetworkError.handlerError(error, getContext());
             }
         });
         if (CheckConnectivity.isNetworkAvailable(context)){

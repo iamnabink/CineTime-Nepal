@@ -65,9 +65,10 @@ public class ProfileFragment extends Fragment {
         profileIv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ActivityOptionsCompat options = ActivityOptionsCompat.makeSceneTransitionAnimation(((HomeActivity) getActivity()), profileIv, ViewCompat.getTransitionName(profileIv));
+//                ActivityOptionsCompat options = ActivityOptionsCompat.makeSceneTransitionAnimation(((HomeActivity) getActivity()), profileIv, ViewCompat.getTransitionName(profileIv));
                 Intent intent = new Intent(getContext(), EditProfileActivity.class);
-                startActivity(intent, options.toBundle());
+//                startActivity(intent, options.toBundle());
+                startActivity(intent);
             }
         });
     }
