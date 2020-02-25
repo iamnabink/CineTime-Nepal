@@ -2,6 +2,8 @@ package com.whoamie.cinetime_nepal.common.activities;
 
 import android.os.Bundle;
 
+import com.r0adkll.slidr.Slidr;
+import com.r0adkll.slidr.model.SlidrInterface;
 import com.whoamie.cinetime_nepal.R;
 import com.whoamie.cinetime_nepal.common.adapter.ShowTimePagerAdapter;
 import com.whoamie.cinetime_nepal.common.fragments.ShowTimeFragment;
@@ -26,11 +28,14 @@ public class ShowTimeActivity extends AppCompatActivity {
     ArrayList<Fragment> fragments = new ArrayList<>();
     ArrayList<String> tabTitles =new ArrayList<>();
     Toolbar toolbar;
+    private SlidrInterface slidr;
+
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_showtime);
+        slidr = Slidr.attach(this);
         toolbar = findViewById(R.id.showtime_toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);

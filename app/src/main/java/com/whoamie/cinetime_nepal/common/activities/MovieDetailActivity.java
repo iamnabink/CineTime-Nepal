@@ -22,6 +22,8 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.google.android.material.snackbar.Snackbar;
+import com.r0adkll.slidr.Slidr;
+import com.r0adkll.slidr.model.SlidrInterface;
 import com.whoamie.cinetime_nepal.R;
 import com.whoamie.cinetime_nepal.common.adapter.ReviewAdapter;
 import com.whoamie.cinetime_nepal.common.interfaces.ReviewClickListner;
@@ -65,12 +67,15 @@ public class MovieDetailActivity extends AppCompatActivity {
     ReviewAdapter adapter;
     CoordinatorLayout coordinatorLayout;
     ArrayList<Review> reviews = new ArrayList<>();
+    private SlidrInterface slidr;
+
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
 //        getWindow().requestFeature(Window.FEATURE_CONTENT_TRANSITIONS);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_movie_details);
+        slidr = Slidr.attach(this);
         initVar();
         if (getIntent().getExtras() != null) {
             String movieString = getIntent().getExtras().getString(SharedPref.key_shared_movies_details, "");

@@ -49,30 +49,30 @@
         </activity>
         <activity
             android:name="com.whoamie.cinetime_nepal.member.activities.SignUpActivity"
-            android:theme="@style/AppTheme.transparent" />
+            android:theme="@style/AppTheme.transparent.animationTheme" />
         <activity
             android:name="com.whoamie.cinetime_nepal.member.activities.LoginActivity"
-            android:theme="@style/AppTheme.transparent" />
+            android:theme="@style/AppTheme.transparent.animationTheme" />
         <activity
             android:name="com.whoamie.cinetime_nepal.member.activities.EditProfileActivity"
-            android:theme="@style/AppTheme.transparent" />
+            android:theme="@style/AppTheme.transparent.animationTheme" />
         <activity
             android:name="com.whoamie.cinetime_nepal.common.activities.MovieDetailActivity"
             android:configChanges="orientation|screenSize|keyboardHidden|smallestScreenSize|screenLayout"
-            android:theme="@style/AppTheme.transparent" />
+            android:theme="@style/AppTheme.transparent.animationTheme" />
         <activity
             android:name="com.whoamie.cinetime_nepal.common.activities.ShowTimeActivity"
             android:label="ShowTime"
-            android:theme="@style/AppTheme.transparent" />
+            android:theme="@style/AppTheme.transparent.animationTheme" />
         <activity
             android:name="com.whoamie.cinetime_nepal.common.activities.MapNearByCinemasActivity"
             android:theme="@style/AppTheme.transparent" />
         <activity
             android:name="com.whoamie.cinetime_nepal.member.activities.ChangePwdActivity"
-            android:theme="@style/AppTheme.transparent" />
+            android:theme="@style/AppTheme.transparent.animationTheme" />
         <activity
             android:name="com.whoamie.cinetime_nepal.member.activities.ResetPwdActivity"
-            android:theme="@style/AppTheme.transparent"></activity>
+            android:theme="@style/AppTheme.transparent.animationTheme"></activity>
         <activity
             android:name="com.whoamie.cinetime_nepal.common.activities.SettingActivity"
             android:theme="@style/AppTheme.transparent"></activity>
