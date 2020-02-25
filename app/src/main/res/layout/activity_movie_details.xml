@@ -248,10 +248,10 @@
                         android:text="@string/long_text"/>
                 </LinearLayout>
                 <LinearLayout
-                    android:id="@+id/movie_detail_layout"
+                    android:id="@+id/showing_movie_detail_layout"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:visibility="visible"
+                    android:visibility="gone"
                     android:orientation="vertical">
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -297,7 +297,35 @@
                         <include layout="@layout/layout_empty_view"/>
                     </LinearLayout>
                 </LinearLayout>
+                <LinearLayout
+                    android:id="@+id/releasing_movie_detail_layout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:visibility="gone"
+                    android:orientation="vertical">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:textColor="@android:color/black"
+                        android:layout_marginBottom="10dp"
+                        android:layout_marginLeft="18sp"
+                        android:text="Upcoming Movies"/>
 
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/reccom_movies_recycler_view"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"/>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/empty_layout_recom_movies"
+                        android:layout_marginBottom="15dp"
+                        android:visibility="gone"
+                        android:gravity="center">
+                        <include layout="@layout/layout_empty_view"/>
+                    </LinearLayout>
+                </LinearLayout>
             </LinearLayout>
         </RelativeLayout>
     </ScrollView>

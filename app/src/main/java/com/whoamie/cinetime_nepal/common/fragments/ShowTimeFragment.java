@@ -92,6 +92,10 @@ public class ShowTimeFragment extends Fragment {
                         ShowTime showTime = new Gson().fromJson(showtimeObject.toString(),ShowTime.class);
                         showTimes.add(showTime);
                     }
+                    if (adapter.getItemCount()==0){
+                        recyclerView.setVisibility(View.GONE);
+                        view.findViewById(R.id.st_empty_view).setVisibility(View.VISIBLE);
+                    }
                     adapter.notifyDataSetChanged();
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -107,9 +111,6 @@ public class ShowTimeFragment extends Fragment {
             }
         });
         RestClient.getInstance(getContext()).addToRequestQueue(request);
-        if (adapter.getItemCount()==0){
-            view.findViewById(R.id.st_empty_view).setVisibility(View.VISIBLE);
-        }
     }
 
 }

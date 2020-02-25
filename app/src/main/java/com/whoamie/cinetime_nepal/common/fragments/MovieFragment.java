@@ -149,6 +149,10 @@ public class MovieFragment extends Fragment {
                         showsShowingRecyclerV.setVisibility(View.GONE);
                         view.findViewById(R.id.empty_layout_smoviefrag).setVisibility(View.VISIBLE);
                     }
+                    else {
+                        showsShowingRecyclerV.setVisibility(View.VISIBLE);
+                        view.findViewById(R.id.empty_layout_smoviefrag).setVisibility(View.GONE);
+                    }
                     sadapter.notifyDataSetChanged();
                     JSONArray comingMoviesList = response.getJSONArray("coming");
                     for (int i = 0; i < comingMoviesList.length(); i++) {
@@ -159,6 +163,10 @@ public class MovieFragment extends Fragment {
                     if (uadapter.getItemCount()==0){
                         showsComingRecyclerV.setVisibility(View.GONE);
                         view.findViewById(R.id.empty_layout_cmoviefrag).setVisibility(View.VISIBLE);
+                    }
+                    else {
+                        showsComingRecyclerV.setVisibility(View.VISIBLE);
+                        view.findViewById(R.id.empty_layout_cmoviefrag).setVisibility(View.GONE);
                     }
                     uadapter.notifyDataSetChanged();
 

@@ -72,17 +72,28 @@ public class MovieDetailActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_movie_details);
         initVar();
-        displayShowTime();
-        makeReview();
-
         if (getIntent().getExtras() != null) {
             String movieString = getIntent().getExtras().getString(SharedPref.key_shared_movies_details, "");
             movie = new Gson().fromJson(movieString, Movie.class);
-            loadData();
+            loadIntentData();
+            if (movie.getStatus() == 1){
+                findViewById(R.id.showing_movie_detail_layout).setVisibility(View.VISIBLE);
+                findViewById(R.id.releasing_movie_detail_layout).setVisibility(View.GONE);
+                //nowshowing
+                makeReviewBtn();
+                setRecyclerView();
+                makeFavouriteMoviesBtn();
+                callReviewAPI();
+                showTimeIntent();
+            }
+            else if (movie.getStatus() == 0){
+                //upcoming
+                findViewById(R.id.showing_movie_detail_layout).setVisibility(View.GONE);
+                findViewById(R.id.releasing_movie_detail_layout).setVisibility(View.VISIBLE);
+                makeFavouriteMoviesBtn();
+            }
         }
-        setRecyclerView();
-        makeFavouriteMovies();
-        callReviewAPI();
+
     }
 
     private void initVar() {
@@ -108,7 +119,7 @@ public class MovieDetailActivity extends AppCompatActivity {
 //        window.setBackgroundDrawableResource(android.R.color.transparent);
     }
 
-    private void loadData() {
+    private void loadIntentData() {
         movieNameTv.setText(movie.getName());
         movieGenreTv.setText(movie.getGenre());
         movieSynopsis.setText(movie.getGenre());
@@ -123,7 +134,7 @@ public class MovieDetailActivity extends AppCompatActivity {
         ratingCount.setText(movie.getRating() == 0 ? "N/A" : "" + movie.getRating()); //elvis operator
     }
 
-    private void makeFavouriteMovies() {
+    private void makeFavouriteMoviesBtn() {
         movieFavouriteCv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -249,7 +260,7 @@ public class MovieDetailActivity extends AppCompatActivity {
     }
 
 
-    private void makeReview() {
+    private void makeReviewBtn() {
         reviewTv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -392,7 +403,7 @@ public class MovieDetailActivity extends AppCompatActivity {
     }
 
 
-    private void displayShowTime() {
+    private void showTimeIntent() {
         showTimetv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
