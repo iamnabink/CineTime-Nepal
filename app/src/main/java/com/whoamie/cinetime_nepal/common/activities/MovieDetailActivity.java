@@ -53,18 +53,19 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 public class MovieDetailActivity extends AppCompatActivity {
-    TextView  movieNameTv, movieGenreTv, movieSynopsis, movieCastsTv, movieDirectorsTv, releaseDate, movieRuntime, movieLanguage,ratingCount;
+    TextView movieNameTv, movieGenreTv, movieSynopsis, movieCastsTv, movieDirectorsTv, releaseDate, movieRuntime, movieLanguage, ratingCount;
     EditText messageEt;
-    Button reviewTv,showTimetv;
+    Button reviewTv, showTimetv;
     Movie movie;
-    ImageView posterImg, bgImage, emptyRvIv;
+    ImageView posterImg, bgImage;
     RatingBar ratingBar;
     RecyclerView reviewRecyclerView;
     ProgressDialog dialog;
-    CardView movieFavouriteCv,movieTrailerCv;
+    CardView movieFavouriteCv, movieTrailerCv;
     ReviewAdapter adapter;
     CoordinatorLayout coordinatorLayout;
     ArrayList<Review> reviews = new ArrayList<>();
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
 //        getWindow().requestFeature(Window.FEATURE_CONTENT_TRANSITIONS);
@@ -82,15 +83,51 @@ public class MovieDetailActivity extends AppCompatActivity {
         setRecyclerView();
         makeFavouriteMovies();
         callReviewAPI();
+    }
 
+    private void initVar() {
+        movieFavouriteCv = findViewById(R.id.d_movie_favourite_cv);
+        showTimetv = findViewById(R.id.d_movie_showtime_tv);
+        reviewTv = findViewById(R.id.d_movie_review_tv);
+        movieNameTv = findViewById(R.id.d_movie_name_tv);
+        movieGenreTv = findViewById(R.id.d_movie_genre_tv);
+        movieSynopsis = findViewById(R.id.d_movie_synopsis);
+        movieCastsTv = findViewById(R.id.d_movie_casts);
+        movieDirectorsTv = findViewById(R.id.d_movie_directors);
+        releaseDate = findViewById(R.id.d_release_date);
+        movieRuntime = findViewById(R.id.d_movie_runtime);
+        movieLanguage = findViewById(R.id.d_movie_language);
+        posterImg = findViewById(R.id.d_poster_img);
+        bgImage = findViewById(R.id.d_bg_image);
+        ratingBar = findViewById(R.id.d_movie_rating_bar);
+        ratingCount = findViewById(R.id.d_movie_rating_count);
+        reviewRecyclerView = findViewById(R.id.review_recycler_view);
+        dialog = new ProgressDialog(this);
+//        Window window = dialog.getWindow();
+//        window.setLayout(ViewGroup.LayoutParams.MATCH_PARENT, 800);
+//        window.setBackgroundDrawableResource(android.R.color.transparent);
+    }
 
+    private void loadData() {
+        movieNameTv.setText(movie.getName());
+        movieGenreTv.setText(movie.getGenre());
+        movieSynopsis.setText(movie.getGenre());
+        movieCastsTv.setText(movie.getCasts());
+        movieDirectorsTv.setText(movie.getDirectors());
+        releaseDate.setText(movie.getRelease_date());
+        movieRuntime.setText(movie.getRun_time());
+        movieLanguage.setText(movie.getLanguage());
+        Picasso.get().load(movie.getPoster_url()).into(posterImg);
+        Picasso.get().load(movie.getPoster_url()).into(bgImage);
+        ratingBar.setRating(movie.getRating());
+        ratingCount.setText(movie.getRating() == 0 ? "N/A" : "" + movie.getRating()); //elvis operator
     }
 
     private void makeFavouriteMovies() {
         movieFavouriteCv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                coordinatorLayout=findViewById(R.id.coordinator_l);
+                coordinatorLayout = findViewById(R.id.coordinator_l);
                 callMakeFavouriteMovieApi();
             }
         });
@@ -100,7 +137,7 @@ public class MovieDetailActivity extends AppCompatActivity {
         final ProgressDialog dialog = new ProgressDialog(this);
         JSONObject jsonObject = new JSONObject();
         try {
-            jsonObject.put("movie_id",movie.getId());
+            jsonObject.put("movie_id", movie.getId());
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -110,10 +147,9 @@ public class MovieDetailActivity extends AppCompatActivity {
             public void onResponse(JSONObject response) {
                 dialog.dismiss();
                 try {
-                    if (response.getBoolean("status")){
+                    if (response.getBoolean("status")) {
                         Snackbar.make(coordinatorLayout, "Added to fav movie", Snackbar.LENGTH_LONG).show();
-                    }
-                    else {
+                    } else {
                         Snackbar.make(coordinatorLayout, "Already Added", Snackbar.LENGTH_LONG).show();
                     }
                 } catch (JSONException e) {
@@ -128,16 +164,15 @@ public class MovieDetailActivity extends AppCompatActivity {
                 Snackbar.make(coordinatorLayout, error.getMessage(), Snackbar.LENGTH_LONG).show();
             }
         });
-        if (CheckConnectivity.isNetworkAvailable(this)){
+        if (CheckConnectivity.isNetworkAvailable(this)) {
             RestClient.getInstance(this).addToRequestQueue(request);
-        }
-        else {
+        } else {
             Toast.makeText(this, "No Internet Available", Toast.LENGTH_SHORT).show();
         }
     }
 
     private void setRecyclerView() {
-        adapter= new ReviewAdapter(reviews, getApplicationContext(), new ReviewClickListner() {
+        adapter = new ReviewAdapter(reviews, getApplicationContext(), new ReviewClickListner() {
             @Override
             public void deleteButtonClick(int position, View view) {
                 Review review = reviews.get(position);
@@ -156,9 +191,6 @@ public class MovieDetailActivity extends AppCompatActivity {
         });
         reviewRecyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
         reviewRecyclerView.setAdapter(adapter);
-        if (adapter.getItemCount() == 0){
-            emptyRvIv.setVisibility(View.VISIBLE);
-        }
     }
 
     private void openUserProfile(int movieId) {
@@ -170,8 +202,8 @@ public class MovieDetailActivity extends AppCompatActivity {
         dialog.show();
         JSONObject jsonObject = new JSONObject();
         try {
-            jsonObject.put("movie_id",movieId);
-            jsonObject.put("user_id",userId);
+            jsonObject.put("movie_id", movieId);
+            jsonObject.put("user_id", userId);
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -181,11 +213,21 @@ public class MovieDetailActivity extends AppCompatActivity {
             public void onResponse(JSONObject response) {
                 dialog.dismiss();
                 try {
-                    if (response.getBoolean("status")){
+                    if (response.getBoolean("status")) {
                         Toast.makeText(MovieDetailActivity.this, response.getString("message"), Toast.LENGTH_SHORT).show();
-                        callReviewAPI();
-                    }
-                    else {
+                        finish();
+                        overridePendingTransition(0, 0);
+                        startActivity(getIntent());
+                        overridePendingTransition(0, 0);
+                        if (adapter.getItemCount() == 0) {
+                            findViewById(R.id.empty_layout_reviews).setVisibility(View.VISIBLE);
+                            reviewRecyclerView.setVisibility(View.GONE);
+                        } else {
+                            findViewById(R.id.empty_layout_reviews).setVisibility(View.GONE);
+                            reviewRecyclerView.setVisibility(View.VISIBLE);
+                        }
+                        adapter.notifyDataSetChanged();
+                    } else {
                         Toast.makeText(MovieDetailActivity.this, "Can not delete! An error Occurred", Toast.LENGTH_SHORT).show();
                     }
                 } catch (JSONException e) {
@@ -196,68 +238,27 @@ public class MovieDetailActivity extends AppCompatActivity {
             @Override
             public void onErrorResponse(VolleyError error) {
                 dialog.dismiss();
-                HandleNetworkError.handlerError(error,MovieDetailActivity.this);
+                HandleNetworkError.handlerError(error, MovieDetailActivity.this);
             }
         });
-        if (CheckConnectivity.isNetworkAvailable(getApplicationContext())){
+        if (CheckConnectivity.isNetworkAvailable(getApplicationContext())) {
             RestClient.getInstance(getApplicationContext()).addToRequestQueue(request);
-        }
-        else {
+        } else {
             Toast.makeText(this, "Can not load data! please connect internet and try again", Toast.LENGTH_SHORT).show();
         }
     }
 
-    private void initVar() {
-        emptyRvIv=findViewById(R.id.empty_review);
-        movieFavouriteCv=findViewById(R.id.d_movie_favourite_cv);
-        showTimetv = findViewById(R.id.d_movie_showtime_tv);
-        reviewTv = findViewById(R.id.d_movie_review_tv);
-        movieNameTv = findViewById(R.id.d_movie_name_tv);
-        movieGenreTv = findViewById(R.id.d_movie_genre_tv);
-        movieSynopsis = findViewById(R.id.d_movie_synopsis);
-        movieCastsTv = findViewById(R.id.d_movie_casts);
-        movieDirectorsTv = findViewById(R.id.d_movie_directors);
-        releaseDate = findViewById(R.id.d_release_date);
-        movieRuntime = findViewById(R.id.d_movie_runtime);
-        movieLanguage = findViewById(R.id.d_movie_language);
-        posterImg = findViewById(R.id.d_poster_img);
-        bgImage = findViewById(R.id.d_bg_image);
-        ratingBar = findViewById(R.id.d_movie_rating_bar);
-        ratingCount=findViewById(R.id.d_movie_rating_count);
-        reviewRecyclerView=findViewById(R.id.review_recycler_view);
-        dialog=new ProgressDialog(this);
-//        Window window = dialog.getWindow();
-//        window.setLayout(ViewGroup.LayoutParams.MATCH_PARENT, 800);
-//        window.setBackgroundDrawableResource(android.R.color.transparent);
-    }
-
-
-    private void loadData() {
-        movieNameTv.setText(movie.getName());
-        movieGenreTv.setText(movie.getGenre());
-        movieSynopsis.setText(movie.getGenre());
-        movieCastsTv.setText(movie.getCasts());
-        movieDirectorsTv.setText(movie.getDirectors());
-        releaseDate.setText(movie.getRelease_date());
-        movieRuntime.setText(movie.getRun_time());
-        movieLanguage.setText(movie.getLanguage());
-        Picasso.get().load(movie.getPoster_url()).into(posterImg);
-        Picasso.get().load(movie.getPoster_url()).into(bgImage);
-        ratingBar.setRating(movie.getRating());
-        ratingCount.setText(movie.getRating()==0?"N/A":""+movie.getRating()); //elvis operator
-    }
 
     private void makeReview() {
         reviewTv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-                SharedPreferences preferences = getSharedPreferences(SharedPref.key_shared_pref,MODE_PRIVATE);
-                String token = preferences.getString(SharedPref.key_user_token,null);
-                if (token != null){
+                SharedPreferences preferences = getSharedPreferences(SharedPref.key_shared_pref, MODE_PRIVATE);
+                String token = preferences.getString(SharedPref.key_user_token, null);
+                if (token != null) {
                     showDialogBox();
-                }
-                else {
+                } else {
                     Toast.makeText(MovieDetailActivity.this, "Please login to comment", Toast.LENGTH_SHORT).show();
                     startActivity(new Intent(getApplicationContext(), LoginActivity.class));
                 }
@@ -269,8 +270,8 @@ public class MovieDetailActivity extends AppCompatActivity {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         LayoutInflater inflater = getLayoutInflater();
         View view = inflater.inflate(R.layout.layout_comment_box, null);
-        ratingBar =view.findViewById(R.id.ratingbar);
-        messageEt= view.findViewById(R.id.comment_et);
+        ratingBar = view.findViewById(R.id.ratingbar);
+        messageEt = view.findViewById(R.id.comment_et);
         builder.setView(view).setTitle("Rate this movie").setNegativeButton("cancel", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
@@ -287,6 +288,7 @@ public class MovieDetailActivity extends AppCompatActivity {
         dialog.show();
 
     }
+
     private void callMakeReviewApi() {
 //        "movie_id":6,
 //                "comment_msg":"Awesome Movie",
@@ -295,9 +297,9 @@ public class MovieDetailActivity extends AppCompatActivity {
         dialog.show();
         JSONObject jsonObject = new JSONObject();
         try {
-            jsonObject.put("movie_id",movie.getId());
-            jsonObject.put("rating_count",ratingBar.getRating());
-            jsonObject.put("comment_msg",messageEt.getText());
+            jsonObject.put("movie_id", movie.getId());
+            jsonObject.put("rating_count", ratingBar.getRating());
+            jsonObject.put("comment_msg", messageEt.getText());
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -306,15 +308,19 @@ public class MovieDetailActivity extends AppCompatActivity {
             public void onResponse(JSONObject response) {
                 dialog.dismiss();
                 try {
-                    if (response.getBoolean("status")){
+                    if (response.getBoolean("status")) {
                         try {
                             Toast.makeText(MovieDetailActivity.this, response.getString("message"), Toast.LENGTH_SHORT).show();
                             callReviewAPI();
+                            if (adapter.getItemCount() == 0) {
+                                findViewById(R.id.empty_layout_reviews).setVisibility(View.VISIBLE);
+                                reviewRecyclerView.setVisibility(View.GONE);
+                            }
+                            adapter.notifyDataSetChanged();
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
-                    }
-                    else {
+                    } else {
                         Toast.makeText(MovieDetailActivity.this, response.getString("message"), Toast.LENGTH_SHORT).show();
                     }
                 } catch (JSONException e) {
@@ -326,13 +332,12 @@ public class MovieDetailActivity extends AppCompatActivity {
             @Override
             public void onErrorResponse(VolleyError error) {
                 dialog.dismiss();
-                HandleNetworkError.handlerError(error,getApplicationContext());
+                HandleNetworkError.handlerError(error, getApplicationContext());
             }
         });
-        if (CheckConnectivity.isNetworkAvailable(getApplicationContext())){
+        if (CheckConnectivity.isNetworkAvailable(getApplicationContext())) {
             RestClient.getInstance(getApplicationContext()).addToRequestQueue(request);
-        }
-        else {
+        } else {
             Toast.makeText(this, "Can not load data! please connect internet and try again", Toast.LENGTH_SHORT).show();
         }
     }
@@ -342,7 +347,7 @@ public class MovieDetailActivity extends AppCompatActivity {
         dialog.show();
         JSONObject jsonObject = new JSONObject();
         try {
-            jsonObject.put("movie_id",movie.getId());
+            jsonObject.put("movie_id", movie.getId());
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -352,12 +357,19 @@ public class MovieDetailActivity extends AppCompatActivity {
                 dialog.dismiss();
                 try {
                     JSONArray dataArray = response.getJSONArray(SharedPref.key_data_details);
-                    for(int i = 0;i<dataArray.length();i++){
+                    for (int i = 0; i < dataArray.length(); i++) {
                         JSONObject reviewObject = dataArray.getJSONObject(i);
-                        Review review = new Gson().fromJson(reviewObject.toString(),Review.class);
+                        Review review = new Gson().fromJson(reviewObject.toString(), Review.class);
                         reviews.add(review);
-                        adapter.notifyDataSetChanged();
                     }
+                    if (adapter.getItemCount() == 0) {
+                        findViewById(R.id.empty_layout_reviews).setVisibility(View.VISIBLE);
+                        reviewRecyclerView.setVisibility(View.GONE);
+                    } else {
+                        findViewById(R.id.empty_layout_reviews).setVisibility(View.GONE);
+                        reviewRecyclerView.setVisibility(View.VISIBLE);
+                    }
+                    adapter.notifyDataSetChanged();
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -367,13 +379,13 @@ public class MovieDetailActivity extends AppCompatActivity {
             public void onErrorResponse(VolleyError error) {
                 dialog.dismiss();
                 System.out.println(error);
-                HandleNetworkError.handlerError(error,MovieDetailActivity.this);
+                HandleNetworkError.handlerError(error, MovieDetailActivity.this);
             }
         });
-        if(CheckConnectivity.isNetworkAvailable(getApplicationContext())){
+        if (CheckConnectivity.isNetworkAvailable(getApplicationContext())) {
             RestClient.getInstance(this).addToRequestQueue(request);
-        }
-        else {
+
+        } else {
             dialog.dismiss();
             Toast.makeText(this, "Can not load data! please connect internet and try again", Toast.LENGTH_SHORT).show();
         }
@@ -391,18 +403,18 @@ public class MovieDetailActivity extends AppCompatActivity {
             }
         });
     }
-    private void showSnackbarTop(){
+
+    private void showSnackbarTop() {
         Snackbar snack = Snackbar.make(findViewById(android.R.id.content), "Had a snack at Snackbar", Snackbar.LENGTH_LONG);
         View view = snack.getView();
-        CoordinatorLayout.LayoutParams params =(CoordinatorLayout.LayoutParams)view.getLayoutParams(); //Main layour in xml
-        params.gravity =  Gravity.CENTER_HORIZONTAL | Gravity.TOP;
+        CoordinatorLayout.LayoutParams params = (CoordinatorLayout.LayoutParams) view.getLayoutParams(); //Main layour in xml
+        params.gravity = Gravity.CENTER_HORIZONTAL | Gravity.TOP;
 
 // calculate actionbar height
         TypedValue tv = new TypedValue();
-        int actionBarHeight=0;
-        if (getTheme().resolveAttribute(R.attr.actionBarSize, tv, true))
-        {
-            actionBarHeight = TypedValue.complexToDimensionPixelSize(tv.data,getResources().getDisplayMetrics());
+        int actionBarHeight = 0;
+        if (getTheme().resolveAttribute(R.attr.actionBarSize, tv, true)) {
+            actionBarHeight = TypedValue.complexToDimensionPixelSize(tv.data, getResources().getDisplayMetrics());
         }
 
 // set margin

@@ -15,6 +15,8 @@ import retrofit2.http.Url;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.Request;
@@ -71,11 +73,16 @@ public class NotificationFragement extends Fragment {
                         JSONObject object = notificationDataArrya.getJSONObject(i);
                         Notification notification = new Gson().fromJson(object.toString(),Notification.class);
                         notifications.add(notification);
-                        adapter.notifyDataSetChanged();
-                        if (adapter.getItemCount()== 0){
-                            view.findViewById(R.id.empty_view).setVisibility(View.VISIBLE);
-                        }
                     }
+                    if (adapter.getItemCount()==0){
+                        recyclerView.setVisibility(View.GONE);
+                        view.findViewById(R.id.empty_v_notification).setVisibility(View.VISIBLE);
+                    }
+                    else {
+                        recyclerView.setVisibility(View.VISIBLE);
+                        view.findViewById(R.id.empty_v_notification).setVisibility(View.GONE);
+                    }
+                    adapter.notifyDataSetChanged();
 
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -85,7 +92,7 @@ public class NotificationFragement extends Fragment {
             @Override
             public void onErrorResponse(VolleyError error) {
                 dialog.dismiss();
-                HandleNetworkError.handlerError(error, getContext());
+                HandleNetworkError.handlerError(error, context);
             }
         });
         if (CheckConnectivity.isNetworkAvailable(context)){
@@ -126,6 +133,7 @@ public class NotificationFragement extends Fragment {
     }
 
     private void initViews() {
+
         adapter = new NotificationAdapter(notifications,getContext());
         recyclerView.setLayoutManager(new LinearLayoutManager(context));
         recyclerView.setAdapter(adapter);

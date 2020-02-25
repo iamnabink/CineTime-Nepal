@@ -17,6 +17,7 @@ import android.util.Pair;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 
 import com.android.volley.Request;
 import com.android.volley.Response;
@@ -54,7 +55,6 @@ public class MovieFragment extends Fragment {
     View noInternetView, view;
     SwipeRefreshLayout refreshLayout;
     private Context mContext;
-    ;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -65,9 +65,6 @@ public class MovieFragment extends Fragment {
         initViews();
         listeners();
         loadMovieData();
-//        loadDataShowing();
-//        loadDataUpComing();
-
         onRefresh();
         return view;
     }
@@ -77,8 +74,6 @@ public class MovieFragment extends Fragment {
         refreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-//                loadDataShowing();
-//                loadDataUpComing();
                 loadMovieData();
                 refreshLayout.setRefreshing(false);
             }
@@ -90,8 +85,6 @@ public class MovieFragment extends Fragment {
                 .setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-//                        loadDataShowing();
-//                        loadDataUpComing();
                         loadMovieData();
                     }
 
@@ -99,7 +92,7 @@ public class MovieFragment extends Fragment {
     }
 
     private void intiVar() {
-        refreshLayout=view.findViewById(R.id.swipe_refresh_l);
+        refreshLayout = view.findViewById(R.id.swipe_refresh_l);
         noInternetView = view.findViewById(R.id.view_no_internet);
         showsShowingRecyclerV = view.findViewById(R.id.shows_showing_recycler_v);
         showsComingRecyclerV = view.findViewById(R.id.shows_coming_recycler_v);
@@ -129,7 +122,6 @@ public class MovieFragment extends Fragment {
                 Intent intent = new Intent(getContext(), MovieDetailActivity.class);
                 intent.putExtra(SharedPref.key_shared_movies_details, movieDetails);
                 startActivity(intent);
-//                showSharedTransition();
             }
         });
         showsComingRecyclerV.setLayoutManager(new LinearLayoutManager(getContext(), RecyclerView.HORIZONTAL, false));
@@ -138,16 +130,7 @@ public class MovieFragment extends Fragment {
         showsShowingRecyclerV.setAdapter(sadapter);
     }
 
-//    private void showSharedTransition() {
-//        Pair[] pair = new Pair[1];
-//        pair[0]=new Pair<View,String>(movieImageView,"MovieImageView");
-//        ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(((AppCompatActivity) getActivity()),pair);
-//        Intent intent = new Intent(getContext(),MovieDetailActivity.class);
-//        startActivity(intent,options.toBundle());
-//
-//    }
-
-    private void loadMovieData(){
+    private void loadMovieData() {
         smovies.clear();
         umovies.clear();
         dialog.show();
@@ -157,114 +140,38 @@ public class MovieFragment extends Fragment {
                 dialog.dismiss();
                 try {
                     JSONArray showingMovieList = response.getJSONArray("showing");
-                    for (int i = 0;i<showingMovieList.length();i++){
+                    for (int i = 0; i < showingMovieList.length(); i++) {
                         JSONObject movieObject = showingMovieList.getJSONObject(i);
-                        Movie movie = new Gson().fromJson(movieObject.toString(),Movie.class);
+                        Movie movie = new Gson().fromJson(movieObject.toString(), Movie.class);
                         smovies.add(movie);
-                        sadapter.notifyDataSetChanged();
                     }
+                    if (sadapter.getItemCount()==0){
+                        showsShowingRecyclerV.setVisibility(View.GONE);
+                        view.findViewById(R.id.empty_layout_smoviefrag).setVisibility(View.VISIBLE);
+                    }
+                    sadapter.notifyDataSetChanged();
                     JSONArray comingMoviesList = response.getJSONArray("coming");
-                    for (int i = 0;i<comingMoviesList.length();i++){
+                    for (int i = 0; i < comingMoviesList.length(); i++) {
                         JSONObject movieObject = comingMoviesList.getJSONObject(i);
-                        Movie movie = new Gson().fromJson(movieObject.toString(),Movie.class);
-                        umovies.add(movie);
-                        uadapter.notifyDataSetChanged();
-                    }
-
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-            }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                dialog.cancel();
-                HandleNetworkError.handlerError(error,mContext);
-
-            }
-        });
-        if (CheckConnectivity.isNetworkAvailable(mContext)) {
-            noInternetView.setVisibility(View.GONE);
-            RestClient.getInstance(getContext()).addToRequestQueue(request);
-        } else {
-            noInternetView.setVisibility(View.VISIBLE);
-            dialog.dismiss();
-        }
-    }
-
-    private void loadDataShowing() {
-        smovies.clear();
-        dialog.show();
-        editor = preferences.edit();
-        JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, API.nowShowingMovieUrl, null, new Response.Listener<JSONObject>() {
-            @Override
-            public void onResponse(JSONObject response) {
-                dialog.dismiss();
-                try {
-                    JSONObject moviesDetails = response.getJSONObject(SharedPref.key_data_details);
-                    JSONArray moviesArrayData = moviesDetails.getJSONArray(SharedPref.key_shared_movies_details);
-                    String smoviesArray = moviesArrayData.toString();
-                    editor.putString(SharedPref.key_shared_showing_movies_details, smoviesArray);
-                    editor.apply();
-                    for (int i = 0; i < moviesArrayData.length(); i++) {
-                        JSONObject moviesData = moviesArrayData.getJSONObject(i);
-                        Movie movie = new Gson().fromJson(moviesData.toString(), Movie.class);
-                        smovies.add(movie);
-                        sadapter.notifyDataSetChanged();
-                    }
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-
-            }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                HandleNetworkError.handlerError(error,mContext);
-                dialog.cancel();
-            }
-        });
-        if (CheckConnectivity.isNetworkAvailable(mContext)) {
-            noInternetView.setVisibility(View.GONE);
-            RestClient.getInstance(getContext()).addToRequestQueue(request);
-        } else {
-            noInternetView.setVisibility(View.VISIBLE);
-            dialog.dismiss();
-        }
-    }
-
-    private void loadDataUpComing() {
-        umovies.clear();
-        dialog.show();
-        editor = preferences.edit();
-        JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, API.upcomingMovieUrl, null, new Response.Listener<JSONObject>() {
-            @Override
-            public void onResponse(JSONObject response) {
-                dialog.dismiss();
-                try {
-                    JSONObject dataObject = response.getJSONObject(SharedPref.key_data_details);
-                    JSONArray movieDataArray = dataObject.getJSONArray(SharedPref.key_shared_movies_details);
-                    String umoviedataArray = movieDataArray.toString();
-                    editor.putString(SharedPref.key_shared_upcoming_movies_details, umoviedataArray);
-                    editor.apply();
-                    for (int i = 0; i < movieDataArray.length(); i++) {
-                        JSONObject movieObject = movieDataArray.getJSONObject(i);
                         Movie movie = new Gson().fromJson(movieObject.toString(), Movie.class);
                         umovies.add(movie);
-                        uadapter.notifyDataSetChanged();
                     }
+                    if (uadapter.getItemCount()==0){
+                        showsComingRecyclerV.setVisibility(View.GONE);
+                        view.findViewById(R.id.empty_layout_cmoviefrag).setVisibility(View.VISIBLE);
+                    }
+                    uadapter.notifyDataSetChanged();
+
+
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
-
             }
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-//                System.out.println("error" + error);
-                HandleNetworkError.handlerError(error,mContext);
                 dialog.dismiss();
-
+                HandleNetworkError.handlerError(error, mContext);
             }
         });
         if (CheckConnectivity.isNetworkAvailable(mContext)) {
@@ -274,9 +181,8 @@ public class MovieFragment extends Fragment {
             noInternetView.setVisibility(View.VISIBLE);
             dialog.dismiss();
         }
+
     }
-
-
 
     @Override
     public void onAttach(@NonNull Context context) {
