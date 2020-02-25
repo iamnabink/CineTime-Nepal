@@ -1,5 +1,6 @@
 package com.whoamie.cinetime_nepal.common.fragments;
 
+import android.app.ActivityOptions;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -12,6 +13,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
+import android.util.Pair;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -127,6 +129,7 @@ public class MovieFragment extends Fragment {
                 Intent intent = new Intent(getContext(), MovieDetailActivity.class);
                 intent.putExtra(SharedPref.key_shared_movies_details, movieDetails);
                 startActivity(intent);
+//                showSharedTransition();
             }
         });
         showsComingRecyclerV.setLayoutManager(new LinearLayoutManager(getContext(), RecyclerView.HORIZONTAL, false));
@@ -134,6 +137,16 @@ public class MovieFragment extends Fragment {
         showsComingRecyclerV.setAdapter(uadapter);
         showsShowingRecyclerV.setAdapter(sadapter);
     }
+
+//    private void showSharedTransition() {
+//        Pair[] pair = new Pair[1];
+//        pair[0]=new Pair<View,String>(movieImageView,"MovieImageView");
+//        ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(((AppCompatActivity) getActivity()),pair);
+//        Intent intent = new Intent(getContext(),MovieDetailActivity.class);
+//        startActivity(intent,options.toBundle());
+//
+//    }
+
     private void loadMovieData(){
         smovies.clear();
         umovies.clear();

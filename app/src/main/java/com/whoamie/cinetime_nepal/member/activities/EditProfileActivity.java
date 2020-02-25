@@ -58,6 +58,7 @@ public class EditProfileActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
+        getWindow().requestFeature(Window.FEATURE_CONTENT_TRANSITIONS);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_editprofile);
         initVar();
@@ -65,6 +66,12 @@ public class EditProfileActivity extends AppCompatActivity {
         editProfile();
         onClickImage();
         onClickLister();
+    }
+
+    @Override
+    public boolean onSupportNavigateUp() {
+        finishAfterTransition();
+        return true;
     }
 
     private void onClickLister() {
@@ -167,7 +174,7 @@ public class EditProfileActivity extends AppCompatActivity {
         editBio = findViewById(R.id.edit_bio);
         profileIv = findViewById(R.id.edit_profile_iv);
         editBtn = findViewById(R.id.edit_btn);
-        changeTv=findViewById(R.id.chng_pwd_tv);
+        changeTv = findViewById(R.id.chng_pwd_tv);
     }
 
     private void editProfile() {
@@ -200,7 +207,7 @@ public class EditProfileActivity extends AppCompatActivity {
                 try {
                     if (response.getBoolean("status")) {
                         preferences = getSharedPreferences(SharedPref.key_shared_pref, MODE_PRIVATE);
-                        editor=preferences.edit();
+                        editor = preferences.edit();
                         String userDetails = preferences.getString(SharedPref.key_user_details, null);
                         User user = new Gson().fromJson(userDetails, User.class); //changing saved data to object since editing data needs to be updated not replaced
                         JSONObject userData = response.getJSONObject(SharedPref.key_data_details);
@@ -214,8 +221,7 @@ public class EditProfileActivity extends AppCompatActivity {
                         editor.apply();
                         Toast.makeText(EditProfileActivity.this, response.getString("message"), Toast.LENGTH_SHORT).show();
                         startActivity(new Intent(EditProfileActivity.this, HomeActivity.class));
-                    }
-                    else {
+                    } else {
                         System.out.println(response.getString("message"));
                         Toast.makeText(EditProfileActivity.this, response.getString("message"), Toast.LENGTH_SHORT).show();
                     }
@@ -231,10 +237,9 @@ public class EditProfileActivity extends AppCompatActivity {
                 Toast.makeText(EditProfileActivity.this, "Server error! try again later", Toast.LENGTH_SHORT).show();
             }
         });
-        if (CheckConnectivity.isNetworkAvailable(getApplicationContext())){
+        if (CheckConnectivity.isNetworkAvailable(getApplicationContext())) {
             RestClient.getInstance(this).addToRequestQueue(jsonRequest);
-        }
-        else {
+        } else {
             dialog.cancel();
             Toast.makeText(this, "No internet connection", Toast.LENGTH_SHORT).show();
         }

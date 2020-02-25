@@ -7,6 +7,7 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -64,6 +65,7 @@ public class MovieDetailActivity extends AppCompatActivity {
     ArrayList<Review> reviews = new ArrayList<>();
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
+//        getWindow().requestFeature(Window.FEATURE_CONTENT_TRANSITIONS);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_movie_details);
         initVar();

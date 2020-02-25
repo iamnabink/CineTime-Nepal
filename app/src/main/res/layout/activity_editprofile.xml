@@ -17,6 +17,7 @@
             android:id="@+id/edit_profile_iv"
             android:layout_width="100dp"
             android:layout_height="100dp"
+            android:transitionName="user_profile_pic"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="53dp" />
         <TextView
