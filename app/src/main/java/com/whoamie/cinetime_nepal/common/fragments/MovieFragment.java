@@ -23,6 +23,7 @@ import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
+import com.facebook.shimmer.ShimmerFrameLayout;
 import com.whoamie.cinetime_nepal.R;
 import com.whoamie.cinetime_nepal.common.activities.MovieDetailActivity;
 import com.whoamie.cinetime_nepal.common.adapter.ComingMovieAdapter;
@@ -55,7 +56,7 @@ public class MovieFragment extends Fragment {
     View noInternetView, view;
     SwipeRefreshLayout refreshLayout;
     private Context mContext;
-
+    ShimmerFrameLayout shimmerFrameLayoutU,shimmerFrameLayoutS;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -74,6 +75,7 @@ public class MovieFragment extends Fragment {
         refreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
+                dialog.show();
                 loadMovieData();
                 refreshLayout.setRefreshing(false);
             }
@@ -90,8 +92,22 @@ public class MovieFragment extends Fragment {
 
                 });
     }
+    @Override
+    public void onPause() {
+        super.onPause();
+        shimmerFrameLayoutS.startShimmer();
+        shimmerFrameLayoutU.startShimmer();
+    }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        shimmerFrameLayoutS.stopShimmer();
+        shimmerFrameLayoutU.stopShimmer();
+    }
     private void intiVar() {
+        shimmerFrameLayoutS=view.findViewById(R.id.shmovie_shimmer_layout);
+        shimmerFrameLayoutU=view.findViewById(R.id.upmovie_shimmer_layout);
         refreshLayout = view.findViewById(R.id.swipe_refresh_l);
         noInternetView = view.findViewById(R.id.view_no_internet);
         showsShowingRecyclerV = view.findViewById(R.id.shows_showing_recycler_v);
@@ -133,10 +149,15 @@ public class MovieFragment extends Fragment {
     private void loadMovieData() {
         smovies.clear();
         umovies.clear();
-        dialog.show();
+        shimmerFrameLayoutU.startShimmer();
+        shimmerFrameLayoutS.startShimmer();
         JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, API.getMoviesDetail, null, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
+                shimmerFrameLayoutS.stopShimmer();
+                shimmerFrameLayoutS.setVisibility(View.GONE);
+                shimmerFrameLayoutU.stopShimmer();
+                shimmerFrameLayoutU.setVisibility(View.GONE);
                 dialog.dismiss();
                 try {
                     JSONArray showingMovieList = response.getJSONArray("showing");
@@ -178,8 +199,12 @@ public class MovieFragment extends Fragment {
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                dialog.dismiss();
+                shimmerFrameLayoutS.stopShimmer();
+                shimmerFrameLayoutS.setVisibility(View.GONE);
+                shimmerFrameLayoutU.stopShimmer();
+                shimmerFrameLayoutU.setVisibility(View.GONE);
                 HandleNetworkError.handlerError(error, mContext);
+                dialog.dismiss();
             }
         });
         if (CheckConnectivity.isNetworkAvailable(mContext)) {

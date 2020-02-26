@@ -110,10 +110,10 @@ public class HallFragment extends Fragment {
                         JSONObject object = jsonArray.getJSONObject(i);
                         Hall hall = new Gson().fromJson(object.toString(),Hall.class);
                         halls.add(hall);
-                        adapter.notifyDataSetChanged();
-                        if (adapter.getItemCount() == 0){
+                    }
+                    adapter.notifyDataSetChanged();
+                    if (adapter.getItemCount() == 0){
 
-                        }
                     }
                     adapter.notifyDataSetChanged();
                 } catch (JSONException e) {

@@ -12,8 +12,8 @@
         app:cardCornerRadius="6dp">
         <ImageView
             android:id="@+id/fav_movie_imgv"
-            android:layout_width="140dp"
-            android:layout_height="200dp"
+            android:layout_width="130dp"
+            android:layout_height="180dp"
             android:scaleType="centerCrop"
             android:src="@drawable/avatar" />
     </androidx.cardview.widget.CardView>
