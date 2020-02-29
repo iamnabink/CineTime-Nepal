@@ -311,7 +311,7 @@
                         android:textColor="@android:color/black"
                         android:layout_marginBottom="10dp"
                         android:layout_marginLeft="18sp"
-                        android:text="Upcoming Movies"/>
+                        android:text="Similar Movies"/>
 
                     <androidx.recyclerview.widget.RecyclerView
                         android:id="@+id/reccom_movies_recycler_view"
