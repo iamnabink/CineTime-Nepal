@@ -3,6 +3,100 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical">
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:orientation="vertical"
+            android:layout_height="wrap_content">
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="160dp">
+                <ViewFlipper
+                    android:id="@+id/viewFlipper"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginVertical="10dp"
+                    android:layout_marginStart="14dp"
+                    android:layout_marginEnd="14dp"
+                    android:inAnimation="@android:anim/slide_in_left"
+                    android:outAnimation="@android:anim/slide_out_right">
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+                        <ImageView
+                            android:layout_width="match_parent"
+                            android:layout_height="160dp"
+                            android:elevation="10dp"
+                            android:scaleType="centerCrop"
+                            android:src="@drawable/thumbnail"/>
+                    </androidx.cardview.widget.CardView>
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+                        <ImageView
+                            android:layout_width="match_parent"
+                            android:layout_height="160dp"
+                            android:elevation="10dp"
+                            android:scaleType="centerCrop"
+                            android:src="@drawable/thumbnail1"/>
+                    </androidx.cardview.widget.CardView>
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+                        <ImageView
+                            android:layout_width="match_parent"
+                            android:layout_height="160dp"
+                            android:elevation="10dp"
+                            android:scaleType="centerCrop"
+                            android:src="@drawable/thumbnail1"/>
+                    </androidx.cardview.widget.CardView>
+                </ViewFlipper>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:text="Now Showing"
+                    android:textStyle="bold"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginBottom="20dp"
+                    android:textColor="@android:color/black" />
+            </RelativeLayout>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textStyle="bold"
+                android:layout_marginBottom="10dp"
+                android:layout_marginStart="14dp"
+                android:text="Movie Clip"/>
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/clip_recyclerv"
+                tools:orientation="horizontal"
+                tools:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                android:layout_width="match_parent"
+                android:layout_marginStart="14dp"
+                tools:listitem="@layout/row_clip_imagev"
+                android:layout_height="130dp"/>
+            <TextView
+                android:id="@+id/test_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textStyle="bold"
+                android:layout_marginVertical="10dp"
+                android:layout_marginStart="14dp"
+                android:text="Movie Trailer"/>
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/trailer_recyclerv"
+                    android:layout_width="match_parent"
+                    android:nestedScrollingEnabled="false"
+                    tools:listitem="@layout/row_trailer_view"
+                    android:layout_height="match_parent"
+                    android:layout_marginHorizontal="14dp"/>
+            </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
 </LinearLayout>
 

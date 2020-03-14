@@ -312,11 +312,12 @@
                         android:layout_marginBottom="10dp"
                         android:layout_marginLeft="18sp"
                         android:text="Similar Movies"/>
-
                     <androidx.recyclerview.widget.RecyclerView
                         android:id="@+id/reccom_movies_recycler_view"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"/>
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginBottom="10dp"/>
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"

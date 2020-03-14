@@ -199,6 +199,7 @@ public class MovieFragment extends Fragment {
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
+                System.out.println(error);
                 shimmerFrameLayoutS.stopShimmer();
                 shimmerFrameLayoutS.setVisibility(View.GONE);
                 shimmerFrameLayoutU.stopShimmer();

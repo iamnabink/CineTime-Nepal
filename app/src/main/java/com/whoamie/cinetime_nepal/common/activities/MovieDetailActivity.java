@@ -26,6 +26,8 @@ import com.r0adkll.slidr.Slidr;
 import com.r0adkll.slidr.model.SlidrInterface;
 import com.whoamie.cinetime_nepal.R;
 import com.whoamie.cinetime_nepal.common.adapter.ReviewAdapter;
+import com.whoamie.cinetime_nepal.common.adapter.ShowingMovieAdapter;
+import com.whoamie.cinetime_nepal.common.interfaces.AdapterClickListener;
 import com.whoamie.cinetime_nepal.common.interfaces.ReviewClickListner;
 import com.whoamie.cinetime_nepal.common.models.Movie;
 import com.whoamie.cinetime_nepal.common.models.Review;
@@ -38,7 +40,6 @@ import com.whoamie.cinetime_nepal.common.utils.CheckConnectivity;
 import com.whoamie.cinetime_nepal.common.utils.SharedPref;
 import com.google.gson.Gson;
 import com.squareup.picasso.Picasso;
-import com.whoamie.cinetime_nepal.common.utils.Utils;
 import com.whoamie.cinetime_nepal.member.activities.LoginActivity;
 
 import org.json.JSONArray;
@@ -61,12 +62,14 @@ public class MovieDetailActivity extends AppCompatActivity {
     Movie movie;
     ImageView posterImg, bgImage;
     RatingBar ratingBar;
-    RecyclerView reviewRecyclerView;
+    RecyclerView reviewRecyclerView, recommendationRecyclerV;
     ProgressDialog dialog;
     CardView movieFavouriteCv, movieTrailerCv;
     ReviewAdapter adapter;
+    ShowingMovieAdapter movieAdapter;
     CoordinatorLayout coordinatorLayout;
     ArrayList<Review> reviews = new ArrayList<>();
+    ArrayList<Movie> movies=new ArrayList<>();
     private SlidrInterface slidr;
 
 
@@ -96,12 +99,63 @@ public class MovieDetailActivity extends AppCompatActivity {
                 findViewById(R.id.showing_movie_detail_layout).setVisibility(View.GONE);
                 findViewById(R.id.releasing_movie_detail_layout).setVisibility(View.VISIBLE);
                 makeFavouriteMoviesBtn();
+                loadReccomendedMovie();
+                showReccomendedmovie();
             }
         }
 
     }
 
+    private void loadReccomendedMovie() {
+        JSONObject object = new JSONObject();
+        try {
+            object.put("genre",movie.getGenre());
+            object.put("movie_id",movie.getId());
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        JsonObjectRequest request = new JsonObjectRequest(Request.Method.POST, API.getRecemendedMovie, object, new Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject response) {
+                try {
+                    JSONArray jsonArray = response.getJSONArray("recom_movies");
+                    for (int i = 0;i<jsonArray.length();i++){
+                        JSONObject movieObject = jsonArray.getJSONObject(i);
+                        Movie movie = new Gson().fromJson(movieObject.toString(),Movie.class);
+                        movies.add(movie);
+                        movieAdapter.notifyDataSetChanged();
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Toast.makeText(MovieDetailActivity.this, error.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
+        if(CheckConnectivity.isNetworkAvailable(this)){
+            RestClient.getInstance(this).addToRequestQueue(request);
+        }
+        else {
+            Toast.makeText(this, "No Network Detected", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+
+    private void showReccomendedmovie() {
+        recommendationRecyclerV.setLayoutManager(new LinearLayoutManager(MovieDetailActivity.this,RecyclerView.HORIZONTAL,false));
+        movieAdapter=new ShowingMovieAdapter(movies, this, new AdapterClickListener() {
+            @Override
+            public void onClick(int position, View view) {
+            }
+        });
+        recommendationRecyclerV.setAdapter(movieAdapter);
+    }
+
     private void initVar() {
+        recommendationRecyclerV=findViewById(R.id.reccom_movies_recycler_view);
         movieFavouriteCv = findViewById(R.id.d_movie_favourite_cv);
         showTimetv = findViewById(R.id.d_movie_showtime_tv);
         reviewTv = findViewById(R.id.d_movie_review_tv);

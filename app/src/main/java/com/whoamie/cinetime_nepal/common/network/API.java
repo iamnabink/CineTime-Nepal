@@ -21,6 +21,7 @@ public class API {
     public static final String getNotification  = baseUrl+"notifications?page=1";
     public static final String makefavMovie  = baseUrl+"makefavouritemovies";
     public static final String getfavMovieDetail  = baseUrl+"getfavouritemovies";
+    public static final String getRecemendedMovie = baseUrl+"v1/recommended/movies";
 
     //Following code is for retrofit 2 integration
     public static Retrofit retrofit;

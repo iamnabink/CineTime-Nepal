@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.whoamie.cinetime_nepal">
 
     <uses-permission android:name="android.permission.INTERNET" />
@@ -83,6 +84,9 @@
             android:name="com.whoamie.cinetime_nepal.common.activities.SettingActivity"
             android:launchMode="singleTop"
             android:theme="@style/AppTheme.transparent"></activity>
+        <activity android:name=".common.activities.YoutubePlayerView"
+            android:screenOrientation="landscape" android:theme="@style/TransprentTheme"
+            tools:ignore="LockedOrientationActivity" />
         <!-- [START firebase_service] -->
         <service
             android:name=".common.firebase.MyFirebaseMessagingService"
