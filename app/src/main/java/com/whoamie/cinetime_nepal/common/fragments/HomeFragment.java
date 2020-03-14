@@ -14,6 +14,7 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.facebook.shimmer.ShimmerFrameLayout;
 import com.whoamie.cinetime_nepal.R;
 import com.whoamie.cinetime_nepal.common.activities.YoutubePlayerView;
 import com.whoamie.cinetime_nepal.common.adapter.ClipVideosAdapter;
@@ -32,6 +33,7 @@ public class HomeFragment extends Fragment {
     ClipVideosAdapter clipVideosAdapter;
     TrailerVideosAdapter trailerVideosAdapter;
     TextView textView;
+    ShimmerFrameLayout shimmerFrameLayout;
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_home, container, false);
@@ -39,6 +41,8 @@ public class HomeFragment extends Fragment {
 //        initiateVideoplayer();
         viewFlipper = view.findViewById(R.id.viewFlipper); // get the reference of ViewFlipper
         viewFlipper.startFlipping(); // start the flipping of views
+        shimmerFrameLayout = view.findViewById(R.id.home_shimmer_layout);
+//        shimmerFrameLayout.startShimmer();
         initViews();
         loadData();
         setUpRecylerView();
@@ -51,7 +55,17 @@ public class HomeFragment extends Fragment {
         });
         return view;
     }
-
+//    @Override
+//    public void onPause() {
+//        super.onPause();
+//        shimmerFrameLayout.startShimmer();
+//    }
+//
+//    @Override
+//    public void onResume() {
+//        super.onResume();
+//        shimmerFrameLayout.stopShimmer();
+//    }
     private void setUpRecylerView() {
         clipRecyclerV.setLayoutManager(new LinearLayoutManager(getContext(),RecyclerView.HORIZONTAL,false));
         clipVideosAdapter=new ClipVideosAdapter(getContext(), images, new AdapterClickListener() {
