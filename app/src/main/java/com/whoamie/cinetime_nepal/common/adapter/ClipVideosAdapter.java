@@ -5,24 +5,27 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
 import com.whoamie.cinetime_nepal.R;
 import com.whoamie.cinetime_nepal.common.interfaces.AdapterClickListener;
+import com.whoamie.cinetime_nepal.common.models.Video;
 
 import java.util.ArrayList;
 
 import androidx.annotation.NonNull;
+import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 public class ClipVideosAdapter extends RecyclerView.Adapter<ClipVideosAdapter.ClipvHolder> {
     Context context;
-    ArrayList<String> images;
+    ArrayList<Video> videos;
     AdapterClickListener listener;
 
-    public ClipVideosAdapter(Context context, ArrayList<String> images, AdapterClickListener listener) {
+    public ClipVideosAdapter(Context context, ArrayList<Video> videos, AdapterClickListener listener) {
         this.context = context;
-        this.images = images;
+        this.videos = videos;
         this.listener = listener;
     }
 
@@ -37,19 +40,31 @@ public class ClipVideosAdapter extends RecyclerView.Adapter<ClipVideosAdapter.Cl
 
     @Override
     public void onBindViewHolder(@NonNull ClipvHolder holder, int position) {
-        Picasso.get().load(images.get(position)).into(holder.imageView);
+        Video video = videos.get(position);
+        Picasso.get().load(video.getThumbnail_url()).into(holder.imageView);
+        holder.clipTitle.setText(video.getTitle());
     }
 
     @Override
     public int getItemCount() {
-        return images.size();
+        return videos.size();
     }
 
     public class ClipvHolder extends RecyclerView.ViewHolder{
         ImageView imageView;
+        TextView clipTitle;
+        CardView clickCardV;
         public ClipvHolder(@NonNull View itemView) {
             super(itemView);
             imageView=itemView.findViewById(R.id.clip_thumbnail);
+            clipTitle=itemView.findViewById(R.id.clip_title);
+            clickCardV=itemView.findViewById(R.id.clip_card_v);
+            clickCardV.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    listener.onClick(getAdapterPosition(),v);
+                }
+            });
         }
     }
 }

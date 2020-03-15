@@ -47,12 +47,11 @@ public class HomeFragment extends Fragment {
     View view;
     ViewFlipper viewFlipper;
     RecyclerView clipRecyclerV, trailerRecyclerV;
-    ArrayList<String> images = new ArrayList<>();
+    ArrayList<Video> clipVideos = new ArrayList<>();
     ArrayList<Video> videos = new ArrayList<>();
     ArrayList<String> viewFlipperImages = new ArrayList<>();
     ClipVideosAdapter clipVideosAdapter;
     TrailerVideosAdapter trailerVideosAdapter;
-    TextView textView;
     ShimmerFrameLayout shimmerFrameLayout;
     Context context;
 
@@ -63,13 +62,6 @@ public class HomeFragment extends Fragment {
         initViews();
         loadData();
         setUpRecylerView();
-        textView = view.findViewById(R.id.test_text);
-        textView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(getContext(), YoutubePlayerView.class));
-            }
-        });
         return view;
     }
     private void setImageInFlipr(String imgUrl) {
@@ -99,10 +91,14 @@ public class HomeFragment extends Fragment {
     }
     private void setUpRecylerView() {
         clipRecyclerV.setLayoutManager(new LinearLayoutManager(getContext(), RecyclerView.HORIZONTAL, false));
-        clipVideosAdapter = new ClipVideosAdapter(getContext(), images, new AdapterClickListener() {
+        clipVideosAdapter = new ClipVideosAdapter(getContext(), clipVideos, new AdapterClickListener() {
             @Override
             public void onClick(int position, View view) {
-
+                Video video = clipVideos.get(position);
+                String videoId =video.getYoutube_url();
+                Intent intent = new Intent(getContext(),YoutubePlayerView.class);
+                intent.putExtra("video_id", videoId);
+                startActivity(intent);
             }
         });
         clipRecyclerV.setAdapter(clipVideosAdapter);
@@ -110,7 +106,11 @@ public class HomeFragment extends Fragment {
         trailerVideosAdapter = new TrailerVideosAdapter(getContext(), videos, new AdapterClickListener() {
             @Override
             public void onClick(int position, View view) {
-
+                Video video = videos.get(position);
+                String videoId =video.getYoutube_url();
+                Intent intent = new Intent(getContext(),YoutubePlayerView.class);
+                intent.putExtra("video_id", videoId);
+                startActivity(intent);
             }
         });
         trailerRecyclerV.setAdapter(trailerVideosAdapter);
@@ -135,14 +135,13 @@ public class HomeFragment extends Fragment {
                         JSONArray jsonArray = response.getJSONArray(SharedPref.key_data_details);
                         for (int i= 0; i<jsonArray.length();i++){
                             JSONObject object = jsonArray.getJSONObject(i);
-                            Video video = new Gson().fromJson(object.toString(),Video.class);
-                            if (video.getType()==1){
-                                videos.add(video);
-                                viewFlipperImages.add(video.getThumbnail_url());
+                            Video videoTrailer = new Gson().fromJson(object.toString(),Video.class);
+                            if (videoTrailer.getType()==1){
+                                videos.add(videoTrailer);
+                                viewFlipperImages.add(videoTrailer.getThumbnail_url());
                             }
-                            else if (video.getType()==2){
-                                String s = video.getThumbnail_url();
-                                images.add(s);
+                            else if (videoTrailer.getType()==2){
+                                clipVideos.add(videoTrailer);
                             }
 //                             @if($video->type == 1)
 //                                Trailer

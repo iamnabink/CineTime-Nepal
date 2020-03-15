@@ -27,12 +27,14 @@ public class YoutubePlayerView extends YouTubeBaseActivity {
         onInitializedListener=new YouTubePlayer.OnInitializedListener() {
             @Override
             public void onInitializationSuccess(YouTubePlayer.Provider provider, YouTubePlayer youTubePlayer, boolean b) {
-                youTubePlayer.loadVideo("cCNPBEwYH34");
-//                youTubePlayer.release();
-                youTubePlayer.play();
-                youTubePlayer.addFullscreenControlFlag(YouTubePlayer.FULLSCREEN_FLAG_ALWAYS_FULLSCREEN_IN_LANDSCAPE);
-                youTubePlayer.setFullscreen(true);
-                youTubePlayer.setShowFullscreenButton(false);
+                /** Start buffering **/
+                if (!b) {
+                    String videoId = getIntent().getStringExtra("video_id");
+                    youTubePlayer.loadVideo(videoId);
+                    youTubePlayer.addFullscreenControlFlag(YouTubePlayer.FULLSCREEN_FLAG_ALWAYS_FULLSCREEN_IN_LANDSCAPE);
+                    youTubePlayer.setFullscreen(true);
+                    youTubePlayer.setShowFullscreenButton(false);
+                }
             }
 
             @Override

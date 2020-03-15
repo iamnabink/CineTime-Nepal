@@ -15,6 +15,7 @@ import com.whoamie.cinetime_nepal.common.models.Video;
 import java.util.ArrayList;
 
 import androidx.annotation.NonNull;
+import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 public class TrailerVideosAdapter extends RecyclerView.Adapter<TrailerVideosAdapter.ViewH> {
@@ -52,10 +53,18 @@ public class TrailerVideosAdapter extends RecyclerView.Adapter<TrailerVideosAdap
     public class ViewH extends RecyclerView.ViewHolder{
         ImageView imageView;
         TextView title;
+        CardView clickCardV;
         public ViewH(@NonNull View itemView) {
             super(itemView);
             imageView=itemView.findViewById(R.id.trailer_iv);
             title=itemView.findViewById(R.id.trailer_title);
+            clickCardV=itemView.findViewById(R.id.click_card_v);
+            clickCardV.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    listener.onClick(getAdapterPosition(),v);
+                }
+            });
         }
     }
 }

@@ -181,7 +181,7 @@ public class MovieDetailActivity extends AppCompatActivity {
     private void loadIntentData() {
         movieNameTv.setText(movie.getName());
         movieGenreTv.setText(movie.getGenre());
-        movieSynopsis.setText(movie.getGenre());
+        movieSynopsis.setText(movie.getSynopsis());
         movieCastsTv.setText(movie.getCasts());
         movieDirectorsTv.setText(movie.getDirectors());
         releaseDate.setText(movie.getRelease_date());
