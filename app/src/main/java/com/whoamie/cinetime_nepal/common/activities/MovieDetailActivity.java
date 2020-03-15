@@ -159,6 +159,7 @@ public class MovieDetailActivity extends AppCompatActivity {
         movieFavouriteCv = findViewById(R.id.d_movie_favourite_cv);
         showTimetv = findViewById(R.id.d_movie_showtime_tv);
         reviewTv = findViewById(R.id.d_movie_review_tv);
+        movieTrailerCv=findViewById(R.id.d_movie_trailer_cv);
         movieNameTv = findViewById(R.id.d_movie_name_tv);
         movieGenreTv = findViewById(R.id.d_movie_genre_tv);
         movieSynopsis = findViewById(R.id.d_movie_synopsis);
@@ -172,6 +173,7 @@ public class MovieDetailActivity extends AppCompatActivity {
         ratingBar = findViewById(R.id.d_movie_rating_bar);
         ratingCount = findViewById(R.id.d_movie_rating_count);
         reviewRecyclerView = findViewById(R.id.review_recycler_view);
+
         dialog = new ProgressDialog(this);
 //        Window window = dialog.getWindow();
 //        window.setLayout(ViewGroup.LayoutParams.MATCH_PARENT, 800);
@@ -199,6 +201,15 @@ public class MovieDetailActivity extends AppCompatActivity {
             public void onClick(View v) {
                 coordinatorLayout = findViewById(R.id.coordinator_l);
                 callMakeFavouriteMovieApi();
+            }
+        });
+        movieTrailerCv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String videoId =movie.getYoutube_trailer_url();
+                Intent intent = new Intent(MovieDetailActivity.this,YoutubePlayerView.class);
+                intent.putExtra("video_id", videoId);
+                startActivity(intent);
             }
         });
     }
