@@ -17,10 +17,10 @@ import androidx.recyclerview.widget.RecyclerView;
 
 public class ClipVideosAdapter extends RecyclerView.Adapter<ClipVideosAdapter.ClipvHolder> {
     Context context;
-    ArrayList<Integer> images;
+    ArrayList<String> images;
     AdapterClickListener listener;
 
-    public ClipVideosAdapter(Context context, ArrayList<Integer> images, AdapterClickListener listener) {
+    public ClipVideosAdapter(Context context, ArrayList<String> images, AdapterClickListener listener) {
         this.context = context;
         this.images = images;
         this.listener = listener;
@@ -37,7 +37,7 @@ public class ClipVideosAdapter extends RecyclerView.Adapter<ClipVideosAdapter.Cl
 
     @Override
     public void onBindViewHolder(@NonNull ClipvHolder holder, int position) {
-        holder.imageView.setImageResource(images.get(position));
+        Picasso.get().load(images.get(position)).into(holder.imageView);
     }
 
     @Override

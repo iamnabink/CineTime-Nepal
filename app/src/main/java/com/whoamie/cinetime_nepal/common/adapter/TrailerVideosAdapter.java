@@ -7,6 +7,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.squareup.picasso.Picasso;
 import com.whoamie.cinetime_nepal.R;
 import com.whoamie.cinetime_nepal.common.interfaces.AdapterClickListener;
 import com.whoamie.cinetime_nepal.common.models.Video;
@@ -39,7 +40,7 @@ public class TrailerVideosAdapter extends RecyclerView.Adapter<TrailerVideosAdap
     @Override
     public void onBindViewHolder(@NonNull ViewH holder, int position) {
         Video video = videos.get(position);
-        holder.imageView.setImageResource(video.getThumbnail_url());
+        Picasso.get().load(video.getThumbnail_url()).into(holder.imageView);
         holder.title.setText(video.getTitle());
     }
 

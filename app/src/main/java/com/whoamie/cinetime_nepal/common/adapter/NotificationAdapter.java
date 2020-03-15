@@ -35,7 +35,9 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapte
     @Override
     public void onBindViewHolder(@NonNull NotificationView holder, int position) {
         Notification notification = notifications.get(position);
-        Picasso.get().load(notification.getImage_url()).into(holder.notificationIv);
+        if (notification.getImage_url()!=null){
+            Picasso.get().load(notification.getImage_url()).into(holder.notificationIv);
+        }
         holder.notificationTitle.setText(notification.getDescription());
         holder.notificationTime.setText(notification.getSent());
     }

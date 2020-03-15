@@ -22,62 +22,26 @@
                 <RelativeLayout
                     android:layout_width="wrap_content"
                     android:layout_height="160dp">
-
                     <ViewFlipper
                         android:id="@+id/viewFlipper"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
+                        android:layout_height="160dp"
                         android:layout_marginVertical="10dp"
                         android:layout_marginStart="14dp"
                         android:layout_marginEnd="14dp"
                         android:inAnimation="@android:anim/slide_in_left"
-                        android:outAnimation="@android:anim/slide_out_right">
-
-                        <androidx.cardview.widget.CardView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content">
-
-                            <ImageView
-                                android:layout_width="match_parent"
-                                android:layout_height="160dp"
-                                android:elevation="10dp"
-                                android:scaleType="centerCrop"
-                                android:src="@drawable/thumbnail" />
-                        </androidx.cardview.widget.CardView>
-
-                        <androidx.cardview.widget.CardView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content">
-
-                            <ImageView
-                                android:layout_width="match_parent"
-                                android:layout_height="160dp"
-                                android:elevation="10dp"
-                                android:scaleType="centerCrop"
-                                android:src="@drawable/thumbnail1" />
-                        </androidx.cardview.widget.CardView>
-
-                        <androidx.cardview.widget.CardView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content">
-
-                            <ImageView
-                                android:layout_width="match_parent"
-                                android:layout_height="160dp"
-                                android:elevation="10dp"
-                                android:scaleType="centerCrop"
-                                android:src="@drawable/thumbnail1" />
-                        </androidx.cardview.widget.CardView>
-                    </ViewFlipper>
+                        android:outAnimation="@android:anim/slide_out_right"/>
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentBottom="true"
                         android:layout_centerHorizontal="true"
+                        android:layout_centerVertical="true"
                         android:layout_marginBottom="20dp"
                         android:text="Now Showing"
-                        android:textColor="@android:color/black"
+                        android:textSize="16dp"
+                        android:textColor="@android:color/white"
                         android:textStyle="bold" />
                 </RelativeLayout>
 
@@ -118,7 +82,7 @@
             <com.facebook.shimmer.ShimmerFrameLayout
                 android:layout_width="match_parent"
                 android:id="@+id/home_shimmer_layout"
-                android:visibility="gone"
+                android:visibility="visible"
                 android:layout_height="wrap_content">
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -129,15 +93,14 @@
                         android:layout_height="160dp"
                         android:layout_marginStart="14dp"
                         android:layout_marginEnd="14dp"
-                        android:elevation="10dp"
-                        android:layout_marginBottom="10dp"
+                        android:layout_marginBottom="20dp"
                         android:background="@color/shimmer_effect" />
-
                     <LinearLayout
                         android:layout_width="match_parent"
-                        android:layout_height="140dp"
+                        android:layout_height="130dp"
                         android:orientation="horizontal"
-                        android:layout_marginBottom="10dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginBottom="20dp"
                         android:layout_marginHorizontal="14dp">
                         <ImageView
                             android:layout_width="230dp"
@@ -155,13 +118,15 @@
                     <ImageView
                         android:layout_width="match_parent"
                         android:layout_height="200dp"
+                        android:layout_marginTop="20dp"
+                        android:layout_marginBottom="10dp"
                         android:layout_marginHorizontal="14dp"
                         android:background="@color/shimmer_effect" />
 
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginVertical="10dp"
+                        android:layout_marginBottom="20dp"
                         android:layout_marginHorizontal="14dp"
                         android:background="@color/shimmer_effect" />
                     <ImageView
@@ -171,7 +136,6 @@
                         android:background="@color/shimmer_effect" />
                 </LinearLayout>
             </com.facebook.shimmer.ShimmerFrameLayout>
-
         </RelativeLayout>
     </androidx.core.widget.NestedScrollView>
 </LinearLayout>

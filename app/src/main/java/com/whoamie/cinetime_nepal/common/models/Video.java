@@ -4,7 +4,7 @@ public class Video {
 
     private int type;
     private String title;
-    private int thumbnail_url;
+    private String thumbnail_url;
     private String youtube_url;
     private int id;
 
@@ -16,7 +16,7 @@ public class Video {
         return title;
     }
 
-    public Video(int type, String title, int thumbnail_url, String youtube_url, int id) {
+    public Video(int type, String title, String thumbnail_url, String youtube_url, int id) {
         this.type = type;
         this.title = title;
         this.thumbnail_url = thumbnail_url;
@@ -24,7 +24,7 @@ public class Video {
         this.id = id;
     }
 
-    public int getThumbnail_url() {
+    public String getThumbnail_url() {
         return thumbnail_url;
     }
 
