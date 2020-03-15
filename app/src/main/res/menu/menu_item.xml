@@ -12,5 +12,11 @@
         android:iconTint="#5E5E5E"
         android:icon="@drawable/ic_settings_black_24dp"
         tools:ignore="MenuTitle" />
+    <item android:id="@+id/search"
+        app:showAsAction="always"
+        android:visible="false"
+        android:iconTint="#5E5E5E"
+        android:icon="@drawable/ic_search_black_24dp"
+        tools:ignore="MenuTitle" />
 
 </menu>

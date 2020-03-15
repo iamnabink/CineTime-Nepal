@@ -43,6 +43,7 @@ public class HomeActivity extends AppCompatActivity {
     Toolbar myToolbar;
     private static final int MY_PERMISSIONS_REQUEST_OPEN_LOCATION = 738;
     private static final String TAG = "HomeActivity";
+    Menu menuItem;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -84,6 +85,12 @@ public class HomeActivity extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_item, menu);
+        menuItem = menu;
+        MovieFragment movieFragment = (MovieFragment) getSupportFragmentManager().findFragmentByTag("MovieFragment");
+        if (movieFragment != null && movieFragment.isVisible()) {
+            menuItem.findItem(R.id.search).setVisible(true);
+        }
+
         return true;
     }
 
@@ -93,18 +100,16 @@ public class HomeActivity extends AppCompatActivity {
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
-
         //noinspection SimplifiableIfStatement
         if (id == R.id.hall_location) {
             checkLocationpermission();
-
         }
         else if(id == R.id.settings){
             startActivity(new Intent(getApplicationContext(),SettingActivity.class));
         }
-
         return super.onOptionsItemSelected(item);
     }
+
 
     private void checkLocationpermission() {
         if (ContextCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.ACCESS_FINE_LOCATION)

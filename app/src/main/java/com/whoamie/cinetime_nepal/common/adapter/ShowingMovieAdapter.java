@@ -4,10 +4,13 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.whoamie.cinetime_nepal.R;
+import com.whoamie.cinetime_nepal.common.activities.MovieDetailActivity;
 import com.whoamie.cinetime_nepal.common.interfaces.AdapterClickListener;
 import com.whoamie.cinetime_nepal.common.models.Movie;
 import com.squareup.picasso.Picasso;
@@ -15,6 +18,7 @@ import com.squareup.picasso.Picasso;
 import java.util.ArrayList;
 
 import androidx.annotation.NonNull;
+import androidx.coordinatorlayout.widget.CoordinatorLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
 public class ShowingMovieAdapter extends RecyclerView.Adapter<ShowingMovieAdapter.MovieViewHolder> {
@@ -67,6 +71,15 @@ public class ShowingMovieAdapter extends RecyclerView.Adapter<ShowingMovieAdapte
                     listener.onClick(getAdapterPosition(),v);
                 }
             });
+            if(context instanceof MovieDetailActivity){
+                FrameLayout.LayoutParams layoutParams = new FrameLayout.LayoutParams(250, 350);
+                imgv.setLayoutParams(layoutParams);
+//                LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+//                params.setMargins(0,0,0,0);
+//                genreTv.setLayoutParams(params);
+                genreTv.setVisibility(View.GONE);
+            }
         }
+
     }
 }
