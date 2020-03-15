@@ -23,6 +23,7 @@ import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
+import com.facebook.shimmer.ShimmerFrameLayout;
 import com.google.gson.Gson;
 import com.whoamie.cinetime_nepal.R;
 import com.whoamie.cinetime_nepal.common.adapter.NotificationAdapter;
@@ -47,6 +48,7 @@ public class NotificationFragement extends Fragment {
     ArrayList<Notification> notifications = new ArrayList<>();
     NotificationAdapter adapter;
     Context context;
+    ShimmerFrameLayout shimmerFrameLayout;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -58,14 +60,33 @@ public class NotificationFragement extends Fragment {
         loadData();
         return view;
     }
+    private void initViews() {
+
+        adapter = new NotificationAdapter(notifications,getContext());
+        recyclerView.setLayoutManager(new LinearLayoutManager(context));
+        recyclerView.setAdapter(adapter);
+        shimmerFrameLayout=view.findViewById(R.id.notification_shimmer_effect);
+    }
+    @Override
+    public void onPause() {
+        super.onPause();
+        shimmerFrameLayout.startShimmer();
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        shimmerFrameLayout.stopShimmer();
+    }
 
     private void loadData() {
-        final ProgressDialog dialog = new ProgressDialog(context);
-        dialog.show();
+        shimmerFrameLayout.setVisibility(View.VISIBLE);
+        shimmerFrameLayout.startShimmer();
         JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, API.getNotification, null, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
-                dialog.dismiss();
+                shimmerFrameLayout.setVisibility(View.GONE);
+                shimmerFrameLayout.stopShimmer();
                 try {
                     JSONObject jsonObject = response.getJSONObject("notifications");
                     JSONArray notificationDataArrya = jsonObject.getJSONArray(SharedPref.key_data_details);
@@ -91,7 +112,8 @@ public class NotificationFragement extends Fragment {
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                dialog.dismiss();
+                shimmerFrameLayout.setVisibility(View.GONE);
+                shimmerFrameLayout.stopShimmer();
                 HandleNetworkError.handlerError(error, context);
             }
         });
@@ -99,6 +121,8 @@ public class NotificationFragement extends Fragment {
             RestClient.getInstance(getContext()).addToRequestQueue(request);
         }
         else {
+            shimmerFrameLayout.setVisibility(View.GONE);
+            shimmerFrameLayout.stopShimmer();
             Toast.makeText(getContext(), "No network detected", Toast.LENGTH_SHORT).show();
         }
         //making request with retrofit 2
@@ -130,13 +154,6 @@ public class NotificationFragement extends Fragment {
     public void onAttach(@NonNull Context context) {
         this.context = context;
         super.onAttach(context);
-    }
-
-    private void initViews() {
-
-        adapter = new NotificationAdapter(notifications,getContext());
-        recyclerView.setLayoutManager(new LinearLayoutManager(context));
-        recyclerView.setAdapter(adapter);
     }
 
     private void initVar() {

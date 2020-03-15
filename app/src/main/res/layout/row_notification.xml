@@ -10,7 +10,6 @@
         android:layout_width="45dp"
         android:layout_height="45dp"
         android:layout_marginTop="3dp"
-        android:backgroundTint="@color/shimmer_effect"
         android:src="@drawable/ic_notifications_none_black_24dp"
         app:civ_circle_background_color="@color/colorPrimaryDark"/>
     <TextView
@@ -21,7 +20,7 @@
         android:layout_height="wrap_content"
         android:textSize="16sp"
         android:lineSpacingExtra="2dp"
-        android:text="Race 3 is now shoing today. Have a look and feel the love"/>
+        android:text="Wishing you a Happy New Year with the hope that you will have many blessings in the year to come. Out with the old, in with the new: may you be happy the whole year through. Happy New Year"/>
 
     <TextView
         android:id="@+id/notif_time_tv"
