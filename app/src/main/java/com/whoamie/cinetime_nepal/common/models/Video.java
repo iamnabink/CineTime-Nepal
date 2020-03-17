@@ -16,14 +16,6 @@ public class Video {
         return title;
     }
 
-    public Video(int type, String title, String thumbnail_url, String youtube_url, int id) {
-        this.type = type;
-        this.title = title;
-        this.thumbnail_url = thumbnail_url;
-        this.youtube_url = youtube_url;
-        this.id = id;
-    }
-
     public String getThumbnail_url() {
         return thumbnail_url;
     }

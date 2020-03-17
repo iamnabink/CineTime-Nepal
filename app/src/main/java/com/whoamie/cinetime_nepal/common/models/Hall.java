@@ -5,8 +5,8 @@ public class Hall {
     private int status;
     private String site_url;
     private String contact;
-    private int lon;
-    private int lat;
+    private double lon;
+    private double lat;
     private String description;
     private String location;
     private String profile_pic_url;
@@ -25,11 +25,11 @@ public class Hall {
         return contact;
     }
 
-    public int getLon() {
+    public double getLon() {
         return lon;
     }
 
-    public int getLat() {
+    public double getLat() {
         return lat;
     }
 

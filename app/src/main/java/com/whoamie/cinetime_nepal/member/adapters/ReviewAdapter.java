@@ -1,19 +1,17 @@
-package com.whoamie.cinetime_nepal.common.adapter;
+package com.whoamie.cinetime_nepal.member.adapters;
 
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
 import com.whoamie.cinetime_nepal.R;
-import com.whoamie.cinetime_nepal.common.interfaces.AdapterClickListener;
-import com.whoamie.cinetime_nepal.common.interfaces.ReviewClickListner;
-import com.whoamie.cinetime_nepal.common.models.Review;
+import com.whoamie.cinetime_nepal.member.interfaces.ReviewClickListner;
+import com.whoamie.cinetime_nepal.member.models.Review;
 import com.squareup.picasso.Picasso;
 import com.whoamie.cinetime_nepal.common.utils.SharedPref;
 

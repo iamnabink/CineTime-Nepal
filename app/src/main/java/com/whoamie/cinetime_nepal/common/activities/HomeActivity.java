@@ -52,7 +52,7 @@ public class HomeActivity extends AppCompatActivity {
         myToolbar = findViewById(R.id.my_toolbar);
         setSupportActionBar(myToolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
-        replaceFragment(new MovieFragment(),"MovieFragment");
+        replaceFragment(new MovieFragment(), "MovieFragment");
         FirebaseMessaging.getInstance().subscribeToTopic("all"); //to notify all user
         initVar();
         setUpBottomNavigation();
@@ -103,9 +103,8 @@ public class HomeActivity extends AppCompatActivity {
         //noinspection SimplifiableIfStatement
         if (id == R.id.hall_location) {
             checkLocationpermission();
-        }
-        else if(id == R.id.settings){
-            startActivity(new Intent(getApplicationContext(),SettingActivity.class));
+        } else if (id == R.id.settings) {
+            startActivity(new Intent(getApplicationContext(), SettingActivity.class));
         }
         return super.onOptionsItemSelected(item);
     }
@@ -116,14 +115,12 @@ public class HomeActivity extends AppCompatActivity {
                 != PackageManager.PERMISSION_GRANTED) {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                 requestPermissions(new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, MY_PERMISSIONS_REQUEST_OPEN_LOCATION);
-            }
-            else {
+            } else {
                 ActivityCompat.requestPermissions(HomeActivity.this, new
-                        String[]{Manifest.permission.ACCESS_FINE_LOCATION},MY_PERMISSIONS_REQUEST_OPEN_LOCATION);
+                        String[]{Manifest.permission.ACCESS_FINE_LOCATION}, MY_PERMISSIONS_REQUEST_OPEN_LOCATION);
             }
-        }
-        else {
-            startActivity(new Intent(getApplicationContext(),MapNearByCinemasActivity.class));
+        } else {
+            startActivity(new Intent(getApplicationContext(), MapNearByCinemasActivity.class));
         }
     }
 
@@ -135,7 +132,7 @@ public class HomeActivity extends AppCompatActivity {
                 if (grantResults.length > 0
                         && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                     // permission was granted, yay! Do the
-                    startActivity(new Intent(getApplicationContext(),SettingActivity.class));
+                    startActivity(new Intent(getApplicationContext(), SettingActivity.class));
                 } else {
                     // permission denied, boo! Disable the
                     // functionality that depends on this permission.
@@ -160,28 +157,27 @@ public class HomeActivity extends AppCompatActivity {
                     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                         switch (item.getItemId()) {
                             case R.id.bottomnav_home:
-                                replaceFragment(new HomeFragment(),"HomeFragment");
+                                replaceFragment(new HomeFragment(), "HomeFragment");
                                 break;
                             case R.id.bottomnav_profile:
 //                              if (SharedPref.name has  user data go to userprofile fragment else replaceFragment() with log in fragment;)
-                                SharedPreferences preferences = getSharedPreferences(SharedPref.key_shared_pref,MODE_PRIVATE);
-                                String userToken = preferences.getString(SharedPref.key_user_token,null);
-                                String userDetails = preferences.getString(SharedPref.key_user_details,null);
-                                if (userToken == null && userDetails == null){
-                                    replaceFragment(new RegisterFragment(),"RegisterFragment");
-                                }
-                                else {
-                                    replaceFragment(new ProfileFragment(),"ProfileFragment");
+                                SharedPreferences preferences = getSharedPreferences(SharedPref.key_shared_pref, MODE_PRIVATE);
+                                String userToken = preferences.getString(SharedPref.key_user_token, null);
+                                String userDetails = preferences.getString(SharedPref.key_user_details, null);
+                                if (userToken == null && userDetails == null) {
+                                    replaceFragment(new RegisterFragment(), "RegisterFragment");
+                                } else {
+                                    replaceFragment(new ProfileFragment(), "ProfileFragment");
                                 }
                                 break;
                             case R.id.bottomnav_notification:
-                                replaceFragment(new NotificationFragement(),"NotificationFragement");
+                                replaceFragment(new NotificationFragement(), "NotificationFragement");
                                 break;
                             case R.id.bottomnav_hall:
-                                replaceFragment(new HallFragment(),"HallFragment");
+                                replaceFragment(new HallFragment(), "HallFragment");
                                 break;
                             case R.id.bottomnav_movies:
-                                replaceFragment(new MovieFragment(),"MovieFragment");
+                                replaceFragment(new MovieFragment(), "MovieFragment");
                                 break;
                         }
                         return true; //not false (it will automatically make bottom icon selected

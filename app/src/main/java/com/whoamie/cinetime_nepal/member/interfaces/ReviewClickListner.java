@@ -1,4 +1,4 @@
-package com.whoamie.cinetime_nepal.common.interfaces;
+package com.whoamie.cinetime_nepal.member.interfaces;
 
 import android.view.View;
 
