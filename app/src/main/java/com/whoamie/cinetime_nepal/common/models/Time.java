@@ -8,16 +8,8 @@ public class Time {
         return time;
     }
 
-    public void setTime(String time) {
-        this.time = time;
-    }
-
     public int getId() {
         return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
     }
 }
 
