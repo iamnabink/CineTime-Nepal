@@ -21,7 +21,7 @@
             android:layout_height="wrap_content"
             android:paddingBottom="12dp">
 
-            <androidx.cardview.widget.CardView
+            <LinearLayout
                 android:id="@+id/view"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -39,7 +39,7 @@
                     android:scaleType="centerCrop"
                     android:src="@drawable/portrait_zoro" />
 
-            </androidx.cardview.widget.CardView>
+            </LinearLayout>
 
             <TextView
                 android:id="@+id/h_name_tv"
@@ -87,6 +87,12 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent">
 
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="0.5dp"
+                    android:background="@color/shimmer_effect"
+                    app:layout_constraintBottom_toTopOf="@+id/phoneNumber"
+                    app:layout_constraintTop_toTopOf="parent" />
                 <ImageView
                     android:id="@+id/mailIcon"
                     android:layout_width="wrap_content"
@@ -129,21 +135,23 @@
                     android:id="@+id/call_btn"
                     android:layout_width="71dp"
                     android:layout_height="27dp"
-                    android:layout_marginTop="16dp"
-                    app:cardCornerRadius="10dp"
-                    app:cardElevation="8dp"
+                    android:layout_marginTop="18dp"
+                    app:cardCornerRadius="2dp"
+                    app:cardElevation="2dp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.911"
                     app:layout_constraintStart_toEndOf="@+id/phoneNumber"
                     app:layout_constraintTop_toTopOf="parent" >
+
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:gravity="center">
+
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="call"/>
+                            android:text="call" />
                     </LinearLayout>
                 </androidx.cardview.widget.CardView>
 
@@ -151,9 +159,9 @@
                     android:id="@+id/visit_btn"
                     android:layout_width="71dp"
                     android:layout_height="27dp"
-                    android:layout_marginTop="12dp"
-                    app:cardCornerRadius="10dp"
-                    app:cardElevation="8dp"
+                    android:layout_marginTop="10dp"
+                    app:cardElevation="2dp"
+                    app:cardCornerRadius="2dp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.882"
