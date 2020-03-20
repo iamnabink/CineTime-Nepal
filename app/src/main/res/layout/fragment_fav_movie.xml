@@ -30,8 +30,8 @@
                 android:orientation="vertical">
 
                 <ImageView
-                    android:layout_width="130dp"
-                    android:layout_height="180dp"
+                    android:layout_width="110dp"
+                    android:layout_height="150dp"
                     android:scaleType="centerCrop"
                     android:background="@color/shimmer_effect" />
 
@@ -39,7 +39,7 @@
                     android:layout_width="110dp"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:layout_marginTop="8dp"
+                    android:layout_marginTop="6dp"
                     android:background="@color/shimmer_effect"
                     android:textAlignment="center" />
 
@@ -47,7 +47,7 @@
                     android:layout_width="60dp"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:layout_marginTop="8dp"
+                    android:layout_marginTop="6dp"
                     android:background="@color/shimmer_effect"
                     android:textAlignment="center" />
             </LinearLayout>
@@ -58,8 +58,8 @@
                 android:orientation="vertical">
 
                 <ImageView
-                    android:layout_width="130dp"
-                    android:layout_height="180dp"
+                    android:layout_width="110dp"
+                    android:layout_height="150dp"
                     android:scaleType="centerCrop"
                     android:background="@color/shimmer_effect" />
 
@@ -67,7 +67,7 @@
                     android:layout_width="110dp"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:layout_marginTop="8dp"
+                    android:layout_marginTop="6dp"
                     android:background="@color/shimmer_effect"
                     android:textAlignment="center" />
 
@@ -75,7 +75,7 @@
                     android:layout_width="60dp"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:layout_marginTop="8dp"
+                    android:layout_marginTop="6dp"
                     android:background="@color/shimmer_effect"
                     android:textAlignment="center" />
             </LinearLayout>
@@ -86,8 +86,8 @@
                 android:orientation="vertical">
 
                 <ImageView
-                    android:layout_width="130dp"
-                    android:layout_height="180dp"
+                    android:layout_width="110dp"
+                    android:layout_height="150dp"
                     android:scaleType="centerCrop"
                     android:background="@color/shimmer_effect" />
 
@@ -95,7 +95,7 @@
                     android:layout_width="110dp"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:layout_marginTop="8dp"
+                    android:layout_marginTop="6dp"
                     android:background="@color/shimmer_effect"
                     android:textAlignment="center" />
 
@@ -103,7 +103,7 @@
                     android:layout_width="60dp"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:layout_marginTop="8dp"
+                    android:layout_marginTop="6dp"
                     android:background="@color/shimmer_effect"
                     android:textAlignment="center" />
             </LinearLayout>
