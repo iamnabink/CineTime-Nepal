@@ -10,6 +10,7 @@ import android.widget.Button;
 import android.widget.Filter;
 import android.widget.Filterable;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
@@ -50,8 +51,8 @@ public class SearchMovieAdapter extends RecyclerView.Adapter<SearchMovieAdapter.
     public void onBindViewHolder(@NonNull SearchMovieHolder holder, int position) {
         Movie movie = movies.get(position);
         holder.movieNameTv.setText(movie.getName());
-//        holder.hallLocationTv.setText(movie.getGenre());
-//        Picasso.get().load(movie.getPoster_url()).placeholder(R.drawable.no_image).into(holder.hallIv);
+        holder.movieGnreTv.setText(movie.getGenre());
+        Picasso.get().load(movie.getPoster_url()).placeholder(R.drawable.no_image).into(holder.imageView);
     }
 
     @Override
@@ -61,18 +62,22 @@ public class SearchMovieAdapter extends RecyclerView.Adapter<SearchMovieAdapter.
 
     public class SearchMovieHolder extends RecyclerView.ViewHolder{
 
-        TextView movieNameTv;
+        TextView movieNameTv,movieGnreTv;
+        ImageView imageView;
+        LinearLayout linearLayout;
         public SearchMovieHolder(@NonNull View itemView) {
             super(itemView);
             movieNameTv= itemView.findViewById(R.id.search_movie_name_tv);
-            movieNameTv.setOnClickListener(new View.OnClickListener() {
+            linearLayout=itemView.findViewById(R.id.search_layout_click);
+            movieGnreTv= itemView.findViewById(R.id.search_movie_genre_tv);
+            imageView= itemView.findViewById(R.id.search_movie_iv);
+            linearLayout.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     listener.onClick(getAdapterPosition(),v);
                 }
             });
         }
-
     }
     @Override
     public Filter getFilter() {
