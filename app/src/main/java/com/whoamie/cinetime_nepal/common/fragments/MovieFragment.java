@@ -88,7 +88,10 @@ public class MovieFragment extends Fragment {
             @Override
             public void onClick(int position, View view) {
                 Movie movie = movies.get(position);
-                Toast.makeText(getContext(), movie.getName() + "  clicked", Toast.LENGTH_SHORT).show();
+                String movieDetails = new Gson().toJson(movie);
+                Intent intent = new Intent(getContext(), MovieDetailActivity.class);
+                intent.putExtra(SharedPref.key_shared_movies_details, movieDetails);
+                startActivity(intent);
             }
         });
         searchRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
