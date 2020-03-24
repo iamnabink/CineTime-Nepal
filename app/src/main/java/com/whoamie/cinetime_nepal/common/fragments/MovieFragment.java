@@ -8,6 +8,7 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.SearchView;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -15,9 +16,14 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import android.util.Pair;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.Toast;
 
 import com.android.volley.Request;
 import com.android.volley.Response;
@@ -56,7 +62,9 @@ public class MovieFragment extends Fragment {
     View noInternetView, view;
     SwipeRefreshLayout refreshLayout;
     private Context mContext;
-    ShimmerFrameLayout shimmerFrameLayoutU,shimmerFrameLayoutS;
+    LinearLayout linearLayout;
+    ShimmerFrameLayout shimmerFrameLayoutU, shimmerFrameLayoutS;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -67,9 +75,56 @@ public class MovieFragment extends Fragment {
         listeners();
         loadMovieData();
         onRefresh();
+        setHasOptionsMenu(true);
         return view;
     }
 
+    @Override
+    public void onPrepareOptionsMenu(@NonNull Menu menu) {
+        menu.findItem(R.id.hall_location).setVisible(false);
+        menu.findItem(R.id.search).setVisible(true);
+        menu.findItem(R.id.settings).setVisible(false);
+        super.onPrepareOptionsMenu(menu);
+
+    }
+
+    @Override
+    public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
+        MenuItem menuItem = menu.findItem(R.id.search);
+        menuItem.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem item) {
+                linearLayout.setVisibility(View.VISIBLE);
+                return true;
+            }
+        });
+        final SearchView searchView = (SearchView) menuItem.getActionView();
+        searchView.setQueryHint("Search Movies by Name");
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                Toast.makeText(mContext, "Submitted", Toast.LENGTH_SHORT).show();
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                Toast.makeText(mContext, "text changing", Toast.LENGTH_SHORT).show();
+                return false;
+            }
+        });
+        searchView.setOnQueryTextFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (!hasFocus) {
+//                    searchView.setIconified(false);
+                    linearLayout.setVisibility(View.GONE);
+                }
+            }
+        });
+
+        super.onCreateOptionsMenu(menu, inflater);
+    }
 
     private void onRefresh() {
         refreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
@@ -92,6 +147,7 @@ public class MovieFragment extends Fragment {
 
                 });
     }
+
     @Override
     public void onPause() {
         super.onPause();
@@ -105,13 +161,15 @@ public class MovieFragment extends Fragment {
         shimmerFrameLayoutS.stopShimmer();
         shimmerFrameLayoutU.stopShimmer();
     }
+
     private void intiVar() {
-        shimmerFrameLayoutS=view.findViewById(R.id.shmovie_shimmer_layout);
-        shimmerFrameLayoutU=view.findViewById(R.id.upmovie_shimmer_layout);
+        shimmerFrameLayoutS = view.findViewById(R.id.shmovie_shimmer_layout);
+        shimmerFrameLayoutU = view.findViewById(R.id.upmovie_shimmer_layout);
         refreshLayout = view.findViewById(R.id.swipe_refresh_l);
         noInternetView = view.findViewById(R.id.view_no_internet);
         showsShowingRecyclerV = view.findViewById(R.id.shows_showing_recycler_v);
         showsComingRecyclerV = view.findViewById(R.id.shows_coming_recycler_v);
+        linearLayout = view.findViewById(R.id.search_layout);
         dialog = new ProgressDialog(mContext);
 //        Window window = dialog.getWindow();
 //        window.setLayout(ViewGroup.LayoutParams.MATCH_PARENT, 800);
@@ -166,11 +224,10 @@ public class MovieFragment extends Fragment {
                         Movie movie = new Gson().fromJson(movieObject.toString(), Movie.class);
                         smovies.add(movie);
                     }
-                    if (sadapter.getItemCount()==0){
+                    if (sadapter.getItemCount() == 0) {
                         showsShowingRecyclerV.setVisibility(View.GONE);
                         view.findViewById(R.id.empty_layout_smoviefrag).setVisibility(View.VISIBLE);
-                    }
-                    else {
+                    } else {
                         showsShowingRecyclerV.setVisibility(View.VISIBLE);
                         view.findViewById(R.id.empty_layout_smoviefrag).setVisibility(View.GONE);
                     }
@@ -181,11 +238,10 @@ public class MovieFragment extends Fragment {
                         Movie movie = new Gson().fromJson(movieObject.toString(), Movie.class);
                         umovies.add(movie);
                     }
-                    if (uadapter.getItemCount()==0){
+                    if (uadapter.getItemCount() == 0) {
                         showsComingRecyclerV.setVisibility(View.GONE);
                         view.findViewById(R.id.empty_layout_cmoviefrag).setVisibility(View.VISIBLE);
-                    }
-                    else {
+                    } else {
                         showsComingRecyclerV.setVisibility(View.VISIBLE);
                         view.findViewById(R.id.empty_layout_cmoviefrag).setVisibility(View.GONE);
                     }

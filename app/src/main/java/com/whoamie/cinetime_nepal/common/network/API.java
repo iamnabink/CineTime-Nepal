@@ -23,6 +23,7 @@ public class API {
     public static final String getfavMovieDetail  = baseUrl+"getfavouritemovies";
     public static final String getRecemendedMovie = baseUrl+"v1/recommended/movies";
     public static final String getVideos = baseUrl+"v1/videos/list";
+    public static final String getlatLon = baseUrl+"hall-latlon";
 
     //Following code is for retrofit 2 integration
     public static Retrofit retrofit;

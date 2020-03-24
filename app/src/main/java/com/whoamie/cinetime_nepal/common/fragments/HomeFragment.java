@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
+import android.view.Menu;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -62,14 +63,23 @@ public class HomeFragment extends Fragment {
         initViews();
         loadData();
         setUpRecylerView();
+        setHasOptionsMenu(true);
         return view;
     }
+
+    @Override
+    public void onPrepareOptionsMenu(@NonNull Menu menu) {
+        menu.findItem(R.id.hall_location).setVisible(false);
+        super.onPrepareOptionsMenu(menu);
+    }
+
     private void setImageInFlipr(String imgUrl) {
         ImageView image = new ImageView(context);
         image.setScaleType(ImageView.ScaleType.CENTER_CROP);
         Picasso.get().load(imgUrl).into(image);
         viewFlipper.addView(image);
     }
+
     private void initViews() {
         clipRecyclerV = view.findViewById(R.id.clip_recyclerv);
         trailerRecyclerV = view.findViewById(R.id.trailer_recyclerv);
@@ -78,7 +88,7 @@ public class HomeFragment extends Fragment {
         shimmerFrameLayout = view.findViewById(R.id.home_shimmer_layout);
     }
 
-        @Override
+    @Override
     public void onPause() {
         super.onPause();
         shimmerFrameLayout.startShimmer();
@@ -89,14 +99,15 @@ public class HomeFragment extends Fragment {
         super.onResume();
         shimmerFrameLayout.stopShimmer();
     }
+
     private void setUpRecylerView() {
         clipRecyclerV.setLayoutManager(new LinearLayoutManager(getContext(), RecyclerView.HORIZONTAL, false));
         clipVideosAdapter = new ClipVideosAdapter(getContext(), clipVideos, new AdapterClickListener() {
             @Override
             public void onClick(int position, View view) {
                 Video video = clipVideos.get(position);
-                String videoId =video.getYoutube_url();
-                Intent intent = new Intent(getContext(),YoutubePlayerView.class);
+                String videoId = video.getYoutube_url();
+                Intent intent = new Intent(getContext(), YoutubePlayerView.class);
                 intent.putExtra("video_id", videoId);
                 startActivity(intent);
             }
@@ -107,8 +118,8 @@ public class HomeFragment extends Fragment {
             @Override
             public void onClick(int position, View view) {
                 Video video = videos.get(position);
-                String videoId =video.getYoutube_url();
-                Intent intent = new Intent(getContext(),YoutubePlayerView.class);
+                String videoId = video.getYoutube_url();
+                Intent intent = new Intent(getContext(), YoutubePlayerView.class);
                 intent.putExtra("video_id", videoId);
                 startActivity(intent);
             }
@@ -118,7 +129,7 @@ public class HomeFragment extends Fragment {
 
     @Override
     public void onAttach(@NonNull Context context) {
-        this.context=context;
+        this.context = context;
         super.onAttach(context);
     }
 
@@ -131,16 +142,15 @@ public class HomeFragment extends Fragment {
                 shimmerFrameLayout.stopShimmer();
                 shimmerFrameLayout.setVisibility(View.GONE);
                 try {
-                    if (response.getBoolean("status")){
+                    if (response.getBoolean("status")) {
                         JSONArray jsonArray = response.getJSONArray(SharedPref.key_data_details);
-                        for (int i= 0; i<jsonArray.length();i++){
+                        for (int i = 0; i < jsonArray.length(); i++) {
                             JSONObject object = jsonArray.getJSONObject(i);
-                            Video videoTrailer = new Gson().fromJson(object.toString(),Video.class);
-                            if (videoTrailer.getType()==1){
+                            Video videoTrailer = new Gson().fromJson(object.toString(), Video.class);
+                            if (videoTrailer.getType() == 1) {
                                 videos.add(videoTrailer);
                                 viewFlipperImages.add(videoTrailer.getThumbnail_url());
-                            }
-                            else if (videoTrailer.getType()==2){
+                            } else if (videoTrailer.getType() == 2) {
                                 clipVideos.add(videoTrailer);
                             }
 //                             @if($video->type == 1)
@@ -151,15 +161,13 @@ public class HomeFragment extends Fragment {
 //                            Movie News
 //                            @endif
                         }
-                        for(int i=0;i<viewFlipperImages.size();i++)
-                        {
+                        for (int i = 0; i < viewFlipperImages.size(); i++) {
                             setImageInFlipr(viewFlipperImages.get(i));
 
                         }
                         clipVideosAdapter.notifyDataSetChanged();
                         trailerVideosAdapter.notifyDataSetChanged();
-                    }
-                    else {
+                    } else {
                         Toast.makeText(context, "Something goes wrong", Toast.LENGTH_SHORT).show();
                     }
                 } catch (JSONException e) {
@@ -172,7 +180,7 @@ public class HomeFragment extends Fragment {
             public void onErrorResponse(VolleyError error) {
                 shimmerFrameLayout.stopShimmer();
                 shimmerFrameLayout.setVisibility(View.GONE);
-                HandleNetworkError.handlerError(error,context);
+                HandleNetworkError.handlerError(error, context);
             }
         });
         //Set a retry policy in case of SocketTimeout & ConnectionTimeout Exceptions.
@@ -180,10 +188,9 @@ public class HomeFragment extends Fragment {
         jsonObjectRequest.setRetryPolicy(new DefaultRetryPolicy(5000,
                 DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
                 DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
-        if (CheckConnectivity.isNetworkAvailable(context)){
+        if (CheckConnectivity.isNetworkAvailable(context)) {
             RestClient.getInstance(context).addToRequestQueue(jsonObjectRequest);
-        }
-        else {
+        } else {
             shimmerFrameLayout.stopShimmer();
             shimmerFrameLayout.setVisibility(View.GONE);
             Toast.makeText(context, "No Internet Connectivity", Toast.LENGTH_SHORT).show();

@@ -5,6 +5,7 @@
     <item android:id="@+id/hall_location"
         android:icon="@drawable/ic_my_location_black_24dp"
         app:showAsAction="always"
+        android:visible="true"
         android:iconTint="#5E5E5E"
         tools:ignore="MenuTitle" />
     <item android:id="@+id/settings"
@@ -13,10 +14,11 @@
         android:icon="@drawable/ic_settings_black_24dp"
         tools:ignore="MenuTitle" />
     <item android:id="@+id/search"
-        app:showAsAction="always"
+        app:showAsAction="ifRoom|collapseActionView"
         android:visible="false"
         android:iconTint="#5E5E5E"
         android:icon="@drawable/ic_search_black_24dp"
-        tools:ignore="MenuTitle" />
+        tools:ignore="MenuTitle"
+        app:actionViewClass="androidx.appcompat.widget.SearchView" />
 
 </menu>

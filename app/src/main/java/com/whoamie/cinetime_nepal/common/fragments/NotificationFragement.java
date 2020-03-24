@@ -13,6 +13,7 @@ import retrofit2.Callback;
 import retrofit2.http.Url;
 
 import android.view.LayoutInflater;
+import android.view.Menu;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -58,7 +59,13 @@ public class NotificationFragement extends Fragment {
         initVar();
         initViews();
         loadData();
+        setHasOptionsMenu(true);
         return view;
+    }
+    @Override
+    public void onPrepareOptionsMenu(@NonNull Menu menu) {
+        menu.findItem(R.id.hall_location).setVisible(false);
+        super.onPrepareOptionsMenu(menu);
     }
     private void initViews() {
 

@@ -41,7 +41,6 @@ import androidx.appcompat.app.AppCompatActivity;
 public class HomeActivity extends AppCompatActivity {
     BottomNavigationView bottomNavigationView;
     Toolbar myToolbar;
-    private static final int MY_PERMISSIONS_REQUEST_OPEN_LOCATION = 738;
     private static final String TAG = "HomeActivity";
     Menu menuItem;
 
@@ -54,7 +53,6 @@ public class HomeActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayShowTitleEnabled(false);
         replaceFragment(new MovieFragment(), "MovieFragment");
         FirebaseMessaging.getInstance().subscribeToTopic("all"); //to notify all user
-        initVar();
         setUpBottomNavigation();
 //        handleFirebaseNotification();
     }
@@ -71,7 +69,6 @@ public class HomeActivity extends AppCompatActivity {
                         }
                         // Get new Instance ID token
                         String token = task.getResult().getToken();
-
                         // Log and toast
                         String msg = getString(R.string.msg_token_fmt, token);
                         System.out.println("Tokern------------->" + msg);
@@ -86,11 +83,11 @@ public class HomeActivity extends AppCompatActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_item, menu);
         menuItem = menu;
-        MovieFragment movieFragment = (MovieFragment) getSupportFragmentManager().findFragmentByTag("MovieFragment");
-        if (movieFragment != null && movieFragment.isVisible()) {
-            menuItem.findItem(R.id.search).setVisible(true);
-        }
-
+//        MovieFragment movieFragment = (MovieFragment) getSupportFragmentManager().findFragmentByTag("MovieFragment");
+//        HomeFragment homeFragment = (HomeFragment) getSupportFragmentManager().findFragmentByTag("HomeFragment");
+//        if (movieFragment != null && movieFragment.isVisible()) {
+//            menuItem.findItem(R.id.search).setVisible(true);
+//        }
         return true;
     }
 
@@ -101,52 +98,13 @@ public class HomeActivity extends AppCompatActivity {
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
         //noinspection SimplifiableIfStatement
-        if (id == R.id.hall_location) {
-            checkLocationpermission();
-        } else if (id == R.id.settings) {
+//        if (id == R.id.hall_location) {
+//            checkLocationpermission();
+//        }
+        if (id == R.id.settings) {
             startActivity(new Intent(getApplicationContext(), SettingActivity.class));
         }
         return super.onOptionsItemSelected(item);
-    }
-
-
-    private void checkLocationpermission() {
-        if (ContextCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.ACCESS_FINE_LOCATION)
-                != PackageManager.PERMISSION_GRANTED) {
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                requestPermissions(new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, MY_PERMISSIONS_REQUEST_OPEN_LOCATION);
-            } else {
-                ActivityCompat.requestPermissions(HomeActivity.this, new
-                        String[]{Manifest.permission.ACCESS_FINE_LOCATION}, MY_PERMISSIONS_REQUEST_OPEN_LOCATION);
-            }
-        } else {
-            startActivity(new Intent(getApplicationContext(), MapNearByCinemasActivity.class));
-        }
-    }
-
-    @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        switch (requestCode) {
-            case MY_PERMISSIONS_REQUEST_OPEN_LOCATION: {
-                // If request is cancelled, the result arrays are empty.
-                if (grantResults.length > 0
-                        && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                    // permission was granted, yay! Do the
-                    startActivity(new Intent(getApplicationContext(), SettingActivity.class));
-                } else {
-                    // permission denied, boo! Disable the
-                    // functionality that depends on this permission.
-                    Toast.makeText(this, "Please allow location permission to access this feature", Toast.LENGTH_SHORT).show();
-                }
-                return;
-            }
-
-            // other 'case' lines to check for other
-            // permissions this app might request.
-        }
-    }
-
-    private void initVar() {
     }
 
     private void setUpBottomNavigation() {
