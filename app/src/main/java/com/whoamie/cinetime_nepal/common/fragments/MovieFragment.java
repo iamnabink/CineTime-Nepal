@@ -33,6 +33,7 @@ import com.facebook.shimmer.ShimmerFrameLayout;
 import com.whoamie.cinetime_nepal.R;
 import com.whoamie.cinetime_nepal.common.activities.MovieDetailActivity;
 import com.whoamie.cinetime_nepal.common.adapter.ComingMovieAdapter;
+import com.whoamie.cinetime_nepal.common.adapter.SearchMovieAdapter;
 import com.whoamie.cinetime_nepal.common.adapter.ShowingMovieAdapter;
 import com.whoamie.cinetime_nepal.common.interfaces.AdapterClickListener;
 import com.whoamie.cinetime_nepal.common.models.Movie;
@@ -51,18 +52,19 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 
 public class MovieFragment extends Fragment {
-    RecyclerView showsShowingRecyclerV, showsComingRecyclerV;
+    RecyclerView showsShowingRecyclerV, showsComingRecyclerV,searchRecyclerView;
     ArrayList<Movie> umovies = new ArrayList<>();
     ArrayList<Movie> smovies = new ArrayList<>();
+    ArrayList<Movie> movies = new ArrayList<>();
     ComingMovieAdapter uadapter;
     ShowingMovieAdapter sadapter;
+    SearchMovieAdapter searchMovieAdapter;
     SharedPreferences preferences;
     SharedPreferences.Editor editor;
     ProgressDialog dialog;
-    View noInternetView, view;
+    View noInternetView, view,linearLayout;
     SwipeRefreshLayout refreshLayout;
     private Context mContext;
-    LinearLayout linearLayout;
     ShimmerFrameLayout shimmerFrameLayoutU, shimmerFrameLayoutS;
 
     @Override
@@ -76,7 +78,21 @@ public class MovieFragment extends Fragment {
         loadMovieData();
         onRefresh();
         setHasOptionsMenu(true);
+        searchView();
         return view;
+    }
+
+    private void searchView() {
+        searchRecyclerView=linearLayout.findViewById(R.id.search_recycler_view);
+        searchMovieAdapter = new SearchMovieAdapter(movies, getContext(), new AdapterClickListener() {
+            @Override
+            public void onClick(int position, View view) {
+                Movie movie = movies.get(position);
+                Toast.makeText(getContext(), movie.getName()+"  clicked", Toast.LENGTH_SHORT).show();
+            }
+        });
+        searchRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        searchRecyclerView.setAdapter(searchMovieAdapter);
     }
 
     @Override
@@ -90,7 +106,7 @@ public class MovieFragment extends Fragment {
 
     @Override
     public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
-        MenuItem menuItem = menu.findItem(R.id.search);
+        final MenuItem menuItem = menu.findItem(R.id.search);
         menuItem.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(MenuItem item) {
@@ -109,7 +125,8 @@ public class MovieFragment extends Fragment {
 
             @Override
             public boolean onQueryTextChange(String newText) {
-                Toast.makeText(mContext, "text changing", Toast.LENGTH_SHORT).show();
+//                Toast.makeText(mContext, "text changing", Toast.LENGTH_SHORT).show();
+                searchMovieAdapter.getFilter().filter(newText);
                 return false;
             }
         });
@@ -118,7 +135,10 @@ public class MovieFragment extends Fragment {
             public void onFocusChange(View v, boolean hasFocus) {
                 if (!hasFocus) {
 //                    searchView.setIconified(false);
+                    menuItem.collapseActionView();
+                    searchView.setQuery("", false);
                     linearLayout.setVisibility(View.GONE);
+
                 }
             }
         });
@@ -223,6 +243,7 @@ public class MovieFragment extends Fragment {
                         JSONObject movieObject = showingMovieList.getJSONObject(i);
                         Movie movie = new Gson().fromJson(movieObject.toString(), Movie.class);
                         smovies.add(movie);
+                        movies.add(movie);
                     }
                     if (sadapter.getItemCount() == 0) {
                         showsShowingRecyclerV.setVisibility(View.GONE);
@@ -237,7 +258,9 @@ public class MovieFragment extends Fragment {
                         JSONObject movieObject = comingMoviesList.getJSONObject(i);
                         Movie movie = new Gson().fromJson(movieObject.toString(), Movie.class);
                         umovies.add(movie);
+                        movies.add(movie);
                     }
+                    searchMovieAdapter.notifyDataSetChanged();
                     if (uadapter.getItemCount() == 0) {
                         showsComingRecyclerV.setVisibility(View.GONE);
                         view.findViewById(R.id.empty_layout_cmoviefrag).setVisibility(View.VISIBLE);
