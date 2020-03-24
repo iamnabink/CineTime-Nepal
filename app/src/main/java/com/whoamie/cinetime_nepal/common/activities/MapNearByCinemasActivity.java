@@ -224,7 +224,7 @@ public class MapNearByCinemasActivity extends FragmentActivity implements OnMapR
         LatLng latLng = new LatLng(lat, lon); //current location
 //        createMarker(27.709828, 85.326693, "Big Movies", "City Centre");
         mMap.animateCamera(CameraUpdateFactory.newLatLng(latLng)); //for current location of user
-        mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, 17));
+        mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, 15));
         for(int i = 0 ; i < halls.size() ; i++) {
             createMarker(halls.get(i).getLat(), halls.get(i).getLon(), halls.get(i).getName(), halls.get(i).getLocation());
         }

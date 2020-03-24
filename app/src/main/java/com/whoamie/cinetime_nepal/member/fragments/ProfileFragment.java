@@ -24,6 +24,7 @@ import com.facebook.shimmer.ShimmerFrameLayout;
 import com.google.android.material.tabs.TabLayout;
 import com.whoamie.cinetime_nepal.R;
 import com.whoamie.cinetime_nepal.common.activities.HomeActivity;
+import com.whoamie.cinetime_nepal.common.activities.SettingActivity;
 import com.whoamie.cinetime_nepal.common.activities.SplashScreenActivity;
 import com.whoamie.cinetime_nepal.common.utils.SharedPref;
 import com.whoamie.cinetime_nepal.member.activities.EditProfileActivity;
@@ -36,7 +37,7 @@ import java.util.ArrayList;
 
 public class ProfileFragment extends Fragment {
     View view;
-    TextView logoutIv;
+    TextView logoutIv,settingTv;
     CircleImageView profileIv;
     CardView editProfileBtn;
     SharedPreferences preferences;
@@ -55,11 +56,21 @@ public class ProfileFragment extends Fragment {
         ((AppCompatActivity) getActivity()).getSupportActionBar().hide();
         intiVar();
         initViews();
+        onClickEveent();
         logOut();
         editProfile();
         updateImage();
         setData();
         return view;
+    }
+
+    private void onClickEveent() {
+        settingTv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getContext(), SettingActivity.class));
+            }
+        });
     }
 
     private void updateImage() {
@@ -80,6 +91,7 @@ public class ProfileFragment extends Fragment {
     }
 
     private void intiVar() {
+        settingTv=view.findViewById(R.id.settings_tv);
         logoutIv = view.findViewById(R.id.logout_tv);
         editProfileBtn = view.findViewById(R.id.edit_profile_btn);
         profileIv = view.findViewById(R.id.profile_iv);
