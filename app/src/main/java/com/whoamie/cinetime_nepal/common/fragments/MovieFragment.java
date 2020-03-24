@@ -52,7 +52,7 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 
 public class MovieFragment extends Fragment {
-    RecyclerView showsShowingRecyclerV, showsComingRecyclerV,searchRecyclerView;
+    RecyclerView showsShowingRecyclerV, showsComingRecyclerV, searchRecyclerView;
     ArrayList<Movie> umovies = new ArrayList<>();
     ArrayList<Movie> smovies = new ArrayList<>();
     ArrayList<Movie> movies = new ArrayList<>();
@@ -62,7 +62,7 @@ public class MovieFragment extends Fragment {
     SharedPreferences preferences;
     SharedPreferences.Editor editor;
     ProgressDialog dialog;
-    View noInternetView, view,linearLayout;
+    View noInternetView, view, linearLayout;
     SwipeRefreshLayout refreshLayout;
     private Context mContext;
     ShimmerFrameLayout shimmerFrameLayoutU, shimmerFrameLayoutS;
@@ -83,12 +83,12 @@ public class MovieFragment extends Fragment {
     }
 
     private void searchView() {
-        searchRecyclerView=linearLayout.findViewById(R.id.search_recycler_view);
+        searchRecyclerView = linearLayout.findViewById(R.id.search_recycler_view);
         searchMovieAdapter = new SearchMovieAdapter(movies, getContext(), new AdapterClickListener() {
             @Override
             public void onClick(int position, View view) {
                 Movie movie = movies.get(position);
-                Toast.makeText(getContext(), movie.getName()+"  clicked", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(), movie.getName() + "  clicked", Toast.LENGTH_SHORT).show();
             }
         });
         searchRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
@@ -96,7 +96,7 @@ public class MovieFragment extends Fragment {
     }
 
     @Override
-    public void onPrepareOptionsMenu(@NonNull Menu menu) {
+    public void onPrepareOptionsMenu(@NonNull Menu menu) { //one prepare listner an be used to show or hide actionbar icon in fragment : don't forget to add : setHasOptionsMenu(true); in oncreate : fragmnt
         menu.findItem(R.id.hall_location).setVisible(false);
         menu.findItem(R.id.search).setVisible(true);
         menu.findItem(R.id.settings).setVisible(false);
@@ -105,7 +105,7 @@ public class MovieFragment extends Fragment {
     }
 
     @Override
-    public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
+    public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) { //we can over write oncreate listner in fragment to customize as we like
         final MenuItem menuItem = menu.findItem(R.id.search);
         menuItem.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
             @Override
@@ -119,7 +119,7 @@ public class MovieFragment extends Fragment {
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
-                Toast.makeText(mContext, "Submitted", Toast.LENGTH_SHORT).show();
+                searchMovieAdapter.getFilter().filter(query);
                 return false;
             }
 
@@ -142,7 +142,6 @@ public class MovieFragment extends Fragment {
                 }
             }
         });
-
         super.onCreateOptionsMenu(menu, inflater);
     }
 
