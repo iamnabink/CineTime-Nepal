@@ -20,6 +20,7 @@ import com.whoamie.cinetime_nepal.common.models.Hall;
 import com.whoamie.cinetime_nepal.common.models.Movie;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
@@ -35,7 +36,7 @@ public class SearchMovieAdapter extends RecyclerView.Adapter<SearchMovieAdapter.
         this.movies = movies;
         this.context = context;
         this.listener = listener;
-        moviesFull=movies;
+        this.moviesFull=movies;
     }
 
     @NonNull
@@ -49,7 +50,7 @@ public class SearchMovieAdapter extends RecyclerView.Adapter<SearchMovieAdapter.
 
     @Override
     public void onBindViewHolder(@NonNull SearchMovieHolder holder, int position) {
-        Movie movie = movies.get(position);
+        Movie movie = moviesFull.get(position);
         holder.movieNameTv.setText(movie.getName());
         holder.movieGnreTv.setText(movie.getGenre());
         Picasso.get().load(movie.getPoster_url()).placeholder(R.drawable.no_image).into(holder.imageView);
@@ -57,7 +58,7 @@ public class SearchMovieAdapter extends RecyclerView.Adapter<SearchMovieAdapter.
 
     @Override
     public int getItemCount() {
-        return movies.size();
+        return moviesFull.size();
     }
 
     public class SearchMovieHolder extends RecyclerView.ViewHolder{
@@ -87,31 +88,29 @@ public class SearchMovieAdapter extends RecyclerView.Adapter<SearchMovieAdapter.
     private Filter filterList = new Filter() {
         @Override
         protected FilterResults performFiltering(CharSequence constraint) {
-            ArrayList<Movie> filteredList = new ArrayList<>();
-
-            if (constraint == null || constraint.length() == 0) {
-                filteredList.addAll(moviesFull);
+            String charString = constraint.toString();
+            if (charString.isEmpty()) {
+                moviesFull=movies;
             } else {
+                ArrayList<Movie> filteredList = new ArrayList<>();
                 String filterPattern = constraint.toString().toLowerCase().trim();
                 //trim and no case sensetive
-
-                for (Movie item : moviesFull) {
-                    if (item.getName().toLowerCase().contains(filterPattern)) {
+                for (Movie item : movies) {
+                    if (item.getName().toLowerCase().contains(filterPattern) || item.getGenre().toLowerCase().contains(filterPattern)) {
                         filteredList.add(item);
                     }
                 }
+                moviesFull=filteredList;
             }
 
             FilterResults results = new FilterResults();
-            results.values = filteredList;
-
+            results.values = moviesFull;
             return results;
         }
 
         @Override
         protected void publishResults(CharSequence constraint, FilterResults results) {
-            movies.clear();
-            movies.addAll((ArrayList) results.values);
+            moviesFull=(ArrayList<Movie>) results.values;
             notifyDataSetChanged();
         }
     };

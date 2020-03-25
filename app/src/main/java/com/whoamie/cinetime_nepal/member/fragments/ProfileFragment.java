@@ -1,11 +1,9 @@
 package com.whoamie.cinetime_nepal.member.fragments;
 
-import android.app.ActivityOptions;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.util.Pair;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,16 +12,12 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
-import androidx.core.app.ActivityOptionsCompat;
-import androidx.core.view.ViewCompat;
 import androidx.fragment.app.Fragment;
 import androidx.viewpager.widget.ViewPager;
 import de.hdodenhof.circleimageview.CircleImageView;
 
-import com.facebook.shimmer.ShimmerFrameLayout;
 import com.google.android.material.tabs.TabLayout;
 import com.whoamie.cinetime_nepal.R;
-import com.whoamie.cinetime_nepal.common.activities.HomeActivity;
 import com.whoamie.cinetime_nepal.common.activities.SettingActivity;
 import com.whoamie.cinetime_nepal.common.activities.SplashScreenActivity;
 import com.whoamie.cinetime_nepal.common.utils.SharedPref;
@@ -100,7 +94,7 @@ public class ProfileFragment extends Fragment {
         viewPager = view.findViewById(R.id.view_pager_profile);
         tabLayout = view.findViewById(R.id.tab_layout);
         fragments.add(new FavMovieFragement());
-        fragments.add(new ProfileReviewFragment());
+        fragments.add(new ReviewFragment());
         tabTitles.add("FAVOURITE MOVIES");
         tabTitles.add("REVIEWS");
         pagerAdapter = new ProfileSectionPager(getContext(), getChildFragmentManager(), fragments, tabTitles);

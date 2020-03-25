@@ -10,7 +10,7 @@ import android.view.ViewGroup;
 
 import com.whoamie.cinetime_nepal.R;
 
-public class ProfileReviewFragment extends Fragment {
+public class ReviewFragment extends Fragment {
     int userId;
 
 //    public ProfileReviewFragment(int userId) {

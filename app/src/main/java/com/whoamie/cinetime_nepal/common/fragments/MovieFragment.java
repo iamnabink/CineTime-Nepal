@@ -21,6 +21,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Filter;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Toast;
@@ -50,6 +51,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class MovieFragment extends Fragment {
     RecyclerView showsShowingRecyclerV, showsComingRecyclerV, searchRecyclerView;
@@ -118,18 +120,28 @@ public class MovieFragment extends Fragment {
             }
         });
         final SearchView searchView = (SearchView) menuItem.getActionView();
-        searchView.setQueryHint("Search Movies by Name");
+        searchView.setQueryHint("Search Movies by Name or Genre");
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
-                searchMovieAdapter.getFilter().filter(query);
+                searchMovieAdapter.getFilter().filter(query, new Filter.FilterListener() {
+                    @Override
+                    public void onFilterComplete(int count) {
+                        Toast.makeText(mContext, "Total Item--> "+count, Toast.LENGTH_SHORT).show();
+                    }
+                });
                 return false;
             }
 
             @Override
             public boolean onQueryTextChange(String newText) {
 //                Toast.makeText(mContext, "text changing", Toast.LENGTH_SHORT).show();
-                searchMovieAdapter.getFilter().filter(newText);
+                searchMovieAdapter.getFilter().filter(newText, new Filter.FilterListener() {
+                    @Override
+                    public void onFilterComplete(int count) {
+                        Toast.makeText(mContext, "Total Item--> "+count, Toast.LENGTH_SHORT).show();
+                    }
+                });
                 return false;
             }
         });
@@ -245,7 +257,6 @@ public class MovieFragment extends Fragment {
                         JSONObject movieObject = showingMovieList.getJSONObject(i);
                         Movie movie = new Gson().fromJson(movieObject.toString(), Movie.class);
                         smovies.add(movie);
-                        movies.add(movie);
                     }
                     if (sadapter.getItemCount() == 0) {
                         showsShowingRecyclerV.setVisibility(View.GONE);
@@ -260,7 +271,6 @@ public class MovieFragment extends Fragment {
                         JSONObject movieObject = comingMoviesList.getJSONObject(i);
                         Movie movie = new Gson().fromJson(movieObject.toString(), Movie.class);
                         umovies.add(movie);
-                        movies.add(movie);
                     }
                     searchMovieAdapter.notifyDataSetChanged();
                     if (uadapter.getItemCount() == 0) {
@@ -271,7 +281,10 @@ public class MovieFragment extends Fragment {
                         view.findViewById(R.id.empty_layout_cmoviefrag).setVisibility(View.GONE);
                     }
                     uadapter.notifyDataSetChanged();
-
+                    movies.clear();
+                    movies.addAll(smovies);
+                    movies.addAll(umovies);
+                    searchMovieAdapter.notifyDataSetChanged();
 
                 } catch (JSONException e) {
                     e.printStackTrace();
