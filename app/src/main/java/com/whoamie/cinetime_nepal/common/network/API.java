@@ -24,6 +24,7 @@ public class API {
     public static final String getRecemendedMovie = baseUrl+"v1/recommended/movies";
     public static final String getVideos = baseUrl+"v1/videos/list";
     public static final String getlatLon = baseUrl+"hall-latlon";
+    public static final String getUserReview = baseUrl+"get-user-reviews";
 
     //Following code is for retrofit 2 integration
     public static Retrofit retrofit;
