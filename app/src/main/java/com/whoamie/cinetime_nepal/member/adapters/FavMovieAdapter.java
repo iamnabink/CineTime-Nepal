@@ -43,7 +43,7 @@ public class FavMovieAdapter extends RecyclerView.Adapter<FavMovieAdapter.MViewH
         FavMovie favMovie = favMovies.get(position);
         String imageUrl = "https://cinetimenepal.whoamie.com/uploads/movies/"+favMovie.getMovie().getPoster_url();
         holder.name.setText(favMovie.getMovie().getName());
-//        holder.genre.setText(favMovie.getMovie().getGenre());
+        holder.genre.setText(favMovie.getMovie().getGenre());
         Picasso.get().load(imageUrl).into(holder.imageView);
     }
 
@@ -54,12 +54,12 @@ public class FavMovieAdapter extends RecyclerView.Adapter<FavMovieAdapter.MViewH
 
     public class MViewHoler extends RecyclerView.ViewHolder{
         ImageView imageView;
-        TextView name; //genre
+        TextView name,genre;
         public MViewHoler(@NonNull View itemView) {
             super(itemView);
             imageView=itemView.findViewById(R.id.fav_movie_imgv);
             name=itemView.findViewById(R.id.fav_movie_name_tv);
-//            genre=itemView.findViewById(R.id.fav_movie_genre_tv);
+            genre=itemView.findViewById(R.id.fav_movie_genre_tv);
         }
     }
 }

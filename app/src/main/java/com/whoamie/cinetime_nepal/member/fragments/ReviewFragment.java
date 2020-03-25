@@ -5,6 +5,8 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
@@ -16,16 +18,21 @@ import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.facebook.shimmer.ShimmerFrameLayout;
+import com.google.gson.Gson;
 import com.whoamie.cinetime_nepal.R;
+import com.whoamie.cinetime_nepal.common.interfaces.AdapterClickListener;
 import com.whoamie.cinetime_nepal.common.network.API;
 import com.whoamie.cinetime_nepal.common.network.AuthenticatedJSONRequest;
 import com.whoamie.cinetime_nepal.common.network.RestClient;
 import com.whoamie.cinetime_nepal.common.utils.CheckConnectivity;
+import com.whoamie.cinetime_nepal.common.utils.SharedPref;
 import com.whoamie.cinetime_nepal.member.adapters.FavMovieAdapter;
 import com.whoamie.cinetime_nepal.member.adapters.MyReviewAdapter;
 import com.whoamie.cinetime_nepal.member.models.FavMovie;
 import com.whoamie.cinetime_nepal.member.models.MyReview;
 
+import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
@@ -58,7 +65,15 @@ public class ReviewFragment extends Fragment {
     }
 
     private void initViews() {
-
+        recyclerView=view.findViewById(R.id.user_review_recycler);
+        adapter = new MyReviewAdapter(reviews, getContext(), new AdapterClickListener() {
+            @Override
+            public void onClick(int position, View view) {
+                Toast.makeText(getContext(), "Deleted", Toast.LENGTH_SHORT).show();
+            }
+        });
+        recyclerView.setLayoutManager(new GridLayoutManager(getContext(),2));
+        recyclerView.setAdapter(adapter);
     }
 //    @Override
 //    public void onPause() {
@@ -84,12 +99,23 @@ public class ReviewFragment extends Fragment {
         AuthenticatedJSONRequest authenticatedJSONRequest = new AuthenticatedJSONRequest(getContext(), Request.Method.POST, API.getUserReview, null, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
-
+                try {
+                    JSONArray array = response.getJSONArray(SharedPref.key_data_details);
+                    for (int i = 0;i<array.length();i++){
+                        JSONObject object = array.getJSONObject(i);
+                        MyReview myReview = new Gson().fromJson(object.toString(),MyReview.class);
+                        reviews.add(myReview);
+//                        Toast.makeText(context, myReview.getComment_msg(), Toast.LENGTH_SHORT).show();
+                    }
+                    adapter.notifyDataSetChanged();
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
             }
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-
+                Toast.makeText(context, "Server error", Toast.LENGTH_SHORT).show();
             }
         });
         if (CheckConnectivity.isNetworkAvailable(context)){

@@ -128,7 +128,7 @@ public class MovieFragment extends Fragment {
                 searchMovieAdapter.getFilter().filter(query, new Filter.FilterListener() {
                     @Override
                     public void onFilterComplete(int count) {
-                        Toast.makeText(mContext, "Total Item--> "+count, Toast.LENGTH_SHORT).show();
+//                        Toast.makeText(mContext, "Total Item--> "+count, Toast.LENGTH_SHORT).show();
                     }
                 });
                 return false;
@@ -140,7 +140,7 @@ public class MovieFragment extends Fragment {
                 searchMovieAdapter.getFilter().filter(newText, new Filter.FilterListener() {
                     @Override
                     public void onFilterComplete(int count) {
-                        Toast.makeText(mContext, "Total Item--> "+count, Toast.LENGTH_SHORT).show();
+//                        Toast.makeText(mContext, "Total Item--> "+count, Toast.LENGTH_SHORT).show();
                     }
                 });
                 return false;
