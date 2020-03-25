@@ -71,6 +71,8 @@
                     android:text="Movie Trailer"
                     android:textStyle="bold" />
 
+<!--               in recyler view make nested false and then wrap it in to nested scroll view-->
+<!--              or try this in both nested scroll view and recycler view  app:layout_behavior="@string/appbar_scrolling_view_behavior"-->
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/trailer_recyclerv"
                     android:layout_width="match_parent"
