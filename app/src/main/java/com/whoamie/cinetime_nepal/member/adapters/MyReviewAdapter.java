@@ -48,20 +48,6 @@ public class MyReviewAdapter extends RecyclerView.Adapter<MyReviewAdapter.Review
         Picasso.get().load(imageUrl+review.getMovie().getPoster_url()).placeholder(R.drawable.no_pp).into(holder.my_review_iv);
         holder.review_msg_tv.setText(review.getComment_msg());
         holder.review_cmnt_tm_tv.setText(review.getCreated_at());
-//        SharedPreferences preferences = context.getSharedPreferences(SharedPref.key_shared_pref,Context.MODE_PRIVATE);
-//        String userData = preferences.getString(SharedPref.key_user_details,null);
-//        String userIdReview = String.valueOf(review.getUser_id());
-//        if (userData != null){
-//            try {
-//                JSONObject jsonObject = new JSONObject(userData);
-//                String userID = jsonObject.getString("id");
-//                if (userIdReview.equals(userID)){
-//                    holder.delete_btn.setVisibility(View.VISIBLE);
-//                }
-//            } catch (JSONException e) {
-//                e.printStackTrace();
-//            }
-//        }
     }
 
     @Override

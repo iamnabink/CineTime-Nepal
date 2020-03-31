@@ -19,17 +19,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
-<!--                <SearchView-->
-<!--                    android:id="@+id/search_bar"-->
-<!--                    android:layout_width="match_parent"-->
-<!--                    android:layout_height="wrap_content"-->
-<!--                    android:background="@android:color/white"-->
-<!--                    android:clickable="true"-->
-<!--                    android:elevation="1dp"-->
-<!--                    android:focusable="true"-->
-<!--                    android:iconifiedByDefault="false"-->
-<!--                    android:queryBackground="@android:color/white"-->
-<!--                    android:queryHint="Search for movies...." />-->
 
                 <RelativeLayout
                     android:layout_width="match_parent"
