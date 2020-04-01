@@ -16,6 +16,7 @@ import androidx.fragment.app.Fragment;
 import androidx.viewpager.widget.ViewPager;
 import de.hdodenhof.circleimageview.CircleImageView;
 
+import com.facebook.login.LoginManager;
 import com.google.android.material.tabs.TabLayout;
 import com.whoamie.cinetime_nepal.R;
 import com.whoamie.cinetime_nepal.common.activities.SettingActivity;
@@ -138,6 +139,7 @@ public class ProfileFragment extends Fragment {
                 editor.remove(SharedPref.key_user_details);
                 editor.remove(SharedPref.key_user_token);
                 editor.apply();
+                LoginManager.getInstance().logOut();
                 startActivity(new Intent(getContext(), SplashScreenActivity.class)); //open splash screen
                 //back to register fragment change fragment from another fragment
 //                FragmentManager fragmentManager=getActivity().getSupportFragmentManager();

@@ -30,6 +30,7 @@ import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
+import com.facebook.AccessToken;
 import com.facebook.shimmer.ShimmerFrameLayout;
 import com.whoamie.cinetime_nepal.R;
 import com.whoamie.cinetime_nepal.common.activities.MovieDetailActivity;
@@ -76,6 +77,14 @@ public class MovieFragment extends Fragment {
         ((AppCompatActivity) getActivity()).getSupportActionBar().show();
         intiVar();
         initViews();
+        AccessToken accessToken = AccessToken.getCurrentAccessToken(); //check use logged in status
+        boolean isLoggedIn = accessToken != null && !accessToken.isExpired();
+//        if (isLoggedIn){
+//            Toast.makeText(mContext, "Logged in with fb - true", Toast.LENGTH_SHORT).show();
+//        }
+//        else {
+//            Toast.makeText(mContext, "Logged in with fb - false", Toast.LENGTH_SHORT).show();
+//        }
         listeners();
         loadMovieData();
         onRefresh();
