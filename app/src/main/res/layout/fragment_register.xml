@@ -64,7 +64,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_marginVertical="20dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="10dp"
             android:text="Already have an account?"
             android:textColor="#575757"
             android:textSize="16sp" />
@@ -74,9 +75,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_marginTop="10dp"
-            android:layout_marginBottom="10dp"
-            android:text="Log in Here"
+            android:text="Login here"
             android:textColor="#2852FC"
             android:textSize="16sp" />
     </LinearLayout>
