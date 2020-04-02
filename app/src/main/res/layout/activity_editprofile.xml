@@ -74,14 +74,16 @@
             android:imeOptions="actionDone"
             android:imeActionLabel="next" />
     </com.google.android.material.textfield.TextInputLayout>
-    <TextView
+    <Button
         android:id="@+id/chng_pwd_tv"
         android:layout_gravity="right"
         android:layout_marginRight="20dp"
+        android:background="@android:color/transparent"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textColor="#116BFF"
-        android:text="Change pssword"/>
+        android:textAllCaps="false"
+        android:text="Change password"/>
     <Button
         android:id="@+id/edit_btn"
         android:layout_width="match_parent"
@@ -89,7 +91,7 @@
         android:layout_gravity="center"
         android:inputType="text"
         android:layout_marginLeft="30dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="10dp"
         android:layout_marginRight="30dp"
         android:background="@drawable/border_btn_background"
         android:text="Save"

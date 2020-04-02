@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -32,7 +33,7 @@ import java.util.ArrayList;
 
 public class ProfileFragment extends Fragment {
     View view;
-    TextView logoutIv,settingTv;
+    Button logoutIv,settingTv;
     CircleImageView profileIv;
     CardView editProfileBtn;
     SharedPreferences preferences;
@@ -98,7 +99,7 @@ public class ProfileFragment extends Fragment {
         fragments.add(new ReviewFragment());
         tabTitles.add("FAVOURITE MOVIES");
         tabTitles.add("REVIEWS");
-        pagerAdapter = new ProfileSectionPager(getContext(), getChildFragmentManager(), fragments, tabTitles);
+        pagerAdapter = new ProfileSectionPager(getContext(), getChildFragmentManager(), fragments, tabTitles); //setuped pager
         pagerAdapter.notifyDataSetChanged();
     }
 

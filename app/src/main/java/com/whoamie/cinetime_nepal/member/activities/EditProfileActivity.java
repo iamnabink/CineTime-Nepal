@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -21,6 +22,7 @@ import android.widget.Toast;
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
+import com.facebook.AccessToken;
 import com.whoamie.cinetime_nepal.R;
 import com.whoamie.cinetime_nepal.common.activities.HomeActivity;
 import com.whoamie.cinetime_nepal.common.network.API;
@@ -46,12 +48,11 @@ import de.hdodenhof.circleimageview.CircleImageView;
 
 public class EditProfileActivity extends AppCompatActivity {
     TextInputEditText editName, editBio;
-    TextView changeTv;
     SharedPreferences preferences;
     CircleImageView profileIv;
     SharedPreferences.Editor editor;
     String selectedImagePath; //get image and image path from mobile
-    Button editBtn;
+    Button editBtn,changeTv;
     ProgressDialog dialog;
     private static final int IMAGE_PICKER_REQ_CODE = 100;
     private static final int READ_REQ_CODE = 293;
@@ -64,9 +65,24 @@ public class EditProfileActivity extends AppCompatActivity {
         setContentView(R.layout.activity_editprofile);
         initVar();
         loadData();
+        checkforFbLogin();
         editProfile();
         onClickImage();
         onClickLister();
+    }
+
+    private void checkforFbLogin() {
+        AccessToken accessToken = AccessToken.getCurrentAccessToken(); //check use logged in status
+        boolean isLoggedIn = accessToken != null && !accessToken.isExpired();
+        if (isLoggedIn){
+            changeTv.setEnabled(false);
+            changeTv.setTextColor(Color.parseColor("#b9babd"));
+//            Toast.makeText(this, "Can not change password! Login with facebook detected", Toast.LENGTH_SHORT).show();
+        }
+        else {
+            changeTv.setEnabled(true);
+
+        }
     }
 
     @Override
