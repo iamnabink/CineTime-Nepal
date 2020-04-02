@@ -1,5 +1,6 @@
 package com.whoamie.cinetime_nepal.common.fragments;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -9,6 +10,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentActivity;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -54,7 +56,7 @@ import java.util.Arrays;
 import static android.content.Context.MODE_PRIVATE;
 
 public class RegisterFragment extends Fragment {
-    Button actCreateBtn,fb_btn;
+    Button actCreateBtn, fb_btn;
     TextView actLogin;
     View view;
     LoginButton loginButton;
@@ -63,7 +65,6 @@ public class RegisterFragment extends Fragment {
     String name, email, id, image_url, demo;
     Context context;
     SharedPreferences preferences;
-
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -174,7 +175,7 @@ public class RegisterFragment extends Fragment {
                     id = object.getString("id");
                     image_url = "https://graph.facebook.com/" + id + "/picture?type=large";
 //                    demo = "name: " + name + "email: " + email + "id: " + id;
-                    callLoginApi(id,name,email,image_url);
+                    callLoginApi(id, name, email, image_url);
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -188,9 +189,6 @@ public class RegisterFragment extends Fragment {
 
     private void callLoginApi(String id, String name, String email, String image_url) {
         final ProgressDialog dialog = new ProgressDialog(context);
-        Window window = dialog.getWindow();
-//        window.setLayout(ViewGroup.LayoutParams.MATCH_PARENT, 800);
-//        dialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
         dialog.show();
         preferences = context.getSharedPreferences(SharedPref.key_shared_pref, MODE_PRIVATE);
         final SharedPreferences.Editor editor = preferences.edit();
@@ -206,42 +204,39 @@ public class RegisterFragment extends Fragment {
         JsonObjectRequest request = new JsonObjectRequest(Request.Method.POST, API.loginWithFb, jsonObject, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
-                dialog.cancel();
-                try {
-                    if (response.getBoolean("status")) {
-                        System.out.println("response----->" + response);
-                        JSONObject dataObject = response.getJSONObject(SharedPref.key_data_details);
-                        JSONObject userObject = dataObject.getJSONObject(SharedPref.key_user_details);
-                        JSONObject tokernObject = dataObject.getJSONObject(SharedPref.key_user_token);
-                        String userDetails = userObject.toString(); //convert JSONObject to string
-                        String tokenDetails = tokernObject.toString();
-                        editor.putString(SharedPref.key_user_details, userDetails);
-                        editor.putString(SharedPref.key_user_token, tokenDetails);
-                        editor.apply();
-//                        System.out.println("errrrror----------->"+preferences.getAll());
-//                        Toast.makeText(context, response.getString("message"), Toast.LENGTH_SHORT).show();
-                        //Go to user profile fragment
-                        startActivity(new Intent(context, SplashScreenActivity.class));
-
-                    } else {
-
-                        Toast.makeText(context, response.getString("message"), Toast.LENGTH_SHORT).show();
-                        System.out.println("error-->" + response.getString("message"));
+                Activity activity = getActivity();
+                if (activity != null && isAdded()){
+                    dialog.cancel();
+                    try {
+                        if (response.getBoolean("status")) {
+                            JSONObject dataObject = response.getJSONObject(SharedPref.key_data_details);
+                            JSONObject userObject = dataObject.getJSONObject(SharedPref.key_user_details);
+                            JSONObject tokernObject = dataObject.getJSONObject(SharedPref.key_user_token);
+                            String userDetails = userObject.toString(); //convert JSONObject to string
+                            String tokenDetails = tokernObject.toString();
+                            editor.putString(SharedPref.key_user_details, userDetails);
+                            editor.putString(SharedPref.key_user_token, tokenDetails);
+                            editor.apply();
+                            startActivity(new Intent(context, SplashScreenActivity.class));
+                        } else {
+                            Toast.makeText(context, response.getString("message"), Toast.LENGTH_SHORT).show();
+                        }
+                    } catch (JSONException e) {
+                        e.printStackTrace();
                     }
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
+            }
+
+
             }
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-//                System.out.println("error------->" + error);
-                dialog.cancel();
-                if (error.networkResponse.statusCode == 401) {
-                    Toast.makeText(context, "Password or email do not match", Toast.LENGTH_SHORT).show();
-                } else {
+                Activity activity = getActivity();
+                if (activity != null && isAdded()){
+                    dialog.cancel();
                     HandleNetworkError.handlerError(error, context);
                 }
+
 
             }
         });

@@ -1,5 +1,6 @@
 package com.whoamie.cinetime_nepal.member.fragments;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -20,6 +21,7 @@ import de.hdodenhof.circleimageview.CircleImageView;
 import com.facebook.login.LoginManager;
 import com.google.android.material.tabs.TabLayout;
 import com.whoamie.cinetime_nepal.R;
+import com.whoamie.cinetime_nepal.common.activities.HomeActivity;
 import com.whoamie.cinetime_nepal.common.activities.SettingActivity;
 import com.whoamie.cinetime_nepal.common.activities.SplashScreenActivity;
 import com.whoamie.cinetime_nepal.common.utils.SharedPref;
@@ -45,6 +47,7 @@ public class ProfileFragment extends Fragment {
     ArrayList<String> tabTitles = new ArrayList<>();
     TextView unameTv, uBio;
     User users;
+    Activity activity = getActivity();
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -142,6 +145,7 @@ public class ProfileFragment extends Fragment {
                 editor.apply();
                 LoginManager.getInstance().logOut();
                 startActivity(new Intent(getContext(), SplashScreenActivity.class)); //open splash screen
+                getActivity().finish();
                 //back to register fragment change fragment from another fragment
 //                FragmentManager fragmentManager=getActivity().getSupportFragmentManager();
 //                FragmentTransaction fragmentTransaction=fragmentManager.beginTransaction();
