@@ -5,6 +5,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 
@@ -36,6 +37,7 @@ import com.whoamie.cinetime_nepal.common.activities.MapNearByCinemasActivity;
 import com.whoamie.cinetime_nepal.common.activities.MovieDetailActivity;
 import com.whoamie.cinetime_nepal.common.adapter.HallAdapter;
 import com.whoamie.cinetime_nepal.common.interfaces.AdapterClickListener;
+import com.whoamie.cinetime_nepal.common.interfaces.HallAdapterClickListener;
 import com.whoamie.cinetime_nepal.common.models.Hall;
 import com.whoamie.cinetime_nepal.common.network.API;
 import com.whoamie.cinetime_nepal.common.network.AuthenticatedJSONRequest;
@@ -75,6 +77,7 @@ public class HallFragment extends Fragment {
         setHasOptionsMenu(true);
         return view;
     }
+
     @Override
     public void onPrepareOptionsMenu(@NonNull Menu menu) {
         menu.findItem(R.id.hall_location).setVisible(true);
@@ -95,17 +98,25 @@ public class HallFragment extends Fragment {
     public void onAttach(@NonNull Context context) {
         this.context = context;
         super.onAttach(context);
-        if (context instanceof Activity){
+        if (context instanceof Activity) {
             mActivity = (Activity) context;
         }
     }
 
     private void initRecyclerView() {
-        adapter=new HallAdapter(halls, getContext(), new AdapterClickListener() {
+        adapter = new HallAdapter(halls, getContext(), new HallAdapterClickListener() {
             @Override
-            public void onClick(int position, View view) {
+            public void callBtnClick(int position, View view) {
                 Hall hall = halls.get(position);
-                //To-do call api here
+                Intent intent = new Intent(Intent.ACTION_DIAL);
+                intent.setData(Uri.parse("tel:" + hall.getContact()));
+                startActivity(intent);
+            }
+
+            @Override
+            public void visitBtnClick(int position, View view) {
+                Intent viewIntent = new Intent("android.intent.action.VIEW", Uri.parse("http://www.stackoverflow.com/"));
+                startActivity(viewIntent);
             }
         });
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
@@ -141,13 +152,13 @@ public class HallFragment extends Fragment {
                     JSONArray jsonArray = response.getJSONArray(SharedPref.key_data_details);
                     halldata = new Gson().toJson(jsonArray);
 //                    System.out.println("data ||||||||||||||||||||||||||------------------------------->"+halldata);
-                    for (int i = 0; i<jsonArray.length();i++){
+                    for (int i = 0; i < jsonArray.length(); i++) {
                         JSONObject object = jsonArray.getJSONObject(i);
-                        Hall hall = new Gson().fromJson(object.toString(),Hall.class);
+                        Hall hall = new Gson().fromJson(object.toString(), Hall.class);
                         halls.add(hall);
                     }
                     adapter.notifyDataSetChanged();
-                    if (adapter.getItemCount() == 0){
+                    if (adapter.getItemCount() == 0) {
 
                     }
                     adapter.notifyDataSetChanged();
@@ -164,16 +175,16 @@ public class HallFragment extends Fragment {
                 HandleNetworkError.handlerError(error, getContext());
             }
         });
-        if (CheckConnectivity.isNetworkAvailable(context)){
+        if (CheckConnectivity.isNetworkAvailable(context)) {
             RestClient.getInstance(getContext()).addToRequestQueue(request);
-        }
-        else {
+        } else {
             shimmerFrameLayout.stopShimmer();
             shimmerFrameLayout.setVisibility(View.GONE);
             Toast.makeText(context, "No network available", Toast.LENGTH_SHORT).show();
         }
 
     }
+
     private void checkLocationpermission() {
         if (ContextCompat.checkSelfPermission(context, Manifest.permission.ACCESS_FINE_LOCATION)
                 != PackageManager.PERMISSION_GRANTED) {
@@ -210,9 +221,9 @@ public class HallFragment extends Fragment {
         }
     }
 
-    private void getLocation() {
+    private void getLocation() {  //for map activity
         Intent intent = new Intent(getContext(), MapNearByCinemasActivity.class);
-        intent.putExtra("halldata",halldata);
+        intent.putExtra("halldata", halldata);
         startActivity(intent);
     }
 }

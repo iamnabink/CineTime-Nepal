@@ -145,7 +145,7 @@ public class ProfileFragment extends Fragment {
                 editor.apply();
                 LoginManager.getInstance().logOut();
                 startActivity(new Intent(getContext(), SplashScreenActivity.class)); //open splash screen
-                getActivity().finish();
+                getActivity().onBackPressed();
                 //back to register fragment change fragment from another fragment
 //                FragmentManager fragmentManager=getActivity().getSupportFragmentManager();
 //                FragmentTransaction fragmentTransaction=fragmentManager.beginTransaction();

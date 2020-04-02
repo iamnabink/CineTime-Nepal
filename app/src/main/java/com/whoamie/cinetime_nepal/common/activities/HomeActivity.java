@@ -124,6 +124,7 @@ public class HomeActivity extends AppCompatActivity {
                                 String userDetails = preferences.getString(SharedPref.key_user_details, null);
                                 if (userToken == null && userDetails == null) {
                                     replaceFragment(new RegisterFragment(), "RegisterFragment");
+
                                 } else {
                                     replaceFragment(new ProfileFragment(), "ProfileFragment");
                                 }
@@ -154,4 +155,5 @@ public class HomeActivity extends AppCompatActivity {
         // Commit the transaction
         transaction.commit();
     }
+
 }

@@ -148,6 +148,14 @@ public class MovieDetailActivity extends AppCompatActivity {
         movieAdapter=new ShowingMovieAdapter(movies, this, new AdapterClickListener() {
             @Override
             public void onClick(int position, View view) {
+//                Toast.makeText(MovieDetailActivity.this, "Clicked", Toast.LENGTH_SHORT).show();
+                Movie movie = movies.get(position);
+                String movieDetails = new Gson().toJson(movie);
+                Intent intent = new Intent(MovieDetailActivity.this, MovieDetailActivity.class);
+//                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK); //to call itself
+                intent.putExtra(SharedPref.key_shared_movies_details, movieDetails);
+                startActivity(intent);
+//                finish();
             }
         });
         recommendationRecyclerV.setAdapter(movieAdapter);

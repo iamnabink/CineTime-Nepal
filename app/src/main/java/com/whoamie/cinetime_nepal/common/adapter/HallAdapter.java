@@ -2,17 +2,20 @@ package com.whoamie.cinetime_nepal.common.adapter;
 
 import android.content.Context;
 import android.transition.AutoTransition;
+import android.transition.Slide;
 import android.transition.TransitionManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
 import com.whoamie.cinetime_nepal.R;
 import com.whoamie.cinetime_nepal.common.interfaces.AdapterClickListener;
+import com.whoamie.cinetime_nepal.common.interfaces.HallAdapterClickListener;
 import com.whoamie.cinetime_nepal.common.models.Hall;
 
 import java.util.ArrayList;
@@ -26,8 +29,8 @@ import de.hdodenhof.circleimageview.CircleImageView;
 public class HallAdapter extends RecyclerView.Adapter<HallAdapter.HallVH> {
     ArrayList<Hall> halls;
     Context context;
-    AdapterClickListener listener;
-    public HallAdapter(ArrayList<Hall> halls, Context context, AdapterClickListener listener) {
+    HallAdapterClickListener listener;
+    public HallAdapter(ArrayList<Hall> halls, Context context, HallAdapterClickListener listener) {
         this.halls = halls;
         this.context = context;
         this.listener = listener;
@@ -60,8 +63,9 @@ public class HallAdapter extends RecyclerView.Adapter<HallAdapter.HallVH> {
         TextView hallNameTv,hallLocationTv;
         ImageView hallIv;
         ConstraintLayout expandableView;
+        LinearLayout linearLayout;
         Button arrowBtn;
-        CardView cardView;
+        CardView cardView,callBtn,visitBtn;
         public HallVH(@NonNull View itemView) {
             super(itemView);
             hallNameTv= itemView.findViewById(R.id.h_name_tv);
@@ -70,7 +74,21 @@ public class HallAdapter extends RecyclerView.Adapter<HallAdapter.HallVH> {
             expandableView = itemView.findViewById(R.id.expandableView);
             arrowBtn = itemView.findViewById(R.id.arrowBtn);
             cardView = itemView.findViewById(R.id.cardView);
-
+            callBtn = itemView.findViewById(R.id.call_btn);
+            visitBtn = itemView.findViewById(R.id.visit_btn);
+            linearLayout = itemView.findViewById(R.id.animate_layout);
+            callBtn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    listener.callBtnClick(getAdapterPosition(),v);
+                }
+            });
+            visitBtn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    listener.visitBtnClick(getAdapterPosition(),v);
+                }
+            });
             arrowBtn.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {

@@ -5,7 +5,10 @@ import android.content.SharedPreferences;
 import android.util.Log;
 
 import com.android.volley.AuthFailureError;
+import com.android.volley.DefaultRetryPolicy;
+import com.android.volley.Request;
 import com.android.volley.Response;
+import com.android.volley.RetryPolicy;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.whoamie.cinetime_nepal.common.utils.SharedPref;
 import com.whoamie.cinetime_nepal.member.models.Token;
@@ -30,6 +33,7 @@ import java.util.Map;
             String tokenString = preferences.getString(SharedPref.key_user_token, null); //getting saved token string from shared preferences, null - since it is easier to check condition later on
             Token tokenObj = new Gson().fromJson(tokenString, Token.class); //converts JSON String (stored in shared prefs) to Java tokenObject (creates Token Class)
             this.token = tokenObj.getAccess_token(); //getAccess_token() - returns "Access_token" from tokenObject (exactly from java Token class)
+            setRetryPolicy(new DefaultRetryPolicy(5000,DefaultRetryPolicy.DEFAULT_MAX_RETRIES,DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
         }
         //Sometimes it is necessary to add extra headers to the HTTP requests, one common case is to add an Authorization header for HTTP Basic Auth.
         // Volley Request class provides a method called getHeaders() which you need to override to add your custom headers if necessary.
@@ -44,4 +48,5 @@ import java.util.Map;
             // The request header also contains the type, version and capabilities of the mobile
             // that is making the request so that server returns compatible data.
         }
-}
+
+    }

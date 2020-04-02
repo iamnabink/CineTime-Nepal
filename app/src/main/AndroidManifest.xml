@@ -80,7 +80,6 @@
         <activity
             android:name="com.whoamie.cinetime_nepal.common.activities.MovieDetailActivity"
             android:configChanges="orientation|screenSize|keyboardHidden|smallestScreenSize|screenLayout"
-            android:launchMode="singleTop"
             android:theme="@style/AppTheme.transparent.animationTheme" />
         <activity
             android:name="com.whoamie.cinetime_nepal.common.activities.ShowTimeActivity"
