@@ -231,7 +231,6 @@ public class EditProfileActivity extends AppCompatActivity {
                         user.setBio(userData.getString("bio"));
                         user.setName(userData.getString("name"));
                         user.setProfile_pic_url(userData.getString("profile_pic_url"));
-
                         //only replace name and bio and image url
                         String updatedUserString = new Gson().toJson(user);
                         editor.putString(SharedPref.key_user_details, updatedUserString);
