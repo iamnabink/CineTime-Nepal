@@ -93,11 +93,12 @@ public class HallAdapter extends RecyclerView.Adapter<HallAdapter.HallVH> {
                 @Override
                 public void onClick(View v) {
                     if (expandableView.getVisibility()==View.GONE){
-                        TransitionManager.beginDelayedTransition(cardView, new AutoTransition());
+                        TransitionManager.beginDelayedTransition(linearLayout, new AutoTransition());
                         expandableView.setVisibility(View.VISIBLE);
                         arrowBtn.setBackgroundResource(R.drawable.ic_arrow_drop_up_black_24dp);
+
                     } else {
-                        TransitionManager.beginDelayedTransition(cardView, new AutoTransition());
+                        TransitionManager.beginDelayedTransition(linearLayout, new AutoTransition().setDuration(300)); //new AutoTransition().setDuration(3000)
                         expandableView.setVisibility(View.GONE);
                         arrowBtn.setBackgroundResource(R.drawable.ic_arrow_drop_down_black_24dp);
                     }
