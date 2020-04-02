@@ -51,8 +51,9 @@ public class FavMovieFragement extends Fragment {
         view = inflater.inflate(R.layout.fragment_fav_movie, container, false);
         initVars();
         callgetfavMovieApi();
-        return  view;
+        return view;
     }
+
     @Override
     public void onPause() {
         super.onPause();
@@ -66,9 +67,9 @@ public class FavMovieFragement extends Fragment {
     }
 
     private void initVars() {
-        recyclerView=view.findViewById(R.id.movie_user_recycler);
-        shimmerFrameLayout=view.findViewById(R.id.favmovie_shimmer_layout);
-        recyclerView.setLayoutManager(new LinearLayoutManager(getContext(),RecyclerView.HORIZONTAL,false));
+        recyclerView = view.findViewById(R.id.movie_user_recycler);
+        shimmerFrameLayout = view.findViewById(R.id.favmovie_shimmer_layout);
+        recyclerView.setLayoutManager(new LinearLayoutManager(getContext(), RecyclerView.HORIZONTAL, false));
         adapter = new FavMovieAdapter(favMovies, getContext(), new AdapterClickListener() {
             @Override
             public void onClick(int position, View view) {
@@ -82,7 +83,7 @@ public class FavMovieFragement extends Fragment {
 
     @Override
     public void onAttach(@NonNull Context context) {
-        this.context=context;
+        this.context = context;
         super.onAttach(context);
     }
 
@@ -94,17 +95,20 @@ public class FavMovieFragement extends Fragment {
                 shimmerFrameLayout.stopShimmer();
                 shimmerFrameLayout.setVisibility(View.GONE);
                 try {
-//                    if (response.getBoolean("status")){
+                    if (response.getBoolean("status")) {
                         JSONArray jsonArray = response.getJSONArray(SharedPref.key_data_details);
-                        for (int i = 0;i<jsonArray.length();i++){
+                        for (int i = 0; i < jsonArray.length(); i++) {
                             JSONObject object = jsonArray.getJSONObject(i);
-                            FavMovie favMovie = new Gson().fromJson(object.toString(),FavMovie.class);
+                            FavMovie favMovie = new Gson().fromJson(object.toString(), FavMovie.class);
                             favMovies.add(favMovie);
                         }
-                    adapter.notifyDataSetChanged();
-                        if (adapter.getItemCount()==0){
-
+                        adapter.notifyDataSetChanged();
+                        if (adapter.getItemCount() == 0) {
+                            Toast.makeText(context, "No user data available", Toast.LENGTH_SHORT).show();
                         }
+                    } else {
+                        Toast.makeText(context, response.getString("message"), Toast.LENGTH_SHORT).show();
+                    }
 //                    }
 //                    else {
 //                        Toast.makeText(getContext(), "Unauthorized access", Toast.LENGTH_SHORT).show();
@@ -118,14 +122,13 @@ public class FavMovieFragement extends Fragment {
             public void onErrorResponse(VolleyError error) {
                 shimmerFrameLayout.stopShimmer();
                 shimmerFrameLayout.setVisibility(View.GONE);
-                HandleNetworkError.handlerError(error,context);
+                HandleNetworkError.handlerError(error, context);
             }
         });
 //        RestClient.getInstance(getContext()).addToRequestQueue(request);
-        if (CheckConnectivity.isNetworkAvailable(context)){
+        if (CheckConnectivity.isNetworkAvailable(context)) {
             RestClient.getInstance(getContext()).addToRequestQueue(request);
-        }
-        else {
+        } else {
             shimmerFrameLayout.stopShimmer();
             shimmerFrameLayout.setVisibility(View.GONE);
             Toast.makeText(getContext(), "No internet Available", Toast.LENGTH_SHORT).show();

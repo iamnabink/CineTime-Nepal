@@ -23,6 +23,7 @@ import com.whoamie.cinetime_nepal.R;
 import com.whoamie.cinetime_nepal.common.interfaces.AdapterClickListener;
 import com.whoamie.cinetime_nepal.common.network.API;
 import com.whoamie.cinetime_nepal.common.network.AuthenticatedJSONRequest;
+import com.whoamie.cinetime_nepal.common.network.HandleNetworkError;
 import com.whoamie.cinetime_nepal.common.network.RestClient;
 import com.whoamie.cinetime_nepal.common.utils.CheckConnectivity;
 import com.whoamie.cinetime_nepal.common.utils.SharedPref;
@@ -100,13 +101,19 @@ public class ReviewFragment extends Fragment {
             @Override
             public void onResponse(JSONObject response) {
                 try {
-                    JSONArray array = response.getJSONArray(SharedPref.key_data_details);
-                    for (int i = 0;i<array.length();i++){
-                        JSONObject object = array.getJSONObject(i);
-                        MyReview myReview = new Gson().fromJson(object.toString(),MyReview.class);
-                        reviews.add(myReview);
+                    if (response.getBoolean("status")){
+                        JSONArray array = response.getJSONArray(SharedPref.key_data_details);
+                        for (int i = 0;i<array.length();i++){
+                            JSONObject object = array.getJSONObject(i);
+                            MyReview myReview = new Gson().fromJson(object.toString(),MyReview.class);
+                            reviews.add(myReview);
 //                        Toast.makeText(context, myReview.getComment_msg(), Toast.LENGTH_SHORT).show();
+                        }
                     }
+                    else {
+                        Toast.makeText(context, response.getString("message"), Toast.LENGTH_SHORT).show();
+                    }
+
                     adapter.notifyDataSetChanged();
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -115,7 +122,7 @@ public class ReviewFragment extends Fragment {
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                Toast.makeText(context, "Server error", Toast.LENGTH_SHORT).show();
+                HandleNetworkError.handlerError(error, context);
             }
         });
         if (CheckConnectivity.isNetworkAvailable(context)){
