@@ -217,49 +217,49 @@ public class EditProfileActivity extends AppCompatActivity {
         } catch (JSONException e) {
             e.printStackTrace();
         }
-        AuthenticatedJSONRequest jsonRequest = new AuthenticatedJSONRequest(this, Request.Method.PUT, API.updateUrl, jsonObject, new Response.Listener<JSONObject>() {
-            @Override
-            public void onResponse(JSONObject response) {
-                dialog.cancel();
-                try {
-                    if (response.getBoolean("status")) {
-                        preferences = getSharedPreferences(SharedPref.key_shared_pref, MODE_PRIVATE);
-                        editor = preferences.edit();
-                        String userDetails = preferences.getString(SharedPref.key_user_details, null);
-                        User user = new Gson().fromJson(userDetails, User.class); //changing saved data to object since editing data needs to be updated not replaced
-                        JSONObject userData = response.getJSONObject(SharedPref.key_data_details);
-                        user.setBio(userData.getString("bio"));
-                        user.setName(userData.getString("name"));
-                        user.setProfile_pic_url(userData.getString("profile_pic_url"));
-                        //only replace name and bio and image url
-                        String updatedUserString = new Gson().toJson(user);
-                        editor.putString(SharedPref.key_user_details, updatedUserString);
-                        editor.apply();
-                        Toast.makeText(EditProfileActivity.this, response.getString("message"), Toast.LENGTH_SHORT).show();
-                        startActivity(new Intent(EditProfileActivity.this, HomeActivity.class));
-                    } else {
-                        System.out.println(response.getString("message"));
-                        Toast.makeText(EditProfileActivity.this, response.getString("message"), Toast.LENGTH_SHORT).show();
-                    }
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-            }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                dialog.cancel();
-//                System.out.println(error);
-                HandleNetworkError.handlerError(error, EditProfileActivity.this);
-            }
-        });
-        if (CheckConnectivity.isNetworkAvailable(getApplicationContext())) {
-            RestClient.getInstance(this).addToRequestQueue(jsonRequest);
-        } else {
+        AuthenticatedJSONRequest jsonRequest = new AuthenticatedJSONRequest(this, Request.Method.POST, API.updateUrl, jsonObject, new Response.Listener<JSONObject>() {
+        @Override
+        public void onResponse(JSONObject response) {
             dialog.cancel();
-            Toast.makeText(this, "No internet connection", Toast.LENGTH_SHORT).show();
+            try {
+                if (response.getBoolean("status")) {
+                    preferences = getSharedPreferences(SharedPref.key_shared_pref, MODE_PRIVATE);
+                    editor = preferences.edit();
+                    String userDetails = preferences.getString(SharedPref.key_user_details, null);
+                    User user = new Gson().fromJson(userDetails, User.class); //changing saved data to object since editing data needs to be updated not replaced
+                    JSONObject userData = response.getJSONObject(SharedPref.key_data_details);
+                    user.setBio(userData.getString("bio"));
+                    user.setName(userData.getString("name"));
+                    user.setProfile_pic_url(userData.getString("profile_pic_url"));
+                    //only replace name and bio and image url
+                    String updatedUserString = new Gson().toJson(user);
+                    editor.putString(SharedPref.key_user_details, updatedUserString);
+                    editor.apply();
+                    Toast.makeText(EditProfileActivity.this, response.getString("message"), Toast.LENGTH_SHORT).show();
+                    startActivity(new Intent(EditProfileActivity.this, HomeActivity.class));
+                } else {
+                    System.out.println(response.getString("message"));
+                    Toast.makeText(EditProfileActivity.this, response.getString("message"), Toast.LENGTH_SHORT).show();
+                }
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
         }
+    }, new Response.ErrorListener() {
+        @Override
+        public void onErrorResponse(VolleyError error) {
+            dialog.cancel();
+//                System.out.println(error);
+            HandleNetworkError.handlerError(error, EditProfileActivity.this);
+        }
+    });
+        if (CheckConnectivity.isNetworkAvailable(getApplicationContext())) {
+        RestClient.getInstance(this).addToRequestQueue(jsonRequest);
+    } else {
+        dialog.cancel();
+        Toast.makeText(this, "No internet connection", Toast.LENGTH_SHORT).show();
     }
+}
 
 
 }

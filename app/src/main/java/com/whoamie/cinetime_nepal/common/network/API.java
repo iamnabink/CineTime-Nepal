@@ -8,6 +8,7 @@ public class API {
 //    public static String baseUrl = "http://192.168.1.77:8000/api/";
     public static String signupUrl=baseUrl+"auth/signup";
     public static String loginUrl=baseUrl+"auth/login";
+    public static String logoutUrl=baseUrl+"auth/logout";
     public static String loginWithFb=baseUrl+"auth/login-with-fb";
     public static String updateUrl=baseUrl+"auth/update";
     public static String changePwdUrl=baseUrl+"auth/changepwd";

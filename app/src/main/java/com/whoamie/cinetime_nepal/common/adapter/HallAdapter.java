@@ -50,6 +50,8 @@ public class HallAdapter extends RecyclerView.Adapter<HallAdapter.HallVH> {
         Hall hall = halls.get(position);
         holder.hallNameTv.setText(hall.getName());
         holder.hallLocationTv.setText(hall.getLocation());
+        holder.siteUrl.setText(hall.getSite_url());
+        holder.phoneTv.setText(hall.getContact());
         Picasso.get().load(hall.getProfile_pic_url()).placeholder(R.drawable.no_image).into(holder.hallIv);
     }
 
@@ -60,7 +62,7 @@ public class HallAdapter extends RecyclerView.Adapter<HallAdapter.HallVH> {
 
     public class HallVH extends RecyclerView.ViewHolder{
 
-        TextView hallNameTv,hallLocationTv;
+        TextView hallNameTv,hallLocationTv,siteUrl,phoneTv;
         ImageView hallIv;
         ConstraintLayout expandableView;
         LinearLayout linearLayout;
@@ -74,6 +76,8 @@ public class HallAdapter extends RecyclerView.Adapter<HallAdapter.HallVH> {
             expandableView = itemView.findViewById(R.id.expandableView);
             arrowBtn = itemView.findViewById(R.id.arrowBtn);
             cardView = itemView.findViewById(R.id.cardView);
+            siteUrl = itemView.findViewById(R.id.mailNumber);
+            phoneTv = itemView.findViewById(R.id.phoneNumber);
             callBtn = itemView.findViewById(R.id.call_btn);
             visitBtn = itemView.findViewById(R.id.visit_btn);
             linearLayout = itemView.findViewById(R.id.animate_layout);

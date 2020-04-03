@@ -115,7 +115,8 @@ public class HallFragment extends Fragment {
 
             @Override
             public void visitBtnClick(int position, View view) {
-                Intent viewIntent = new Intent("android.intent.action.VIEW", Uri.parse("http://www.stackoverflow.com/"));
+                Hall hall = halls.get(position);
+                Intent viewIntent = new Intent("android.intent.action.VIEW", Uri.parse(hall.getSite_url()));
                 startActivity(viewIntent);
             }
         });
