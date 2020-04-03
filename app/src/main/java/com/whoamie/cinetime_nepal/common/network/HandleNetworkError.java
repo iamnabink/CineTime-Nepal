@@ -16,7 +16,7 @@ public class HandleNetworkError {
         try {
             if (error instanceof TimeoutError || error instanceof NoConnectionError) {
                 //This indicates that the reuest has either time out or there is no connection
-                Toast.makeText(context, "Connection Timeout !!", Toast.LENGTH_SHORT).show();
+                Toast.makeText(context, "Slow connection detected !!", Toast.LENGTH_SHORT).show();
             } else if (error instanceof AuthFailureError) {
                 Toast.makeText(context, "Unauthorized Access !!", Toast.LENGTH_SHORT).show();
                 //Error indicating that there was an Authentication Failure while performing the request

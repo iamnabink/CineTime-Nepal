@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.android.volley.Request;
@@ -45,6 +46,7 @@ public class ReviewFragment extends Fragment {
     RecyclerView recyclerView;
     MyReviewAdapter adapter;
     ArrayList<MyReview> reviews = new ArrayList<>();
+    LinearLayout linearLayout;
 //    public ProfileReviewFragment(int userId) {
 //        this.userId = userId;
 //    }
@@ -66,6 +68,7 @@ public class ReviewFragment extends Fragment {
     }
 
     private void initViews() {
+        linearLayout = view.findViewById(R.id.review_empty_layout);
         recyclerView=view.findViewById(R.id.user_review_recycler);
         adapter = new MyReviewAdapter(reviews, getContext(), new AdapterClickListener() {
             @Override
@@ -111,10 +114,16 @@ public class ReviewFragment extends Fragment {
                         }
                     }
                     else {
-                        Toast.makeText(context, response.getString("message"), Toast.LENGTH_SHORT).show();
+//                        Toast.makeText(context, response.getString("message"), Toast.LENGTH_SHORT).show();
                     }
-
                     adapter.notifyDataSetChanged();
+                    if (adapter.getItemCount()==0){
+
+                        linearLayout.setVisibility(View.VISIBLE);
+                    }
+                    else {
+                        linearLayout.setVisibility(View.GONE);
+                    }
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }

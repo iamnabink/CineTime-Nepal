@@ -10,7 +10,25 @@
         android:layout_margin="8dp"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
-
+    <LinearLayout
+        android:id="@+id/review_empty_layout"
+        android:layout_width="match_parent"
+        android:gravity="center"
+        android:visibility="gone"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+        <ImageView
+            android:layout_width="150dp"
+            android:layout_marginTop="25dp"
+            android:layout_height="150dp"
+            android:src="@drawable/ic_empty"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:textStyle="bold"
+            android:text="No Reviews made yet"/>
+    </LinearLayout>
     <com.facebook.shimmer.ShimmerFrameLayout
         android:id="@+id/review_shimmer_layout"
         android:layout_width="match_parent"

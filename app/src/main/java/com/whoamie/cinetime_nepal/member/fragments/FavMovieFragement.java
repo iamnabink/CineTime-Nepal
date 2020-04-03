@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.android.volley.Request;
@@ -42,7 +43,7 @@ public class FavMovieFragement extends Fragment {
     ArrayList<FavMovie> favMovies = new ArrayList<>();
     Context context;
     ShimmerFrameLayout shimmerFrameLayout;
-
+    LinearLayout  linearLayout;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -67,6 +68,7 @@ public class FavMovieFragement extends Fragment {
     }
 
     private void initVars() {
+        linearLayout=view.findViewById(R.id.fav_empty_layout);
         recyclerView = view.findViewById(R.id.movie_user_recycler);
         shimmerFrameLayout = view.findViewById(R.id.favmovie_shimmer_layout);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext(), RecyclerView.HORIZONTAL, false));
@@ -103,11 +105,13 @@ public class FavMovieFragement extends Fragment {
                             favMovies.add(favMovie);
                         }
                         adapter.notifyDataSetChanged();
-                        if (adapter.getItemCount() == 0) {
-                            Toast.makeText(context, "No user data available", Toast.LENGTH_SHORT).show();
+                        if (adapter.getItemCount()==0){
+
+                            linearLayout.setVisibility(View.VISIBLE);
                         }
-                    } else {
-                        Toast.makeText(context, response.getString("message"), Toast.LENGTH_SHORT).show();
+                        else {
+                            linearLayout.setVisibility(View.GONE);
+                        }
                     }
 //                    }
 //                    else {
