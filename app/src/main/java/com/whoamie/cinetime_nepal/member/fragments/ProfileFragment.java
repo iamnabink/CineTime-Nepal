@@ -185,7 +185,7 @@ public class ProfileFragment extends Fragment {
                 editor.remove(SharedPref.key_user_token);
                 editor.apply();
                 LoginManager.getInstance().logOut();
-                Toast.makeText(activity, "Logged-out successfully", Toast.LENGTH_SHORT).show();
+                Toast.makeText(context, "Logged-out successfully", Toast.LENGTH_SHORT).show();
                 startActivity(new Intent(context, SplashScreenActivity.class)); //open splash screen
                 getActivity().onBackPressed();
             }

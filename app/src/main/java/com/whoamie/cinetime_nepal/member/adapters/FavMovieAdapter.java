@@ -6,6 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.squareup.picasso.Picasso;
 import com.whoamie.cinetime_nepal.R;
@@ -60,6 +61,13 @@ public class FavMovieAdapter extends RecyclerView.Adapter<FavMovieAdapter.MViewH
             imageView=itemView.findViewById(R.id.fav_movie_imgv);
             name=itemView.findViewById(R.id.fav_movie_name_tv);
             genre=itemView.findViewById(R.id.fav_movie_genre_tv);
+            imageView.setOnLongClickListener(new View.OnLongClickListener() {
+                @Override
+                public boolean onLongClick(View v) {
+                    Toast.makeText(context, "Clicked", Toast.LENGTH_SHORT).show();
+                    return true;
+                }
+            });
         }
     }
 }

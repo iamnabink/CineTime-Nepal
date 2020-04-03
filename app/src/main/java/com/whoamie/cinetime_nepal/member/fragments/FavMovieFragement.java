@@ -1,6 +1,7 @@
 package com.whoamie.cinetime_nepal.member.fragments;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -17,15 +18,18 @@ import android.widget.Toast;
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
+import com.facebook.login.LoginManager;
 import com.facebook.shimmer.ShimmerFrameLayout;
 import com.google.gson.Gson;
 import com.whoamie.cinetime_nepal.R;
+import com.whoamie.cinetime_nepal.common.activities.SplashScreenActivity;
 import com.whoamie.cinetime_nepal.common.interfaces.AdapterClickListener;
 import com.whoamie.cinetime_nepal.common.network.API;
 import com.whoamie.cinetime_nepal.common.network.AuthenticatedJSONRequest;
 import com.whoamie.cinetime_nepal.common.network.HandleNetworkError;
 import com.whoamie.cinetime_nepal.common.network.RestClient;
 import com.whoamie.cinetime_nepal.common.utils.CheckConnectivity;
+import com.whoamie.cinetime_nepal.common.utils.ProgressDialog;
 import com.whoamie.cinetime_nepal.common.utils.SharedPref;
 import com.whoamie.cinetime_nepal.member.adapters.FavMovieAdapter;
 import com.whoamie.cinetime_nepal.member.models.FavMovie;
@@ -35,6 +39,8 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+
+import static android.content.Context.MODE_PRIVATE;
 
 public class FavMovieFragement extends Fragment {
     View view;
@@ -75,12 +81,44 @@ public class FavMovieFragement extends Fragment {
         adapter = new FavMovieAdapter(favMovies, getContext(), new AdapterClickListener() {
             @Override
             public void onClick(int position, View view) {
-
+                FavMovie favMovie = favMovies.get(position);
+                callRemoveFavMovieApi(favMovie.getMovie().getId());
             }
         });
         recyclerView.setAdapter(adapter);
 
 
+    }
+
+    private void callRemoveFavMovieApi(int id) {
+        final ProgressDialog dialog = new ProgressDialog(context);
+        dialog.show();
+        JSONObject object = new JSONObject();
+        try {
+            object.put("movie_id",id);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        AuthenticatedJSONRequest jsonRequest = new AuthenticatedJSONRequest(getContext(), Request.Method.POST, API.removefavMovie, object, new Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject response) {
+                dialog.cancel();
+                Toast.makeText(getContext(), "removed successfully", Toast.LENGTH_SHORT).show();
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                dialog.cancel();
+//                System.out.println(error);
+                HandleNetworkError.handlerError(error,getContext());
+            }
+        });
+        if (CheckConnectivity.isNetworkAvailable(context)) {
+            RestClient.getInstance(context).addToRequestQueue(jsonRequest);
+        } else {
+            dialog.cancel();
+            Toast.makeText(context, "No internet connection", Toast.LENGTH_SHORT).show();
+        }
     }
 
     @Override
