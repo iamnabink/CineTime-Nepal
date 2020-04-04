@@ -4,6 +4,7 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -54,18 +55,25 @@ public class FavMovieAdapter extends RecyclerView.Adapter<FavMovieAdapter.MViewH
     }
 
     public class MViewHoler extends RecyclerView.ViewHolder{
-        ImageView imageView;
+        ImageView imageView,button;
         TextView name,genre;
         public MViewHoler(@NonNull View itemView) {
             super(itemView);
             imageView=itemView.findViewById(R.id.fav_movie_imgv);
             name=itemView.findViewById(R.id.fav_movie_name_tv);
             genre=itemView.findViewById(R.id.fav_movie_genre_tv);
+            button=itemView.findViewById(R.id.fav_remove_btn);
             imageView.setOnLongClickListener(new View.OnLongClickListener() {
                 @Override
                 public boolean onLongClick(View v) {
-                    Toast.makeText(context, "Clicked", Toast.LENGTH_SHORT).show();
+                    button.setVisibility(View.VISIBLE);
                     return true;
+                }
+            });
+            button.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    listener.onClick(getAdapterPosition(),v);
                 }
             });
         }

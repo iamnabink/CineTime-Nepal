@@ -1,5 +1,6 @@
 package com.whoamie.cinetime_nepal.member.fragments;
 
+import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
 
@@ -105,6 +106,8 @@ public class ReviewFragment extends Fragment {
             public void onResponse(JSONObject response) {
                 try {
                     if (response.getBoolean("status")){
+                        Activity activity = getActivity();
+                        if (activity != null && isAdded()){
                         JSONArray array = response.getJSONArray(SharedPref.key_data_details);
                         for (int i = 0;i<array.length();i++){
                             JSONObject object = array.getJSONObject(i);
@@ -112,7 +115,7 @@ public class ReviewFragment extends Fragment {
                             reviews.add(myReview);
 //                        Toast.makeText(context, myReview.getComment_msg(), Toast.LENGTH_SHORT).show();
                         }
-                    }
+                    }}
                     else {
 //                        Toast.makeText(context, response.getString("message"), Toast.LENGTH_SHORT).show();
                     }

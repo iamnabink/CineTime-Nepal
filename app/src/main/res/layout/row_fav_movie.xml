@@ -1,28 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:layout_marginRight="15dp"
-    android:orientation="vertical">
+    android:layout_marginRight="15dp">
 
-    <androidx.cardview.widget.CardView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:cardCornerRadius="6dp">
-        <ImageView
-            android:id="@+id/fav_movie_imgv"
-            android:layout_width="110dp"
-            android:layout_height="150dp"
-            android:scaleType="centerCrop"
-            android:src="@drawable/avatar" />
-    </androidx.cardview.widget.CardView>
+    <ImageView
+        android:id="@+id/fav_movie_imgv"
+        android:layout_width="110dp"
+        android:layout_height="150dp"
+        android:scaleType="centerCrop"
+        android:src="@drawable/avatar" />
 
     <TextView
         android:id="@+id/fav_movie_name_tv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
+        android:layout_below="@id/fav_movie_imgv"
+        android:layout_centerHorizontal="true"
         android:layout_marginTop="6dp"
         android:text="Movie Name"
         android:textAlignment="center" />
@@ -31,8 +26,17 @@
         android:id="@+id/fav_movie_genre_tv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
+        android:layout_below="@id/fav_movie_name_tv"
+        android:layout_centerHorizontal="true"
         android:layout_marginTop="3dp"
         android:text="Movie Genre"
         android:textAlignment="center" />
-</LinearLayout>
+
+    <ImageView
+        android:id="@+id/fav_remove_btn"
+        android:layout_width="wrap_content"
+        android:visibility="gone"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:src="@drawable/ic_cancel_black_24dp" />
+</RelativeLayout>

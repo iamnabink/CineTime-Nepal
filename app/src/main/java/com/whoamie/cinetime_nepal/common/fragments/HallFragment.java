@@ -147,6 +147,8 @@ public class HallFragment extends Fragment {
         JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, API.getHallDetails, null, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
+                Activity activity = getActivity();
+                if (activity != null && isAdded()){
                 shimmerFrameLayout.stopShimmer();
                 shimmerFrameLayout.setVisibility(View.GONE);
                 try {
@@ -166,7 +168,7 @@ public class HallFragment extends Fragment {
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
-            }
+            }}
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {

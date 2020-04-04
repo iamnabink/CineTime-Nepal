@@ -67,7 +67,7 @@ public class HallAdapter extends RecyclerView.Adapter<HallAdapter.HallVH> {
         ConstraintLayout expandableView;
         LinearLayout linearLayout;
         Button arrowBtn;
-        CardView cardView,callBtn,visitBtn;
+        CardView cardView;
         public HallVH(@NonNull View itemView) {
             super(itemView);
             hallNameTv= itemView.findViewById(R.id.h_name_tv);
@@ -78,16 +78,14 @@ public class HallAdapter extends RecyclerView.Adapter<HallAdapter.HallVH> {
             cardView = itemView.findViewById(R.id.cardView);
             siteUrl = itemView.findViewById(R.id.mailNumber);
             phoneTv = itemView.findViewById(R.id.phoneNumber);
-            callBtn = itemView.findViewById(R.id.call_btn);
-            visitBtn = itemView.findViewById(R.id.visit_btn);
             linearLayout = itemView.findViewById(R.id.animate_layout);
-            callBtn.setOnClickListener(new View.OnClickListener() {
+            phoneTv.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     listener.callBtnClick(getAdapterPosition(),v);
                 }
             });
-            visitBtn.setOnClickListener(new View.OnClickListener() {
+            siteUrl.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     listener.visitBtnClick(getAdapterPosition(),v);
@@ -100,11 +98,10 @@ public class HallAdapter extends RecyclerView.Adapter<HallAdapter.HallVH> {
                         TransitionManager.beginDelayedTransition(linearLayout, new AutoTransition());
                         expandableView.setVisibility(View.VISIBLE);
                         arrowBtn.setBackgroundResource(R.drawable.ic_arrow_drop_up_black_24dp);
-
                     } else {
                         TransitionManager.beginDelayedTransition(linearLayout, new AutoTransition().setDuration(300)); //new AutoTransition().setDuration(3000)
-                        expandableView.setVisibility(View.GONE);
                         arrowBtn.setBackgroundResource(R.drawable.ic_arrow_drop_down_black_24dp);
+                        expandableView.setVisibility(View.GONE);
                     }
                 }
             });

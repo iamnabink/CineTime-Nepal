@@ -8,7 +8,6 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.Window;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -26,7 +25,6 @@ import com.android.volley.VolleyError;
 import com.facebook.login.LoginManager;
 import com.google.android.material.tabs.TabLayout;
 import com.whoamie.cinetime_nepal.R;
-import com.whoamie.cinetime_nepal.common.activities.HomeActivity;
 import com.whoamie.cinetime_nepal.common.activities.SettingActivity;
 import com.whoamie.cinetime_nepal.common.activities.SplashScreenActivity;
 import com.whoamie.cinetime_nepal.common.network.API;
@@ -40,9 +38,8 @@ import com.whoamie.cinetime_nepal.member.activities.EditProfileActivity;
 import com.whoamie.cinetime_nepal.member.models.User;
 import com.google.gson.Gson;
 import com.squareup.picasso.Picasso;
-import com.whoamie.cinetime_nepal.member.adapters.ProfileSectionPager;
+import com.whoamie.cinetime_nepal.member.adapters.ProfileFragmentPagerAdapter;
 
-import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
@@ -56,7 +53,7 @@ public class ProfileFragment extends Fragment {
     CardView editProfileBtn;
     SharedPreferences preferences;
     SharedPreferences.Editor editor;
-    ProfileSectionPager pagerAdapter;
+    ProfileFragmentPagerAdapter pagerAdapter;
     TabLayout tabLayout;
     ViewPager viewPager;
     ArrayList<Fragment> fragments = new ArrayList<>();
@@ -119,8 +116,9 @@ public class ProfileFragment extends Fragment {
         fragments.add(new ReviewFragment());
         tabTitles.add("FAVOURITE MOVIES");
         tabTitles.add("REVIEWS");
-        pagerAdapter = new ProfileSectionPager(getContext(), getChildFragmentManager(), fragments, tabTitles); //setuped pager
+        pagerAdapter = new ProfileFragmentPagerAdapter(getContext(), getChildFragmentManager(), fragments, tabTitles); //setuped pager
         pagerAdapter.notifyDataSetChanged();
+
     }
 
     private void setData() {
@@ -177,6 +175,8 @@ public class ProfileFragment extends Fragment {
         AuthenticatedJSONRequest jsonRequest = new AuthenticatedJSONRequest(getContext(), Request.Method.POST, API.logoutUrl, null, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
+                Activity activity = getActivity();
+                if (activity != null && isAdded()){
                 dialog.cancel();
                 preferences = context.getSharedPreferences(SharedPref.key_shared_pref, MODE_PRIVATE);
                 editor = preferences.edit();
@@ -187,7 +187,7 @@ public class ProfileFragment extends Fragment {
                 LoginManager.getInstance().logOut();
                 Toast.makeText(context, "Logged-out successfully", Toast.LENGTH_SHORT).show();
                 startActivity(new Intent(context, SplashScreenActivity.class)); //open splash screen
-                getActivity().onBackPressed();
+                getActivity().onBackPressed();}
             }
         }, new Response.ErrorListener() {
             @Override

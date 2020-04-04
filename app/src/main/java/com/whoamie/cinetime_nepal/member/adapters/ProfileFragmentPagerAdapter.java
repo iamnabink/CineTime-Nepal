@@ -10,11 +10,11 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
 
-public class ProfileSectionPager extends FragmentPagerAdapter {
+public class ProfileFragmentPagerAdapter extends FragmentPagerAdapter {
     Context context;
     ArrayList<Fragment> fragments = new ArrayList<>();
     ArrayList<String> tabTitles =new ArrayList<>();
-    public ProfileSectionPager(Context context, FragmentManager fm, ArrayList<Fragment> fragments, ArrayList<String> tabTitles) {
+    public ProfileFragmentPagerAdapter(Context context, FragmentManager fm, ArrayList<Fragment> fragments, ArrayList<String> tabTitles) {
         super(fm);
         this.context=context;
         this.fragments=fragments;

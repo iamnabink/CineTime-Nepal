@@ -6,6 +6,8 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -103,13 +105,14 @@ public class FavMovieFragement extends Fragment {
             @Override
             public void onResponse(JSONObject response) {
                 dialog.cancel();
+                callgetfavMovieApi();
                 Toast.makeText(getContext(), "removed successfully", Toast.LENGTH_SHORT).show();
             }
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
                 dialog.cancel();
-//                System.out.println(error);
+
                 HandleNetworkError.handlerError(error,getContext());
             }
         });
@@ -128,6 +131,7 @@ public class FavMovieFragement extends Fragment {
     }
 
     private void callgetfavMovieApi() {
+        favMovies.clear();
         shimmerFrameLayout.startShimmer();
         AuthenticatedJSONRequest request = new AuthenticatedJSONRequest(getContext(), Request.Method.POST, API.getfavMovieDetail, null, new Response.Listener<JSONObject>() {
             @Override
