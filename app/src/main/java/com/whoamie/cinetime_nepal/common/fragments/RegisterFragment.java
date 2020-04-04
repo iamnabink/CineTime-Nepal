@@ -93,8 +93,7 @@ public class RegisterFragment extends Fragment {
         actCreateBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                startActivity(new Intent(getContext(), SignUpActivity.class));
-                LoginManager.getInstance().logOut();
+                startActivity(new Intent(getContext(), SignUpActivity.class));
             }
 
         });
@@ -190,7 +189,10 @@ public class RegisterFragment extends Fragment {
 
     private void callLoginApi(String id, String name, String email, String image_url) {
         final ProgressDialog dialog = new ProgressDialog(context);
-        dialog.show();
+        if(!((Activity) context).isFinishing())
+        {
+            dialog.show();
+        }
         preferences = context.getSharedPreferences(SharedPref.key_shared_pref, MODE_PRIVATE);
         final SharedPreferences.Editor editor = preferences.edit();
         JSONObject jsonObject = new JSONObject();
@@ -219,6 +221,7 @@ public class RegisterFragment extends Fragment {
                             editor.putString(SharedPref.key_user_token, tokenDetails);
                             editor.apply();
                             startActivity(new Intent(context, SplashScreenActivity.class));
+                            getActivity().finish();
                         } else {
                             Toast.makeText(context, response.getString("message"), Toast.LENGTH_SHORT).show();
                         }

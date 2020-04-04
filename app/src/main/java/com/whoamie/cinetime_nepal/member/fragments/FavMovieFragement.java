@@ -179,6 +179,7 @@ public class FavMovieFragement extends Fragment {
             shimmerFrameLayout.setVisibility(View.GONE);
             Toast.makeText(getContext(), "No internet Available", Toast.LENGTH_SHORT).show();
         }
+
     }
 
 }
