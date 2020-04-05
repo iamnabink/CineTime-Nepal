@@ -1,10 +1,12 @@
 package com.whoamie.cinetime_nepal.member.fragments;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
@@ -84,12 +86,32 @@ public class FavMovieFragement extends Fragment {
             @Override
             public void onClick(int position, View view) {
                 FavMovie favMovie = favMovies.get(position);
-                callRemoveFavMovieApi(favMovie.getMovie().getId());
+                showDialog(favMovie.getMovie().getId());
             }
         });
         recyclerView.setAdapter(adapter);
 
 
+    }
+
+    private void showDialog(final int id) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(context);
+        builder.setMessage("Remove this movie from favourite movie list?");
+        builder.setCancelable(true);
+        builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                callRemoveFavMovieApi(id);
+            }
+        });
+        builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.cancel();
+            }
+        });
+        AlertDialog dialog = builder.create();
+        dialog.show();
     }
 
     private void callRemoveFavMovieApi(int id) {

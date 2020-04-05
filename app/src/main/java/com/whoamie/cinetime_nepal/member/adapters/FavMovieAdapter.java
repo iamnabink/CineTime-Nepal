@@ -55,25 +55,18 @@ public class FavMovieAdapter extends RecyclerView.Adapter<FavMovieAdapter.MViewH
     }
 
     public class MViewHoler extends RecyclerView.ViewHolder{
-        ImageView imageView,button;
+        ImageView imageView;
         TextView name,genre;
         public MViewHoler(@NonNull View itemView) {
             super(itemView);
             imageView=itemView.findViewById(R.id.fav_movie_imgv);
             name=itemView.findViewById(R.id.fav_movie_name_tv);
             genre=itemView.findViewById(R.id.fav_movie_genre_tv);
-            button=itemView.findViewById(R.id.fav_remove_btn);
             imageView.setOnLongClickListener(new View.OnLongClickListener() {
                 @Override
                 public boolean onLongClick(View v) {
-                    button.setVisibility(View.VISIBLE);
-                    return true;
-                }
-            });
-            button.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
                     listener.onClick(getAdapterPosition(),v);
+                    return true;
                 }
             });
         }
