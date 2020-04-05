@@ -25,6 +25,7 @@ import com.android.volley.VolleyError;
 import com.facebook.login.LoginManager;
 import com.google.android.material.tabs.TabLayout;
 import com.whoamie.cinetime_nepal.R;
+import com.whoamie.cinetime_nepal.common.activities.HomeActivity;
 import com.whoamie.cinetime_nepal.common.activities.SettingActivity;
 import com.whoamie.cinetime_nepal.common.activities.SplashScreenActivity;
 import com.whoamie.cinetime_nepal.common.network.API;
@@ -63,10 +64,13 @@ public class ProfileFragment extends Fragment {
     Activity activity = getActivity();
     Context context;
 
+
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_profile, container, false);
-        ((AppCompatActivity) getActivity()).getSupportActionBar().hide();
+        if(context instanceof HomeActivity){
+            ((AppCompatActivity) getActivity()).getSupportActionBar().hide();
+        }
         intiVar();
         initViews();
         onClickEveent();
@@ -112,8 +116,8 @@ public class ProfileFragment extends Fragment {
         uBio = view.findViewById(R.id.u_bio_tv);
         viewPager = view.findViewById(R.id.view_pager_profile);
         tabLayout = view.findViewById(R.id.tab_layout);
-        fragments.add(new FavMovieFragement());
-        fragments.add(new ReviewFragment());
+        fragments.add(new MyFavMovieFragment());
+        fragments.add(new MyReviewFragment());
         tabTitles.add("FAVOURITE MOVIES");
         tabTitles.add("REVIEWS");
         pagerAdapter = new ProfileFragmentPagerAdapter(getContext(), getChildFragmentManager(), fragments, tabTitles); //setuped pager

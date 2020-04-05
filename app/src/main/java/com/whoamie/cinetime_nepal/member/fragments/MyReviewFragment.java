@@ -43,7 +43,7 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 
-public class ReviewFragment extends Fragment {
+public class MyReviewFragment extends Fragment {
     View view;
     Context context;
     ShimmerFrameLayout shimmerFrameLayout;

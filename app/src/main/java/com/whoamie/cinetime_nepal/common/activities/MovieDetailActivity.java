@@ -27,6 +27,7 @@ import com.whoamie.cinetime_nepal.R;
 import com.whoamie.cinetime_nepal.member.adapters.ReviewAdapter;
 import com.whoamie.cinetime_nepal.common.adapter.ShowingMovieAdapter;
 import com.whoamie.cinetime_nepal.common.interfaces.AdapterClickListener;
+import com.whoamie.cinetime_nepal.member.fragments.ProfileFragment;
 import com.whoamie.cinetime_nepal.member.interfaces.ReviewClickListner;
 import com.whoamie.cinetime_nepal.common.models.Movie;
 import com.whoamie.cinetime_nepal.member.models.Review;
@@ -40,6 +41,7 @@ import com.whoamie.cinetime_nepal.common.utils.SharedPref;
 import com.google.gson.Gson;
 import com.squareup.picasso.Picasso;
 import com.whoamie.cinetime_nepal.member.activities.LoginActivity;
+import com.whoamie.cinetime_nepal.member.models.User;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -51,6 +53,8 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
 import androidx.coordinatorlayout.widget.CoordinatorLayout;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -68,7 +72,7 @@ public class MovieDetailActivity extends AppCompatActivity {
     ShowingMovieAdapter movieAdapter;
     CoordinatorLayout coordinatorLayout;
     ArrayList<Review> reviews = new ArrayList<>();
-    ArrayList<Movie> movies=new ArrayList<>();
+    ArrayList<Movie> movies = new ArrayList<>();
     private SlidrInterface slidr;
 
 
@@ -83,7 +87,7 @@ public class MovieDetailActivity extends AppCompatActivity {
             String movieString = getIntent().getExtras().getString(SharedPref.key_shared_movies_details, "");
             movie = new Gson().fromJson(movieString, Movie.class);
             loadIntentData();
-            if (movie.getStatus() == 1){
+            if (movie.getStatus() == 1) {
                 findViewById(R.id.showing_movie_detail_layout).setVisibility(View.VISIBLE);
                 findViewById(R.id.releasing_movie_detail_layout).setVisibility(View.GONE);
                 //nowshowing
@@ -92,8 +96,7 @@ public class MovieDetailActivity extends AppCompatActivity {
                 makeFavouriteMoviesBtn();
                 callReviewAPI();
                 showTimeIntent();
-            }
-            else if (movie.getStatus() == 0){
+            } else if (movie.getStatus() == 0) {
                 //upcoming
                 findViewById(R.id.showing_movie_detail_layout).setVisibility(View.GONE);
                 findViewById(R.id.releasing_movie_detail_layout).setVisibility(View.VISIBLE);
@@ -108,8 +111,8 @@ public class MovieDetailActivity extends AppCompatActivity {
     private void loadReccomendedMovie() {
         JSONObject object = new JSONObject();
         try {
-            object.put("genre",movie.getGenre());
-            object.put("movie_id",movie.getId());
+            object.put("genre", movie.getGenre());
+            object.put("movie_id", movie.getId());
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -118,9 +121,9 @@ public class MovieDetailActivity extends AppCompatActivity {
             public void onResponse(JSONObject response) {
                 try {
                     JSONArray jsonArray = response.getJSONArray("recom_movies");
-                    for (int i = 0;i<jsonArray.length();i++){
+                    for (int i = 0; i < jsonArray.length(); i++) {
                         JSONObject movieObject = jsonArray.getJSONObject(i);
-                        Movie movie = new Gson().fromJson(movieObject.toString(),Movie.class);
+                        Movie movie = new Gson().fromJson(movieObject.toString(), Movie.class);
                         movies.add(movie);
                         movieAdapter.notifyDataSetChanged();
                     }
@@ -134,18 +137,17 @@ public class MovieDetailActivity extends AppCompatActivity {
                 Toast.makeText(MovieDetailActivity.this, error.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
-        if(CheckConnectivity.isNetworkAvailable(this)){
+        if (CheckConnectivity.isNetworkAvailable(this)) {
             RestClient.getInstance(this).addToRequestQueue(request);
-        }
-        else {
+        } else {
             Toast.makeText(this, "No Network Detected", Toast.LENGTH_SHORT).show();
         }
     }
 
 
     private void showReccomendedmovie() {
-        recommendationRecyclerV.setLayoutManager(new LinearLayoutManager(MovieDetailActivity.this,RecyclerView.HORIZONTAL,false));
-        movieAdapter=new ShowingMovieAdapter(movies, this, new AdapterClickListener() {
+        recommendationRecyclerV.setLayoutManager(new LinearLayoutManager(MovieDetailActivity.this, RecyclerView.HORIZONTAL, false));
+        movieAdapter = new ShowingMovieAdapter(movies, this, new AdapterClickListener() {
             @Override
             public void onClick(int position, View view) {
 //                Toast.makeText(MovieDetailActivity.this, "Clicked", Toast.LENGTH_SHORT).show();
@@ -162,11 +164,11 @@ public class MovieDetailActivity extends AppCompatActivity {
     }
 
     private void initVar() {
-        recommendationRecyclerV=findViewById(R.id.reccom_movies_recycler_view);
+        recommendationRecyclerV = findViewById(R.id.reccom_movies_recycler_view);
         movieFavouriteCv = findViewById(R.id.d_movie_favourite_cv);
         showTimetv = findViewById(R.id.d_movie_showtime_tv);
         reviewTv = findViewById(R.id.d_movie_review_tv);
-        movieTrailerCv=findViewById(R.id.d_movie_trailer_cv);
+        movieTrailerCv = findViewById(R.id.d_movie_trailer_cv);
         movieNameTv = findViewById(R.id.d_movie_name_tv);
         movieGenreTv = findViewById(R.id.d_movie_genre_tv);
         movieSynopsis = findViewById(R.id.d_movie_synopsis);
@@ -213,8 +215,8 @@ public class MovieDetailActivity extends AppCompatActivity {
         movieTrailerCv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String videoId =movie.getYoutube_trailer_url();
-                Intent intent = new Intent(MovieDetailActivity.this,YoutubePlayerView.class);
+                String videoId = movie.getYoutube_trailer_url();
+                Intent intent = new Intent(MovieDetailActivity.this, YoutubePlayerView.class);
                 intent.putExtra("video_id", videoId);
                 startActivity(intent);
             }
@@ -273,16 +275,15 @@ public class MovieDetailActivity extends AppCompatActivity {
             @Override
             public void profilePicClick(int position, View view) {
                 Review review = reviews.get(position);
-                int movieId = review.getMovie_id();
-                openUserProfile(movieId);
+                Intent intent = new Intent(MovieDetailActivity.this, UserProfileActivity.class);
+                String id = Integer.toString(review.getUser_id());
+                intent.putExtra(SharedPref.key_user_details, id);
+                startActivity(intent);
+
             }
         });
         reviewRecyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
         reviewRecyclerView.setAdapter(adapter);
-    }
-
-    private void openUserProfile(int movieId) {
-
     }
 
     private void deleteReview(int userId, int movieId) {

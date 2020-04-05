@@ -20,13 +20,17 @@
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
         <!-- [START fcm_default_icon] -->
-        <!-- Set custom default icon. This is used when no icon is set for incoming notification messages.
-             See README(https://goo.gl/l4GJaQ) for more. -->
+        <!--
+ Set custom default icon. This is used when no icon is set for incoming notification messages.
+             See README(https://goo.gl/l4GJaQ) for more.
+        -->
         <meta-data
             android:name="com.google.firebase.messaging.default_notification_icon"
             android:resource="@drawable/ic_logo" />
-        <!-- Set color used with incoming notification messages. This is used when no color is set for the incoming
-             notification message. See README(https://goo.gl/6BKBk7) for more. -->
+        <!--
+ Set color used with incoming notification messages. This is used when no color is set for the incoming
+             notification message. See README(https://goo.gl/6BKBk7) for more.
+        -->
         <meta-data
             android:name="com.google.firebase.messaging.default_notification_color"
             android:resource="@color/colorPrimary" />
@@ -35,76 +39,85 @@
             android:value="@string/map_key" />
 
         <activity
-            android:name="com.whoamie.cinetime_nepal.common.activities.HomeActivity"
+            android:name=".common.activities.HomeActivity"
             android:label="@string/app_name"
-            android:windowSoftInputMode="adjustPan"
-            android:theme="@style/AppTheme.transparent"></activity>
-        <meta-data android:name="com.facebook.sdk.ApplicationId"
-            android:value="@string/facebook_app_id"/>
+            android:theme="@style/AppTheme.transparent"
+            android:windowSoftInputMode="adjustPan" />
 
-        <activity android:name="com.facebook.FacebookActivity"
-            android:configChanges=
-                "keyboard|keyboardHidden|screenLayout|screenSize|orientation"
+        <meta-data
+            android:name="com.facebook.sdk.ApplicationId"
+            android:value="@string/facebook_app_id" />
+
+        <activity
+            android:name="com.facebook.FacebookActivity"
+            android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
             android:label="@string/app_name" />
         <activity
             android:name="com.facebook.CustomTabActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
+
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />
+
                 <data android:scheme="@string/fb_login_protocol_scheme" />
             </intent-filter>
         </activity>
-
         <activity
-            android:name="com.whoamie.cinetime_nepal.common.activities.SplashScreenActivity"
+            android:name=".common.activities.SplashScreenActivity"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
         <activity
-            android:name="com.whoamie.cinetime_nepal.member.activities.SignUpActivity"
+            android:name=".member.activities.SignUpActivity"
             android:launchMode="singleTop"
             android:theme="@style/AppTheme.transparent.animationTheme" />
         <activity
-            android:name="com.whoamie.cinetime_nepal.member.activities.LoginActivity"
+            android:name=".member.activities.LoginActivity"
             android:launchMode="singleTop"
             android:theme="@style/AppTheme.transparent.animationTheme" />
         <activity
-            android:name="com.whoamie.cinetime_nepal.member.activities.EditProfileActivity"
+            android:name=".member.activities.EditProfileActivity"
             android:launchMode="singleTop"
             android:theme="@style/AppTheme.transparent.animationTheme" />
         <activity
-            android:name="com.whoamie.cinetime_nepal.common.activities.MovieDetailActivity"
+            android:name=".common.activities.MovieDetailActivity"
             android:configChanges="orientation|screenSize|keyboardHidden|smallestScreenSize|screenLayout"
             android:theme="@style/AppTheme.transparent.animationTheme" />
         <activity
-            android:name="com.whoamie.cinetime_nepal.common.activities.ShowTimeActivity"
+            android:name=".common.activities.ShowTimeActivity"
             android:label="ShowTime"
             android:launchMode="singleTop"
             android:theme="@style/AppTheme.transparent.animationTheme" />
         <activity
-            android:name="com.whoamie.cinetime_nepal.common.activities.MapNearByCinemasActivity"
+            android:name=".common.activities.MapNearByCinemasActivity"
             android:launchMode="singleTop"
             android:theme="@style/AppTheme.transparent" />
         <activity
-            android:name="com.whoamie.cinetime_nepal.member.activities.ChangePwdActivity"
+            android:name=".member.activities.ChangePwdActivity"
             android:launchMode="singleTop"
             android:theme="@style/AppTheme.transparent.animationTheme" />
         <activity
-            android:name="com.whoamie.cinetime_nepal.member.activities.ResetPwdActivity"
-            android:theme="@style/AppTheme.transparent.animationTheme"></activity>
+            android:name=".member.activities.ResetPwdActivity"
+            android:theme="@style/AppTheme.transparent.animationTheme" />
         <activity
-            android:name="com.whoamie.cinetime_nepal.common.activities.SettingActivity"
+            android:name=".common.activities.UserProfileActivity"
             android:launchMode="singleTop"
-            android:theme="@style/AppTheme.transparent"></activity>
-        <activity android:name=".common.activities.YoutubePlayerView"
-            android:screenOrientation="landscape" android:theme="@style/TransprentTheme"
-            tools:ignore="LockedOrientationActivity" />
-        <!-- [START firebase_service] -->
+            android:theme="@style/AppTheme.transparent" />
+        <activity
+            android:name=".common.activities.SettingActivity"
+            android:launchMode="singleTop"
+            android:theme="@style/AppTheme.transparent" />
+        <activity
+            android:name=".common.activities.YoutubePlayerView"
+            android:screenOrientation="landscape"
+            android:theme="@style/TransprentTheme"
+            tools:ignore="LockedOrientationActivity" /> <!-- [START firebase_service] -->
         <service
             android:name=".common.firebase.MyFirebaseMessagingService"
             android:exported="false">
@@ -112,7 +125,6 @@
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />
             </intent-filter>
         </service>
-        <!-- [END firebase_service] -->
     </application>
 
 </manifest>

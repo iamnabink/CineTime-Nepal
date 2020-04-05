@@ -45,7 +45,7 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 
 
-public class FavMovieFragement extends Fragment {
+public class MyFavMovieFragment extends Fragment {
     View view;
     RecyclerView recyclerView;
     FavMovieAdapter adapter;
