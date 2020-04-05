@@ -14,7 +14,7 @@ import com.whoamie.cinetime_nepal.common.models.Movie;
 import java.util.ArrayList;
 
 public class UserFavMovieFragment extends Fragment {
-    ArrayList<Movie> movies = new ArrayList<>();
+    ArrayList<Movie> movies;
     View view;
     public UserFavMovieFragment(ArrayList<Movie> movies) {
         this.movies=movies;

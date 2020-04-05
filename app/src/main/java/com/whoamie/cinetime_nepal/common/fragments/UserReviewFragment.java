@@ -14,7 +14,7 @@ import com.whoamie.cinetime_nepal.member.models.MyReview;
 import java.util.ArrayList;
 
 public class UserReviewFragment extends Fragment {
-    ArrayList<MyReview> reviews = new ArrayList<>();
+    ArrayList<MyReview> reviews;
     View view;
     public UserReviewFragment(ArrayList<MyReview> reviews) {
         this.reviews=reviews;
