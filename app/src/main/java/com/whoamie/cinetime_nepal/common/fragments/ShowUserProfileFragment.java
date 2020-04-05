@@ -72,7 +72,7 @@ public class ShowUserProfileFragment extends Fragment {
     }
 
     private void loadData() {
-        Picasso.get().load(user.getProfile_pic_url()).placeholder(R.drawable.person_placeholder).into(showProfileIv);
+        Picasso.get().load(user.getProfile_pic_url()).placeholder(R.drawable.person_placeholder).error(R.drawable.person_placeholder).into(showProfileIv);
 
     }
 
