@@ -43,10 +43,9 @@ public class FavMovieAdapter extends RecyclerView.Adapter<FavMovieAdapter.MViewH
     @Override
     public void onBindViewHolder(@NonNull MViewHoler holder, int position) {
         FavMovie favMovie = favMovies.get(position);
-        String imageUrl = "https://cinetimenepal.whoamie.com/uploads/movies/"+favMovie.getMovie().getPoster_url();
         holder.name.setText(favMovie.getMovie().getName());
         holder.genre.setText(favMovie.getMovie().getGenre());
-        Picasso.get().load(imageUrl).into(holder.imageView);
+        Picasso.get().load(favMovie.getMovie().getPoster_url()).into(holder.imageView);
     }
 
     @Override

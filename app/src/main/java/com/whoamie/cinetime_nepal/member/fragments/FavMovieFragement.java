@@ -44,7 +44,6 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 
-import static android.content.Context.MODE_PRIVATE;
 
 public class FavMovieFragement extends Fragment {
     View view;
