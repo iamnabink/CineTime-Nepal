@@ -2,6 +2,7 @@ package com.whoamie.cinetime_nepal.member.fragments;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -22,7 +23,9 @@ import com.android.volley.VolleyError;
 import com.facebook.shimmer.ShimmerFrameLayout;
 import com.google.gson.Gson;
 import com.whoamie.cinetime_nepal.R;
+import com.whoamie.cinetime_nepal.common.activities.MovieDetailActivity;
 import com.whoamie.cinetime_nepal.common.interfaces.AdapterClickListener;
+import com.whoamie.cinetime_nepal.common.models.Movie;
 import com.whoamie.cinetime_nepal.common.network.API;
 import com.whoamie.cinetime_nepal.common.network.AuthenticatedJSONRequest;
 import com.whoamie.cinetime_nepal.common.network.HandleNetworkError;
@@ -74,8 +77,12 @@ public class ReviewFragment extends Fragment {
         adapter = new MyReviewAdapter(reviews, getContext(), new AdapterClickListener() {
             @Override
             public void onClick(int position, View view) {
-                Toast.makeText(getContext(), "Deleted", Toast.LENGTH_SHORT).show();
-            }
+                Movie movie = reviews.get(position).getMovie();
+                String movieDetails = new Gson().toJson(movie);
+                Intent intent = new Intent(getContext(), MovieDetailActivity.class);
+                intent.putExtra(SharedPref.key_shared_movies_details, movieDetails);
+                startActivity(intent);
+        }
         });
         recyclerView.setLayoutManager(new GridLayoutManager(getContext(),2));
         recyclerView.setAdapter(adapter);

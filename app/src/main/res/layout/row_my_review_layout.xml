@@ -59,12 +59,4 @@
         android:text="Avatar (PG)"
         android:textColor="@android:color/white"
         android:layout_centerHorizontal="true"/>
-    <ImageView
-        android:id="@+id/review_remove_btn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:visibility="gone"
-        android:layout_centerVertical="true"
-        android:layout_centerHorizontal="true"
-        android:src="@drawable/ic_cancel_black_24dp"/>
 </RelativeLayout>

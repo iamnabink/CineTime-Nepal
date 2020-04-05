@@ -42,10 +42,9 @@ public class MyReviewAdapter extends RecyclerView.Adapter<MyReviewAdapter.Review
 
     @Override
     public void onBindViewHolder(@NonNull ReviewHolder holder, int position) {
-        String imageUrl = "https://cinetimenepal.whoamie.com/uploads/movies/";
         MyReview review = reviews.get(position);
         holder.review_movie_name_tv.setText(review.getMovie().getName());
-        Picasso.get().load(imageUrl+review.getMovie().getPoster_url()).placeholder(R.drawable.no_pp).into(holder.my_review_iv);
+        Picasso.get().load(review.getMovie().getPoster_url()).placeholder(R.drawable.no_pp).into(holder.my_review_iv);
         holder.review_msg_tv.setText(review.getComment_msg());
         holder.review_cmnt_tm_tv.setText(review.getCreated_at());
     }
@@ -57,7 +56,7 @@ public class MyReviewAdapter extends RecyclerView.Adapter<MyReviewAdapter.Review
 
     public class ReviewHolder extends RecyclerView.ViewHolder {
         TextView review_movie_name_tv,review_movie_rating_v, review_msg_tv,review_cmnt_tm_tv;
-        ImageView my_review_iv,review_remove_btn,star_iv;
+        ImageView my_review_iv,star_iv;
         RelativeLayout relativeLayout;
 
         public ReviewHolder(@NonNull View itemView) {
@@ -69,23 +68,11 @@ public class MyReviewAdapter extends RecyclerView.Adapter<MyReviewAdapter.Review
             star_iv = itemView.findViewById(R.id.star_iv);
             review_cmnt_tm_tv = itemView.findViewById(R.id.review_cmnt_tm_tv);
             my_review_iv = itemView.findViewById(R.id.my_review_iv);
-            review_remove_btn=itemView.findViewById(R.id.review_remove_btn);
-            relativeLayout.setOnLongClickListener(new View.OnLongClickListener() {
+            relativeLayout.setOnClickListener(new View.OnClickListener() {
                 @Override
-                public boolean onLongClick(View v) {
-                    review_remove_btn.setVisibility(View.VISIBLE);
-                    review_movie_rating_v.setVisibility(View.GONE);
-                    review_movie_name_tv.setVisibility(View.GONE);
-                    review_msg_tv.setVisibility(View.GONE);
-                    review_cmnt_tm_tv.setVisibility(View.GONE);
-                    star_iv.setVisibility(View.GONE);
-                    review_remove_btn.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            listener.onClick(getAdapterPosition(),v);
-                        }
-                    });
-                    return true;
+                public void onClick(View v) {
+                    listener.onClick(getAdapterPosition(),v);
+//                    relativeLayout.setClickable(false);
                 }
             });
         }
