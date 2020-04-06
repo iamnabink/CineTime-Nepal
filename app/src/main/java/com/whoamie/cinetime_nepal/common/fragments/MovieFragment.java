@@ -24,6 +24,7 @@ import android.view.ViewGroup;
 import android.widget.Filter;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.Request;
@@ -68,6 +69,7 @@ public class MovieFragment extends Fragment {
     View noInternetView, view, linearLayout;
     SwipeRefreshLayout refreshLayout;
     private Context mContext;
+    TextView showingMoreBtn, comingMorebtn;
     ShimmerFrameLayout shimmerFrameLayoutU, shimmerFrameLayoutS;
 
     @Override
@@ -75,6 +77,7 @@ public class MovieFragment extends Fragment {
                              Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_movie, container, false);
         ((AppCompatActivity) getActivity()).getSupportActionBar().show();
+        setHasOptionsMenu(true);
         intiVar();
         initViews();
         AccessToken accessToken = AccessToken.getCurrentAccessToken(); //check use logged in status
@@ -88,9 +91,24 @@ public class MovieFragment extends Fragment {
         listeners();
         loadMovieData();
         onRefresh();
-        setHasOptionsMenu(true);
         searchView();
+        onClick();
         return view;
+    }
+
+    private void onClick() {
+        comingMorebtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(mContext, "Coming button clicked", Toast.LENGTH_SHORT).show();
+            }
+        });
+        showingMoreBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(mContext, "Showing button clicked", Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
     private void searchView() {
@@ -208,6 +226,8 @@ public class MovieFragment extends Fragment {
 
     private void intiVar() {
         shimmerFrameLayoutS = view.findViewById(R.id.shmovie_shimmer_layout);
+        showingMoreBtn = view.findViewById(R.id.showing_more_btn);
+        comingMorebtn = view.findViewById(R.id.coming_soon_more_btn);
         shimmerFrameLayoutU = view.findViewById(R.id.upmovie_shimmer_layout);
         refreshLayout = view.findViewById(R.id.swipe_refresh_l);
         noInternetView = view.findViewById(R.id.view_no_internet);

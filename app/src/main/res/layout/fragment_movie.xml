@@ -38,6 +38,7 @@
                             android:textStyle="bold" />
 
                         <TextView
+                            android:id="@+id/showing_more_btn"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_alignParentEnd="true"
@@ -189,6 +190,7 @@
                             android:textStyle="bold" />
 
                         <TextView
+                            android:id="@+id/coming_soon_more_btn"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_alignParentRight="true"
