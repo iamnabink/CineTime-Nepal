@@ -166,12 +166,7 @@ public class MovieFragment extends Fragment {
             @Override
             public boolean onQueryTextChange(String newText) {
 //                Toast.makeText(mContext, "text changing", Toast.LENGTH_SHORT).show();
-                searchMovieAdapter.getFilter().filter(newText, new Filter.FilterListener() {
-                    @Override
-                    public void onFilterComplete(int count) {
-//                        Toast.makeText(mContext, "Total Item--> "+count, Toast.LENGTH_SHORT).show();
-                    }
-                });
+                searchMovieAdapter.getFilter().filter(newText);
                 return false;
             }
         });

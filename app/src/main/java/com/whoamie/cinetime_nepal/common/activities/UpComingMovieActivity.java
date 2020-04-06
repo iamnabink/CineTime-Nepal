@@ -44,11 +44,13 @@ public class UpComingMovieActivity extends AppCompatActivity {
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
+//                searchMovieAdapter.getFilter().filter(newText);
                 return true;
             }
 
             @Override
             public boolean onQueryTextChange(String newText) {
+//                searchMovieAdapter.getFilter().filter(newText);
                 return true;
             }
         });
