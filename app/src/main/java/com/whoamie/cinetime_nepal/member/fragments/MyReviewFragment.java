@@ -8,7 +8,6 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
@@ -32,9 +31,7 @@ import com.whoamie.cinetime_nepal.common.network.HandleNetworkError;
 import com.whoamie.cinetime_nepal.common.network.RestClient;
 import com.whoamie.cinetime_nepal.common.utils.CheckConnectivity;
 import com.whoamie.cinetime_nepal.common.utils.SharedPref;
-import com.whoamie.cinetime_nepal.member.adapters.FavMovieAdapter;
 import com.whoamie.cinetime_nepal.member.adapters.MyReviewAdapter;
-import com.whoamie.cinetime_nepal.member.models.FavMovie;
 import com.whoamie.cinetime_nepal.member.models.MyReview;
 
 import org.json.JSONArray;

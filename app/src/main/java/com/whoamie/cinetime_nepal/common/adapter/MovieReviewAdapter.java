@@ -1,4 +1,4 @@
-package com.whoamie.cinetime_nepal.member.adapters;
+package com.whoamie.cinetime_nepal.common.adapter;
 
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -24,12 +24,12 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import de.hdodenhof.circleimageview.CircleImageView;
 
-public class ReviewAdapter extends RecyclerView.Adapter<ReviewAdapter.ReviewHolder> {
+public class MovieReviewAdapter extends RecyclerView.Adapter<MovieReviewAdapter.ReviewHolder> {
     ArrayList<Review> reviews;
     Context context;
     ReviewClickListner listener;
 
-    public ReviewAdapter(ArrayList<Review> reviews, Context context, ReviewClickListner listener) {
+    public MovieReviewAdapter(ArrayList<Review> reviews, Context context, ReviewClickListner listener) {
         this.reviews = reviews;
         this.context = context;
         this.listener = listener;

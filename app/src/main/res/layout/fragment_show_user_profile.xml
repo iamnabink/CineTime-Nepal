@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -25,7 +25,6 @@
                     android:layout_height="80dp"
                     android:layout_centerHorizontal="true"
                     android:layout_marginTop="43dp"
-                    android:src="@drawable/ic_person_24px"
                     android:transitionName="user_profile_pic"
                     app:civ_border_width="4dp" />
 
@@ -37,29 +36,36 @@
                     android:layout_centerHorizontal="true"
                     android:layout_gravity="center"
                     android:layout_marginTop="35dp"
-                    android:text="Ronoroa Zoro"
                     android:textColor="@android:color/black"
                     android:textSize="18dp" />
             </RelativeLayout>
-
-                <TextView
-                    android:id="@+id/profile_show_bio_tv"
-                    android:layout_width="300dp"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:lineSpacingExtra="3dp"
-                    android:maxLines="2"
-                    android:text="Passionate Moviee lover, a photographer and movie critic"
-                    android:textAlignment="center"
-                    android:textColor="@android:color/black"
-                    android:textSize="16sp" />
+            <TextView
+                android:id="@+id/show_user_created_time_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_gravity="center"
+                android:layout_marginBottom="12dp"
+                android:textAlignment="center"
+                android:textSize="16sp"
+                android:textColor="@android:color/black" />
+            <TextView
+                android:id="@+id/profile_show_bio_tv"
+                android:layout_width="300dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:lineSpacingExtra="3dp"
+                android:maxLines="2"
+                android:textAlignment="center"
+                android:textColor="@android:color/black"
+                android:textSize="16sp" />
 
             <com.google.android.material.tabs.TabLayout
                 android:id="@+id/show_profile_tab_layout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
                 android:layout_marginHorizontal="15dp"
+                android:layout_marginTop="20dp"
                 android:background="@android:color/white"
                 app:tabIndicatorColor="#00E6FF"
                 app:tabTextColor="@android:color/black" />
@@ -73,5 +79,4 @@
             app:layout_behavior="@string/appbar_scrolling_view_behavior" />
     </LinearLayout>
 
-
-</LinearLayout>
+</RelativeLayout>

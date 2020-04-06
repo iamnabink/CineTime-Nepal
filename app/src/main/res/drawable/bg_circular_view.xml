@@ -3,7 +3,6 @@
     <size android:width="50dp"
         android:height="50dp"/>
     <stroke
-        android:width="3dp"
         android:color="@color/shimmer_effect"/>
     <solid android:color="@color/shimmer_effect"/>
 </shape>

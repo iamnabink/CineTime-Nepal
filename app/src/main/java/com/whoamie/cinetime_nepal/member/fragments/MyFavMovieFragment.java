@@ -2,14 +2,11 @@ package com.whoamie.cinetime_nepal.member.fragments;
 
 import android.content.Context;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -22,11 +19,9 @@ import android.widget.Toast;
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
-import com.facebook.login.LoginManager;
 import com.facebook.shimmer.ShimmerFrameLayout;
 import com.google.gson.Gson;
 import com.whoamie.cinetime_nepal.R;
-import com.whoamie.cinetime_nepal.common.activities.SplashScreenActivity;
 import com.whoamie.cinetime_nepal.common.interfaces.AdapterClickListener;
 import com.whoamie.cinetime_nepal.common.network.API;
 import com.whoamie.cinetime_nepal.common.network.AuthenticatedJSONRequest;
@@ -35,7 +30,7 @@ import com.whoamie.cinetime_nepal.common.network.RestClient;
 import com.whoamie.cinetime_nepal.common.utils.CheckConnectivity;
 import com.whoamie.cinetime_nepal.common.utils.ProgressDialog;
 import com.whoamie.cinetime_nepal.common.utils.SharedPref;
-import com.whoamie.cinetime_nepal.member.adapters.FavMovieAdapter;
+import com.whoamie.cinetime_nepal.member.adapters.MyFavMovieAdapter;
 import com.whoamie.cinetime_nepal.member.models.FavMovie;
 
 import org.json.JSONArray;
@@ -48,7 +43,7 @@ import java.util.ArrayList;
 public class MyFavMovieFragment extends Fragment {
     View view;
     RecyclerView recyclerView;
-    FavMovieAdapter adapter;
+    MyFavMovieAdapter adapter;
     ArrayList<FavMovie> favMovies = new ArrayList<>();
     Context context;
     ShimmerFrameLayout shimmerFrameLayout;
@@ -81,7 +76,7 @@ public class MyFavMovieFragment extends Fragment {
         recyclerView = view.findViewById(R.id.movie_user_recycler);
         shimmerFrameLayout = view.findViewById(R.id.favmovie_shimmer_layout);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext(), RecyclerView.HORIZONTAL, false));
-        adapter = new FavMovieAdapter(favMovies, getContext(), new AdapterClickListener() {
+        adapter = new MyFavMovieAdapter(favMovies, getContext(), new AdapterClickListener() {
             @Override
             public void onClick(int position, View view) {
                 FavMovie favMovie = favMovies.get(position);

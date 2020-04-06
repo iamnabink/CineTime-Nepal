@@ -59,7 +59,7 @@ public class ProfileFragment extends Fragment {
     ViewPager viewPager;
     ArrayList<Fragment> fragments = new ArrayList<>();
     ArrayList<String> tabTitles = new ArrayList<>();
-    TextView unameTv, uBio;
+    TextView unameTv, uBio, memberDateTv;
     User users;
     Activity activity = getActivity();
     Context context;
@@ -109,6 +109,7 @@ public class ProfileFragment extends Fragment {
 
     private void intiVar() {
         settingTv=view.findViewById(R.id.settings_tv);
+        memberDateTv=view.findViewById(R.id.user_created_time_tv);
         logoutIv = view.findViewById(R.id.logout_tv);
         editProfileBtn = view.findViewById(R.id.edit_profile_btn);
         profileIv = view.findViewById(R.id.profile_iv);
@@ -126,10 +127,12 @@ public class ProfileFragment extends Fragment {
     }
 
     private void setData() {
-        preferences = getContext().getSharedPreferences(SharedPref.key_shared_pref, MODE_PRIVATE);
+        preferences = context.getSharedPreferences(SharedPref.key_shared_pref, MODE_PRIVATE);
         editor = preferences.edit();
         String userString = preferences.getString(SharedPref.key_user_details, "");
         users = new Gson().fromJson(userString, User.class);
+        String date = "Joined: "+users.getCreated_at();
+        memberDateTv.setText(date);
         unameTv.setText(users.getName());
         if (users.getName() == null) {
             unameTv.setText("Name");

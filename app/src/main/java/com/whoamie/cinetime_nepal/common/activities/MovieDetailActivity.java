@@ -24,10 +24,9 @@ import com.google.android.material.snackbar.Snackbar;
 import com.r0adkll.slidr.Slidr;
 import com.r0adkll.slidr.model.SlidrInterface;
 import com.whoamie.cinetime_nepal.R;
-import com.whoamie.cinetime_nepal.member.adapters.ReviewAdapter;
+import com.whoamie.cinetime_nepal.common.adapter.MovieReviewAdapter;
 import com.whoamie.cinetime_nepal.common.adapter.ShowingMovieAdapter;
 import com.whoamie.cinetime_nepal.common.interfaces.AdapterClickListener;
-import com.whoamie.cinetime_nepal.member.fragments.ProfileFragment;
 import com.whoamie.cinetime_nepal.member.interfaces.ReviewClickListner;
 import com.whoamie.cinetime_nepal.common.models.Movie;
 import com.whoamie.cinetime_nepal.member.models.Review;
@@ -41,7 +40,6 @@ import com.whoamie.cinetime_nepal.common.utils.SharedPref;
 import com.google.gson.Gson;
 import com.squareup.picasso.Picasso;
 import com.whoamie.cinetime_nepal.member.activities.LoginActivity;
-import com.whoamie.cinetime_nepal.member.models.User;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -53,8 +51,6 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
 import androidx.coordinatorlayout.widget.CoordinatorLayout;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -68,7 +64,7 @@ public class MovieDetailActivity extends AppCompatActivity {
     RecyclerView reviewRecyclerView, recommendationRecyclerV;
     ProgressDialog dialog;
     CardView movieFavouriteCv, movieTrailerCv;
-    ReviewAdapter adapter;
+    MovieReviewAdapter adapter;
     ShowingMovieAdapter movieAdapter;
     CoordinatorLayout coordinatorLayout;
     ArrayList<Review> reviews = new ArrayList<>();
@@ -262,7 +258,7 @@ public class MovieDetailActivity extends AppCompatActivity {
     }
 
     private void setRecyclerView() {
-        adapter = new ReviewAdapter(reviews, getApplicationContext(), new ReviewClickListner() {
+        adapter = new MovieReviewAdapter(reviews, getApplicationContext(), new ReviewClickListner() {
             @Override
             public void deleteButtonClick(int position, View view) {
                 Review review = reviews.get(position);

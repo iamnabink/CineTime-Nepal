@@ -24,8 +24,10 @@ import com.squareup.picasso.Picasso;
 import com.whoamie.cinetime_nepal.R;
 import com.whoamie.cinetime_nepal.common.models.Movie;
 import com.whoamie.cinetime_nepal.common.network.API;
+import com.whoamie.cinetime_nepal.common.network.HandleNetworkError;
 import com.whoamie.cinetime_nepal.common.network.RestClient;
 import com.whoamie.cinetime_nepal.common.utils.CheckConnectivity;
+import com.whoamie.cinetime_nepal.common.utils.ProgressDialog;
 import com.whoamie.cinetime_nepal.common.utils.SharedPref;
 import com.whoamie.cinetime_nepal.member.adapters.ProfileFragmentPagerAdapter;
 import com.whoamie.cinetime_nepal.member.fragments.MyFavMovieFragment;
@@ -44,7 +46,7 @@ public class ShowUserProfileFragment extends Fragment {
     int userId;
     View view;
     Context context;
-    TextView userName;
+    TextView userName,bioTv,createdDate;
     CircleImageView showProfileIv;
     User user;
     ProfileFragmentPagerAdapter pagerAdapter;
@@ -64,33 +66,39 @@ public class ShowUserProfileFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         view = inflater.inflate(R.layout.fragment_show_user_profile, container, false);
-        callApi();
         initViews();
-
-        loadData();
+        callApi();
         return view;
     }
 
     private void loadData() {
-        Picasso.get().load(user.getProfile_pic_url()).placeholder(R.drawable.person_placeholder).error(R.drawable.person_placeholder).into(showProfileIv);
+//        Picasso.get().load(user.getProfile_pic_url()).placeholder(R.drawable.person_placeholder).error(R.drawable.person_placeholder).into(showProfileIv);
+        Picasso.get().load(user.getProfile_pic_url()).into(showProfileIv);
+        userName.setText(user.getName());
+        bioTv.setText(user.getBio());
+        String date = "Joined: "+user.getCreated_at();
+        createdDate.setText(date);
 
     }
 
     private void initViews() {
         viewPager = view.findViewById(R.id.view_pager_show_profile);
+        createdDate = view.findViewById(R.id.show_user_created_time_tv);
         tabLayout = view.findViewById(R.id.show_profile_tab_layout);
         fragments.add(new UserFavMovieFragment(movies));
         fragments.add(new UserReviewFragment(reviews));
         showProfileIv=view.findViewById(R.id.show_profile_iv);
+        userName=view.findViewById(R.id.show_profile_uname_tv);
+        bioTv=view.findViewById(R.id.profile_show_bio_tv);
         tabTitles.add("FAVOURITE MOVIES");
         tabTitles.add("REVIEWS");
-        pagerAdapter = new ProfileFragmentPagerAdapter(getContext(), getChildFragmentManager(), fragments, tabTitles); //setuped pager
-        pagerAdapter.notifyDataSetChanged();
-        viewPager.setAdapter(pagerAdapter);
         tabLayout.setupWithViewPager(viewPager);
+        pagerAdapter = new ProfileFragmentPagerAdapter(getContext(), getChildFragmentManager(), fragments, tabTitles); //setuped pager
     }
 
     private void callApi() {
+        final ProgressDialog dialog = new ProgressDialog(context);
+        dialog.show();
         JSONObject object = new JSONObject();
         try {
             object.put("user_id", userId);
@@ -100,22 +108,26 @@ public class ShowUserProfileFragment extends Fragment {
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, API.getUserProfileDetails, object, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
+                dialog.dismiss();
                 try {
                     JSONObject object = response.getJSONObject(SharedPref.key_user_details);
                     user = new Gson().fromJson(object.toString(), User.class);
-                    JSONArray userfavMovieArray = object.getJSONArray("fav_movie");
+                    JSONArray userfavMovieArray = response.getJSONArray("fav_movie");
                     for (int i = 0; i<userfavMovieArray.length();i++){
                         JSONObject favMovieObject = userfavMovieArray.getJSONObject(i);
                         FavMovie favMovie = new Gson().fromJson(favMovieObject.toString(),FavMovie.class);
                         Movie movie = favMovie.getMovie();
                         movies.add(movie);
                     }
-                    JSONArray userReviewArray = object.getJSONArray("reviews");
+                    JSONArray userReviewArray = response.getJSONArray("reviews");
                     for (int i = 0;i<userReviewArray.length();i++){
                         JSONObject reviewObject = userReviewArray.getJSONObject(i);
                         MyReview myReview = new Gson().fromJson(reviewObject.toString(),MyReview.class);
                         reviews.add(myReview);
                     }
+                    loadData();
+                    viewPager.setAdapter(pagerAdapter);
+                    pagerAdapter.notifyDataSetChanged();
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -123,12 +135,14 @@ public class ShowUserProfileFragment extends Fragment {
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-
+                dialog.dismiss();
+                HandleNetworkError.handlerError(error,context);
             }
         });
         if (CheckConnectivity.isNetworkAvailable(context)) {
             RestClient.getInstance(context).addToRequestQueue(jsonObjectRequest);
         } else {
+            dialog.dismiss();
             Toast.makeText(context, "No Internet connection", Toast.LENGTH_SHORT).show();
         }
     }
@@ -139,4 +153,5 @@ public class ShowUserProfileFragment extends Fragment {
         this.context = context;
         super.onAttach(context);
     }
+
 }
