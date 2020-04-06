@@ -35,6 +35,8 @@ import com.facebook.AccessToken;
 import com.facebook.shimmer.ShimmerFrameLayout;
 import com.whoamie.cinetime_nepal.R;
 import com.whoamie.cinetime_nepal.common.activities.MovieDetailActivity;
+import com.whoamie.cinetime_nepal.common.activities.ShowingMovieActivity;
+import com.whoamie.cinetime_nepal.common.activities.UpComingMovieActivity;
 import com.whoamie.cinetime_nepal.common.adapter.ComingMovieAdapter;
 import com.whoamie.cinetime_nepal.common.adapter.SearchMovieAdapter;
 import com.whoamie.cinetime_nepal.common.adapter.ShowingMovieAdapter;
@@ -100,13 +102,13 @@ public class MovieFragment extends Fragment {
         comingMorebtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(mContext, "Coming button clicked", Toast.LENGTH_SHORT).show();
+                startActivity(new Intent(getContext(), UpComingMovieActivity.class));
             }
         });
         showingMoreBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(mContext, "Showing button clicked", Toast.LENGTH_SHORT).show();
+                startActivity(new Intent(getContext(), ShowingMovieActivity.class));
             }
         });
     }

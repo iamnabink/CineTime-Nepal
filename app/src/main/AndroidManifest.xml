@@ -19,7 +19,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <!-- [START fcm_default_icon] -->
+        <activity android:name=".common.activities.UpComingMovieActivity"></activity>
+        <activity android:name=".common.activities.ShowingMovieActivity" /> <!-- [START fcm_default_icon] -->
         <!--
  Set custom default icon. This is used when no icon is set for incoming notification messages.
              See README(https://goo.gl/l4GJaQ) for more.
