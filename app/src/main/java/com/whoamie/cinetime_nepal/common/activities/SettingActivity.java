@@ -52,8 +52,6 @@ public class SettingActivity extends AppCompatActivity {
         termsOfUseLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //https://cinetimenepal.whoamie.com/privacy-policy
-                //https://cinetimenepal.whoamie.com/about-app
                 startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://cinetimenepal.whoamie.com/terms&condition")));
             }
         });
@@ -101,7 +99,7 @@ public class SettingActivity extends AppCompatActivity {
         shareAppLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                Intent i=new Intent(android.content.Intent.ACTION_SEND);
+//                Intent i=new Intent(android.content.Intent.ACTION_SEND); //open share via intent
 //                i.setType("text/plain");
 //                i.putExtra(android.content.Intent.EXTRA_SUBJECT,"Subject test");
 //                i.putExtra(android.content.Intent.EXTRA_TEXT, "extra text that you want to put");
