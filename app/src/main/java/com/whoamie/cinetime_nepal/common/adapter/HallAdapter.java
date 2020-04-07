@@ -62,7 +62,7 @@ public class HallAdapter extends RecyclerView.Adapter<HallAdapter.HallVH> {
 
     public class HallVH extends RecyclerView.ViewHolder{
 
-        TextView hallNameTv,hallLocationTv,siteUrl,phoneTv;
+        TextView hallNameTv,hallLocationTv,siteUrl,phoneTv,siteUrlTv,phoneTvClick;
         ImageView hallIv;
         ConstraintLayout expandableView;
         LinearLayout linearLayout;
@@ -77,15 +77,29 @@ public class HallAdapter extends RecyclerView.Adapter<HallAdapter.HallVH> {
             arrowBtn = itemView.findViewById(R.id.arrowBtn);
             cardView = itemView.findViewById(R.id.cardView);
             siteUrl = itemView.findViewById(R.id.mailNumber);
+            siteUrlTv = itemView.findViewById(R.id.mailDesc);
+            phoneTvClick = itemView.findViewById(R.id.phoneDesc);
             phoneTv = itemView.findViewById(R.id.phoneNumber);
             linearLayout = itemView.findViewById(R.id.animate_layout);
-            phoneTv.setOnClickListener(new View.OnClickListener() {
+            phoneTvClick.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     listener.callBtnClick(getAdapterPosition(),v);
                 }
             });
+            phoneTv.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    phoneTvClick.performClick();
+                }
+            });
             siteUrl.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    siteUrlTv.performClick();
+                }
+            });
+            siteUrlTv.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     listener.visitBtnClick(getAdapterPosition(),v);

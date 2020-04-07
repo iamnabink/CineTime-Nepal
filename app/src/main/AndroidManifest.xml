@@ -19,6 +19,15 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
+        <provider
+            android:name="androidx.core.content.FileProvider"
+            android:authorities="${applicationId}.provider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/provider_paths" />
+        </provider>
         <activity android:name=".common.activities.UpComingMovieActivity"
             android:theme="@style/AppTheme.transparent"/>
         <activity android:name=".common.activities.ShowingMovieActivity"
@@ -115,7 +124,7 @@
         <activity
             android:name=".common.activities.SettingActivity"
             android:launchMode="singleTop"
-            android:theme="@style/AppTheme.transparent" />
+            android:theme="@style/AppTheme" />
         <activity
             android:name=".common.activities.YoutubePlayerView"
             android:screenOrientation="landscape"
