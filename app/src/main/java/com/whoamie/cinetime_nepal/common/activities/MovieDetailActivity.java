@@ -25,7 +25,7 @@ import com.r0adkll.slidr.Slidr;
 import com.r0adkll.slidr.model.SlidrInterface;
 import com.whoamie.cinetime_nepal.R;
 import com.whoamie.cinetime_nepal.common.adapter.MovieReviewAdapter;
-import com.whoamie.cinetime_nepal.common.adapter.ShowingMovieAdapter;
+import com.whoamie.cinetime_nepal.common.adapter.MovieFragmentAdapter;
 import com.whoamie.cinetime_nepal.common.interfaces.AdapterClickListener;
 import com.whoamie.cinetime_nepal.member.interfaces.ReviewClickListner;
 import com.whoamie.cinetime_nepal.common.models.Movie;
@@ -65,7 +65,7 @@ public class MovieDetailActivity extends AppCompatActivity {
     ProgressDialog dialog;
     CardView movieFavouriteCv, movieTrailerCv;
     MovieReviewAdapter adapter;
-    ShowingMovieAdapter movieAdapter;
+    MovieFragmentAdapter movieAdapter;
     CoordinatorLayout coordinatorLayout;
     ArrayList<Review> reviews = new ArrayList<>();
     ArrayList<Movie> movies = new ArrayList<>();
@@ -143,7 +143,7 @@ public class MovieDetailActivity extends AppCompatActivity {
 
     private void showReccomendedmovie() {
         recommendationRecyclerV.setLayoutManager(new LinearLayoutManager(MovieDetailActivity.this, RecyclerView.HORIZONTAL, false));
-        movieAdapter = new ShowingMovieAdapter(movies, this, new AdapterClickListener() {
+        movieAdapter = new MovieFragmentAdapter(movies, this, new AdapterClickListener() {
             @Override
             public void onClick(int position, View view) {
 //                Toast.makeText(MovieDetailActivity.this, "Clicked", Toast.LENGTH_SHORT).show();
@@ -195,7 +195,8 @@ public class MovieDetailActivity extends AppCompatActivity {
         movieRuntime.setText(movie.getRun_time());
         movieLanguage.setText(movie.getLanguage());
         Picasso.get().load(movie.getPoster_url()).into(posterImg);
-        Picasso.get().load(movie.getPoster_url()).into(bgImage);
+        String backgroundImageUrl = "https://img.youtube.com/vi/"+movie.getYoutube_trailer_url()+"/maxresdefault.jpg";
+        Picasso.get().load(backgroundImageUrl).into(bgImage);
         ratingBar.setRating(movie.getRating());
         ratingCount.setText(movie.getRating() == 0 ? "N/A" : "" + movie.getRating()); //elvis operator
     }

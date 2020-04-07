@@ -1,6 +1,5 @@
 package com.whoamie.cinetime_nepal.common.fragments;
 
-import android.app.ActivityOptions;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -14,7 +13,6 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
-import android.util.Pair;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -22,10 +20,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Filter;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.android.volley.Request;
 import com.android.volley.Response;
@@ -37,9 +32,9 @@ import com.whoamie.cinetime_nepal.R;
 import com.whoamie.cinetime_nepal.common.activities.MovieDetailActivity;
 import com.whoamie.cinetime_nepal.common.activities.ShowingMovieActivity;
 import com.whoamie.cinetime_nepal.common.activities.UpComingMovieActivity;
-import com.whoamie.cinetime_nepal.common.adapter.ComingMovieAdapter;
+import com.whoamie.cinetime_nepal.common.adapter.MovieActivityAdapter;
 import com.whoamie.cinetime_nepal.common.adapter.SearchMovieAdapter;
-import com.whoamie.cinetime_nepal.common.adapter.ShowingMovieAdapter;
+import com.whoamie.cinetime_nepal.common.adapter.MovieFragmentAdapter;
 import com.whoamie.cinetime_nepal.common.interfaces.AdapterClickListener;
 import com.whoamie.cinetime_nepal.common.models.Movie;
 import com.whoamie.cinetime_nepal.common.network.API;
@@ -55,15 +50,14 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class MovieFragment extends Fragment {
     RecyclerView showsShowingRecyclerV, showsComingRecyclerV, searchRecyclerView;
     ArrayList<Movie> umovies = new ArrayList<>();
     ArrayList<Movie> smovies = new ArrayList<>();
     ArrayList<Movie> movies = new ArrayList<>();
-    ComingMovieAdapter uadapter;
-    ShowingMovieAdapter sadapter;
+//    MovieActivityAdapter uadapter;
+    MovieFragmentAdapter adapterS,adapterU;
     SearchMovieAdapter searchMovieAdapter;
     SharedPreferences preferences;
     SharedPreferences.Editor editor;
@@ -239,7 +233,7 @@ public class MovieFragment extends Fragment {
     }
 
     private void initViews() {
-        uadapter = new ComingMovieAdapter(getContext(), umovies, new AdapterClickListener() {
+        adapterU = new MovieFragmentAdapter(umovies,getContext(), new AdapterClickListener() {
             @Override
             public void onClick(int position, View view) {
                 Movie movie = umovies.get(position);
@@ -249,7 +243,7 @@ public class MovieFragment extends Fragment {
                 startActivity(intent);
             }
         });
-        sadapter = new ShowingMovieAdapter(smovies, getContext(), new AdapterClickListener() {
+        adapterS = new MovieFragmentAdapter(smovies, getContext(), new AdapterClickListener() {
             @Override
             public void onClick(int position, View view) {
                 Movie movie = smovies.get(position);
@@ -261,8 +255,8 @@ public class MovieFragment extends Fragment {
         });
         showsComingRecyclerV.setLayoutManager(new LinearLayoutManager(getContext(), RecyclerView.HORIZONTAL, false));
         showsShowingRecyclerV.setLayoutManager(new LinearLayoutManager(getContext(), RecyclerView.HORIZONTAL, false));
-        showsComingRecyclerV.setAdapter(uadapter);
-        showsShowingRecyclerV.setAdapter(sadapter);
+        showsComingRecyclerV.setAdapter(adapterU);
+        showsShowingRecyclerV.setAdapter(adapterS);
     }
 
     private void loadMovieData() {
@@ -285,14 +279,14 @@ public class MovieFragment extends Fragment {
                         Movie movie = new Gson().fromJson(movieObject.toString(), Movie.class);
                         smovies.add(movie);
                     }
-                    if (sadapter.getItemCount() == 0) {
+                    if (adapterS.getItemCount() == 0) {
                         showsShowingRecyclerV.setVisibility(View.GONE);
                         view.findViewById(R.id.empty_layout_smoviefrag).setVisibility(View.VISIBLE);
                     } else {
                         showsShowingRecyclerV.setVisibility(View.VISIBLE);
                         view.findViewById(R.id.empty_layout_smoviefrag).setVisibility(View.GONE);
                     }
-                    sadapter.notifyDataSetChanged();
+                    adapterS.notifyDataSetChanged();
                     JSONArray comingMoviesList = response.getJSONArray("coming");
                     for (int i = 0; i < comingMoviesList.length(); i++) {
                         JSONObject movieObject = comingMoviesList.getJSONObject(i);
@@ -300,14 +294,14 @@ public class MovieFragment extends Fragment {
                         umovies.add(movie);
                     }
                     searchMovieAdapter.notifyDataSetChanged();
-                    if (uadapter.getItemCount() == 0) {
+                    if (adapterU.getItemCount() == 0) {
                         showsComingRecyclerV.setVisibility(View.GONE);
                         view.findViewById(R.id.empty_layout_cmoviefrag).setVisibility(View.VISIBLE);
                     } else {
                         showsComingRecyclerV.setVisibility(View.VISIBLE);
                         view.findViewById(R.id.empty_layout_cmoviefrag).setVisibility(View.GONE);
                     }
-                    uadapter.notifyDataSetChanged();
+                    adapterU.notifyDataSetChanged();
                     movies.clear();
                     movies.addAll(smovies);
                     movies.addAll(umovies);

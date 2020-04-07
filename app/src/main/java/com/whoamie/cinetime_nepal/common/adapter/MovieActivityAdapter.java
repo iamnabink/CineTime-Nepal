@@ -14,11 +14,11 @@ import java.util.ArrayList;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-public class ComingMovieAdapter extends RecyclerView.Adapter<ComingMovieAdapter.MovieViewHolder> {
+public class MovieActivityAdapter extends RecyclerView.Adapter<MovieActivityAdapter.MovieViewHolder> {
     Context context;
     ArrayList<Movie> umovies;
     AdapterClickListener listener;
-    public ComingMovieAdapter(Context context, ArrayList<Movie> umovies,AdapterClickListener listener) {
+    public MovieActivityAdapter(Context context, ArrayList<Movie> umovies, AdapterClickListener listener) {
         this.context = context;
         this.umovies = umovies;
         this.listener = listener;
@@ -27,7 +27,7 @@ public class ComingMovieAdapter extends RecyclerView.Adapter<ComingMovieAdapter.
     @Override
     public MovieViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater inflater=LayoutInflater.from(context);
-        View view = inflater.inflate(R.layout.row_movie_upcoming,parent,false);
+        View view = inflater.inflate(R.layout.row_activity_movie,parent,false);
         MovieViewHolder viewHolder = new MovieViewHolder(view);
         return viewHolder;
     }
@@ -50,9 +50,9 @@ public class ComingMovieAdapter extends RecyclerView.Adapter<ComingMovieAdapter.
         ImageView imgv;
         public MovieViewHolder(@NonNull View itemView) {
             super(itemView);
-            nameTv=itemView.findViewById(R.id.movie_name_tv);
-            genreTv=itemView.findViewById(R.id.movie_genre_tv);
-            imgv=itemView.findViewById(R.id.movie_imgv);
+            nameTv=itemView.findViewById(R.id.s_movie_name_tv);
+            genreTv=itemView.findViewById(R.id.s_movie_genre_tv);
+            imgv=itemView.findViewById(R.id.s_movie_imgv);
             imgv.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
