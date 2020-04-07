@@ -92,9 +92,15 @@ public class SettingActivity extends AppCompatActivity {
         clearCacheLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(SettingActivity.this, "Cache removed", Toast.LENGTH_SHORT).show();
+                try {
+                    File dir = getApplicationContext().getCacheDir();
+                    deleteDir(dir);
+                    Toast.makeText(SettingActivity.this, "Cache Cleared", Toast.LENGTH_SHORT).show();
+                }
+                catch (Exception e) {}
             }
         });
+
 
         shareAppLayout.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -206,6 +212,22 @@ public class SettingActivity extends AppCompatActivity {
 
         } catch (IOException e) {
             e.printStackTrace();
+        }
+    }
+    public static boolean deleteDir(File dir) {
+        if (dir != null && dir.isDirectory()) {
+            String[] children = dir.list();
+            for (int i = 0; i < children.length; i++) {
+                boolean success = deleteDir(new File(dir, children[i]));
+                if (!success) {
+                    return false;
+                }
+            }
+            return dir.delete();
+        } else if(dir!= null && dir.isFile()) {
+            return dir.delete();
+        } else {
+            return false;
         }
     }
 
