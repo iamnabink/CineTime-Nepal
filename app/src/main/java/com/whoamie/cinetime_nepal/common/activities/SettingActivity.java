@@ -30,7 +30,7 @@ import androidx.core.content.FileProvider;
 import static android.content.Intent.FLAG_ACTIVITY_NEW_TASK;
 
 public class SettingActivity extends AppCompatActivity {
-    LinearLayout termsOfUseLayout, notificationLayout, shareAppLayout, aboutAppLayout, privacyLayout, clearCacheLayout, feedbackLayout;
+    LinearLayout termsOfUseLayout, notificationLayout, shareAppLayout, aboutAppLayout, privacyLayout, feedbackLayout;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -46,7 +46,6 @@ public class SettingActivity extends AppCompatActivity {
         notificationLayout = findViewById(R.id.notification_layout);
         aboutAppLayout = findViewById(R.id.about_app_layout);
         feedbackLayout = findViewById(R.id.feedback_layout);
-        clearCacheLayout = findViewById(R.id.clear_cache_layout);
         privacyLayout = findViewById(R.id.privacy_layout);
         shareAppLayout = findViewById(R.id.shareapp_layout);
         termsOfUseLayout.setOnClickListener(new View.OnClickListener() {
@@ -87,17 +86,6 @@ public class SettingActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Toast.makeText(SettingActivity.this, "Feedback layout opened", Toast.LENGTH_SHORT).show();
-            }
-        });
-        clearCacheLayout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                try {
-                    File dir = getApplicationContext().getCacheDir();
-                    deleteDir(dir);
-                    Toast.makeText(SettingActivity.this, "Cache Cleared", Toast.LENGTH_SHORT).show();
-                }
-                catch (Exception e) {}
             }
         });
 
@@ -212,22 +200,6 @@ public class SettingActivity extends AppCompatActivity {
 
         } catch (IOException e) {
             e.printStackTrace();
-        }
-    }
-    public static boolean deleteDir(File dir) {
-        if (dir != null && dir.isDirectory()) {
-            String[] children = dir.list();
-            for (int i = 0; i < children.length; i++) {
-                boolean success = deleteDir(new File(dir, children[i]));
-                if (!success) {
-                    return false;
-                }
-            }
-            return dir.delete();
-        } else if(dir!= null && dir.isFile()) {
-            return dir.delete();
-        } else {
-            return false;
         }
     }
 
