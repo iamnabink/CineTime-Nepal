@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SearchView;
 import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
@@ -13,6 +14,7 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.android.volley.Request;
@@ -22,6 +24,7 @@ import com.android.volley.toolbox.JsonObjectRequest;
 import com.google.gson.Gson;
 import com.whoamie.cinetime_nepal.R;
 import com.whoamie.cinetime_nepal.common.adapter.MovieActivityAdapter;
+import com.whoamie.cinetime_nepal.common.adapter.SearchMovieAdapter;
 import com.whoamie.cinetime_nepal.common.interfaces.AdapterClickListener;
 import com.whoamie.cinetime_nepal.common.models.Movie;
 import com.whoamie.cinetime_nepal.common.network.API;
@@ -40,11 +43,13 @@ import java.util.ArrayList;
 
 public class UpComingMovieActivity extends AppCompatActivity {
     Toolbar myToolbar;
-    RecyclerView recyclerView;
+    RecyclerView recyclerView,searchRecyclerView;
     MovieActivityAdapter adapter;
     ArrayList<Movie> movies = new ArrayList<>();
     SwipeRefreshLayout refreshLayout;
     ProgressDialog dialog;
+    SearchMovieAdapter searchMovieAdapter;
+    View linearLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,6 +63,8 @@ public class UpComingMovieActivity extends AppCompatActivity {
 
     private void initViews() {
         recyclerView=findViewById(R.id.activity_coming_recycler);
+        linearLayout=findViewById(R.id.coming_movie_search_layout);
+        searchRecyclerView=linearLayout.findViewById(R.id.coming_movie_search_recycler_view);
         dialog = new ProgressDialog(this);
         refreshLayout=findViewById(R.id.activity_swipe_refresh_l);
         refreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
@@ -66,6 +73,17 @@ public class UpComingMovieActivity extends AppCompatActivity {
                 dialog.show();
                 loadData();
                 refreshLayout.setRefreshing(false);
+            }
+        });
+        searchRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+        searchMovieAdapter=new SearchMovieAdapter(movies, this, new AdapterClickListener() {
+            @Override
+            public void onClick(int position, View view) {
+                Movie movie = movies.get(position);
+                String movieDetails = new Gson().toJson(movie);
+                Intent intent = new Intent(UpComingMovieActivity.this, MovieDetailActivity.class);
+                intent.putExtra(SharedPref.key_shared_movies_details, movieDetails);
+                startActivity(intent);
             }
         });
         recyclerView.setLayoutManager(new GridLayoutManager(this,2));
@@ -79,6 +97,7 @@ public class UpComingMovieActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+        searchRecyclerView.setAdapter(searchMovieAdapter);
         recyclerView.setAdapter(adapter);
     }
 
@@ -96,6 +115,7 @@ public class UpComingMovieActivity extends AppCompatActivity {
                         Movie movie = new Gson().fromJson(movieObject.toString(), Movie.class);
                         movies.add(movie);
                     }
+                    searchMovieAdapter.notifyDataSetChanged();
                     adapter.notifyDataSetChanged();
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -129,7 +149,7 @@ public class UpComingMovieActivity extends AppCompatActivity {
         menuItem.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(MenuItem item) {
-                Toast.makeText(UpComingMovieActivity.this, "Make search layout visible", Toast.LENGTH_SHORT).show();
+                linearLayout.setVisibility(View.VISIBLE);
                 return true;
             }
         });
@@ -138,13 +158,13 @@ public class UpComingMovieActivity extends AppCompatActivity {
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
-//                searchMovieAdapter.getFilter().filter(newText);
+                searchMovieAdapter.getFilter().filter(query);
                 return true;
             }
 
             @Override
             public boolean onQueryTextChange(String newText) {
-//                searchMovieAdapter.getFilter().filter(newText);
+                searchMovieAdapter.getFilter().filter(newText);
                 return true;
             }
         });
@@ -154,7 +174,7 @@ public class UpComingMovieActivity extends AppCompatActivity {
                 if (!hasFocus) {
                     menuItem.collapseActionView();
                     searchView.setQuery("", false);
-                    Toast.makeText(UpComingMovieActivity.this, "Hide layout", Toast.LENGTH_SHORT).show();
+                    linearLayout.setVisibility(View.GONE);
                 }
             }
         });
