@@ -99,6 +99,7 @@ public class ShowingMovieActivity extends AppCompatActivity {
     }
 
     private void loadData() {
+        dialog.show();
         movies.clear();
         JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, API.nowShowingMovieUrl, null, new Response.Listener<JSONObject>() {
             @Override

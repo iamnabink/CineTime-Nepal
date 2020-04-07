@@ -103,6 +103,7 @@ public class UpComingMovieActivity extends AppCompatActivity {
 
     private void loadData() {
         movies.clear();
+        dialog.show();
         JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, API.upcomingMovieUrl, null, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
