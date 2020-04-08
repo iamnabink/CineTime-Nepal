@@ -85,7 +85,7 @@ public class SettingActivity extends AppCompatActivity {
         feedbackLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(SettingActivity.this, "Feedback layout opened", Toast.LENGTH_SHORT).show();
+                startActivity(new Intent(SettingActivity.this,FeedBackActivity.class));
             }
         });
 

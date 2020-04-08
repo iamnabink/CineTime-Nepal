@@ -29,6 +29,7 @@ public class API {
     public static final String getlatLon = baseUrl+"hall-latlon";
     public static final String getUserReview = baseUrl+"get-user-reviews";
     public static final String getUserProfileDetails = baseUrl+"userprofile";
+    public static final String sendFeedback = baseUrl+"post-feedback";
 
     //Following code is for retrofit 2 integration
     public static Retrofit retrofit;

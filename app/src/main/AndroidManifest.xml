@@ -19,6 +19,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
+        <activity android:name=".common.activities.FeedBackActivity"></activity>
+
         <provider
             android:name="androidx.core.content.FileProvider"
             android:authorities="${applicationId}.provider"
@@ -28,10 +30,13 @@
                 android:name="android.support.FILE_PROVIDER_PATHS"
                 android:resource="@xml/provider_paths" />
         </provider>
-        <activity android:name=".common.activities.UpComingMovieActivity"
-            android:theme="@style/AppTheme.transparent"/>
-        <activity android:name=".common.activities.ShowingMovieActivity"
-            android:theme="@style/AppTheme.transparent"/> <!-- [START fcm_default_icon] -->
+
+        <activity
+            android:name=".common.activities.UpComingMovieActivity"
+            android:theme="@style/AppTheme.transparent" />
+        <activity
+            android:name=".common.activities.ShowingMovieActivity"
+            android:theme="@style/AppTheme.transparent" /> <!-- [START fcm_default_icon] -->
         <!--
  Set custom default icon. This is used when no icon is set for incoming notification messages.
              See README(https://goo.gl/l4GJaQ) for more.
