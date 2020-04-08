@@ -94,7 +94,7 @@
         android:layout_marginTop="10dp"
         android:layout_marginRight="30dp"
         android:foreground="?attr/selectableItemBackground"
-        android:background="@drawable/border_btn_background"
+        android:background="@color/colorPrimary"
         android:text="Save"
-        android:textColor="#116BFF" />
+        android:textColor="#FFFF" />
 </LinearLayout>

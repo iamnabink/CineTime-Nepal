@@ -64,7 +64,6 @@ public class FeedBackActivity extends AppCompatActivity {
 
     private void callCallFeedBackAPi(String name, String contact, String description) {
         dialog.show();
-        Toast.makeText(this, "Feedback sent successfully", Toast.LENGTH_SHORT).show();
         JSONObject object = new JSONObject();
         try {
             object.put("name", name);
@@ -80,6 +79,9 @@ public class FeedBackActivity extends AppCompatActivity {
                 try {
                     if (response.getBoolean("status")){
                         Toast.makeText(FeedBackActivity.this, response.getString("message"), Toast.LENGTH_SHORT).show();
+                        nameEt.setText("");
+                        contactEt.setText("");
+                        descEt.setText("");
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
