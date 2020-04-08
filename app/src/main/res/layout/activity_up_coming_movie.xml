@@ -48,7 +48,7 @@
     <LinearLayout
         android:id="@+id/coming_movie_search_layout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:layout_below="@id/upcoming_movie_toolbar"
         android:background="@android:color/white"
         android:orientation="vertical"
