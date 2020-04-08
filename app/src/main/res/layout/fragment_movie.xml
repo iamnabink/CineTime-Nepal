@@ -348,4 +348,5 @@
             android:layout_height="wrap_content"
             tools:listitem="@layout/row_search_movie_layout" />
     </LinearLayout>
+
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
