@@ -12,27 +12,20 @@ import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
-import com.google.gson.Gson;
 import com.whoamie.cinetime_nepal.R;
-import com.whoamie.cinetime_nepal.common.models.Movie;
 import com.whoamie.cinetime_nepal.common.network.API;
 import com.whoamie.cinetime_nepal.common.network.HandleNetworkError;
 import com.whoamie.cinetime_nepal.common.network.RestClient;
 import com.whoamie.cinetime_nepal.common.utils.CheckConnectivity;
-import com.whoamie.cinetime_nepal.common.utils.ProgressDialog;
-import com.whoamie.cinetime_nepal.common.utils.SharedPref;
-import com.whoamie.cinetime_nepal.member.models.FavMovie;
-import com.whoamie.cinetime_nepal.member.models.MyReview;
-import com.whoamie.cinetime_nepal.member.models.User;
+import com.whoamie.cinetime_nepal.common.utils.CustomProgressDialog;
 
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 public class FeedBackActivity extends AppCompatActivity {
     EditText nameEt,contactEt,descEt;
     Button btnSubmit;
-    ProgressDialog dialog;
+    CustomProgressDialog dialog;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -107,7 +100,7 @@ public class FeedBackActivity extends AppCompatActivity {
         contactEt=findViewById(R.id.feedback_contact_et);
         descEt=findViewById(R.id.feedback_desc_et);
         btnSubmit=findViewById(R.id.feedback_submit_btn);
-        dialog = new ProgressDialog(this);
+        dialog = new CustomProgressDialog(this);
     }
 
     @Override

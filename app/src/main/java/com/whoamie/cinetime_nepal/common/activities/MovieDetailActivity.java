@@ -34,7 +34,7 @@ import com.whoamie.cinetime_nepal.common.network.API;
 import com.whoamie.cinetime_nepal.common.network.AuthenticatedJSONRequest;
 import com.whoamie.cinetime_nepal.common.network.HandleNetworkError;
 import com.whoamie.cinetime_nepal.common.network.RestClient;
-import com.whoamie.cinetime_nepal.common.utils.ProgressDialog;
+import com.whoamie.cinetime_nepal.common.utils.CustomProgressDialog;
 import com.whoamie.cinetime_nepal.common.utils.CheckConnectivity;
 import com.whoamie.cinetime_nepal.common.utils.SharedPref;
 import com.google.gson.Gson;
@@ -62,7 +62,7 @@ public class MovieDetailActivity extends AppCompatActivity {
     ImageView posterImg, bgImage;
     RatingBar ratingBar;
     RecyclerView reviewRecyclerView, recommendationRecyclerV;
-    ProgressDialog dialog;
+    CustomProgressDialog dialog;
     CardView movieFavouriteCv, movieTrailerCv;
     MovieReviewAdapter adapter;
     MovieFragmentAdapter movieAdapter;
@@ -179,7 +179,7 @@ public class MovieDetailActivity extends AppCompatActivity {
         ratingCount = findViewById(R.id.d_movie_rating_count);
         reviewRecyclerView = findViewById(R.id.review_recycler_view);
 
-        dialog = new ProgressDialog(this);
+        dialog = new CustomProgressDialog(this);
 //        Window window = dialog.getWindow();
 //        window.setLayout(ViewGroup.LayoutParams.MATCH_PARENT, 800);
 //        window.setBackgroundDrawableResource(android.R.color.transparent);
@@ -221,7 +221,7 @@ public class MovieDetailActivity extends AppCompatActivity {
     }
 
     private void callMakeFavouriteMovieApi() {
-        final ProgressDialog dialog = new ProgressDialog(this);
+        final CustomProgressDialog dialog = new CustomProgressDialog(this);
         JSONObject jsonObject = new JSONObject();
         try {
             jsonObject.put("movie_id", movie.getId());
@@ -284,7 +284,7 @@ public class MovieDetailActivity extends AppCompatActivity {
     }
 
     private void deleteReview(int userId, int movieId) {
-        final ProgressDialog dialog = new ProgressDialog(this);
+        final CustomProgressDialog dialog = new CustomProgressDialog(this);
         dialog.show();
         JSONObject jsonObject = new JSONObject();
         try {
@@ -379,7 +379,7 @@ public class MovieDetailActivity extends AppCompatActivity {
 //        "movie_id":6,
 //                "comment_msg":"Awesome Movie",
 //                "rating_count":3
-        final ProgressDialog dialog = new ProgressDialog(this);
+        final CustomProgressDialog dialog = new CustomProgressDialog(this);
         dialog.show();
         JSONObject jsonObject = new JSONObject();
         try {

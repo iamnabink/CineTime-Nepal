@@ -13,10 +13,8 @@ import android.os.Bundle;
 import android.provider.MediaStore;
 import android.util.Log;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.Button;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.Request;
@@ -29,7 +27,7 @@ import com.whoamie.cinetime_nepal.common.network.API;
 import com.whoamie.cinetime_nepal.common.network.AuthenticatedJSONRequest;
 import com.whoamie.cinetime_nepal.common.network.HandleNetworkError;
 import com.whoamie.cinetime_nepal.common.network.RestClient;
-import com.whoamie.cinetime_nepal.common.utils.ProgressDialog;
+import com.whoamie.cinetime_nepal.common.utils.CustomProgressDialog;
 import com.whoamie.cinetime_nepal.common.utils.ImageConverter;
 import com.whoamie.cinetime_nepal.common.utils.CheckConnectivity;
 import com.whoamie.cinetime_nepal.common.utils.SharedPref;
@@ -53,7 +51,7 @@ public class EditProfileActivity extends AppCompatActivity {
     SharedPreferences.Editor editor;
     String selectedImagePath; //get image and image path from mobile
     Button editBtn,changeTv;
-    ProgressDialog dialog;
+    CustomProgressDialog dialog;
     private static final int IMAGE_PICKER_REQ_CODE = 100;
     private static final int READ_REQ_CODE = 293;
     String profile_pic_url; //gets profile image string
@@ -204,7 +202,7 @@ public class EditProfileActivity extends AppCompatActivity {
     }
 
     private void update() {
-        dialog = new ProgressDialog(this);
+        dialog = new CustomProgressDialog(this);
         Window window = dialog.getWindow();
 //        window.setLayout(ViewGroup.LayoutParams.MATCH_PARENT, 800);
 //        dialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);

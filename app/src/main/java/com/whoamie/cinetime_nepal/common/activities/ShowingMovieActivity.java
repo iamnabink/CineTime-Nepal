@@ -29,7 +29,7 @@ import com.whoamie.cinetime_nepal.common.network.API;
 import com.whoamie.cinetime_nepal.common.network.HandleNetworkError;
 import com.whoamie.cinetime_nepal.common.network.RestClient;
 import com.whoamie.cinetime_nepal.common.utils.CheckConnectivity;
-import com.whoamie.cinetime_nepal.common.utils.ProgressDialog;
+import com.whoamie.cinetime_nepal.common.utils.CustomProgressDialog;
 import com.whoamie.cinetime_nepal.common.utils.SharedPref;
 
 import org.json.JSONArray;
@@ -44,7 +44,7 @@ public class ShowingMovieActivity extends AppCompatActivity {
     MovieActivityAdapter adapter;
     ArrayList<Movie> movies = new ArrayList<>();
     SwipeRefreshLayout refreshLayout;
-    ProgressDialog dialog;
+    CustomProgressDialog dialog;
     SearchMovieAdapter searchMovieAdapter;
     View linearLayout;
 
@@ -62,7 +62,7 @@ public class ShowingMovieActivity extends AppCompatActivity {
         recyclerView = findViewById(R.id.activity_showing_recycler);
         linearLayout = findViewById(R.id.showing_movie_search_layout);
         searchRecyclerView = linearLayout.findViewById(R.id.showing_movie_search_recycler_view);
-        dialog = new ProgressDialog(this);
+        dialog = new CustomProgressDialog(this);
         refreshLayout = findViewById(R.id.activity_swipe_refresh_l1);
         refreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override

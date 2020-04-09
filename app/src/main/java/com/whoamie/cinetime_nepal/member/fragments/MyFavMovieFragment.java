@@ -28,7 +28,7 @@ import com.whoamie.cinetime_nepal.common.network.AuthenticatedJSONRequest;
 import com.whoamie.cinetime_nepal.common.network.HandleNetworkError;
 import com.whoamie.cinetime_nepal.common.network.RestClient;
 import com.whoamie.cinetime_nepal.common.utils.CheckConnectivity;
-import com.whoamie.cinetime_nepal.common.utils.ProgressDialog;
+import com.whoamie.cinetime_nepal.common.utils.CustomProgressDialog;
 import com.whoamie.cinetime_nepal.common.utils.SharedPref;
 import com.whoamie.cinetime_nepal.member.adapters.MyFavMovieAdapter;
 import com.whoamie.cinetime_nepal.member.models.FavMovie;
@@ -109,7 +109,7 @@ public class MyFavMovieFragment extends Fragment {
     }
 
     private void callRemoveFavMovieApi(int id) {
-        final ProgressDialog dialog = new ProgressDialog(context);
+        final CustomProgressDialog dialog = new CustomProgressDialog(context);
         dialog.show();
         JSONObject object = new JSONObject();
         try {

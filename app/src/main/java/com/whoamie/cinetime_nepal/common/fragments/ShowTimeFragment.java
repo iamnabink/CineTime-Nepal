@@ -11,7 +11,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import com.android.volley.Request;
 import com.android.volley.Response;
@@ -23,7 +22,7 @@ import com.whoamie.cinetime_nepal.common.models.ShowTime;
 import com.whoamie.cinetime_nepal.common.network.API;
 import com.whoamie.cinetime_nepal.common.network.HandleNetworkError;
 import com.whoamie.cinetime_nepal.common.network.RestClient;
-import com.whoamie.cinetime_nepal.common.utils.ProgressDialog;
+import com.whoamie.cinetime_nepal.common.utils.CustomProgressDialog;
 import com.whoamie.cinetime_nepal.common.utils.SharedPref;
 import com.google.gson.Gson;
 
@@ -68,7 +67,7 @@ public class ShowTimeFragment extends Fragment {
 
     private void loadData() {
         showTimes.clear();
-        final ProgressDialog dialog = new ProgressDialog(mContext);
+        final CustomProgressDialog dialog = new CustomProgressDialog(mContext);
         dialog.show();
 //        Window window = dialog.getWindow();
 //        window.setLayout(ViewGroup.LayoutParams.MATCH_PARENT, 800);

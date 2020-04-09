@@ -1,6 +1,5 @@
 package com.whoamie.cinetime_nepal.common.activities;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SearchView;
 import androidx.appcompat.widget.Toolbar;
@@ -14,7 +13,6 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.android.volley.Request;
@@ -31,7 +29,7 @@ import com.whoamie.cinetime_nepal.common.network.API;
 import com.whoamie.cinetime_nepal.common.network.HandleNetworkError;
 import com.whoamie.cinetime_nepal.common.network.RestClient;
 import com.whoamie.cinetime_nepal.common.utils.CheckConnectivity;
-import com.whoamie.cinetime_nepal.common.utils.ProgressDialog;
+import com.whoamie.cinetime_nepal.common.utils.CustomProgressDialog;
 import com.whoamie.cinetime_nepal.common.utils.SharedPref;
 
 import org.json.JSONArray;
@@ -47,7 +45,7 @@ public class UpComingMovieActivity extends AppCompatActivity {
     MovieActivityAdapter adapter;
     ArrayList<Movie> movies = new ArrayList<>();
     SwipeRefreshLayout refreshLayout;
-    ProgressDialog dialog;
+    CustomProgressDialog dialog;
     SearchMovieAdapter searchMovieAdapter;
     View linearLayout;
 
@@ -65,7 +63,7 @@ public class UpComingMovieActivity extends AppCompatActivity {
         recyclerView=findViewById(R.id.activity_coming_recycler);
         linearLayout=findViewById(R.id.coming_movie_search_layout);
         searchRecyclerView=linearLayout.findViewById(R.id.coming_movie_search_recycler_view);
-        dialog = new ProgressDialog(this);
+        dialog = new CustomProgressDialog(this);
         refreshLayout=findViewById(R.id.activity_swipe_refresh_l);
         refreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override

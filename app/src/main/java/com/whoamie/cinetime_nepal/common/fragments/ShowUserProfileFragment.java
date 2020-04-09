@@ -27,11 +27,9 @@ import com.whoamie.cinetime_nepal.common.network.API;
 import com.whoamie.cinetime_nepal.common.network.HandleNetworkError;
 import com.whoamie.cinetime_nepal.common.network.RestClient;
 import com.whoamie.cinetime_nepal.common.utils.CheckConnectivity;
-import com.whoamie.cinetime_nepal.common.utils.ProgressDialog;
+import com.whoamie.cinetime_nepal.common.utils.CustomProgressDialog;
 import com.whoamie.cinetime_nepal.common.utils.SharedPref;
 import com.whoamie.cinetime_nepal.member.adapters.ProfileFragmentPagerAdapter;
-import com.whoamie.cinetime_nepal.member.fragments.MyFavMovieFragment;
-import com.whoamie.cinetime_nepal.member.fragments.MyReviewFragment;
 import com.whoamie.cinetime_nepal.member.models.FavMovie;
 import com.whoamie.cinetime_nepal.member.models.MyReview;
 import com.whoamie.cinetime_nepal.member.models.User;
@@ -97,7 +95,7 @@ public class ShowUserProfileFragment extends Fragment {
     }
 
     private void callApi() {
-        final ProgressDialog dialog = new ProgressDialog(context);
+        final CustomProgressDialog dialog = new CustomProgressDialog(context);
         dialog.show();
         JSONObject object = new JSONObject();
         try {

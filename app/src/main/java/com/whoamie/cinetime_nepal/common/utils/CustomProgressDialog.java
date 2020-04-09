@@ -9,8 +9,8 @@ import com.whoamie.cinetime_nepal.R;
 
 import androidx.annotation.NonNull;
 
-public class ProgressDialog extends Dialog {
-    public ProgressDialog(@NonNull Context context) {
+public class CustomProgressDialog extends Dialog {
+    public CustomProgressDialog(@NonNull Context context) {
         super(context);
         setCancelable(false);
         View v = LayoutInflater.from(context).inflate(R.layout.layout_progress,null);

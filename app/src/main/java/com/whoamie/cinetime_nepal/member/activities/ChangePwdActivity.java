@@ -16,7 +16,7 @@ import com.whoamie.cinetime_nepal.common.network.API;
 import com.whoamie.cinetime_nepal.common.network.AuthenticatedJSONRequest;
 import com.whoamie.cinetime_nepal.common.network.HandleNetworkError;
 import com.whoamie.cinetime_nepal.common.network.RestClient;
-import com.whoamie.cinetime_nepal.common.utils.ProgressDialog;
+import com.whoamie.cinetime_nepal.common.utils.CustomProgressDialog;
 import com.whoamie.cinetime_nepal.common.utils.SharedPref;
 
 import org.json.JSONException;
@@ -28,7 +28,7 @@ import androidx.appcompat.app.AppCompatActivity;
 public class ChangePwdActivity extends AppCompatActivity {
     EditText oldPwdEt, newPwd, cfmPwd;
     Button changeBtn;
-    ProgressDialog dialog;
+    CustomProgressDialog dialog;
     SharedPreferences.Editor editor;
     SharedPreferences preferences;
 
@@ -65,7 +65,7 @@ public class ChangePwdActivity extends AppCompatActivity {
         newPwd = findViewById(R.id.new_pwd);
         cfmPwd = findViewById(R.id.cfm_pwd);
         changeBtn = findViewById(R.id.change_btn);
-        dialog = new ProgressDialog(this);
+        dialog = new CustomProgressDialog(this);
         Window window = dialog.getWindow();
 //        window.setLayout(ViewGroup.LayoutParams.MATCH_PARENT, 800);
 //        dialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);

@@ -33,7 +33,7 @@ import com.whoamie.cinetime_nepal.common.network.AuthenticatedJSONRequest;
 import com.whoamie.cinetime_nepal.common.network.HandleNetworkError;
 import com.whoamie.cinetime_nepal.common.network.RestClient;
 import com.whoamie.cinetime_nepal.common.utils.CheckConnectivity;
-import com.whoamie.cinetime_nepal.common.utils.ProgressDialog;
+import com.whoamie.cinetime_nepal.common.utils.CustomProgressDialog;
 import com.whoamie.cinetime_nepal.common.utils.SharedPref;
 import com.whoamie.cinetime_nepal.member.activities.EditProfileActivity;
 import com.whoamie.cinetime_nepal.member.models.User;
@@ -177,7 +177,7 @@ public class ProfileFragment extends Fragment {
     }
 
     private void logoutFromServer() {
-        final ProgressDialog dialog = new ProgressDialog(context);
+        final CustomProgressDialog dialog = new CustomProgressDialog(context);
         dialog.show();
         AuthenticatedJSONRequest jsonRequest = new AuthenticatedJSONRequest(getContext(), Request.Method.POST, API.logoutUrl, null, new Response.Listener<JSONObject>() {
             @Override
