@@ -2,6 +2,7 @@ package com.whoamie.cinetime_nepal.member.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -49,9 +50,12 @@ public class ForgetPwdChange extends AppCompatActivity {
                     if (newPwd.equals(confirmNewPwd)) {
                         changeEmail(confirmNewPwd);
                     } else {
+                        resetCnfEt.setError("Confirm password does not matches");
                         Toast.makeText(ForgetPwdChange.this, "Confirm password does not matches", Toast.LENGTH_SHORT).show();
                     }
                 } else {
+                    resetNewEt.setError("All fields are required");
+                    resetCnfEt.setError("All fields are required");
                     Toast.makeText(ForgetPwdChange.this, "All fields are required", Toast.LENGTH_SHORT).show();
                 }
             }
@@ -81,6 +85,8 @@ public class ForgetPwdChange extends AppCompatActivity {
                 try {
                     if (response.getBoolean("status")) {
                         Toast.makeText(ForgetPwdChange.this, response.getString("message"), Toast.LENGTH_SHORT).show();
+                        startActivity(new Intent(ForgetPwdChange.this,LoginActivity.class));
+                        finish();
                     } else {
                         Toast.makeText(ForgetPwdChange.this, "An error occurred", Toast.LENGTH_SHORT).show();
                     }

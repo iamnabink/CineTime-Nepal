@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.Request;
@@ -19,34 +20,52 @@ import com.whoamie.cinetime_nepal.common.network.HandleNetworkError;
 import com.whoamie.cinetime_nepal.common.network.RestClient;
 import com.whoamie.cinetime_nepal.common.utils.CheckConnectivity;
 import com.whoamie.cinetime_nepal.common.utils.CustomProgressDialog;
+import com.whoamie.cinetime_nepal.common.utils.Validator;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.Random;
+import java.util.regex.Pattern;
 
 public class ResetPasswordActivity extends AppCompatActivity {
     Button btnSubmit;
     EditText emailResetEt;
+    TextView codeErrorMsgTv;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_reset_password);
         btnSubmit=findViewById(R.id.frgt_pwd_btn_submit);
         emailResetEt=findViewById(R.id.reset_pwd_email_et);
+        codeErrorMsgTv=findViewById(R.id.code_error_msg_tv);
+
         btnSubmit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                callSendEmailApi();
+                String email = emailResetEt.getText().toString();
+                if (!email.isEmpty()){
+                    if (Validator.isEmailValid(email)){
+                        callSendEmailApi(email);
+                    }
+                    else {
+                        codeErrorMsgTv.setText("Invalid ! Enter a valid email address");
+                        codeErrorMsgTv.setVisibility(View.VISIBLE);
+                    }
+
+                }
+                else {
+                    codeErrorMsgTv.setText("Email is required");
+                    codeErrorMsgTv.setVisibility(View.VISIBLE);
+                }
             }
         });
 
     }
 
-    private void callSendEmailApi() {
+    private void callSendEmailApi(final String email) {
         final CustomProgressDialog dialog = new CustomProgressDialog(ResetPasswordActivity.this);
         dialog.show();
-        final String email = emailResetEt.getText().toString();
         final int code = new Random().nextInt(999999);
         JSONObject object = new JSONObject();
         try {
@@ -61,12 +80,19 @@ public class ResetPasswordActivity extends AppCompatActivity {
                 dialog.dismiss();
                 try {
                     if (response.getBoolean("status")){
+                        codeErrorMsgTv.setText("Provided email address is not registered in our database");
+                        Toast.makeText(ResetPasswordActivity.this, "An code has been sent to your email address", Toast.LENGTH_SHORT).show();
                         Intent intent = new Intent(ResetPasswordActivity.this,VerifyEmailActivity.class);
                         intent.putExtra("email",email);
                         intent.putExtra("code",code);
                         startActivity(intent);
                         finish();
                     }
+                    else {
+                        codeErrorMsgTv.setVisibility(View.VISIBLE);
+                        Toast.makeText(ResetPasswordActivity.this, "Provided email does not exist in database", Toast.LENGTH_SHORT).show();
+                    }
+
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -83,6 +109,7 @@ public class ResetPasswordActivity extends AppCompatActivity {
         }
         else {
             dialog.dismiss();
+            codeErrorMsgTv.setVisibility(View.GONE);
             Toast.makeText(this, "No internet connection detected", Toast.LENGTH_SHORT).show();
         }
     }

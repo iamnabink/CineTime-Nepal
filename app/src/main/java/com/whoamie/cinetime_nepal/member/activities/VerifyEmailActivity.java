@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.Request;
@@ -28,6 +29,7 @@ import java.util.Random;
 public class VerifyEmailActivity extends AppCompatActivity {
     Button verifybtn, resendBtn;
     EditText resetCodeEt;
+    TextView verifyCodeErrorMsgTv;
     String intentEmail;
     int intentCode, editTextCode, receivedCode, codeRand;
 
@@ -53,7 +55,14 @@ public class VerifyEmailActivity extends AppCompatActivity {
         verifybtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                verifyEmailCode();
+                String codeInput = resetCodeEt.getText().toString();
+                if (!codeInput.isEmpty()){
+                    verifyEmailCode();
+                }
+                else {
+                    verifyCodeErrorMsgTv.setText("Verification Code is required");
+                    verifyCodeErrorMsgTv.setVisibility(View.VISIBLE);
+                }
             }
         });
     }
@@ -67,15 +76,19 @@ public class VerifyEmailActivity extends AppCompatActivity {
                 startActivity(intent);
                 finish();
             } else {
+                verifyCodeErrorMsgTv.setText("Invalid code");
+                verifyCodeErrorMsgTv.setVisibility(View.VISIBLE);
                 Toast.makeText(VerifyEmailActivity.this, "Invalid code", Toast.LENGTH_SHORT).show();
             }
         } else {
-            if (editTextCode == receivedCode) {
+            if (this.editTextCode == receivedCode) {
                 Intent intent = new Intent(VerifyEmailActivity.this, ForgetPwdChange.class);
                 intent.putExtra("email", intentEmail);
                 startActivity(intent);
                 finish();
             } else {
+                verifyCodeErrorMsgTv.setText("Invalid code");
+                verifyCodeErrorMsgTv.setVisibility(View.VISIBLE);
                 Toast.makeText(VerifyEmailActivity.this, "Invalid code", Toast.LENGTH_SHORT).show();
             }
         }
@@ -86,6 +99,7 @@ public class VerifyEmailActivity extends AppCompatActivity {
         verifybtn = findViewById(R.id.verify_code_btn);
         resendBtn = findViewById(R.id.resend_code_btn);
         resetCodeEt = findViewById(R.id.reset_code_et);
+        verifyCodeErrorMsgTv = findViewById(R.id.verify_code_error_msg_tv);
     }
 
     private void resendCode() {
@@ -127,6 +141,7 @@ public class VerifyEmailActivity extends AppCompatActivity {
 
         } else {
             dialog.dismiss();
+            verifyCodeErrorMsgTv.setVisibility(View.GONE);
             Toast.makeText(this, "No internet connection detected", Toast.LENGTH_SHORT).show();
         }
     }
