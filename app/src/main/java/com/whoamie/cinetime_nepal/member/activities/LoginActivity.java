@@ -3,6 +3,7 @@ package com.whoamie.cinetime_nepal.member.activities;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.os.StrictMode;
 import android.view.View;
 import android.view.Window;
 import android.widget.Button;
@@ -24,6 +25,13 @@ import com.whoamie.cinetime_nepal.common.utils.SharedPref;
 import com.whoamie.cinetime_nepal.common.utils.Validator;
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.net.URLConnection;
+import java.net.URLEncoder;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -69,6 +77,8 @@ public class LoginActivity extends AppCompatActivity {
         signupTv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+//                Toast.makeText(LoginActivity.this, "Clicked", Toast.LENGTH_SHORT).show();
+//                sendSms();
                 startActivity(new Intent(LoginActivity.this, SignUpActivity.class));
                 finish();
             }
@@ -80,6 +90,40 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
     }
+//    public String sendSmsAPI() {
+//        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+//
+//        StrictMode.setThreadPolicy(policy);
+//        try {
+//            // Construct data
+//            String apiKey = "apikey=" + "VYq7tBngtgc-L1tTDzGnWWRHb3Kz1kEfNIGMDwtbER";
+//            String message = "&message=" + "This is your message";
+//            String sender = "&sender=" + "TSN";
+//            String numbers = "&numbers=" + "009779865098775";
+//
+//            // Send data
+//            HttpURLConnection conn = (HttpURLConnection) new URL("https://api.txtlocal.com/send/?").openConnection();
+//            String data = apiKey + numbers + message + sender;
+//            conn.setDoOutput(true);
+//            conn.setRequestMethod("POST");
+//            conn.setRequestProperty("Content-Length", Integer.toString(data.length()));
+//            conn.getOutputStream().write(data.getBytes("UTF-8"));
+//            final BufferedReader rd = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+//            final StringBuffer stringBuffer = new StringBuffer();
+//            String line;
+//            while ((line = rd.readLine()) != null) {
+//                stringBuffer.append(line);
+//            }
+//            rd.close();
+//            Toast.makeText(this, "Sent", Toast.LENGTH_SHORT).show();
+//            return stringBuffer.toString();
+//        } catch (Exception e) {
+//            System.out.println("Error SMS "+e);
+//            Toast.makeText(this, "Error->"+e, Toast.LENGTH_SHORT).show();
+//            return "Error "+e;
+//        }
+//    }
+
 
     private void signIn() {
         final CustomProgressDialog dialog = new CustomProgressDialog(this);
