@@ -19,9 +19,9 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".member.activities.ForgetPwdChange"></activity>
-        <activity android:name=".member.activities.VerifyEmailActivity" />
-        <activity android:name=".member.activities.ResetPasswordActivity" />
+        <activity android:name=".member.activities.ForgetPwdChange" android:theme="@style/AppTheme.transparent.animationTheme"></activity>
+        <activity android:name=".member.activities.VerifyEmailActivity" android:theme="@style/AppTheme.transparent.animationTheme"/>
+        <activity android:name=".member.activities.ResetPasswordActivity" android:theme="@style/AppTheme.transparent.animationTheme" />
         <activity android:name=".common.activities.FeedBackActivity" />
 
         <provider
