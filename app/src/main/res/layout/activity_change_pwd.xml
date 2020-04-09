@@ -86,5 +86,5 @@
             android:layout_marginRight="20dp"
             android:background="@drawable/border_btn_background"
             android:text="Submit"
-            android:textColor="#116BFF" />
+            android:textColor="@color/colorPrimary" />
 </LinearLayout>

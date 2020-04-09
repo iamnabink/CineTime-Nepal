@@ -38,8 +38,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import de.hdodenhof.circleimageview.CircleImageView;
 
 public class SignUpActivity extends AppCompatActivity {
-    TextView signupBackArrow, signupFname, signupEmail, signupPwd, signupCfmPwd;
-    Button signupBtn;
+    TextView signupFname, signupEmail, signupPwd, signupCfmPwd;
+    Button signupBtn,signupBackArrow;
     CircleImageView signinProfileIv;
     SharedPreferences preferences;
     private static final int IMAGE_PICKER_REQ_CODE = 976;

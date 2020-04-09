@@ -33,7 +33,7 @@
             android:layout_marginRight="70dp"
             android:layout_gravity="center"
             android:layout_marginTop="12dp"
-            android:background="#007ee5"
+            android:background="@color/colorPrimary"
             android:text="Create your account"
             android:textColor="@android:color/white" />
         <FrameLayout
@@ -65,19 +65,21 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginTop="20dp"
-            android:layout_marginBottom="10dp"
-            android:text="Already have an account?"
+            android:layout_marginBottom="3dp"
+            android:text="Already Have An Account?"
             android:textColor="#575757"
             android:textSize="16sp" />
 
-        <TextView
+        <Button
             android:id="@+id/create_act_login"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:text="Login here"
-            android:textColor="#2852FC"
-            android:textSize="16sp" />
+            android:background="@android:color/transparent"
+            android:textAllCaps="true"
+            android:textStyle="normal"
+            android:textColor="@android:color/black" />
     </LinearLayout>
 
 </FrameLayout>

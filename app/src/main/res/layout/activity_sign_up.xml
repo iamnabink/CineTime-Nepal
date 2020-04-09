@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#F3F3F3"
+    android:background="@android:color/white"
     android:orientation="vertical">
 
     <ScrollView
@@ -13,32 +13,36 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginHorizontal="10dp"
             android:orientation="vertical">
 
             <RelativeLayout
+
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
                 <ImageView
                     android:layout_width="match_parent"
-                    android:layout_height="250dp"
+                    android:layout_height="200dp"
                     android:src="@drawable/pp_background_plus" />
 
                 <de.hdodenhof.circleimageview.CircleImageView
                     android:id="@+id/signin_profile_iv"
-                    android:layout_width="100dp"
-                    android:layout_height="100dp"
+                    android:layout_width="81dp"
+                    android:layout_height="81dp"
                     android:layout_centerHorizontal="true"
-                    android:layout_marginTop="53dp"
-                    android:src="@drawable/portrait_zoro" />
+                    android:layout_marginTop="42dp"
+                    android:src="@drawable/person_placeholder" />
 
                 <TextView
                     android:layout_width="wrap_content"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginBottom="15dp"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/signin_profile_iv"
-                    android:layout_centerHorizontal="true"
-                    android:layout_marginTop="50dp"
-                    android:text="SIGN IN"
+                    android:layout_marginTop="40dp"
+                    android:text="Create your Account"
                     android:textSize="20dp"
                     android:textStyle="bold" />
             </RelativeLayout>
@@ -53,8 +57,9 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="15dp"
                     android:layout_marginRight="15dp"
-                    app:cardCornerRadius="25dp"
-                    app:cardUseCompatPadding="true">
+                    android:layout_marginBottom="10dp"
+                    app:cardElevation="2dp"
+                    app:cardCornerRadius="24dp">
 
                     <EditText
                         android:id="@+id/signup_fname"
@@ -76,8 +81,9 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="15dp"
                     android:layout_marginRight="15dp"
-                    app:cardCornerRadius="25dp"
-                    app:cardUseCompatPadding="true">
+                    app:cardElevation="2dp"
+                    android:layout_marginBottom="10dp"
+                    app:cardCornerRadius="24dp">
 
                     <EditText
                         android:id="@+id/signup_email"
@@ -99,15 +105,21 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="15dp"
                     android:layout_marginRight="15dp"
-                    app:cardCornerRadius="25dp"
-                    app:cardUseCompatPadding="true">
-
+                    app:cardElevation="2dp"
+                    android:layout_marginBottom="10dp"
+                    app:cardCornerRadius="24dp">
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        app:passwordToggleEnabled="true"
+                        app:hintEnabled="false">
                     <EditText
                         android:id="@+id/signup_pwd"
                         android:layout_width="match_parent"
                         android:layout_height="50dp"
                         android:background="@android:color/white"
-                        android:drawableLeft="@drawable/ic_lock_24px"
+                        android:drawableStart="@drawable/ic_lock_24px"
                         android:drawablePadding="10dp"
                         android:drawableTint="#FF9B9B9B"
                         android:hint="Password"
@@ -115,22 +127,28 @@
                         android:imeOptions="actionNext"
                         android:maxLines="1"
                         android:padding="10dp" />
+                    </com.google.android.material.textfield.TextInputLayout>
                 </androidx.cardview.widget.CardView>
 
                 <androidx.cardview.widget.CardView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="15dp"
+                    app:cardElevation="2dp"
                     android:layout_marginRight="15dp"
-                    app:cardCornerRadius="25dp"
-                    app:cardUseCompatPadding="true">
-
+                    app:cardCornerRadius="24dp">
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        app:passwordToggleEnabled="true"
+                        app:hintEnabled="false">
                     <EditText
                         android:id="@+id/signup_cfm_pwd"
                         android:layout_width="match_parent"
                         android:layout_height="50dp"
                         android:background="@android:color/white"
-                        android:drawableLeft="@drawable/ic_lock_24px"
+                        android:drawableStart="@drawable/ic_lock_24px"
                         android:drawablePadding="10dp"
                         android:drawableTint="#FF9B9B9B"
                         android:hint="Confirm password"
@@ -138,6 +156,7 @@
                         android:inputType="textPassword"
                         android:maxLines="1"
                         android:padding="10dp" />
+                    </com.google.android.material.textfield.TextInputLayout>
                 </androidx.cardview.widget.CardView>
 
                 <Button
@@ -152,19 +171,19 @@
                     android:text="SIGN UP"
                     android:textColor="@android:color/white" />
 
-                <TextView
+                <Button
                     android:id="@+id/signup_back_arrow"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:layout_marginTop="20dp"
+                    android:layout_marginTop="10dp"
                     android:layout_marginBottom="20dp"
                     android:drawableLeft="@drawable/ic_arrow_back_24px"
                     android:drawablePadding="8dp"
-                    android:drawableTint="#535EEA"
+                    android:background="@android:color/transparent"
+                    android:drawableTint="@android:color/black"
                     android:text="Back to SIGN IN"
-                    android:textColor="#535EEA"
-                    android:textSize="16sp" />
+                    android:textColor="@android:color/black" />
             </LinearLayout>
         </LinearLayout>
     </ScrollView>

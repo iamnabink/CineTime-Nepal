@@ -45,8 +45,7 @@
                             android:layout_alignParentRight="true"
                             android:layout_marginRight="20dp"
                             android:text="see all"
-
-                            android:textColor="#9F0931FF"
+                            android:textColor="@color/colorPrimary"
                             android:textStyle="bold" />
 
                     </RelativeLayout>
@@ -196,7 +195,7 @@
                             android:layout_alignParentRight="true"
                             android:layout_marginRight="20dp"
                             android:text="see all"
-                            android:textColor="#9F0931FF"
+                            android:textColor="@color/colorPrimary"
                             android:textStyle="bold" />
                     </RelativeLayout>
 

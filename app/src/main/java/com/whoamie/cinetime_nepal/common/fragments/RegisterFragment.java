@@ -52,8 +52,7 @@ import java.util.Arrays;
 import static android.content.Context.MODE_PRIVATE;
 
 public class RegisterFragment extends Fragment {
-    Button actCreateBtn, fb_btn;
-    TextView actLogin;
+    Button actCreateBtn, fb_btn,actLogin;
     View view;
     LoginButton loginButton;
     ImageView demo_img;

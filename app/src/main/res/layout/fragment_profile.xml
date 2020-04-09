@@ -57,7 +57,8 @@
                         android:layout_marginTop="43dp"
                         android:src="@drawable/portrait_zoro"
                         android:transitionName="user_profile_pic"
-                        app:civ_border_width="4dp" />
+                        app:civ_border_color="@color/colorPrimary"
+                        app:civ_border_width="2dp" />
 
                     <TextView
                         android:id="@+id/uname_tv"
@@ -87,6 +88,17 @@
                         android:textSize="16sp"
                         android:textColor="@android:color/black"
                         android:text="Joined: 2019 May 23" />
+                    <TextView
+                        android:id="@+id/user_email_tv"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerHorizontal="true"
+                        android:layout_gravity="center"
+                        android:layout_marginBottom="10dp"
+                        android:textAlignment="center"
+                        android:textSize="16sp"
+                        android:textColor="@android:color/black"
+                        android:text="nabrajkhadka43@gmail.com" />
                     <TextView
                         android:id="@+id/u_bio_tv"
                         android:layout_width="300dp"
