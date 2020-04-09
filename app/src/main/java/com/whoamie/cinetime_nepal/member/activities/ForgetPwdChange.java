@@ -31,11 +31,11 @@ public class ForgetPwdChange extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        initViews();
         setContentView(R.layout.activity_forget_pwd_change);
         if (getIntent().getExtras() != null) {
             email = getIntent().getExtras().getString("email", "");
         }
+        initViews();
         onClick();
     }
 
