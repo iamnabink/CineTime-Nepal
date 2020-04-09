@@ -80,7 +80,9 @@ public class ForgetPwdChange extends AppCompatActivity {
                 dialog.dismiss();
                 try {
                     if (response.getBoolean("status")) {
-
+                        Toast.makeText(ForgetPwdChange.this, response.getString("message"), Toast.LENGTH_SHORT).show();
+                    } else {
+                        Toast.makeText(ForgetPwdChange.this, "An error occurred", Toast.LENGTH_SHORT).show();
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
