@@ -3,6 +3,9 @@ package com.whoamie.cinetime_nepal.member.activities;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.Toast;
 
 import com.android.volley.Request;
@@ -21,25 +24,53 @@ import org.json.JSONObject;
 
 public class ForgetPwdChange extends AppCompatActivity {
 
+    EditText resetNewEt, resetCnfEt;
+    Button submitBtn;
     String email;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        initViews();
         setContentView(R.layout.activity_forget_pwd_change);
         if (getIntent().getExtras() != null) {
             email = getIntent().getExtras().getString("email", "");
         }
-        changeEmail();
+        onClick();
     }
-    private void changeEmail() {
+
+    private void onClick() {
+        submitBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String newPwd = resetNewEt.getText().toString();
+                String confirmNewPwd = resetCnfEt.getText().toString();
+                if (!newPwd.isEmpty()) {
+                    if (newPwd.equals(confirmNewPwd)) {
+                        changeEmail(confirmNewPwd);
+                    } else {
+                        Toast.makeText(ForgetPwdChange.this, "Confirm password does not matches", Toast.LENGTH_SHORT).show();
+                    }
+                } else {
+                    Toast.makeText(ForgetPwdChange.this, "All fields are required", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+    }
+
+    private void initViews() {
+        resetNewEt = findViewById(R.id.reset_chng_new_pwd_et);
+        resetCnfEt = findViewById(R.id.reset_chng_cfm_pwd_et);
+        submitBtn = findViewById(R.id.reset_chng_pwd_btn);
+    }
+
+    private void changeEmail(String confirmNewPwd) {
         final CustomProgressDialog dialog = new CustomProgressDialog(ForgetPwdChange.this);
         dialog.show();
-        final String email = "Nabrajkhadka43@gmail.com";
-        final String pwd = "Nabrajkhadka43@gmail.com";
         JSONObject object = new JSONObject();
         try {
-            object.put("email",email);
-            object.put("new_password",pwd);
+            object.put("email", email);
+            object.put("new_password", confirmNewPwd);
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -48,7 +79,7 @@ public class ForgetPwdChange extends AppCompatActivity {
             public void onResponse(JSONObject response) {
                 dialog.dismiss();
                 try {
-                    if (response.getBoolean("status")){
+                    if (response.getBoolean("status")) {
 
                     }
                 } catch (JSONException e) {
@@ -59,13 +90,12 @@ public class ForgetPwdChange extends AppCompatActivity {
             @Override
             public void onErrorResponse(VolleyError error) {
                 dialog.dismiss();
-                HandleNetworkError.handlerError(error,ForgetPwdChange.this);
+                HandleNetworkError.handlerError(error, ForgetPwdChange.this);
             }
         });
-        if (CheckConnectivity.isNetworkAvailable(ForgetPwdChange.this)){
+        if (CheckConnectivity.isNetworkAvailable(ForgetPwdChange.this)) {
             RestClient.getInstance(ForgetPwdChange.this).addToRequestQueue(jsonObjectRequest);
-        }
-        else {
+        } else {
             Toast.makeText(this, "No internet connection detected", Toast.LENGTH_SHORT).show();
         }
     }
