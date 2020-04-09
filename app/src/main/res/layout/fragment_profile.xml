@@ -86,7 +86,6 @@
                         android:layout_marginBottom="10dp"
                         android:textAlignment="center"
                         android:textSize="16sp"
-                        android:textColor="@android:color/black"
                         android:text="Joined: 2019 May 23" />
                     <TextView
                         android:id="@+id/user_email_tv"
@@ -97,7 +96,6 @@
                         android:layout_marginBottom="10dp"
                         android:textAlignment="center"
                         android:textSize="16sp"
-                        android:textColor="@android:color/black"
                         android:text="nabrajkhadka43@gmail.com" />
                     <TextView
                         android:id="@+id/u_bio_tv"
@@ -108,7 +106,6 @@
                         android:maxLines="2"
                         android:text="Passionate Moviee lover, a photographer and movie critic"
                         android:textAlignment="center"
-                        android:textColor="@android:color/black"
                         android:textSize="16sp" />
 
                     <androidx.cardview.widget.CardView
