@@ -206,7 +206,7 @@ public class MapNearByCinemasActivity extends FragmentActivity implements OnMapR
         mMap.animateCamera(CameraUpdateFactory.newLatLng(latLng)); //for current location of user
         mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, 15));
         for(int i = 0 ; i < halls.size() ; i++) {
-            createMarker(halls.get(i).getLat(), halls.get(i).getLon(), halls.get(i).getName(), halls.get(i).getLocation()).showInfoWindow();
+            createMarker(halls.get(i).getLat(), halls.get(i).getLon(), halls.get(i).getName(), halls.get(i).getLocation()); //.showInfoWindow()
         }
 //        Circle circle = mMap.addCircle(new CircleOptions()
 //                .center(latLng)
