@@ -199,6 +199,7 @@ public class MovieDetailActivity extends AppCompatActivity {
         Picasso.get().load(backgroundImageUrl).into(bgImage);
         ratingBar.setRating(movie.getRating());
         ratingCount.setText(movie.getRating() == 0 ? "N/A" : "" + movie.getRating()); //elvis operator
+        coordinatorLayout = findViewById(R.id.coordinator_l);
     }
 
     private void makeFavouriteMoviesBtn() {

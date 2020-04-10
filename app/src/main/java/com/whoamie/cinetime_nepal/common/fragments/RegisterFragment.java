@@ -41,6 +41,7 @@ import com.whoamie.cinetime_nepal.common.network.RestClient;
 import com.whoamie.cinetime_nepal.common.utils.CheckConnectivity;
 import com.whoamie.cinetime_nepal.common.utils.CustomProgressDialog;
 import com.whoamie.cinetime_nepal.common.utils.SharedPref;
+import com.whoamie.cinetime_nepal.common.utils.Utils;
 import com.whoamie.cinetime_nepal.member.activities.LoginActivity;
 import com.whoamie.cinetime_nepal.member.activities.SignUpActivity;
 
@@ -73,6 +74,7 @@ public class RegisterFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 loginButton.performClick();
+                Utils.preventTwoClick(v);
             }
         });
         return view;
@@ -131,7 +133,6 @@ public class RegisterFragment extends Fragment {
         LoginManager.getInstance().registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
             @Override
             public void onSuccess(LoginResult loginResult) {
-                Toast.makeText(context, "Successfully Logged-in", Toast.LENGTH_SHORT).show();
                 //didn't used it because we you want our app to keep up with the current access
                 // token and profile, we can implement AccessTokenTracker and ProfileTracker classes.
 //                else we can get user data from login callback like:
@@ -188,8 +189,6 @@ public class RegisterFragment extends Fragment {
         {
             dialog.show();
         }
-        preferences = context.getSharedPreferences(SharedPref.key_shared_pref, MODE_PRIVATE);
-        final SharedPreferences.Editor editor = preferences.edit();
         JSONObject jsonObject = new JSONObject();
         try {
             jsonObject.put("name", name);
@@ -204,9 +203,12 @@ public class RegisterFragment extends Fragment {
             public void onResponse(JSONObject response) {
                 Activity activity = getActivity();
                 if (activity != null && isAdded()){
-                    dialog.cancel();
+                    dialog.dismiss();
                     try {
                         if (response.getBoolean("status")) {
+                            Toast.makeText(context, "Successfully Logged-in", Toast.LENGTH_SHORT).show();
+                            preferences = context.getSharedPreferences(SharedPref.key_shared_pref, MODE_PRIVATE);
+                            final SharedPreferences.Editor editor = preferences.edit();
                             JSONObject dataObject = response.getJSONObject(SharedPref.key_data_details);
                             JSONObject userObject = dataObject.getJSONObject(SharedPref.key_user_details);
                             JSONObject tokernObject = dataObject.getJSONObject(SharedPref.key_user_token);
@@ -232,7 +234,7 @@ public class RegisterFragment extends Fragment {
             public void onErrorResponse(VolleyError error) {
                 Activity activity = getActivity();
                 if (activity != null && isAdded()){
-                    dialog.cancel();
+                    dialog.dismiss();
                     HandleNetworkError.handlerError(error, context);
                 }
 
@@ -243,7 +245,7 @@ public class RegisterFragment extends Fragment {
             RestClient.getInstance(context).addToRequestQueue(request);
         } else {
             Toast.makeText(context, "No internet connection", Toast.LENGTH_SHORT).show();
-            dialog.cancel();
+            dialog.dismiss();
         }
     }
 }

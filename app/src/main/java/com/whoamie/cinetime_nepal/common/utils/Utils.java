@@ -10,4 +10,12 @@ public class Utils {
         View rootView = activity.getWindow().getDecorView().findViewById(android.R.id.content);
         Snackbar.make(rootView, message, Snackbar.LENGTH_LONG).show();
     }
+    public static void preventTwoClick(final View view){
+        view.setEnabled(false);
+        view.postDelayed(new Runnable() {
+            public void run() {
+                view.setEnabled(true);
+            }
+        }, 500);
+    }
 }
