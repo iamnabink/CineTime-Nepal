@@ -34,8 +34,7 @@ public class TrailerVideosAdapter extends RecyclerView.Adapter<TrailerVideosAdap
     public ViewH onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater inflater = LayoutInflater.from(context);
         View view = inflater.inflate(R.layout.row_trailer_view,parent,false);
-        ViewH viewH = new ViewH(view);
-        return viewH;
+        return new ViewH(view);
     }
 
     @Override

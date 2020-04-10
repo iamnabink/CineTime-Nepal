@@ -104,7 +104,7 @@ public class ShowTimeFragment extends Fragment {
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                System.out.println(error);
+//                System.out.println(error);
                 HandleNetworkError.handlerError(error, getContext());
                 dialog.dismiss();
             }

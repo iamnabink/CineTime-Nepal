@@ -25,8 +25,7 @@ public class TimeAdapter extends RecyclerView.Adapter<TimeAdapter.TimeHolder>{
     public TimeHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater inflater = LayoutInflater.from(context);
         View view = inflater.inflate(R.layout.row_time,parent,false);
-        TimeHolder holder = new TimeHolder(view);
-        return holder;
+        return new TimeHolder(view);
     }
 
     @Override

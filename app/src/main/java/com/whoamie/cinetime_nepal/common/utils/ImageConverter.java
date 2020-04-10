@@ -17,8 +17,7 @@ public class ImageConverter {
             Bitmap bitmap = MediaStore.Images.Media.getBitmap(context.getContentResolver(), uri);
             bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
             byte[] imageBytes = baos.toByteArray();
-            String imageString = Base64.encodeToString(imageBytes, Base64.DEFAULT);
-            return imageString;
+            return Base64.encodeToString(imageBytes, Base64.DEFAULT);
         } catch (Exception e) {
             //handle exception
             return null;

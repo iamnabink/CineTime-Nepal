@@ -30,8 +30,7 @@ public class ShowTimeAdapter extends RecyclerView.Adapter<ShowTimeAdapter.ShowTi
     public ShowTimeViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater inflater = LayoutInflater.from(context);
         View view = inflater.inflate(R.layout.row_showtime,parent,false);
-        ShowTimeViewHolder holder = new ShowTimeViewHolder(view);
-        return holder;
+        return new ShowTimeViewHolder(view);
     }
 
     @Override

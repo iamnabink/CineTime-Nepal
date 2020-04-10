@@ -34,8 +34,7 @@ public class MyFavMovieAdapter extends RecyclerView.Adapter<MyFavMovieAdapter.MV
     public MViewHoler onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater inflater = LayoutInflater.from(context);
         View view = inflater.inflate(R.layout.row_fav_movie,parent,false);
-        MViewHoler holder = new MViewHoler(view);
-        return holder;
+        return new MViewHoler(view);
     }
 
     @Override

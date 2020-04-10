@@ -28,8 +28,7 @@ public class MovieActivityAdapter extends RecyclerView.Adapter<MovieActivityAdap
     public MovieViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater inflater=LayoutInflater.from(context);
         View view = inflater.inflate(R.layout.row_activity_movie,parent,false);
-        MovieViewHolder viewHolder = new MovieViewHolder(view);
-        return viewHolder;
+        return new MovieViewHolder(view);
     }
 
     @Override

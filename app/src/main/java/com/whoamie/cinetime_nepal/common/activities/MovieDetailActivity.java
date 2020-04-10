@@ -464,7 +464,7 @@ public class MovieDetailActivity extends AppCompatActivity {
             @Override
             public void onErrorResponse(VolleyError error) {
                 dialog.dismiss();
-                System.out.println(error);
+//                System.out.println(error);
                 HandleNetworkError.handlerError(error, MovieDetailActivity.this);
             }
         });

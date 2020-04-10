@@ -35,8 +35,7 @@ public class MovieFragmentAdapter extends RecyclerView.Adapter<MovieFragmentAdap
     public MovieViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater inflater = LayoutInflater.from(context);
         View view = inflater.inflate(R.layout.row_fragment_movie, parent, false);
-        MovieViewHolder movieViewHolder = new MovieViewHolder(view);
-        return movieViewHolder;
+        return new MovieViewHolder(view);
     }
 
     @Override

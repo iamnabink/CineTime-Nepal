@@ -38,8 +38,7 @@ public class HallAdapter extends RecyclerView.Adapter<HallAdapter.HallVH> {
     public HallVH onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater inflater = LayoutInflater.from(context);
         View view = inflater.inflate(R.layout.row_hall,parent,false);
-        HallVH holder = new HallVH(view);
-        return holder;
+        return new HallVH(view);
     }
 
     @Override
