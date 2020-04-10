@@ -16,6 +16,11 @@ public class User {
     private String email;
     private String name;
     private int id;
+    private int status;
+
+    public int getStatus() {
+        return status;
+    }
 
     public String getUpdated_at() {
         return updated_at;
