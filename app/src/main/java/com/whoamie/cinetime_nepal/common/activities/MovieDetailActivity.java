@@ -205,8 +205,14 @@ public class MovieDetailActivity extends AppCompatActivity {
         movieFavouriteCv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                coordinatorLayout = findViewById(R.id.coordinator_l);
-                callMakeFavouriteMovieApi();
+                SharedPreferences preferences = getSharedPreferences(SharedPref.key_shared_pref, MODE_PRIVATE);
+                String token = preferences.getString(SharedPref.key_user_token, null); //check login or not
+                if (token != null) {
+                    callMakeFavouriteMovieApi();
+                } else {
+                    Toast.makeText(MovieDetailActivity.this, "Please login to access this feature", Toast.LENGTH_SHORT).show();
+                    startActivity(new Intent(getApplicationContext(), LoginActivity.class));
+                }
             }
         });
         movieTrailerCv.setOnClickListener(new View.OnClickListener() {
