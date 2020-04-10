@@ -1,12 +1,9 @@
 package com.whoamie.cinetime_nepal.common.adapter;
 
 import android.content.Context;
-import android.transition.AutoTransition;
-import android.transition.TransitionManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.Filter;
 import android.widget.Filterable;
 import android.widget.ImageView;
@@ -16,15 +13,11 @@ import android.widget.TextView;
 import com.squareup.picasso.Picasso;
 import com.whoamie.cinetime_nepal.R;
 import com.whoamie.cinetime_nepal.common.interfaces.AdapterClickListener;
-import com.whoamie.cinetime_nepal.common.models.Hall;
 import com.whoamie.cinetime_nepal.common.models.Movie;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import androidx.annotation.NonNull;
-import androidx.cardview.widget.CardView;
-import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
 public class SearchMovieAdapter extends RecyclerView.Adapter<SearchMovieAdapter.SearchMovieHolder> implements Filterable {
@@ -53,7 +46,7 @@ public class SearchMovieAdapter extends RecyclerView.Adapter<SearchMovieAdapter.
         Movie movie = moviesFull.get(position);
         holder.movieNameTv.setText(movie.getName());
         holder.movieGnreTv.setText(movie.getGenre());
-        Picasso.get().load(movie.getPoster_url()).placeholder(R.drawable.no_image).into(holder.imageView);
+        Picasso.get().load(movie.getPoster_url()).placeholder(R.drawable.no_image_placeholder).into(holder.imageView);
     }
 
     @Override

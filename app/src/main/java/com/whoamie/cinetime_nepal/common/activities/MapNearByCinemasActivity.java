@@ -224,7 +224,7 @@ public class MapNearByCinemasActivity extends FragmentActivity implements OnMapR
                 .anchor(0.5f, 0.5f)
                 .title(title)
                 .snippet(snippet)
-                .icon(bitmapDescriptorFromVector(this, R.drawable.ic_marker)));
+                .icon(bitmapDescriptorFromVector(this, R.drawable.ic_marker_icon)));
     }
 
     private BitmapDescriptor bitmapDescriptorFromVector(Context context, int vectorResId) {

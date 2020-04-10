@@ -45,7 +45,7 @@ public class MovieFragmentAdapter extends RecyclerView.Adapter<MovieFragmentAdap
         holder.genreTv.setText(movie.getGenre());
         holder.nameTv.setText(movie.getName());
         Picasso.get().load(movie.getPoster_url())
-                .placeholder(R.drawable.no_image)
+                .placeholder(R.drawable.no_image_placeholder)
                 .into(holder.imgv);
     }
 

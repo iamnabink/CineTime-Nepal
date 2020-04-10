@@ -144,7 +144,7 @@ public class ProfileFragment extends Fragment {
             uBio.setText("Please add your bio");
         }
         Picasso.get()
-                .load(users.getProfile_pic_url()).placeholder(R.drawable.no_pp)
+                .load(users.getProfile_pic_url()).placeholder(R.drawable.person_placeholder)
                 .into(profileIv);
     }
 

@@ -44,7 +44,7 @@ public class MyReviewAdapter extends RecyclerView.Adapter<MyReviewAdapter.Review
     public void onBindViewHolder(@NonNull ReviewHolder holder, int position) {
         MyReview review = reviews.get(position);
         holder.review_movie_name_tv.setText(review.getMovie().getName());
-        Picasso.get().load(review.getMovie().getPoster_url()).placeholder(R.drawable.no_pp).into(holder.my_review_iv);
+        Picasso.get().load(review.getMovie().getPoster_url()).placeholder(R.drawable.person_placeholder).into(holder.my_review_iv);
         holder.review_msg_tv.setText(review.getComment_msg());
         holder.review_cmnt_tm_tv.setText(review.getCreated_at());
     }

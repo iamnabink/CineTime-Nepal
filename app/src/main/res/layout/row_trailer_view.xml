@@ -19,7 +19,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="200dp"
                     android:scaleType="centerCrop"
-                    android:src="@drawable/thumbnail1"/>
+                    android:src="@drawable/no_video_placeholder"/>
                 <ImageView
                     android:layout_width="65dp"
                     android:layout_height="65dp"

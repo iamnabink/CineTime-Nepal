@@ -48,7 +48,7 @@ public class MovieReviewAdapter extends RecyclerView.Adapter<MovieReviewAdapter.
         Review review = reviews.get(position);
         holder.userRating.setRating(review.getRating_count());
         holder.userNameTv.setText(review.getUser().getName());
-        Picasso.get().load(review.getUser().getProfile_pic_url()).placeholder(R.drawable.no_pp).into(holder.uIv);
+        Picasso.get().load(review.getUser().getProfile_pic_url()).placeholder(R.drawable.person_placeholder).into(holder.uIv);
         holder.commentTv.setText(review.getComment_msg());
         holder.commentTime.setText(review.getComment_time());
         SharedPreferences preferences = context.getSharedPreferences(SharedPref.key_shared_pref,Context.MODE_PRIVATE);

@@ -2,7 +2,6 @@ package com.whoamie.cinetime_nepal.common.adapter;
 
 import android.content.Context;
 import android.transition.AutoTransition;
-import android.transition.Slide;
 import android.transition.TransitionManager;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,7 +13,6 @@ import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
 import com.whoamie.cinetime_nepal.R;
-import com.whoamie.cinetime_nepal.common.interfaces.AdapterClickListener;
 import com.whoamie.cinetime_nepal.common.interfaces.HallAdapterClickListener;
 import com.whoamie.cinetime_nepal.common.models.Hall;
 
@@ -24,7 +22,6 @@ import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
-import de.hdodenhof.circleimageview.CircleImageView;
 
 public class HallAdapter extends RecyclerView.Adapter<HallAdapter.HallVH> {
     ArrayList<Hall> halls;
@@ -52,7 +49,7 @@ public class HallAdapter extends RecyclerView.Adapter<HallAdapter.HallVH> {
         holder.hallLocationTv.setText(hall.getLocation());
         holder.siteUrl.setText(hall.getSite_url());
         holder.phoneTv.setText(hall.getContact());
-        Picasso.get().load(hall.getProfile_pic_url()).placeholder(R.drawable.no_image).into(holder.hallIv);
+        Picasso.get().load(hall.getProfile_pic_url()).placeholder(R.drawable.no_image_placeholder).into(holder.hallIv);
     }
 
     @Override

@@ -36,7 +36,7 @@
                     android:layout_width="60dp"
                     android:layout_height="60dp"
                     android:scaleType="centerCrop"
-                    android:src="@drawable/portrait_zoro" />
+                    android:src="@drawable/person_placeholder" />
 
             </LinearLayout>
             <TextView
