@@ -143,23 +143,19 @@ public class SignUpActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         try {
-            switch (requestCode) {
-
-                case IMAGE_PICKER_REQ_CODE:
-                    if (resultCode == Activity.RESULT_OK) {
-                        //data gives you the image uri.
-                        Uri selectedImageUri = data.getData();
-                        selectedImagePath = FileUtils.getPath(this,selectedImageUri);
-                        System.out.println("Image Path : " + selectedImagePath);
-                        signinProfileIv.setImageURI(selectedImageUri);
-                        //Converting to bitmap
-                        profile_pic_url = ImageConverter.imageConvert(SignUpActivity.this, selectedImageUri);
+            if (requestCode == IMAGE_PICKER_REQ_CODE) {
+                if (resultCode == Activity.RESULT_OK) {
+                    //data gives you the image uri.
+                    Uri selectedImageUri = data.getData();
+                    selectedImagePath = FileUtils.getPath(this, selectedImageUri);
+                    System.out.println("Image Path : " + selectedImagePath);
+                    signinProfileIv.setImageURI(selectedImageUri);
+                    //Converting to bitmap
+                    profile_pic_url = ImageConverter.imageConvert(SignUpActivity.this, selectedImageUri);
 //                        System.out.println("base 64??->" + profile_pic_url);
-                        break;
-                    } else if (resultCode == Activity.RESULT_CANCELED) {
-                        Log.e(this.getLocalClassName(), "Invalid Image");
-                    }
-                    break;
+                } else if (resultCode == Activity.RESULT_CANCELED) {
+                    Log.e(this.getLocalClassName(), "Invalid Image");
+                }
             }
         } catch (Exception e) {
             Log.e(this.getLocalClassName(), "Exception in onActivityResult : " + e.getMessage());

@@ -145,35 +145,32 @@ public class EditProfileActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         try {
-            switch (requestCode) {
-                case IMAGE_PICKER_REQ_CODE:
-                    if (resultCode == Activity.RESULT_OK) {
-                        //data gives you the image uri.
-                        Uri selectedImageUri = data.getData();
-                        selectedImagePath = getPath(selectedImageUri);
-                        //System.out.println("Image Path : " + selectedImagePath);
-                        profileIv.setImageURI(selectedImageUri);
-                        //Converting to bitmap
-                        profile_pic_url = ImageConverter.imageConvert(EditProfileActivity.this, selectedImageUri);
+            if (requestCode == IMAGE_PICKER_REQ_CODE) {
+                if (resultCode == Activity.RESULT_OK) {
+                    //data gives you the image uri.
+                    Uri selectedImageUri = data.getData();
+//                        selectedImagePath = getPath(selectedImageUri);
+                    //System.out.println("Image Path : " + selectedImagePath);
+                    profileIv.setImageURI(selectedImageUri);
+                    //Converting to bitmap
+                    profile_pic_url = ImageConverter.imageConvert(EditProfileActivity.this, selectedImageUri);
 //                        System.out.println("base 64??->" + profile_pic_url);
-                        break;
-                    } else if (resultCode == Activity.RESULT_CANCELED) {
-                        Log.e(this.getLocalClassName(), "Invalid Image");
-                    }
-                    break;
+                } else if (resultCode == Activity.RESULT_CANCELED) {
+                    Log.e(this.getLocalClassName(), "Invalid Image");
+                }
             }
         } catch (Exception e) {
             Log.e(this.getLocalClassName(), "Exception in onActivityResult : " + e.getMessage());
         }
     }
 
-    public String getPath(Uri uri) { //this function will get path
-        String[] projection = {MediaStore.Images.Media.DATA};
-        Cursor cursor = managedQuery(uri, projection, null, null, null);
-        int column_index = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
-        cursor.moveToFirst();
-        return cursor.getString(column_index);
-    }
+//    public String getPath(Uri uri) { //this function will get path
+//        String[] projection = {MediaStore.Images.Media.DATA};
+//        Cursor cursor = managedQuery(uri, projection, null, null, null);
+//        int column_index = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
+//        cursor.moveToFirst();
+//        return cursor.getString(column_index);
+//    }
 
     private void loadData() {
         preferences = getSharedPreferences(SharedPref.key_shared_pref, MODE_PRIVATE);

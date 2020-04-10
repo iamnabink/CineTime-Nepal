@@ -167,18 +167,15 @@ public class MapNearByCinemasActivity extends FragmentActivity implements OnMapR
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        switch (requestCode) {
-            case MY_PERMISSIONS_REQUEST_OPEN_LOCATION: {
-                // If request is cancelled, the result arrays are empty.
-                if (grantResults.length > 0
-                        && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                    fetchLastlocation();
-                    // permission was granted, yay! Do the
-                } else {
-                    // permission denied, boo! Disable the
-                    // functionality that depends on this permission.
-                    Toast.makeText(this, "Please allow location permission to access this feature", Toast.LENGTH_SHORT).show();
-                }
+        if (requestCode == MY_PERMISSIONS_REQUEST_OPEN_LOCATION) {// If request is cancelled, the result arrays are empty.
+            if (grantResults.length > 0
+                    && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                fetchLastlocation();
+                // permission was granted, yay! Do the
+            } else {
+                // permission denied, boo! Disable the
+                // functionality that depends on this permission.
+                Toast.makeText(this, "Please allow location permission to access this feature", Toast.LENGTH_SHORT).show();
             }
         }
     }
