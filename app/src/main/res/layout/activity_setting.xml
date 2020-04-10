@@ -280,7 +280,7 @@
                 android:layout_marginTop="6dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Report an app bug that ypu have encounterd"/>
+                android:text="Report an app bug that you have encountered"/>
         </LinearLayout>
         <LinearLayout
             android:layout_width="match_parent"
