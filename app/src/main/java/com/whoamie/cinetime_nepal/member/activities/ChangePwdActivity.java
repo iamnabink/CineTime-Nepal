@@ -96,6 +96,9 @@ public class ChangePwdActivity extends AppCompatActivity {
                         editor.commit(); //commits, overwrites the data
                         Toast.makeText(ChangePwdActivity.this, response.getString("message"), Toast.LENGTH_SHORT).show();
                     }
+                    else {
+                        Toast.makeText(ChangePwdActivity.this, response.getString("message"), Toast.LENGTH_SHORT).show();
+                    }
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
