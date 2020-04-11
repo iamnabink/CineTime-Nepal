@@ -84,8 +84,7 @@ public class ShowTimeFragment extends Fragment {
             public void onResponse(JSONObject response) {
                 dialog.dismiss();
                 try {
-                    JSONObject dataDetail = response.getJSONObject(SharedPref.key_data_details);
-                    JSONArray showTimeArray = dataDetail.getJSONArray("showTimes");
+                    JSONArray showTimeArray = response.getJSONArray(SharedPref.key_data_details);
                     for (int i = 0;i<showTimeArray.length();i++){
                         JSONObject showtimeObject = showTimeArray.getJSONObject(i);
                         ShowTime showTime = new Gson().fromJson(showtimeObject.toString(),ShowTime.class);

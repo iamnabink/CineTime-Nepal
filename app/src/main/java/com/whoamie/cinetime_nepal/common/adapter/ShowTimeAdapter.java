@@ -6,6 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.squareup.picasso.Picasso;
 import com.whoamie.cinetime_nepal.R;
 import com.whoamie.cinetime_nepal.common.models.ShowTime;
 
@@ -38,6 +39,7 @@ public class ShowTimeAdapter extends RecyclerView.Adapter<ShowTimeAdapter.ShowTi
         ShowTime showTime = showTimes.get(position);
         holder.hallNameTv.setText(showTime.getHall().getName());
         holder.locationTv.setText(showTime.getHall().getLocation());
+        Picasso.get().load(showTime.getHall().getProfile_pic_url()).placeholder(R.drawable.no_image_placeholder).error(R.drawable.no_image_placeholder).into(holder.hallIv);
         TimeAdapter adapter = new TimeAdapter(showTime.getTimes(),context);
         holder.recyclervTime.setLayoutManager(new LinearLayoutManager(context,RecyclerView.HORIZONTAL,false));
         holder.recyclervTime.setAdapter(adapter);
