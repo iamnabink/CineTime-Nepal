@@ -192,15 +192,15 @@ public class SignUpActivity extends AppCompatActivity {
         JsonObjectRequest request = new JsonObjectRequest(Request.Method.POST, API.signupUrl, jsonObject, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
+                dialog.dismiss();
                 try {
                     if (response.getBoolean("status")) {
-                        dialog.cancel();
+
 //                        System.out.println("response------>"+response);
                         Toast.makeText(SignUpActivity.this, response.getString("message"), Toast.LENGTH_SHORT).show();
                         startActivity(new Intent(getApplicationContext(), LoginActivity.class));
                         finish();
                     } else {
-                        dialog.cancel();
 //                        System.out.println("error----------"+response.getString("message"));
                         Toast.makeText(SignUpActivity.this, response.getString("message"), Toast.LENGTH_SHORT).show();
                         //retrieving server response
@@ -213,7 +213,7 @@ public class SignUpActivity extends AppCompatActivity {
             @Override
             public void onErrorResponse(VolleyError error) {
 //                System.out.println("errrrorr------>"+error);
-                dialog.cancel();
+                dialog.dismiss();
                 HandleNetworkError.handlerError(error, SignUpActivity.this);
             }
         });
@@ -222,7 +222,7 @@ public class SignUpActivity extends AppCompatActivity {
         }
         else {
             Toast.makeText(this, "No internet connection", Toast.LENGTH_SHORT).show();
-            dialog.cancel();
+            dialog.dismiss();
         }
 
 
