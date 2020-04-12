@@ -19,7 +19,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 public class MyFavMovieAdapter extends RecyclerView.Adapter<MyFavMovieAdapter.MViewHoler> {
 
-    ArrayList<FavMovie> favMovies = new ArrayList<>();
+    ArrayList<FavMovie> favMovies;
     Context context;
     AdapterClickListener listener;
 
