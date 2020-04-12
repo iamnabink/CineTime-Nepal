@@ -149,8 +149,7 @@
                 android:id="@+id/view_pager_profile"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+                android:layout_weight="1" />
         </LinearLayout>
 
 

@@ -69,7 +69,7 @@ public class MovieDetailActivity extends AppCompatActivity {
     CoordinatorLayout coordinatorLayout;
     ArrayList<Review> reviews = new ArrayList<>();
     ArrayList<Movie> movies = new ArrayList<>();
-    private SlidrInterface slidr;
+//    private SlidrInterface slidr;
 
 
     @Override
@@ -77,7 +77,7 @@ public class MovieDetailActivity extends AppCompatActivity {
 //        getWindow().requestFeature(Window.FEATURE_CONTENT_TRANSITIONS);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_movie_details);
-        slidr = Slidr.attach(this);
+//        slidr = Slidr.attach(this);
         initVar();
         if (getIntent().getExtras() != null) {
             String movieString = getIntent().getExtras().getString(SharedPref.key_shared_movies_details, "");

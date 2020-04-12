@@ -6,6 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.whoamie.cinetime_nepal.R;
@@ -57,11 +58,13 @@ public class MovieFragmentAdapter extends RecyclerView.Adapter<MovieFragmentAdap
 
         TextView nameTv, genreTv;
         ImageView imgv;
+        LinearLayout row_l;
 
         public MovieViewHolder(@NonNull View itemView) {
             super(itemView);
             nameTv = itemView.findViewById(R.id.s_movie_name_tv);
             genreTv = itemView.findViewById(R.id.s_movie_genre_tv);
+            row_l = itemView.findViewById(R.id.row_l);
             imgv = itemView.findViewById(R.id.s_movie_imgv);
             imgv.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -70,11 +73,8 @@ public class MovieFragmentAdapter extends RecyclerView.Adapter<MovieFragmentAdap
                 }
             });
             if (context instanceof MovieDetailActivity) {
-                FrameLayout.LayoutParams layoutParams = new FrameLayout.LayoutParams(250, 350);
-                imgv.setLayoutParams(layoutParams);
-//                LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-//                params.setMargins(0,0,0,0);
-//                genreTv.setLayoutParams(params);
+                row_l.getLayoutParams().height = 350; //(int) context.getResources().getDimension(R.dimen.imageview_height)
+                row_l.getLayoutParams().width = 250;
                 genreTv.setVisibility(View.GONE);
             }
         }
