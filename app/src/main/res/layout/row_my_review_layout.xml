@@ -1,22 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="190dp"
-    android:layout_margin="6dp"
     android:id="@+id/review_lng_click_layout"
-    android:layout_height="120dp">
+    android:layout_width="190dp"
+    android:layout_height="120dp"
+    android:layout_margin="6dp"
+    android:orientation="vertical">
+
     <ImageView
         android:id="@+id/my_review_iv"
         android:layout_width="190dp"
         android:layout_height="120dp"
         android:scaleType="centerCrop"
-        android:src="@drawable/no_image_placeholder"/>
+        android:src="@drawable/no_image_placeholder" />
 
     <ImageView
         android:id="@+id/star_iv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="8dp"
         android:layout_alignParentBottom="true"
+        android:layout_marginLeft="8dp"
         android:layout_marginBottom="25dp"
         android:src="@drawable/ic_star_border_black_24dp" />
 
@@ -25,23 +27,25 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:layout_marginBottom="25dp"
-        android:textSize="18sp"
         android:layout_marginLeft="8dp"
-        android:textColor="@android:color/white"
+        android:layout_marginBottom="25dp"
         android:layout_toEndOf="@id/star_iv"
+        android:padding="6dp"
         android:text="4.5"
+        android:textSize="18sp"
         android:textStyle="bold" />
+
     <TextView
         android:id="@+id/review_msg_tv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:textSize="10sp"
         android:layout_marginLeft="6dp"
         android:layout_marginBottom="8dp"
-        android:textColor="@android:color/white"
+        android:background="#EBEBEB"
         android:text="Awesome Movie , reccomended to watch"
+        android:textSize="10sp"
+        android:padding="6dp"
         android:textStyle="bold" />
 
     <TextView
@@ -49,14 +53,18 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
-        android:textColor="@android:color/white"
+        android:background="#EBEBEB"
+        android:padding="6dp"
+        android:textSize="10sp"
         android:text="2020/21/12" />
+
     <TextView
         android:id="@+id/review_movie_name_tv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
         android:layout_centerVertical="true"
-        android:text="Avatar (PG)"
-        android:textColor="@android:color/white"
-        android:layout_centerHorizontal="true"/>
+        android:background="#EBEBEB"
+        android:padding="6dp"
+        android:text="Avatar (PG)" />
 </RelativeLayout>
