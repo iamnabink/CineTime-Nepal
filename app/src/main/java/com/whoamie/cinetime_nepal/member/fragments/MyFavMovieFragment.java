@@ -7,6 +7,7 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -75,7 +76,7 @@ public class MyFavMovieFragment extends Fragment {
         linearLayout=view.findViewById(R.id.fav_empty_layout);
         recyclerView = view.findViewById(R.id.movie_user_recycler);
         shimmerFrameLayout = view.findViewById(R.id.favmovie_shimmer_layout);
-        recyclerView.setLayoutManager(new LinearLayoutManager(getContext(), RecyclerView.HORIZONTAL, false));
+        recyclerView.setLayoutManager(new GridLayoutManager(getContext(),3));
         adapter = new MyFavMovieAdapter(favMovies, getContext(), new AdapterClickListener() {
             @Override
             public void onClick(int position, View view) {

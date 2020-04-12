@@ -1,136 +1,152 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:nestedScrollingEnabled="false"
     tools:context=".member.fragments.MyFavMovieFragment">
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/movie_user_recycler"
+    <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-        android:orientation="horizontal"
-        tools:listitem="@layout/row_fav_movie"
-        android:layout_marginHorizontal="15dp"
-        android:layout_marginTop="10dp" />
+        android:layout_height="match_parent">
 
-    <com.facebook.shimmer.ShimmerFrameLayout
-        android:id="@+id/favmovie_shimmer_layout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:visibility="gone"
-        android:layout_marginHorizontal="15dp"
-        android:layout_marginTop="25dp">
-        <LinearLayout
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-            <LinearLayout
-                android:layout_width="wrap_content"
+            android:layout_height="match_parent">
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/movie_user_recycler"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginRight="15dp"
-                android:orientation="vertical">
+                android:layout_marginHorizontal="15dp"
+                android:layout_marginTop="10dp"
+                android:nestedScrollingEnabled="false" />
+
+            <com.facebook.shimmer.ShimmerFrameLayout
+                android:id="@+id/favmovie_shimmer_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="15dp"
+                android:layout_marginTop="10dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="15dp"
+                        android:orientation="vertical">
+
+                        <ImageView
+                            android:layout_width="110dp"
+                            android:layout_height="150dp"
+                            android:background="@color/shimmer_effect"
+                            android:scaleType="centerCrop" />
+
+                        <TextView
+                            android:layout_width="110dp"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_marginTop="6dp"
+                            android:background="@color/shimmer_effect"
+                            android:textAlignment="center" />
+
+                        <TextView
+                            android:layout_width="60dp"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_marginTop="6dp"
+                            android:background="@color/shimmer_effect"
+                            android:textAlignment="center" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="15dp"
+                        android:orientation="vertical">
+
+                        <ImageView
+                            android:layout_width="110dp"
+                            android:layout_height="150dp"
+                            android:background="@color/shimmer_effect"
+                            android:scaleType="centerCrop" />
+
+                        <TextView
+                            android:layout_width="110dp"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_marginTop="6dp"
+                            android:background="@color/shimmer_effect"
+                            android:textAlignment="center" />
+
+                        <TextView
+                            android:layout_width="60dp"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_marginTop="6dp"
+                            android:background="@color/shimmer_effect"
+                            android:textAlignment="center" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="15dp"
+                        android:orientation="vertical">
+
+                        <ImageView
+                            android:layout_width="110dp"
+                            android:layout_height="150dp"
+                            android:background="@color/shimmer_effect"
+                            android:scaleType="centerCrop" />
+
+                        <TextView
+                            android:layout_width="110dp"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_marginTop="6dp"
+                            android:background="@color/shimmer_effect"
+                            android:textAlignment="center" />
+
+                        <TextView
+                            android:layout_width="60dp"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_marginTop="6dp"
+                            android:background="@color/shimmer_effect"
+                            android:textAlignment="center" />
+                    </LinearLayout>
+                </LinearLayout>
+            </com.facebook.shimmer.ShimmerFrameLayout>
+
+            <LinearLayout
+                android:id="@+id/fav_empty_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:visibility="gone">
 
                 <ImageView
-                    android:layout_width="110dp"
+                    android:layout_width="150dp"
                     android:layout_height="150dp"
-                    android:scaleType="centerCrop"
-                    android:background="@color/shimmer_effect" />
+                    android:layout_marginTop="25dp"
+                    android:src="@drawable/ic_empty" />
 
                 <TextView
-                    android:layout_width="110dp"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_marginTop="6dp"
-                    android:background="@color/shimmer_effect"
-                    android:textAlignment="center" />
-
-                <TextView
-                    android:layout_width="60dp"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_marginTop="6dp"
-                    android:background="@color/shimmer_effect"
-                    android:textAlignment="center" />
+                    android:layout_marginTop="10dp"
+                    android:text="No Favourite movie added yet"
+                    android:textStyle="bold" />
             </LinearLayout>
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginRight="15dp"
-                android:orientation="vertical">
+        </RelativeLayout>
+    </androidx.core.widget.NestedScrollView>
 
-                <ImageView
-                    android:layout_width="110dp"
-                    android:layout_height="150dp"
-                    android:scaleType="centerCrop"
-                    android:background="@color/shimmer_effect" />
 
-                <TextView
-                    android:layout_width="110dp"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_marginTop="6dp"
-                    android:background="@color/shimmer_effect"
-                    android:textAlignment="center" />
-
-                <TextView
-                    android:layout_width="60dp"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_marginTop="6dp"
-                    android:background="@color/shimmer_effect"
-                    android:textAlignment="center" />
-            </LinearLayout>
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginRight="15dp"
-                android:orientation="vertical">
-
-                <ImageView
-                    android:layout_width="110dp"
-                    android:layout_height="150dp"
-                    android:scaleType="centerCrop"
-                    android:background="@color/shimmer_effect" />
-
-                <TextView
-                    android:layout_width="110dp"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_marginTop="6dp"
-                    android:background="@color/shimmer_effect"
-                    android:textAlignment="center" />
-
-                <TextView
-                    android:layout_width="60dp"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_marginTop="6dp"
-                    android:background="@color/shimmer_effect"
-                    android:textAlignment="center" />
-            </LinearLayout>
-        </LinearLayout>
-    </com.facebook.shimmer.ShimmerFrameLayout>
-    <LinearLayout
-        android:id="@+id/fav_empty_layout"
-        android:layout_width="match_parent"
-        android:gravity="center"
-        android:visibility="gone"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
-        <ImageView
-            android:layout_width="150dp"
-            android:layout_marginTop="25dp"
-            android:layout_height="150dp"
-            android:src="@drawable/ic_empty"/>
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:textStyle="bold"
-            android:text="No Favourite movie added yet"/>
-    </LinearLayout>
-
-</RelativeLayout>
+</FrameLayout>

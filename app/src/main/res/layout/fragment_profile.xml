@@ -5,9 +5,16 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true">
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:nestedScrollingEnabled="false"
             android:orientation="vertical">
 
             <LinearLayout
@@ -18,8 +25,8 @@
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="5dp"
                     android:layout_marginHorizontal="6dp"
+                    android:layout_marginTop="5dp"
                     android:orientation="horizontal">
 
                     <Button
@@ -31,11 +38,11 @@
 
                     <Button
                         android:id="@+id/logout_tv"
-                        android:background="@android:color/transparent"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentEnd="true"
                         android:layout_alignParentRight="true"
+                        android:background="@android:color/transparent"
                         android:gravity="center"
                         android:text="LOGOUT" />
                 </RelativeLayout>
@@ -77,6 +84,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical">
+
                     <TextView
                         android:id="@+id/user_created_time_tv"
                         android:layout_width="wrap_content"
@@ -84,9 +92,10 @@
                         android:layout_centerHorizontal="true"
                         android:layout_gravity="center"
                         android:layout_marginBottom="10dp"
+                        android:text="Joined: 2019 May 23"
                         android:textAlignment="center"
-                        android:textSize="16sp"
-                        android:text="Joined: 2019 May 23" />
+                        android:textSize="16sp" />
+
                     <TextView
                         android:id="@+id/user_email_tv"
                         android:layout_width="wrap_content"
@@ -94,9 +103,10 @@
                         android:layout_centerHorizontal="true"
                         android:layout_gravity="center"
                         android:layout_marginBottom="10dp"
+                        android:text="nabrajkhadka43@gmail.com"
                         android:textAlignment="center"
-                        android:textSize="16sp"
-                        android:text="nabrajkhadka43@gmail.com" />
+                        android:textSize="16sp" />
+
                     <TextView
                         android:id="@+id/u_bio_tv"
                         android:layout_width="300dp"
@@ -118,8 +128,8 @@
                         android:layout_marginBottom="10dp"
                         android:clickable="true"
                         android:focusable="true"
-                        app:cardCornerRadius="5dp"
                         android:foreground="?attr/selectableItemBackground"
+                        app:cardCornerRadius="5dp"
                         app:cardElevation="0dp"
                         app:cardUseCompatPadding="true">
 
@@ -149,8 +159,11 @@
                 android:id="@+id/view_pager_profile"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:nestedScrollingEnabled="false"
+                app:layout_behavior="@string/appbar_scrolling_view_behavior"
                 android:layout_weight="1" />
         </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
 
 
 </LinearLayout>
