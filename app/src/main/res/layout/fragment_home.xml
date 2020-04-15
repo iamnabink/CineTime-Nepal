@@ -22,6 +22,7 @@
                 <RelativeLayout
                     android:layout_width="wrap_content"
                     android:layout_height="160dp">
+
                     <ViewFlipper
                         android:id="@+id/viewFlipper"
                         android:layout_width="match_parent"
@@ -30,7 +31,7 @@
                         android:layout_marginStart="14dp"
                         android:layout_marginEnd="14dp"
                         android:inAnimation="@android:anim/slide_in_left"
-                        android:outAnimation="@android:anim/slide_out_right"/>
+                        android:outAnimation="@android:anim/slide_out_right" />
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -40,8 +41,8 @@
                         android:layout_centerVertical="true"
                         android:layout_marginBottom="20dp"
                         android:text="Coming Soon"
-                        android:textSize="16dp"
                         android:textColor="@android:color/white"
+                        android:textSize="16dp"
                         android:textStyle="bold" />
                 </RelativeLayout>
 
@@ -71,8 +72,8 @@
                     android:text="Movie Trailer"
                     android:textStyle="bold" />
 
-<!--               in recyler view make nested false and then wrap it in to nested scroll view-->
-<!--              or try this in both nested scroll view and recycler view  app:layout_behavior="@string/appbar_scrolling_view_behavior"-->
+                <!--               in recyler view make nested false and then wrap it in to nested scroll view-->
+                <!--              or try this in both nested scroll view and recycler view  app:layout_behavior="@string/appbar_scrolling_view_behavior"-->
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/trailer_recyclerv"
                     android:layout_width="match_parent"
@@ -81,15 +82,18 @@
                     android:nestedScrollingEnabled="false"
                     tools:listitem="@layout/row_trailer_view" />
             </LinearLayout>
+
             <com.facebook.shimmer.ShimmerFrameLayout
-                android:layout_width="match_parent"
                 android:id="@+id/home_shimmer_layout"
-                android:visibility="gone"
-                android:layout_height="wrap_content">
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:visibility="gone">
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical">
+
                     <ImageView
                         android:layout_width="match_parent"
                         android:layout_height="150dp"
@@ -97,40 +101,44 @@
                         android:layout_marginEnd="14dp"
                         android:layout_marginBottom="20dp"
                         android:background="@color/shimmer_effect" />
+
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="160dp"
-                        android:orientation="horizontal"
+                        android:layout_marginHorizontal="14dp"
                         android:layout_marginTop="20dp"
                         android:layout_marginBottom="20dp"
-                        android:layout_marginHorizontal="14dp">
+                        android:orientation="horizontal">
+
                         <ImageView
                             android:layout_width="230dp"
                             android:layout_height="160dp"
-                            android:scaleType="centerCrop"
                             android:layout_marginEnd="10dp"
-                            android:background="@color/shimmer_effect" />
+                            android:background="@color/shimmer_effect"
+                            android:scaleType="centerCrop" />
+
                         <ImageView
                             android:layout_width="230dp"
                             android:layout_height="160dp"
-                            android:scaleType="centerCrop"
-                            android:background="@color/shimmer_effect" />
+                            android:background="@color/shimmer_effect"
+                            android:scaleType="centerCrop" />
                     </LinearLayout>
 
                     <ImageView
                         android:layout_width="match_parent"
                         android:layout_height="200dp"
+                        android:layout_marginHorizontal="14dp"
                         android:layout_marginTop="20dp"
                         android:layout_marginBottom="10dp"
-                        android:layout_marginHorizontal="14dp"
                         android:background="@color/shimmer_effect" />
 
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginBottom="20dp"
                         android:layout_marginHorizontal="14dp"
+                        android:layout_marginBottom="20dp"
                         android:background="@color/shimmer_effect" />
+
                     <ImageView
                         android:layout_width="match_parent"
                         android:layout_height="200dp"

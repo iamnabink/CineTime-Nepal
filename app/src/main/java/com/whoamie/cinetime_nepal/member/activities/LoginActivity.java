@@ -1,5 +1,6 @@
 package com.whoamie.cinetime_nepal.member.activities;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -23,6 +24,7 @@ import com.whoamie.cinetime_nepal.common.utils.CustomProgressDialog;
 import com.whoamie.cinetime_nepal.common.utils.CheckConnectivity;
 import com.whoamie.cinetime_nepal.common.utils.SharedPref;
 import com.whoamie.cinetime_nepal.common.utils.Validator;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -38,7 +40,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 public class LoginActivity extends AppCompatActivity {
     TextView signupTv, emailEt, pwdEt;
-    Button signinBtn,forgetPwdBtn;
+    Button signinBtn, forgetPwdBtn;
     SharedPreferences preferences;
 
     @Override
@@ -156,11 +158,25 @@ public class LoginActivity extends AppCompatActivity {
                         editor.putString(SharedPref.key_user_token, tokenDetails);
                         editor.apply();
 //                        System.out.println("errrrror----------->"+preferences.getAll());
-                        Toast.makeText(LoginActivity.this, response.getString("message"), Toast.LENGTH_SHORT).show();
                         //Go to user profile fragment
-                        startActivity(new Intent(LoginActivity.this, SplashScreenActivity.class));
-                    } else {
+                        if (getIntent().getStringExtra("code1") != null) {
+//                            Toast.makeText(LoginActivity.this, "N", Toast.LENGTH_SHORT).show();
+                            Intent returnIntent = new Intent();
+                            returnIntent.putExtra("review", "value");
+                            setResult(Activity.RESULT_OK, returnIntent);
+                            finish();
+                        } else if (getIntent().getStringExtra("code2") != null) {
+//                            Toast.makeText(LoginActivity.this, "", Toast.LENGTH_SHORT).show();
+                            Intent returnIntent = new Intent();
+                            returnIntent.putExtra("favourite", "value");
+                            setResult(Activity.RESULT_OK, returnIntent);
+                            finish();
+                        } else {
+                            Toast.makeText(LoginActivity.this, response.getString("message"), Toast.LENGTH_SHORT).show();
+                            startActivity(new Intent(LoginActivity.this, SplashScreenActivity.class));
+                        }
 
+                    } else {
                         Toast.makeText(LoginActivity.this, response.getString("message"), Toast.LENGTH_SHORT).show();
                     }
                 } catch (JSONException e) {

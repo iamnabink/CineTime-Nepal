@@ -206,8 +206,15 @@ public class EditProfileActivity extends AppCompatActivity {
         dialog.show();
         JSONObject jsonObject = new JSONObject();
         try {
-            jsonObject.put("name", editName.getText().toString());
-            jsonObject.put("bio", editBio.getText().toString());
+            if (!editName.getText().toString().isEmpty()){
+                jsonObject.put("name", editName.getText().toString());
+            }
+            if (!editBio.getText().toString().isEmpty()){
+                jsonObject.put("bio", editBio.getText().toString());
+            }
+            else {
+                jsonObject.put("bio", "Add your bio");
+            }
             if (profile_pic_url != null) jsonObject.put("profile_pic_url", profile_pic_url);
         } catch (JSONException e) {
             e.printStackTrace();

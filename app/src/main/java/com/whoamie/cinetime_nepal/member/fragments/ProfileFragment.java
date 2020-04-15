@@ -49,7 +49,7 @@ import static android.content.Context.MODE_PRIVATE;
 
 public class ProfileFragment extends Fragment {
     View view;
-    Button logoutIv,settingTv;
+    Button logoutIv, settingTv;
     CircleImageView profileIv;
     CardView editProfileBtn;
     SharedPreferences preferences;
@@ -68,7 +68,7 @@ public class ProfileFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_profile, container, false);
-        if(context instanceof HomeActivity){
+        if (context instanceof HomeActivity) {
             ((AppCompatActivity) getActivity()).getSupportActionBar().hide();
         }
         intiVar();
@@ -108,9 +108,9 @@ public class ProfileFragment extends Fragment {
     }
 
     private void intiVar() {
-        settingTv=view.findViewById(R.id.settings_tv);
-        userEmailTv=view.findViewById(R.id.user_email_tv);
-        memberDateTv=view.findViewById(R.id.user_created_time_tv);
+        settingTv = view.findViewById(R.id.settings_tv);
+        userEmailTv = view.findViewById(R.id.user_email_tv);
+        memberDateTv = view.findViewById(R.id.user_created_time_tv);
         logoutIv = view.findViewById(R.id.logout_tv);
         editProfileBtn = view.findViewById(R.id.edit_profile_btn);
         profileIv = view.findViewById(R.id.profile_iv);
@@ -132,17 +132,19 @@ public class ProfileFragment extends Fragment {
         editor = preferences.edit();
         String userString = preferences.getString(SharedPref.key_user_details, "");
         users = new Gson().fromJson(userString, User.class);
-        String date = "Joined: "+users.getCreated_at();
+        String date = "Joined: " + users.getCreated_at();
         memberDateTv.setText(date);
         userEmailTv.setText(users.getEmail());
         unameTv.setText(users.getName());
         if (users.getName() == null) {
             unameTv.setText("Name");
         }
-        uBio.setText(users.getBio());
         if (users.getBio() == null) {
-            uBio.setText("Please add your bio");
+            uBio.setText("Add your bio");
+        } else {
+            uBio.setText(users.getBio());
         }
+
         Picasso.get()
                 .load(users.getProfile_pic_url()).placeholder(R.drawable.person_placeholder)
                 .into(profileIv);
@@ -174,7 +176,7 @@ public class ProfileFragment extends Fragment {
 
     @Override
     public void onAttach(@NonNull Context context) {
-        this.context=context;
+        this.context = context;
         super.onAttach(context);
     }
 
@@ -185,25 +187,26 @@ public class ProfileFragment extends Fragment {
             @Override
             public void onResponse(JSONObject response) {
                 Activity activity = getActivity();
-                if (activity != null && isAdded()){
-                dialog.cancel();
-                preferences = context.getSharedPreferences(SharedPref.key_shared_pref, MODE_PRIVATE);
-                editor = preferences.edit();
+                if (activity != null && isAdded()) {
+                    dialog.cancel();
+                    preferences = context.getSharedPreferences(SharedPref.key_shared_pref, MODE_PRIVATE);
+                    editor = preferences.edit();
 //              preferences.edit().clear().commit(); to clear all shared pref
-                editor.remove(SharedPref.key_user_details);
-                editor.remove(SharedPref.key_user_token);
-                editor.apply();
-                LoginManager.getInstance().logOut();
-                Toast.makeText(context, "Logged-out successfully", Toast.LENGTH_SHORT).show();
-                startActivity(new Intent(context, SplashScreenActivity.class)); //open splash screen
-                getActivity().onBackPressed();}
+                    editor.remove(SharedPref.key_user_details);
+                    editor.remove(SharedPref.key_user_token);
+                    editor.apply();
+                    LoginManager.getInstance().logOut();
+                    Toast.makeText(context, "Logged-out successfully", Toast.LENGTH_SHORT).show();
+                    startActivity(new Intent(context, SplashScreenActivity.class)); //open splash screen
+                    getActivity().onBackPressed();
+                }
             }
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
                 dialog.cancel();
 //                System.out.println(error);
-                HandleNetworkError.handlerError(error,getContext());
+                HandleNetworkError.handlerError(error, getContext());
             }
         });
         if (CheckConnectivity.isNetworkAvailable(context)) {

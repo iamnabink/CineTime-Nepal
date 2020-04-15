@@ -1,5 +1,6 @@
 package com.whoamie.cinetime_nepal.common.activities;
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -69,6 +70,7 @@ public class MovieDetailActivity extends AppCompatActivity {
     CoordinatorLayout coordinatorLayout;
     ArrayList<Review> reviews = new ArrayList<>();
     ArrayList<Movie> movies = new ArrayList<>();
+    private int LAUNCH_SECOND_ACTIVITY=1;
 //    private SlidrInterface slidr;
 
 
@@ -212,7 +214,9 @@ public class MovieDetailActivity extends AppCompatActivity {
                     callMakeFavouriteMovieApi();
                 } else {
                     Toast.makeText(MovieDetailActivity.this, "Please login to access this feature", Toast.LENGTH_SHORT).show();
-                    startActivity(new Intent(getApplicationContext(), LoginActivity.class));
+                    Intent i = new Intent(MovieDetailActivity.this, LoginActivity.class);
+                    i.putExtra("code2","value");
+                    startActivityForResult(i, LAUNCH_SECOND_ACTIVITY);
                 }
             }
         });
@@ -266,7 +270,7 @@ public class MovieDetailActivity extends AppCompatActivity {
     }
 
     private void setRecyclerView() {
-        adapter = new MovieReviewAdapter(reviews, getApplicationContext(), new ReviewClickListner() {
+        adapter = new MovieReviewAdapter(reviews, this, new ReviewClickListner() {
             @Override
             public void deleteButtonClick(int position, View view) {
                 Review review = reviews.get(position);
@@ -353,10 +357,36 @@ public class MovieDetailActivity extends AppCompatActivity {
                     showDialogBox();
                 } else {
                     Toast.makeText(MovieDetailActivity.this, "Please login to comment", Toast.LENGTH_SHORT).show();
-                    startActivity(new Intent(getApplicationContext(), LoginActivity.class));
+                    Intent i = new Intent(MovieDetailActivity.this, LoginActivity.class);
+                    i.putExtra("code1","value");
+                    startActivityForResult(i, LAUNCH_SECOND_ACTIVITY);
                 }
             }
         });
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == LAUNCH_SECOND_ACTIVITY) {
+//            try { }
+//            catch (Exception e){}
+            if(resultCode == Activity.RESULT_OK){
+                if (data.getStringExtra("review")!=null){
+                    showDialogBox();
+                }
+                else if(data.getStringExtra("favourite")!=null) {
+                    callMakeFavouriteMovieApi();
+                }
+                else {
+                    Toast.makeText(this, "An error occurred", Toast.LENGTH_SHORT).show();
+                }
+
+            }
+            if (resultCode == Activity.RESULT_CANCELED) {
+                Toast.makeText(MovieDetailActivity.this, "Login cancelled", Toast.LENGTH_SHORT).show();
+            }
+        }
     }
 
     private void showDialogBox() {
