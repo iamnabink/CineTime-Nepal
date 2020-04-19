@@ -54,6 +54,7 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 
+import androidx.annotation.DrawableRes;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.app.ActivityCompat;
@@ -291,22 +292,22 @@ public class MapNearByCinemasActivity extends FragmentActivity implements OnMapR
     }
 
 
-//    private Bitmap getMarkerBitmapFromView(View view, @DrawableRes int resId) {
-//
-//        mMarkerImageView.setImageResource(resId);
-//        view.measure(View.MeasureSpec.UNSPECIFIED, View.MeasureSpec.UNSPECIFIED);
-//        view.layout(0, 0, view.getMeasuredWidth(), view.getMeasuredHeight());
-//        view.buildDrawingCache();
-//        Bitmap returnedBitmap = Bitmap.createBitmap(view.getMeasuredWidth(), view.getMeasuredHeight(),
-//                Bitmap.Config.ARGB_8888);
-//        Canvas canvas = new Canvas(returnedBitmap);
-//        canvas.drawColor(Color.WHITE, PorterDuff.Mode.SRC_IN);
-//        Drawable drawable = view.getBackground();
-//        if (drawable != null)
-//            drawable.draw(canvas);
-//        view.draw(canvas);
-//        return returnedBitmap;
-//    }
+    private Bitmap getMarkerBitmapFromDrawbleView(View view, @DrawableRes int resId) {
+
+        mMarkerImageView.setImageResource(resId);
+        view.measure(View.MeasureSpec.UNSPECIFIED, View.MeasureSpec.UNSPECIFIED);
+        view.layout(0, 0, view.getMeasuredWidth(), view.getMeasuredHeight());
+        view.buildDrawingCache();
+        Bitmap returnedBitmap = Bitmap.createBitmap(view.getMeasuredWidth(), view.getMeasuredHeight(),
+                Bitmap.Config.ARGB_8888);
+        Canvas canvas = new Canvas(returnedBitmap);
+        canvas.drawColor(Color.WHITE, PorterDuff.Mode.SRC_IN);
+        Drawable drawable = view.getBackground();
+        if (drawable != null)
+            drawable.draw(canvas);
+        view.draw(canvas);
+        return returnedBitmap;
+    }
 
     private Bitmap getMarkerBitmapFromView(View view, Bitmap bitmap) {
 
