@@ -34,7 +34,6 @@
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="15dp"
                             android:text="Now Showing...."
-                            android:textColor="@android:color/black"
                             android:textStyle="bold" />
 
                         <TextView
@@ -185,7 +184,6 @@
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="15dp"
                             android:text="Coming Soon...."
-                            android:textColor="@android:color/black"
                             android:textStyle="bold" />
 
                         <TextView
