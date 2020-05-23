@@ -69,7 +69,8 @@ public class MapNearByCinemasActivity extends FragmentActivity implements OnMapR
     private MarkerOptions options = new MarkerOptions();
     FusedLocationProviderClient fusedLocationProviderClient;
     private GoogleMap mMap;
-    Double lat, lon;
+    Double lat = 27.7172;
+    Double lon =  85.3240;
     ImageView satalitveIv, defaultIv;
     private ImageView mMarkerImageView;
     FrameLayout mCustomMarkerView;

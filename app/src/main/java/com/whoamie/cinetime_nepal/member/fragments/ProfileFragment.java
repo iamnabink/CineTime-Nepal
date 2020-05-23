@@ -144,7 +144,6 @@ public class ProfileFragment extends Fragment {
         } else {
             uBio.setText(users.getBio());
         }
-
         Picasso.get()
                 .load(users.getProfile_pic_url()).placeholder(R.drawable.person_placeholder)
                 .into(profileIv);
@@ -172,12 +171,6 @@ public class ProfileFragment extends Fragment {
 //                fragmentTransaction.commit();
             }
         });
-    }
-
-    @Override
-    public void onAttach(@NonNull Context context) {
-        this.context = context;
-        super.onAttach(context);
     }
 
     private void logoutFromServer() {
@@ -216,6 +209,13 @@ public class ProfileFragment extends Fragment {
             Toast.makeText(context, "No internet connection", Toast.LENGTH_SHORT).show();
         }
     }
+    @Override
+    public void onAttach(@NonNull Context context) {
+        this.context = context;
+        super.onAttach(context);
+    }
+
+
 
 
 }

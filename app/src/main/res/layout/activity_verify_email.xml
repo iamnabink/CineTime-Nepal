@@ -6,25 +6,24 @@
     android:layout_height="match_parent"
     android:background="@android:color/white"
     android:orientation="vertical"
-    tools:context=".member.activities.VerifyEmailActivity">
+    tools:context=".member.activities.ResetPasswordActivity">
     <ImageView
-        android:layout_width="match_parent"
+        android:layout_marginTop="40dp"
+        android:layout_width="200dp"
+        android:layout_gravity="center"
         android:layout_marginLeft="50dp"
         android:layout_marginRight="50dp"
-        android:layout_marginTop="50dp"
         android:layout_height="200dp"
-        android:src="@drawable/ic_code_authentication_fsn5"/>
+        android:layout_marginBottom="20sp"
+        android:src="@drawable/ic_forgot_password"/>
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginHorizontal="40dp"
-        android:layout_marginBottom="30dp"
-        android:layout_marginTop="10dp"
-        android:textSize="18sp"
-        android:textColor="@color/colorPrimary"
         android:textAlignment="center"
-        android:text="A new 6 digit code has been sent to your email, please check your inbox"/>
-
+        android:layout_marginBottom="20dp"
+        android:layout_marginHorizontal="20dp"
+        android:textStyle="bold"
+        android:text="Please enter your registered email address and we will send you a verification code to reset your password."/>
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -33,46 +32,39 @@
         app:cardCornerRadius="4dp"
         app:cardUseCompatPadding="true">
 
-    <EditText
-        android:id="@+id/reset_code_et"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:background="@android:color/white"
-        android:drawablePadding="10dp"
-        android:drawableTint="#FF9B9B9B"
-        android:hint="Enter your 6 digit code here"
-        android:imeOptions="actionDone"
-        android:inputType="number"
-        android:maxLines="1"
-        android:padding="10dp" />
+        <EditText
+            android:id="@+id/reset_pwd_email_et"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:background="@android:color/white"
+            android:drawableLeft="@drawable/ic_email_24px"
+            android:drawablePadding="10dp"
+            android:drawableTint="#FF9B9B9B"
+            android:hint="Enter your email here"
+            android:imeOptions="actionDone"
+            android:inputType="textEmailAddress"
+            android:maxLines="1"
+            android:padding="10dp" />
     </androidx.cardview.widget.CardView>
     <TextView
-        android:id="@+id/verify_code_error_msg_tv"
+        android:id="@+id/code_error_msg_tv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Invalid verification code !!!"
-        android:visibility="gone"
+        android:text="Provided email address is not registered in our database"
         android:layout_marginTop="10dp"
         android:layout_gravity="center"
+        android:visibility="gone"
         android:textColor="@android:color/holo_red_light"/>
     <Button
-        android:id="@+id/verify_code_btn"
+        android:id="@+id/frgt_pwd_btn_submit"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
+        android:inputType="text"
         android:layout_marginLeft="20dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="15dp"
         android:layout_marginRight="20dp"
         android:background="@color/colorPrimary"
-        android:text="Submit"
-        android:textColor="#FFFF"/>
-    <Button
-        android:id="@+id/resend_code_btn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_marginTop="15dp"
-        android:textAllCaps="false"
-        android:background="@android:color/transparent"
-        android:text="Didn't receive the code? Resend"/>
+        android:text="SEND"
+        android:textColor="#FFFF" />
 </LinearLayout>

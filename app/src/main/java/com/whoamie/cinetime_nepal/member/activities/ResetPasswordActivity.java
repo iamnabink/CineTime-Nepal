@@ -26,7 +26,6 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.Random;
-import java.util.regex.Pattern;
 
 public class ResetPasswordActivity extends AppCompatActivity {
     Button btnSubmit;
@@ -35,7 +34,7 @@ public class ResetPasswordActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_reset_password);
+        setContentView(R.layout.activity_verify_email);
         btnSubmit=findViewById(R.id.frgt_pwd_btn_submit);
         emailResetEt=findViewById(R.id.reset_pwd_email_et);
         codeErrorMsgTv=findViewById(R.id.code_error_msg_tv);

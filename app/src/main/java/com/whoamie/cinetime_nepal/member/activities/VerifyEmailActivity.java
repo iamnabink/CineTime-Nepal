@@ -36,7 +36,7 @@ public class VerifyEmailActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_verify_email);
+        setContentView(R.layout.activity_reset_password);
         initViews();
         onClick();
         if (getIntent().getExtras() != null) {

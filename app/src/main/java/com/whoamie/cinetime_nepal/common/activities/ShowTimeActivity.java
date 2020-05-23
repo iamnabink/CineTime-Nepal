@@ -69,12 +69,15 @@ public class ShowTimeActivity extends AppCompatActivity {
         String dayAfterTomorrowDate = df.format(dayAfterTomorrow);
         viewPager = findViewById(R.id.view_pager);
         tabs = findViewById(R.id.tabs);
+        //passing date parameters to fragments
         fragments.add(new ShowTimeFragment(movieId,todayDate));
         fragments.add(new ShowTimeFragment(movieId,tomorrowDate));
         fragments.add(new ShowTimeFragment(movieId,dayAfterTomorrowDate));
+        //passing date parameters to tabtitles
         tabTitles.add("Today \n"+new SimpleDateFormat("MMM d").format(today));
         tabTitles.add("Tomorrow \n"+new SimpleDateFormat("MMM d").format(tomorrow));
         tabTitles.add(namedf.format(dayAfterTomorrow)+"\n"+new SimpleDateFormat("MMM d").format(dayAfterTomorrow));
+        //loading fragments and titles to Section pager adapter to load data in viewpager
         sectionsPagerAdapter = new ShowTimePagerAdapter(this, getSupportFragmentManager(),fragments,tabTitles);
 
     }

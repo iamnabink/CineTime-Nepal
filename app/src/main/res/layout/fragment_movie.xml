@@ -2,7 +2,8 @@
 <androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
         android:id="@+id/swipe_refresh_l"
@@ -56,6 +57,7 @@
                         <com.facebook.shimmer.ShimmerFrameLayout
                             android:id="@+id/shmovie_shimmer_layout"
                             android:layout_width="match_parent"
+                            android:visibility="gone"
                             android:layout_height="wrap_content"
                             android:layout_marginHorizontal="15dp"
                             android:layout_marginTop="15dp">
@@ -159,6 +161,10 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="15dp"
+                            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                            tools:listitem="@layout/row_fragment_movie"
+                            android:orientation="horizontal"
+                            android:layout_centerVertical="true"
                             android:layout_marginTop="10dp"
                             android:visibility="visible" />
 
@@ -203,6 +209,7 @@
 
                         <com.facebook.shimmer.ShimmerFrameLayout
                             android:id="@+id/upmovie_shimmer_layout"
+                            android:visibility="gone"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginHorizontal="15dp"
@@ -308,6 +315,10 @@
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="15dp"
                             android:layout_marginTop="15dp"
+                            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                            tools:listitem="@layout/row_fragment_movie"
+                            android:orientation="horizontal"
+                            android:layout_centerVertical="true"
                             android:layout_marginBottom="10dp"
                             android:visibility="visible" />
 

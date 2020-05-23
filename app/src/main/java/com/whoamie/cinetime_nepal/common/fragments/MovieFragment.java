@@ -214,6 +214,7 @@ public class MovieFragment extends Fragment {
         shimmerFrameLayoutU.stopShimmer();
     }
 
+    //initializing views variables
     private void intiVar() {
         shimmerFrameLayoutS = view.findViewById(R.id.shmovie_shimmer_layout);
         showingMoreBtn = view.findViewById(R.id.showing_more_btn);
@@ -231,6 +232,7 @@ public class MovieFragment extends Fragment {
         preferences = getContext().getSharedPreferences(SharedPref.key_shared_pref, Context.MODE_PRIVATE);
     }
 
+    //initialize views
     private void initViews() {
         adapterU = new MovieFragmentAdapter(umovies,getContext(), new AdapterClickListener() {
             @Override
@@ -258,9 +260,12 @@ public class MovieFragment extends Fragment {
         showsShowingRecyclerV.setAdapter(adapterS);
     }
 
+    //consuming web apis //loading data from server
     private void loadMovieData() {
         smovies.clear();
         umovies.clear();
+        shimmerFrameLayoutS.setVisibility(View.VISIBLE);
+        shimmerFrameLayoutU.setVisibility(View.VISIBLE);
         shimmerFrameLayoutU.startShimmer();
         shimmerFrameLayoutS.startShimmer();
         JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, API.getMoviesDetail, null, new Response.Listener<JSONObject>() {

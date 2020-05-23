@@ -19,6 +19,7 @@
                 android:id="@+id/d_bg_image"
                 android:layout_width="match_parent"
                 android:layout_height="230dp"
+                android:scaleType="centerCrop"
                 android:src="@drawable/no_image_placeholder" />
 
             <androidx.cardview.widget.CardView
