@@ -2,6 +2,7 @@ package com.whoamie.cinetime_nepal.common.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -12,13 +13,16 @@ import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
+import com.google.gson.Gson;
 import com.whoamie.cinetime_nepal.R;
 import com.whoamie.cinetime_nepal.common.network.API;
 import com.whoamie.cinetime_nepal.common.network.HandleNetworkError;
 import com.whoamie.cinetime_nepal.common.network.RestClient;
 import com.whoamie.cinetime_nepal.common.utils.CheckConnectivity;
 import com.whoamie.cinetime_nepal.common.utils.CustomProgressDialog;
+import com.whoamie.cinetime_nepal.common.utils.SharedPref;
 import com.whoamie.cinetime_nepal.common.utils.Validator;
+import com.whoamie.cinetime_nepal.member.models.User;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -35,6 +39,13 @@ public class FeedBackActivity extends AppCompatActivity {
         getSupportActionBar().setTitle("Send Feedbacks");
         initViews();
         onCLick();
+        SharedPreferences preferences = getSharedPreferences(SharedPref.key_shared_pref,MODE_PRIVATE);
+        String user1 = preferences.getString("user",null);
+        User user = new Gson().fromJson(user1,User.class);
+        if (user1 != null){
+            nameEt.setText(user.getName());
+            contactEt.setText(user.getEmail());
+        }
     }
 
     private void onCLick() {
