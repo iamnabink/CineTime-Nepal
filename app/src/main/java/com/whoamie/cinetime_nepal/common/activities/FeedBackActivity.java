@@ -18,6 +18,7 @@ import com.whoamie.cinetime_nepal.common.network.HandleNetworkError;
 import com.whoamie.cinetime_nepal.common.network.RestClient;
 import com.whoamie.cinetime_nepal.common.utils.CheckConnectivity;
 import com.whoamie.cinetime_nepal.common.utils.CustomProgressDialog;
+import com.whoamie.cinetime_nepal.common.utils.Validator;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -44,11 +45,16 @@ public class FeedBackActivity extends AppCompatActivity {
                 String contact = contactEt.getText().toString();
                 String description = descEt.getText().toString();
                 if (!name.isEmpty() && !contact.isEmpty() && !description.isEmpty()){
-                    callCallFeedBackAPi(name,contact,description);
+                    if (Validator.isEmailValid(contact)){
+                        callCallFeedBackAPi(name,contact,description);
+                    }
+                    else {
+                        contactEt.setError("Invalid Email Address");
+                    }
                 }
                 else {
                     nameEt.setError("Name field is required");
-                    contactEt.setError("Contact field is required");
+                    contactEt.setError("Email field is required");
                     descEt.setError("Message field is required");
                 }
             }
