@@ -55,6 +55,8 @@ import androidx.coordinatorlayout.widget.CoordinatorLayout;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import io.sentry.core.Sentry;
+
 public class MovieDetailActivity extends AppCompatActivity {
     TextView movieNameTv, movieGenreTv, movieSynopsis, movieCastsTv, movieDirectorsTv, releaseDate, movieRuntime, movieLanguage, ratingCount;
     EditText messageEt;
@@ -70,7 +72,7 @@ public class MovieDetailActivity extends AppCompatActivity {
     CoordinatorLayout coordinatorLayout;
     ArrayList<Review> reviews = new ArrayList<>();
     ArrayList<Movie> movies = new ArrayList<>();
-    private int LAUNCH_SECOND_ACTIVITY=1;
+    private int LAUNCH_SECOND_ACTIVITY = 1;
 //    private SlidrInterface slidr;
 
 
@@ -81,28 +83,33 @@ public class MovieDetailActivity extends AppCompatActivity {
         setContentView(R.layout.activity_movie_details);
 //        slidr = Slidr.attach(this);
         initVar();
-        if (getIntent().getExtras() != null) {
-            String movieString = getIntent().getExtras().getString(SharedPref.key_shared_movies_details, "");
-            movie = new Gson().fromJson(movieString, Movie.class);
-            loadIntentData();
-            if (movie.getStatus() == 1) {
-                findViewById(R.id.showing_movie_detail_layout).setVisibility(View.VISIBLE);
-                findViewById(R.id.releasing_movie_detail_layout).setVisibility(View.GONE);
-                //nowshowing
-                makeReviewBtn();
-                setRecyclerView();
-                makeFavouriteMoviesBtn();
-                callReviewAPI();
-                showTimeIntent();
-            } else if (movie.getStatus() == 0) {
-                //upcoming
-                findViewById(R.id.showing_movie_detail_layout).setVisibility(View.GONE);
-                findViewById(R.id.releasing_movie_detail_layout).setVisibility(View.VISIBLE);
-                makeFavouriteMoviesBtn();
-                loadReccomendedMovie();
-                showReccomendedmovie();
+        try {
+            if (getIntent().getExtras() != null) {
+                String movieString = getIntent().getExtras().getString(SharedPref.key_shared_movies_details, "");
+                movie = new Gson().fromJson(movieString, Movie.class);
+                loadIntentData();
+                if (movie.getStatus() == 1) {
+                    findViewById(R.id.showing_movie_detail_layout).setVisibility(View.VISIBLE);
+                    findViewById(R.id.releasing_movie_detail_layout).setVisibility(View.GONE);
+                    //nowshowing
+                    makeReviewBtn();
+                    setRecyclerView();
+                    makeFavouriteMoviesBtn();
+                    callReviewAPI();
+                    showTimeIntent();
+                } else if (movie.getStatus() == 0) {
+                    //upcoming
+                    findViewById(R.id.showing_movie_detail_layout).setVisibility(View.GONE);
+                    findViewById(R.id.releasing_movie_detail_layout).setVisibility(View.VISIBLE);
+                    makeFavouriteMoviesBtn();
+                    loadReccomendedMovie();
+                    showReccomendedmovie();
+                }
             }
+        } catch (Exception e) {
+            Sentry.captureException(e);
         }
+
 
     }
 
@@ -126,13 +133,18 @@ public class MovieDetailActivity extends AppCompatActivity {
                         movieAdapter.notifyDataSetChanged();
                     }
                 } catch (JSONException e) {
-                    e.printStackTrace();
+                    Sentry.captureException(e);
                 }
             }
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                Toast.makeText(MovieDetailActivity.this, error.getMessage(), Toast.LENGTH_SHORT).show();
+
+                try {
+                    Toast.makeText(MovieDetailActivity.this, error.getMessage(), Toast.LENGTH_SHORT).show();
+                } catch (Exception e) {
+                    Sentry.captureException(e);
+                }
             }
         });
         if (CheckConnectivity.isNetworkAvailable(this)) {
@@ -197,7 +209,7 @@ public class MovieDetailActivity extends AppCompatActivity {
         movieRuntime.setText(movie.getRun_time());
         movieLanguage.setText(movie.getLanguage());
         Picasso.get().load(movie.getPoster_url()).into(posterImg);
-        String backgroundImageUrl = "https://img.youtube.com/vi/"+movie.getYoutube_trailer_url()+"/maxresdefault.jpg";
+        String backgroundImageUrl = "https://img.youtube.com/vi/" + movie.getYoutube_trailer_url() + "/maxresdefault.jpg";
         Picasso.get().load(backgroundImageUrl).into(bgImage);
         ratingBar.setRating(movie.getRating());
         ratingCount.setText(movie.getRating() == 0 ? "N/A" : "" + movie.getRating()); //elvis operator
@@ -215,7 +227,7 @@ public class MovieDetailActivity extends AppCompatActivity {
                 } else {
                     Toast.makeText(MovieDetailActivity.this, "Please login to access this feature", Toast.LENGTH_SHORT).show();
                     Intent i = new Intent(MovieDetailActivity.this, LoginActivity.class);
-                    i.putExtra("code2","value");
+                    i.putExtra("code2", "value");
                     startActivityForResult(i, LAUNCH_SECOND_ACTIVITY);
                 }
             }
@@ -358,7 +370,7 @@ public class MovieDetailActivity extends AppCompatActivity {
                 } else {
                     Toast.makeText(MovieDetailActivity.this, "Please login to comment", Toast.LENGTH_SHORT).show();
                     Intent i = new Intent(MovieDetailActivity.this, LoginActivity.class);
-                    i.putExtra("code1","value");
+                    i.putExtra("code1", "value");
                     startActivityForResult(i, LAUNCH_SECOND_ACTIVITY);
                 }
             }
@@ -371,14 +383,12 @@ public class MovieDetailActivity extends AppCompatActivity {
         if (requestCode == LAUNCH_SECOND_ACTIVITY) {
 //            try { }
 //            catch (Exception e){}
-            if(resultCode == Activity.RESULT_OK){
-                if (data.getStringExtra("review")!=null){
+            if (resultCode == Activity.RESULT_OK) {
+                if (data.getStringExtra("review") != null) {
                     showDialogBox();
-                }
-                else if(data.getStringExtra("favourite")!=null) {
+                } else if (data.getStringExtra("favourite") != null) {
                     callMakeFavouriteMovieApi();
-                }
-                else {
+                } else {
                     Toast.makeText(this, "An error occurred", Toast.LENGTH_SHORT).show();
                 }
 

@@ -11,6 +11,10 @@ android {
         versionName "1.0"
         testInstrumentationRunner "androidx.avatar.runner.AndroidJUnitRunner"
     }
+    compileOptions {
+        sourceCompatibility = JavaVersion.VERSION_1_8
+        targetCompatibility = JavaVersion.VERSION_1_8
+    }
     buildTypes {
         release {
             minifyEnabled false
@@ -47,5 +51,8 @@ dependencies {
     implementation 'com.r0adkll:slidableactivity:2.1.0'
     implementation 'com.google.android.gms:play-services-location:17.0.0'
     implementation 'com.facebook.android:facebook-login:5.15.3'
-    implementation 'com.github.bumptech.glide:glide:4.11.0' }
+    implementation 'com.github.bumptech.glide:glide:4.11.0'
+    // https://github.com/getsentry/sentry-android/releases
+    implementation 'io.sentry:sentry-android:2.2.1'
+}
 apply plugin: 'com.google.gms.google-services'

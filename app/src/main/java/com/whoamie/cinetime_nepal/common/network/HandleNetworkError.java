@@ -11,6 +11,8 @@ import com.android.volley.ServerError;
 import com.android.volley.TimeoutError;
 import com.android.volley.VolleyError;
 
+import io.sentry.core.Sentry;
+
 public class HandleNetworkError {
     public static void handlerError(VolleyError error,Context context) {
         try {
@@ -20,10 +22,12 @@ public class HandleNetworkError {
             } else if (error instanceof AuthFailureError) {
                 Toast.makeText(context, "Unauthorized Access !!", Toast.LENGTH_SHORT).show();
                 //Error indicating that there was an Authentication Failure while performing the request
-            } else if (error instanceof ServerError) {
+            }
+            else if (error instanceof ServerError) {
                 Toast.makeText(context, "Error Response From Server !!", Toast.LENGTH_SHORT).show();
                 //Indicates that the server responded with a error response
-            } else if (error instanceof NetworkError) {
+            }
+            else if (error instanceof NetworkError) {
                 Toast.makeText(context, "Network Error !! Check Your Connections", Toast.LENGTH_SHORT).show();
                 //Indicates that there was network error while performing the request
             } else if (error instanceof ParseError) {
@@ -32,6 +36,7 @@ public class HandleNetworkError {
                 Toast.makeText(context, "Unknown Error Occurred !! Try Again Later", Toast.LENGTH_SHORT).show();
             }
         } catch (Exception e) {
+            Sentry.captureException(e);
             Toast.makeText(context, "An Exception Occurred !! Try Again Later", Toast.LENGTH_SHORT).show();
         }
     }

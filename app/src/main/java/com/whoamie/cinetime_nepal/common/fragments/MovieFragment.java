@@ -21,6 +21,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Filter;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.android.volley.Request;
 import com.android.volley.Response;
@@ -50,13 +51,15 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 
+import io.sentry.core.Sentry;
+
 public class MovieFragment extends Fragment {
     RecyclerView showsShowingRecyclerV, showsComingRecyclerV, searchRecyclerView;
     ArrayList<Movie> umovies = new ArrayList<>();
     ArrayList<Movie> smovies = new ArrayList<>();
     ArrayList<Movie> movies = new ArrayList<>();
-//    MovieActivityAdapter uadapter;
-    MovieFragmentAdapter adapterS,adapterU;
+    //    MovieActivityAdapter uadapter;
+    MovieFragmentAdapter adapterS, adapterU;
     SearchMovieAdapter searchMovieAdapter;
     SharedPreferences preferences;
     SharedPreferences.Editor editor;
@@ -88,6 +91,12 @@ public class MovieFragment extends Fragment {
         onRefresh();
         searchView();
         onClick();
+//        try {
+//            throw new Exception("This is a test.");
+//        } catch (Exception e) {
+//            Sentry.captureException(e);
+//        }
+//        Toast.makeText(getContext(), "Login Successful", Toast.LENGTH_LONG).show();
         return view;
     }
 
@@ -234,7 +243,7 @@ public class MovieFragment extends Fragment {
 
     //initialize views
     private void initViews() {
-        adapterU = new MovieFragmentAdapter(umovies,getContext(), new AdapterClickListener() {
+        adapterU = new MovieFragmentAdapter(umovies, getContext(), new AdapterClickListener() {
             @Override
             public void onClick(int position, View view) {
                 Movie movie = umovies.get(position);
@@ -312,7 +321,7 @@ public class MovieFragment extends Fragment {
                     searchMovieAdapter.notifyDataSetChanged();
 
                 } catch (JSONException e) {
-                    e.printStackTrace();
+                    Sentry.captureException(e);
                 }
             }
         }, new Response.ErrorListener() {
@@ -323,8 +332,12 @@ public class MovieFragment extends Fragment {
                 shimmerFrameLayoutS.setVisibility(View.GONE);
                 shimmerFrameLayoutU.stopShimmer();
                 shimmerFrameLayoutU.setVisibility(View.GONE);
-                HandleNetworkError.handlerError(error, mContext);
                 dialog.dismiss();
+                try {
+                    HandleNetworkError.handlerError(error, mContext);
+                } catch (Exception e) {
+                    Sentry.captureException(e);
+                }
             }
         });
         if (CheckConnectivity.isNetworkAvailable(mContext)) {
