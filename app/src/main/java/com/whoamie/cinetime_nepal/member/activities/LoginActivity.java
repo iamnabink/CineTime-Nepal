@@ -38,6 +38,8 @@ import java.net.URLEncoder;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import io.sentry.core.Sentry;
+
 public class LoginActivity extends AppCompatActivity {
     TextView signupTv, emailEt, pwdEt;
     Button signinBtn, forgetPwdBtn;
@@ -140,7 +142,7 @@ public class LoginActivity extends AppCompatActivity {
             jsonObject.put("email", emailEt.getText().toString());
             jsonObject.put("password", pwdEt.getText().toString());
         } catch (JSONException e) {
-            e.printStackTrace();
+            Sentry.captureException(e);
         }
         JsonObjectRequest request = new JsonObjectRequest(Request.Method.POST, API.loginUrl, jsonObject, new Response.Listener<JSONObject>() {
             @Override
@@ -180,7 +182,7 @@ public class LoginActivity extends AppCompatActivity {
                         Toast.makeText(LoginActivity.this, response.getString("message"), Toast.LENGTH_SHORT).show();
                     }
                 } catch (JSONException e) {
-                    e.printStackTrace();
+                    Sentry.captureException(e);
                 }
             }
         }, new Response.ErrorListener() {
@@ -191,7 +193,12 @@ public class LoginActivity extends AppCompatActivity {
                 if (error.networkResponse.statusCode == 401) {
                     Toast.makeText(LoginActivity.this, "Password or email do not match", Toast.LENGTH_SHORT).show();
                 } else {
-                    HandleNetworkError.handlerError(error, LoginActivity.this);
+                    try {
+                        HandleNetworkError.handlerError(error, LoginActivity.this);
+                    }
+                    catch (Exception e){
+                        Sentry.captureException(e);
+                    }
                 }
 
             }

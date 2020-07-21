@@ -61,6 +61,8 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.FragmentActivity;
 
+import io.sentry.core.Sentry;
+
 public class MapNearByCinemasActivity extends FragmentActivity implements OnMapReadyCallback {
     SupportMapFragment mapFragment;
     private static final int MY_PERMISSIONS_REQUEST_OPEN_LOCATION = 100;
@@ -109,6 +111,7 @@ public class MapNearByCinemasActivity extends FragmentActivity implements OnMapR
                     halls.add(hall);
                 }
             } catch (JSONException e) {
+                Sentry.captureException(e);
                 e.printStackTrace();
             }
         }
@@ -117,43 +120,55 @@ public class MapNearByCinemasActivity extends FragmentActivity implements OnMapR
 
 
     private void checkPermssion() {
-        if (ActivityCompat.checkSelfPermission(MapNearByCinemasActivity.this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED
-                && ActivityCompat.checkSelfPermission(MapNearByCinemasActivity.this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                requestPermissions(new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, MY_PERMISSIONS_REQUEST_OPEN_LOCATION);
-            } else {
-                ActivityCompat.requestPermissions(MapNearByCinemasActivity.this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, MY_PERMISSIONS_REQUEST_OPEN_LOCATION);
-            }
-            // reuqest for permission
+        try{
+            if (ActivityCompat.checkSelfPermission(MapNearByCinemasActivity.this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED
+                    && ActivityCompat.checkSelfPermission(MapNearByCinemasActivity.this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                    requestPermissions(new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, MY_PERMISSIONS_REQUEST_OPEN_LOCATION);
+                } else {
+                    ActivityCompat.requestPermissions(MapNearByCinemasActivity.this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, MY_PERMISSIONS_REQUEST_OPEN_LOCATION);
+                }
+                // reuqest for permission
 
-        } else {
-            fetchLastlocation();
-            // already permission granted
+            } else {
+                fetchLastlocation();
+                // already permission granted
+            }
+        }
+        catch (Exception e){
+            Sentry.captureException(e);
+
         }
     }
 
     private void fetchLastlocation() {
-        if (isLocationEnabled()) {
-            Task<Location> task = fusedLocationProviderClient.getLastLocation();
-            task.addOnSuccessListener(new OnSuccessListener<Location>() {
-                @Override
-                public void onSuccess(Location location) {
-                    if (location == null) {
-                        requestNewLocationData();
-                    } else {
-                        currentLocation = location;
-                        lat = currentLocation.getLatitude();
-                        lon = currentLocation.getLongitude();
-                    }
-                    mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map_fragment);
-                    mapFragment.getMapAsync(MapNearByCinemasActivity.this);
+        try{
+            if (isLocationEnabled()) {
+                Task<Location> task = fusedLocationProviderClient.getLastLocation();
+                task.addOnSuccessListener(new OnSuccessListener<Location>() {
+                    @Override
+                    public void onSuccess(Location location) {
+                        if (location == null) {
+                            requestNewLocationData();
+                        } else {
+                            currentLocation = location;
+                            lat = currentLocation.getLatitude();
+                            lon = currentLocation.getLongitude();
+                        }
+                        mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map_fragment);
+                        mapFragment.getMapAsync(MapNearByCinemasActivity.this);
 //                Toast.makeText(getApplicationContext(), currentLocation.getLatitude() + "," + currentLocation.getLongitude(), Toast.LENGTH_LONG).show()
-                }
-            });
-        } else {
-            Toast.makeText(this, "Turn on location", Toast.LENGTH_LONG).show();
-            Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
-            startActivity(intent);
+                    }
+                });
+            } else {
+                Toast.makeText(this, "Turn on location", Toast.LENGTH_LONG).show();
+                Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
+                startActivity(intent);
+            }
+
+        }
+        catch (Exception e){
+            Sentry.captureException(e);
         }
 
     }

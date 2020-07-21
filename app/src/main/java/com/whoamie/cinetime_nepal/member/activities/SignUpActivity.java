@@ -36,6 +36,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import de.hdodenhof.circleimageview.CircleImageView;
+import io.sentry.core.Sentry;
 
 public class SignUpActivity extends AppCompatActivity {
     TextView signupFname, signupEmail, signupPwd, signupCfmPwd;
@@ -158,7 +159,8 @@ public class SignUpActivity extends AppCompatActivity {
                 }
             }
         } catch (Exception e) {
-            Log.e(this.getLocalClassName(), "Exception in onActivityResult : " + e.getMessage());
+//            Log.e(this.getLocalClassName(), "Exception in onActivityResult : " + e.getMessage());
+            Sentry.captureException(e);
         }
     }
 
@@ -187,7 +189,9 @@ public class SignUpActivity extends AppCompatActivity {
             }
 
         } catch (JSONException e) {
+            Sentry.captureException(e);
             e.printStackTrace();
+
         }
         JsonObjectRequest request = new JsonObjectRequest(Request.Method.POST, API.signupUrl, jsonObject, new Response.Listener<JSONObject>() {
             @Override
@@ -206,6 +210,7 @@ public class SignUpActivity extends AppCompatActivity {
                         //retrieving server response
                     }
                 } catch (JSONException e) {
+                    Sentry.captureException(e);
                     e.printStackTrace();
                 }
             }
