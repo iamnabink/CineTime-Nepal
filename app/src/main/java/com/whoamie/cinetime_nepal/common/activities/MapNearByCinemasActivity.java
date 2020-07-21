@@ -329,7 +329,7 @@ public class MapNearByCinemasActivity extends FragmentActivity implements OnMapR
 
         mMarkerImageView.setImageBitmap(bitmap);
         view.measure(View.MeasureSpec.UNSPECIFIED, View.MeasureSpec.UNSPECIFIED);
-        view.layout(0, 0, view.getMeasuredWidth(), view.getMeasuredHeight());
+        view.layout(0, 0, view.getMeasuredWidth(), view.getMeasuredHeight()); //
         view.buildDrawingCache();
         Bitmap returnedBitmap = Bitmap.createBitmap(view.getMeasuredWidth(), view.getMeasuredHeight(),
                 Bitmap.Config.ARGB_8888);
